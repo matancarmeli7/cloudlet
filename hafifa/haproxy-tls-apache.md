@@ -1,4 +1,4 @@
-# HAProxy - TLS - Apache
+# HAProxy - TLS - Apache - Nginx
 > **Important notice!** 
 > Stopping firewalld or disabling SELinux is a major crime that will result in a Saturday in the base.
 > Be warned.
