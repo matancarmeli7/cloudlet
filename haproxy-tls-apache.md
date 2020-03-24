@@ -38,13 +38,13 @@
 3.	Check if it works by using ```curl```  to request the webpage from the HAProxy.
 	*	For example ```curl https://ori.your.domain:5555``` should respond with ```Ori The Gever from port 443 web-02```.
 	*	Make sure it works without skipping certificate validation (i.e ```curl``` with the ```-k``` flag is not allowed).
-## Keepalived
+## 4. Keepalived
 1. Setup another HAProxy server with the same configurations as the one you already set up.
 2. Create keepalived between them so each time a different server responds.
 
 
 
-
+## Notes
 >  ### Good Luck! :poop: :poop: :poop:
 > ### Created by Matan and Ori :smile::alien::basketball::yum::gun::hocho::boom: 
 > &copy; Cloudlet 2020
