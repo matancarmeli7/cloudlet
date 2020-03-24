@@ -7,3 +7,9 @@
 2. Configure the client server to use the Yum repository that you created.
 3. List all the versions of Ansible that you can download.
 4. Download Ansible in any version that you want, use the Repository that you created.
+
+
+## Notes
+>  ### Good Luck! :poop: :poop: :poop:
+> ### Created by Matan and Ori :smile::alien::basketball::yum::gun::hocho::boom: 
+> &copy; Cloudlet 2020
