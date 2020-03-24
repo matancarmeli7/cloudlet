@@ -1,9 +1,11 @@
 import requests
 import json
 
+# Set remote Quay registry with basic api prefix
 BASEURL = "https://quay.io/api/v1"
-#URL = "https://quayecosystem-quay-quay-enterprise.apps.ocp43-prod.cloudlet-dev.com/api/v1/repository"
-URL = "https://quay.io/api/v1/repository"
+
+# Get all repositories
+URL = "{}/repository".format(BASEURL)
 PAR = {
        'public':'true',
        'starred':'false'
@@ -14,18 +16,22 @@ response = r.json()
 
 data = json.loads(json.dumps(response))
 
-for object in data['repositories']:
-    if object['kind'] == 'image':
+# Go over each repository
+for repository in data['repositories']:
+    # Check if the repository is a Container Image Repository
+    if repository['kind'] == 'image':
 
-#        print object['namespace'] + object['name']
-
-        URL = "{}/repository/{}/{}".format(BASEURL, object['namespace'], object['name'])
+        # Get more infromation on each repository
+        URL = "{}/repository/{}/{}".format(BASEURL, repository['namespace'], repository['name'])
 
         r = requests.get(url = URL, verify=False)
         response = r.json()
 
         data = json.loads(json.dumps(response))
-        print data['tags']
+
+        # Go over each tag in the repository and print each one with its full path and digest
+        for tag in data['tags'].keys():
+            print "{}/{}:{} {}".format(repository['namespace'], repository['name'], data['tags'][tag]['name'], data['tags'][tag]['manifest_digest'])
 
     else:
         pass # Helm Charts here
