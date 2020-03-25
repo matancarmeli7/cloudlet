@@ -13,7 +13,7 @@
      **What happened? Why?**
 
 ## 2. Boot Process
-1. Using the console, change root's password as if u don't already know it.
+1. Using the console, change root's password **as if u don't already know it**.
 > **Understand what you did, it isn't worth much just following the guide you found in Google.**	
 ## 3. Time management
 1. Configure your machine's clock so it synchronizes against the organization's NTP servers.
