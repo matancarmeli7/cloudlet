@@ -10,3 +10,4 @@ Documentation yet to come, don't drill about it.
 * Add cache for disconnected checks.
 * Alert Cloud Splunk of problems.
 * Get authentication token from secret, don't have it in the code as clear text.
+* Don't scan local images that aren't in mirror state.
