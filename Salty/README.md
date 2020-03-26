@@ -3,7 +3,6 @@ Documentation yet to come, don't drill about it.
 
 ### Todo in this version
 * Implement functions
-* Add authentication for private repository scanning
 
 ### Future Versions
 * Develop as an OCP Operator to have control over OpenShift use of Images.
