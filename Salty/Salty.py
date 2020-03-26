@@ -10,9 +10,6 @@ def getReqtoDict(URL, VERIFY, TOKEN, PARMS = None):
 
     return json.loads(json.dumps(response))
 
-def getRepoTags():
-    pass
-
 def differencesInDicts(first, second):
     unmatchedKeys = []
     sharedKeys = set(first.keys()).intersection(second.keys())
