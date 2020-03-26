@@ -1,5 +1,5 @@
 # Salty v 0.1.0
-Documentation yet to come, don't drill about it.
+This version of Salty is a prototype. For now it scans a local registry and compares the images digests with the same images of a remote registry.
 
 ### Future Versions
 * Develop as a GO OCP Operator to have control over OpenShift use of Images.
