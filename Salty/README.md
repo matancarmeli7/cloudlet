@@ -5,7 +5,7 @@ Documentation yet to come, don't drill about it.
 * Implement functions
 * Add authentication for private repository scanning
 
-### Future Version
+### Future Versions
 * Develop as an OCP Operator to have control over OpenShift use of Images.
 * Add cache for disconnected checks.
 * Alert Cloud Splunk of problems.
