@@ -19,7 +19,7 @@ def main():
         repositories_to_pull = set()
 
 	# Set local and remote Quay registries with basic api prefix
-	local_reg_URL = "https://quay.io/api/v1"
+	local_reg_URL = "https://quayecosystem-quay-quay-enterprise.apps.ocp43-prod.cloudlet-dev.com/api/v1"
         remote_reg_URL = "https://quay.io/api/v1"
 
 	# Get all repositories
@@ -29,11 +29,11 @@ def main():
 	       'starred':'false'
 	      }
 
-	r = requests.get(url = URL, params = PAR, verify=True)
+	r = requests.get(url = URL, params = PAR, verify='/etc/pki/tls/certs/ca-bundle.crt', headers={'content-type': 'application/json', 'Authorization': 'Bearer YUAua36BQy2Y8vSHHlBL7tOyfRank0I1Lc5H2fx4'})
 	response = r.json()
 
 	data = json.loads(json.dumps(response))
-
+	
 	# Go over each repository
 	for repository in data['repositories']:
 	    # Check if the repository is a Container Image Repository
@@ -42,11 +42,11 @@ def main():
                 # Get more infromation on each repository
 		URL = "{}/repository/{}/{}".format(local_reg_URL, repository['namespace'], repository['name'])
 
-		r = requests.get(url = URL, verify=True)
+		r = requests.get(url = URL, verify='/etc/pki/tls/certs/ca-bundle.crt', headers={'content-type': 'application/json', 'Authorization': 'Bearer YUAua36BQy2Y8vSHHlBL7tOyfRank0I1Lc5H2fx4'})
 		response = r.json()
 
 		data = json.loads(json.dumps(response))
-
+		
 		# Go over each tag in the repository and print each one with its full path and digest
 		for tag in data['tags'].keys():
                     local_digests["{}/{}:{}".format(repository['namespace'], repository['name'], data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
@@ -63,11 +63,11 @@ def main():
 
              URL = "{}/repository/{}".format(remote_reg_URL, repository)
              
-	     r = requests.get(url = URL, verify=True)
+	     r = requests.get(url = URL, verify='/etc/pki/tls/certs/ca-bundle.crt', headers={'content-type': 'application/json', 'Authorization': 'Bearer 86bh0B1hiEgD8wL1YkRVCRCUJcT3cDK6wGSu4WgM'})
              response = r.json()
 
              data = json.loads(json.dumps(response))
-
+	     
              # Go over each tag in the repository and print each one with its full path and digest
              for tag in data['tags'].keys():
                  remote_digests["{}:{}".format(repository, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
