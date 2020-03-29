@@ -1,5 +1,11 @@
-# Salty v 0.1.0
+#### Salty v 0.1.0
 This version of Salty is a prototype. For now it scans a local registry and compares the images digests with the same images of a remote registry.
+
+# Salty v 0.1.1
+New in this version:
+* Logging to splunk the unmatched images.
+* Running scan every 30 min
+* Getting local quay in a generic way
 
 ### Future Versions
 * Develop as a GO OCP Operator to have control over OpenShift use of Images.
