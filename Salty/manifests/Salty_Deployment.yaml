@@ -15,3 +15,9 @@ spec:
       containers:
       - name: salty
         image: quayecosystem-quay.quay-enterprise.svc.cluster.local/cloudlet/salty:latest
+        livenessProbe:
+          exec:  
+            command: 
+            - cat
+            - /app/Salty.py
+          initialDelaySeconds: 15
