@@ -1,3 +1,5 @@
+You can find all of Salty's version at docker.io/dolevalgam/salty:[version]
+
 #### Salty v 0.1.0
 This version of Salty is a prototype. For now it scans a local registry and compares the images digests with the same images of a remote registry.
 
