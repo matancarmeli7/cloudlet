@@ -3,7 +3,7 @@ This version of Salty is a prototype. For now it scans a local registry and comp
 
 # Salty v 0.1.1
 New in this version:
-* Logging to splunk the unmatched images.
+* Logging unmatched images to splunk.
 * Running scan every 30 min
 * Getting local quay in a generic way
 
