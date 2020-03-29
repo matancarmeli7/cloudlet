@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+    volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/azure-disk
+  creationTimestamp: "2020-03-16T06:55:55Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    app: 3scale-api-management
+    threescale_component: system
+    threescale_component_element: app
+  name: system-storage
+  namespace: 3scale
+  resourceVersion: "180056"
+  selfLink: /api/v1/namespaces/3scale/persistentvolumeclaims/system-storage
+  uid: 694ddd9b-efbd-407c-9553-c059acb80e45
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: azure-rox
+  volumeName: "pv-rwx" 

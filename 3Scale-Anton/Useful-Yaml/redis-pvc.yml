@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: "2020-03-16T06:55:51Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    app: 3scale-api-management
+    threescale_component: backend
+    threescale_component_element: redis
+  name: backend-redis-storage
+  namespace: 3scale
+  resourceVersion: "151292"
+  selfLink: /api/v1/namespaces/3scale/persistentvolumeclaims/backend-redis-storage
+  uid: 8d27b8f8-3675-45ef-b476-f6776da1a594
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: managed-premium2
+  volumeMode: Filesystem
