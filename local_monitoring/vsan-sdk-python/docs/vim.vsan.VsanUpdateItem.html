@@ -1,0 +1,228 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vsan.VsanUpdateItem" name="vim.vsan.VsanUpdateItem"></a>
+<h1>Data Object - VsanUpdateItem(vim.vsan.VsanUpdateItem)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.cluster.VsanClusterHclInfo.html#field_detail">VsanClusterHclInfo</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.HostSystem.html">HostSystem</a>, <a href="vim.vsan.VsanDownloadItem.html">VsanDownloadItem</a>, <a href="vim.host.VsanHclFirmwareUpdateSpec.html">VsanHclFirmwareUpdateSpec</a>, <a href="vim.vsan.VsanVibSpec.html">VsanVibSpec</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.6</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         Information about an item (firmware, VIB) to be installed/updated.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="adapter" name="adapter"></a><strong>adapter</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The device name of adapter whose vendor tool or driver/firmware to be
+    installed or updated by the update item
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="downloadInfo" name="downloadInfo"></a><strong>downloadInfo</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vsan.VsanDownloadItem.html">VsanDownloadItem[]</a></td><td>
+<p></p>
+         Information about how to download the item.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="eula" name="eula"></a><strong>eula</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         EULA provided by this item. Note, in case of a VIB, this is empty, as for firmware,
+    it is the EULA provided by the vendor.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="existingVersion" name="existingVersion"></a><strong>existingVersion</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         Existing version on the host, if any.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="firmwareSpec" name="firmwareSpec"></a><strong>firmwareSpec</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.host.VsanHclFirmwareUpdateSpec.html">VsanHclFirmwareUpdateSpec</a></td><td>
+<p></p>
+         In case of vmhba firmware type, the spec for the firmware.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="firmwareUnknown" name="firmwareUnknown"></a><strong>firmwareUnknown</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Set to true when firmware is unknown.
+    When it's true, it means associated firmware mgmt tool is missing,
+    which has to be installed first.
+      <p></p>
+<B><I>Since </I></B>vSAN API vSAN 6.7U1<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="host" name="host"></a><strong>host</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.HostSystem.html">HostSystem</a></td><td>
+<p></p>
+         Host for which this information is in reference to.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="impact" name="impact"></a><strong>impact</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         Impact after the update item is applied.<br>See <a href="vim.vsan.VsanUpdateItemImpactType.html">VsanUpdateItemImpactType</a><br>
+      <p></p>
+<B><I>Since </I></B>vSAN API vSAN 6.7U1<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="key" name="key"></a><strong>key</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         Unique key to identify the an update item.
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.7<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="name" name="name"></a><strong>name</strong></td><td>xsd:string</td><td>
+<p></p>
+         Name of the item. In case of a VIB a description that includes the unique
+    VIB name. In case of firmware, a description of firmware and device.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="present" name="present"></a><strong>present</strong></td><td>xsd:boolean</td><td>
+<p></p>
+         If not present, it needs to be downloaded from the Internet, or uploaded to the
+    Update Manager. See respective APIs.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="type" name="type"></a><strong>type</strong></td><td>xsd:string</td><td>
+<p></p>
+         Type of the item.<br>See <a href="vim.vsan.VsanUpdateItemType.html">VsanUpdateItemType</a><br>
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="version" name="version"></a><strong>version</strong></td><td>xsd:string</td><td>
+<p></p>
+         Version provided by this item. Note, in case of a VIB, this may not be the
+    VIB version, but rather the version of what the VIB contains, e.g. the version
+    of the driver or CIM provider, which may not match exactly the version of
+    the VIB.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="vibSpec" name="vibSpec"></a><strong>vibSpec</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vsan.VsanVibSpec.html">VsanVibSpec[]</a></td><td>
+<p></p>
+         In case of VIB type, the spec for the VIB.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="vibType" name="vibType"></a><strong>vibType</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         Type of the Vib.<br>See <a href="vim.vsan.VsanVibType.html">VsanVibType</a><br>
+      <p></p>
+<B><I>Since </I></B>vSAN API vSAN 6.7U1<br>
+</td>
+</tr>
+<tr class="r0">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r1">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanUpdateItem">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="host" type="vsan:ManagedObjectReference"/>
+                     <element name="type" type="xsd:string"/>
+                     <element name="name" type="xsd:string"/>
+                     <element name="version" type="xsd:string"/>
+                     <element name="existingVersion" type="xsd:string" minOccurs="0"/>
+                     <element name="present" type="xsd:boolean"/>
+                     <element name="vibSpec" type="vsan:VsanVibSpec" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="vibType" type="xsd:string" minOccurs="0"/>
+                     <element name="firmwareSpec" type="vsan:VsanHclFirmwareUpdateSpec" minOccurs="0"/>
+                     <element name="downloadInfo" type="vsan:VsanDownloadItem" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="eula" type="xsd:string" minOccurs="0"/>
+                     <element name="adapter" type="xsd:string" minOccurs="0"/>
+                     <element name="key" type="xsd:string" minOccurs="0"/>
+                     <element name="impact" type="xsd:string" minOccurs="0"/>
+                     <element name="firmwareUnknown" type="xsd:boolean" minOccurs="0"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.host.VsanUpdateManager" name="vim.host.VsanUpdateManager"></a>
+<h1>Managed Object -  
+						VsanUpdateManager(vim.host.VsanUpdateManager)</h1>
+<dl>
+<dt>See also</dt>
+<dd>
+<a href="vim.ComputeResource.html">ComputeResource</a>, <a href="vim.host.MaintenanceSpec.html">HostMaintenanceSpec</a>, <a href="vim.Task.html">Task</a>, <a href="vim.host.VsanHclFirmwareUpdateSpec.html">VsanHclFirmwareUpdateSpec</a>, <a href="vim.vsan.VsanVibInstallPreflightStatus.html">VsanVibInstallPreflightStatus</a>, <a href="vim.vsan.VsanVibScanResult.html">VsanVibScanResult</a>, <a href="vim.vsan.VsanVibSpec.html">VsanVibSpec</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.6</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         Generic engine that can install VIBs onto ESX (optimized for vSAN clusters)
+    using either rolling installs or one-shot. In addition to VIBs, it can also
+    install firmware updates for select hardware. The Managed Entity can be
+    accessed through MOID of vsan-update-manager, through vSAN service at ESXi
+    host side.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#vsanVibInstall">VsanVibInstall_Task</a>, <a href="#vsanVibInstallPreflightCheck">VsanVibInstallPreflightCheck</a>, <a href="#vsanVibScan">VsanVibScan</a></td>
+</tr>
+</table>
+<br>
+<a id="vsanVibInstall" name="vsanVibInstall"></a>
+<h1>VsanVibInstall_Task(vsanVibInstall)</h1>
+<p></p>
+         Takes a list of VIBs, firmwares, and installs those VIBs/FWs on the hosts
+    referenced in the VIB/FW specs. If a scan has previously been performed,
+    the results can be passed in. If not provided, a scan is done implicitly.
+    Install may require ESX maintenance mode, and reboots, depending on the VIB
+    to be installed and the state of the host. Any firmware update will always
+    require maintenance mode and a host reboot.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> Host.Config.Storage<br>Host.Config.Settings </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.host.VsanUpdateManager.html">VsanUpdateManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         Optional cluster this scan is happening in reference to.
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>vibSpecs</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vsan.VsanVibSpec.html">VsanVibSpec[]</a></td><td>
+<p></p>
+         List of VIB specs to installed (context is always a single host)
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>scanResults</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vsan.VsanVibScanResult.html">VsanVibScanResult[]</a></td><td>
+<p></p>
+         List of VIB scan results obtained from VsanVibScan()
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>firmwareSpecs</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.host.VsanHclFirmwareUpdateSpec.html">VsanHclFirmwareUpdateSpec[]</a></td><td>
+<p></p>
+         List of Firmware spec to be installed (context is always
+                         a single host and vmhba)
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>maintenanceSpec</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.host.MaintenanceSpec.html">HostMaintenanceSpec</a></td><td>
+<p></p>
+         Maintenance spec to pass to EnterMaintenanceMode_Task()
+                           In case of non-rolling installs, no other vSAN action
+                           than 'noAction' is allowed.
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>rolling</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         True (default) means a 1-host-at-a-time rolling install
+                       will be performed.
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>noSigCheck</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Skip signature checking, should not be used outside of
+                       fully trusted test environments. Default: False
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>A task</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanVibInstall_Task-textarea');expandcontent(this, 'VsanVibInstall_Task-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanVibInstall_Task-div">
+<textarea cols="20" rows="10" name="VsanVibInstall_Task-textarea" wrap="off" readonly="1" id="VsanVibInstall_Task-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanVibInstall_Task" type="vsan:VsanVibInstall_TaskRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanVibInstall_TaskResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="vsanVibInstallPreflightCheck" name="vsanVibInstallPreflightCheck"></a>
+<h1>VsanVibInstallPreflightCheck(vsanVibInstallPreflightCheck)</h1>
+<p></p>
+         Performs pre-flight checks for a VIB install. Details of checks performed
+    are documented in the result structure.
+ 
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.host.VsanUpdateManager.html">VsanUpdateManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         Cluster for which to perform preflight check
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vsan.VsanVibInstallPreflightStatus.html">VsanVibInstallPreflightStatus</a></td><td>Preflight check results</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanVibInstallPreflightCheck-textarea');expandcontent(this, 'VsanVibInstallPreflightCheck-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanVibInstallPreflightCheck-div">
+<textarea cols="20" rows="10" name="VsanVibInstallPreflightCheck-textarea" wrap="off" readonly="1" id="VsanVibInstallPreflightCheck-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanVibInstallPreflightCheck" type="vsan:VsanVibInstallPreflightCheckRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanVibInstallPreflightCheckResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VsanVibInstallPreflightStatus"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="vsanVibScan" name="vsanVibScan"></a>
+<h1>VsanVibScan(vsanVibScan)</h1>
+<p></p>
+         Takes a list of VIBs and a list of hosts, and determines which VIBs would
+    be installed, what the requirements are (e.g. maintenance mode, reboot)
+    and which existing VIBs (if any) they are overriding. Doesn't perform any
+    actual install, but instead just provides information on "what if".
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.host.VsanUpdateManager.html">VsanUpdateManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         Optional cluster this scan is happening in reference to.
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>vibSpecs</strong></td><td><a href="vim.vsan.VsanVibSpec.html">VsanVibSpec[]</a></td><td>
+<p></p>
+         List of VIB specs to check (one entry per host)
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vsan.VsanVibScanResult.html">VsanVibScanResult[]</a></td><td>List of VIBs that would be installed. Each such result is for a single host, single VIB.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanVibScan-textarea');expandcontent(this, 'VsanVibScan-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanVibScan-div">
+<textarea cols="20" rows="10" name="VsanVibScan-textarea" wrap="off" readonly="1" id="VsanVibScan-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanVibScan" type="vsan:VsanVibScanRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanVibScanResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VsanVibScanResult" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

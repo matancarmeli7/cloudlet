@@ -1,0 +1,954 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.cluster.VsanObjectSystem" name="vim.cluster.VsanObjectSystem"></a>
+<h1>Managed Object -  
+						VsanObjectSystem(vim.cluster.VsanObjectSystem)</h1>
+<dl>
+<dt>See also</dt>
+<dd>
+<a href="vim.ComputeResource.html">ComputeResource</a>, <a href="vim.Task.html">Task</a>, <a href="vim.vm.ProfileSpec.html">VirtualMachineProfileSpec</a>, <a href="vim.vsan.host.VsanSyncingObjectQueryResult.html">VsanHostVsanObjectSyncQueryResult</a>, <a href="vim.cluster.VsanObjectIdentityAndHealth.html">VsanObjectIdentityAndHealth</a>, <a href="vim.cluster.VsanObjectInformation.html">VsanObjectInformation</a>, <a href="vim.cluster.VsanObjectQuerySpec.html">VsanObjectQuerySpec</a>, <a href="vim.cluster.VsanSyncingObjectFilter.html">VsanSyncingObjectFilter</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 5.5</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         This managed object type provides the service interface for setting the
+    storage policy to one vSAN object, querying the vSAN object
+    status information, i.e., its storage profile, its health status.<br/>
+ 
+    When the ManagedEntity is accessed with MOID of 'vsan-cluster-object-system'
+    through vSAN service at vCenter server and ESXi host side, it acts as
+    cluster-level APIs.
+ 
+    When it accessed with MOID of 'vsan-object-system' through vSAN service
+    at ESXi host side, its scope is only limited to that host.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#querySyncingVsanObjectsSummary">QuerySyncingVsanObjectsSummary</a>, <a href="#queryVsanObjectInformation">VosQueryVsanObjectInformation</a>, <a href="#setVsanObjectPolicy">VosSetVsanObjectPolicy</a>, <a href="#deleteObjects">VsanDeleteObjects_Task</a>, <a href="#queryInaccessibleVmSwapObjects">VsanQueryInaccessibleVmSwapObjects</a>, <a href="#queryObjectIdentities">VsanQueryObjectIdentities</a></td>
+</tr>
+</table>
+<br>
+<a id="querySyncingVsanObjectsSummary" name="querySyncingVsanObjectsSummary"></a>
+<h1>QuerySyncingVsanObjectsSummary(querySyncingVsanObjectsSummary)</h1>
+<p></p>
+         Query the vSAN data protection space usage for objects at the remote
+    target location that were once protected from this cluster, but are no
+    longer actively protected, and for which the series information is still
+    present at the remote location.
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.8.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanObjectSystem.html">VsanObjectSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         vSAN cluster
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>syncingObjectFilter</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanSyncingObjectFilter.html">VsanSyncingObjectFilter</a></td><td>
+<p></p>
+<p></p>
+<B><I>Since </I></B>vSAN API 6.8.7<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vsan.host.VsanSyncingObjectQueryResult.html">VsanHostVsanObjectSyncQueryResult</a></td><td>The space used for data protection by objects from this cluster at the specified remote target locations. The protection is no longer active for these objects.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.NotSupported.html">NotSupported</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('QuerySyncingVsanObjectsSummary-textarea');expandcontent(this, 'QuerySyncingVsanObjectsSummary-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="QuerySyncingVsanObjectsSummary-div">
+<textarea cols="20" rows="10" name="QuerySyncingVsanObjectsSummary-textarea" wrap="off" readonly="1" id="QuerySyncingVsanObjectsSummary-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="QuerySyncingVsanObjectsSummary" type="vsan:QuerySyncingVsanObjectsSummaryRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="QuerySyncingVsanObjectsSummaryResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VsanHostVsanObjectSyncQueryResult"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="queryVsanObjectInformation" name="queryVsanObjectInformation"></a>
+<h1>VosQueryVsanObjectInformation(queryVsanObjectInformation)</h1>
+<p></p>
+         Get information about the vSAN object/directory.
+    <br/>
+    If it's called in VC, the spbmProfileGenerationId can be safely ignored in
+    vim.cluster.VsanObjectQuerySpec, it will be automatically set to the correct
+    value by using SPBM service. If it's called in host with MOID
+    'vsan-object-system', both fields in
+    <a href="vim.cluster.VsanObjectQuerySpec.html">VsanObjectQuerySpec</a> should be provided, if
+    spbmProfileGenerationId is not provided, the one from vSAN CMMDS will
+    be used here, as a result, the mismatch field for storage compliance result
+    is not reliable in some cases, e.g. profile is updated or deleted in vCenter
+    after the vSAN object creation. If it's called in host with MOID
+    'vsan-cluster-object-system', the spbmProfileGenerationId in
+    <a href="vim.cluster.VsanObjectQuerySpec.html">VsanObjectQuerySpec</a> would be ignored and mismatch field
+    is not reliable. Note this API can query maximum 500 vSAN objects
+    at once when it's called from ESXi host for performance consideration,
+    otherwise, the <a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a> exception will
+    be thrown.
+    <br/>
+    If the vSAN object can not be found,
+    <a href="vim.fault.FileNotFound.html">FileNotFound</a> exception will be
+    raised. If the vSAN object failed to read the policy, e.g. because it
+    is not accessible, FileNotReadable exception will be raised.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanObjectSystem.html">VsanObjectSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         vSAN cluster. Ignored if called against host.
+      <p></p>
+<B><I>Since </I></B>vSphere API 5.5<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>vsanObjectQuerySpecs</strong></td><td><a href="vim.cluster.VsanObjectQuerySpec.html">VsanObjectQuerySpec[]</a></td><td>
+<p></p>
+         vSAN object query spec list.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.cluster.VsanObjectInformation.html">VsanObjectInformation[]</a></td><td>Object information list.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileNotFound.html">FileNotFound</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.FileNotWritable.html">FileNotWritable</a></td><td></td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.NotSupported.html">NotSupported</a></td><td></td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VosQueryVsanObjectInformation-textarea');expandcontent(this, 'VosQueryVsanObjectInformation-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VosQueryVsanObjectInformation-div">
+<textarea cols="20" rows="10" name="VosQueryVsanObjectInformation-textarea" wrap="off" readonly="1" id="VosQueryVsanObjectInformation-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VosQueryVsanObjectInformation" type="vsan:VosQueryVsanObjectInformationRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VosQueryVsanObjectInformationResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VsanObjectInformation" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="setVsanObjectPolicy" name="setVsanObjectPolicy"></a>
+<h1>VosSetVsanObjectPolicy(setVsanObjectPolicy)</h1>
+<p></p>
+         Set the policy of the vSAN object.
+ 
+    The cluster parameters is ignored if called on ESX.<br/>
+ 
+    Profile can be 3 formats:<br/>
+    1. <code>VirtualMachineEmptyProfileSpec</code> means to use the empty vSAN
+       policy. This is not the default policy, but a policy where all fields
+       have default values.<br/>
+    2. <code>VirtualMachineDefinedProfileSpec</code> where profileId is set, in
+       which case this profileId will be looked up in SPBM for the detailed
+       policy information.<br/>
+    3. <code>VirtualMachineDefinedProfileSpec</code> where profileId is an empty
+       string and instead the profileData is set for extensionKey
+       'com.vmware.vim.sps'. In this case the objectData field can be either the
+       vSAN expression format, or a SPBM XML string. If no profile is
+       supplied, and the call is executed against vCenter, then SPBM will be
+       consulted for the vSAN datastore's default profile.<br/>
+ 
+    When this method returns successfully, the profile has been applied, but
+    vSAN may still be remediating in order to implement the new policy.
+    The health state of the object and resync information should be monitored to
+    check on the progress. <br/>
+ 
+    Only the third option for profile is available when called on ESXi, other
+    formats will raise InvalidArgument exception. If SPBM needs to be contacted,
+    but SPBM is not available, RuntimeFault exception will be raised. If the
+    profileId can not be resolved with SPBM, InvalidArgument exception will be
+    raised. If objectData was provided but is neither of the two supported
+    formats, InvalidArgument exception will be raised. If the vSAN object
+    can not be found, FileNotFound exception will be raised. If the vSAN
+    object failed to set the policy, e.g. because it is not accessible,
+    FileNotWritable exception will be raised. If called against vCenter, but no
+    ESXi host could be contacted to perform the operation, the exception is
+    logged and the False is returned by this method.
+ 
+    NOTE: This API requires additional Global.Settings privilege if called
+    against vSphere 65P02 release.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> Global.Settings </td><td> RootFolder </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanObjectSystem.html">VsanObjectSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         vSAN cluster. Ignored if called against host.
+      <p></p>
+<B><I>Since </I></B>vSphere API 5.5<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>vsanObjectUuid</strong></td><td>xsd:string</td><td>
+<p></p>
+         vSAN object UUID.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>profile</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vm.ProfileSpec.html">VirtualMachineProfileSpec</a></td><td>
+<p></p>
+         See above description for all possible options.
+      <p></p>
+<B><I>Since </I></B>vSphere API 5.5<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td>xsd:boolean</td><td>True when the operation successfully, False when it is failed and there is no exception raised.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileNotFound.html">FileNotFound</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.FileNotWritable.html">FileNotWritable</a></td><td></td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.NotSupported.html">NotSupported</a></td><td></td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VosSetVsanObjectPolicy-textarea');expandcontent(this, 'VosSetVsanObjectPolicy-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VosSetVsanObjectPolicy-div">
+<textarea cols="20" rows="10" name="VosSetVsanObjectPolicy-textarea" wrap="off" readonly="1" id="VosSetVsanObjectPolicy-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VosSetVsanObjectPolicy" type="vsan:VosSetVsanObjectPolicyRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VosSetVsanObjectPolicyResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="xsd:boolean"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="deleteObjects" name="deleteObjects"></a>
+<h1>VsanDeleteObjects_Task(deleteObjects)</h1>
+<p></p>
+         Delete vSAN Objects on vSAN cluster. When the 'cluster' parameter is
+    specified, this is a cluster level asynchronous API. The delete operation
+    will return a task result which tracks progress, please check the task
+    state when use.
+ 
+    When it's called again host, it's a host level asynchronous API, which
+    deprecates the 'DeleteVsanObjects' in vim.vsan.VsanInternalSystem.
+ 
+    WARNING: This API can be slow because we do IOs to all the objects.
+    This API can be used to delete vSAN objects. vSAN won't allow access to
+    objects which have lost quorum. Such objects can be deleted with the
+    optional "force" flag.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> Host.Config.Storage </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+<dt>Since </dt>
+<dd>vSAN API vSAN 6.7U1</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanObjectSystem.html">VsanObjectSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         vSAN cluster. Ignored if called against host.
+      <p></p>
+<B><I>Since </I></B>vSAN API vSAN 6.7U1<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>objUuids</strong></td><td>xsd:string[]</td><td>
+<p></p>
+         The vSAN object UUIDs to delete.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>force</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         The force flag, inaccessible objects can't be deleted without
+                 this flag. WARNING: it's at your own risk.
+      <p></p>
+<B><I>Since </I></B>vSAN API vSAN 6.7U1<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>vim.Task</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanDeleteObjects_Task-textarea');expandcontent(this, 'VsanDeleteObjects_Task-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanDeleteObjects_Task-div">
+<textarea cols="20" rows="10" name="VsanDeleteObjects_Task-textarea" wrap="off" readonly="1" id="VsanDeleteObjects_Task-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanDeleteObjects_Task" type="vsan:VsanDeleteObjects_TaskRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanDeleteObjects_TaskResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="queryInaccessibleVmSwapObjects" name="queryInaccessibleVmSwapObjects"></a>
+<h1>VsanQueryInaccessibleVmSwapObjects(queryInaccessibleVmSwapObjects)</h1>
+<p></p>
+         Query all inaccessible vmswap objects on a vSAN cluster. It works on
+    both cluster level and host level.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+<dt>Since </dt>
+<dd>vSAN API vSAN 6.7U1</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanObjectSystem.html">VsanObjectSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         vSAN cluster. Ignored if called against host.
+      <p></p>
+<B><I>Since </I></B>vSAN API vSAN 6.7U1<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td>xsd:string[]</td><td>list of inaccessible vmswap objects.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.NotSupported.html">NotSupported</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanQueryInaccessibleVmSwapObjects-textarea');expandcontent(this, 'VsanQueryInaccessibleVmSwapObjects-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanQueryInaccessibleVmSwapObjects-div">
+<textarea cols="20" rows="10" name="VsanQueryInaccessibleVmSwapObjects-textarea" wrap="off" readonly="1" id="VsanQueryInaccessibleVmSwapObjects-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanQueryInaccessibleVmSwapObjects" type="vsan:VsanQueryInaccessibleVmSwapObjectsRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanQueryInaccessibleVmSwapObjectsResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="queryObjectIdentities" name="queryObjectIdentities"></a>
+<h1>VsanQueryObjectIdentities(queryObjectIdentities)</h1>
+<p></p>
+         Map from vSAN object UUIDs to their identities.
+ 
+    The results contain the identities of all objects that could be resolved. The
+    identity includes things like the object type, references to the VM the object
+    belongs to and such. If called against a host with MOID 'vsan-object-system',
+    the cluster argument is ignored and, only those objects are resolved which
+    can be resolved by that host. For VM related objects a host can only resolve
+    the objects if the VM they belong to is registered on that host.
+    If called against a host with MOID 'vsan-cluster-object-system', the cluster
+    argument is ignored and cluster wide object identities would be returned
+    except template VM, and in identities, the VM property would be left unset.
+    If called against vCenter, all connected hosts will be contacted for
+    this information and the results will be aggregated. Any VMs registered with
+    hosts which are disconnected will hence not be resolved.
+ 
+    <b>It's not recommended to use this API to get all of vSAN object identities
+    at once to avoid potential performance issue due to large response in large
+    scale cluster. Instead, we should limit the output by specifying various
+    filter parameters like the objects UUID, object type, only including
+    health or identity result etc.</b>
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanObjectSystem.html">VsanObjectSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ComputeResource.html">ComputeResource</a></td><td>
+<p></p>
+         vSAN cluster. Ignored if called against host.
+      <p></p>
+<B><I>Since </I></B>vSphere API 5.5<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>objUuids</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         The vSAN object UUIDs for querying. Unset to query
+                    all of vSAN objects
+      <p></p>
+<B><I>Since </I></B>vSphere API 5.5<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>objTypes</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         Querying the vSAN objects with given types, only the object whose
+                    type in this list will be returned. All of available object types
+                    include 'vmswap', 'vdisk', 'namespace', 'vmem', 'stats', 'other',
+                    'iscsiHome', 'iscsiLun', 'iscsiTarget' and 'fileShare'.
+                    Unset to query all of vSAN objects with any type
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.5<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>includeHealth</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         If the result includes the object health status.
+                         Default is False
+      <p></p>
+<B><I>Since </I></B>vSphere API 5.5<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>includeObjIdentity</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         If the result includes all of the object identity.
+                              Default is false if it's unset
+      <p></p>
+<B><I>Since </I></B>vSphere API 5.5<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>includeSpaceSummary</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         If the result includes the vSAN space consumption
+                               summarizing by object type. Currently, it's not
+                               supported to include both of space summary and
+                               object identity in the result. Default is false.
+      <p></p>
+<B><I>Since </I></B>vSphere API 5.5<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.cluster.VsanObjectIdentityAndHealth.html">VsanObjectIdentityAndHealth</a></td><td>Object information structure</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.NotSupported.html">NotSupported</a></td><td></td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanQueryObjectIdentities-textarea');expandcontent(this, 'VsanQueryObjectIdentities-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanQueryObjectIdentities-div">
+<textarea cols="20" rows="10" name="VsanQueryObjectIdentities-textarea" wrap="off" readonly="1" id="VsanQueryObjectIdentities-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanQueryObjectIdentities" type="vsan:VsanQueryObjectIdentitiesRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanQueryObjectIdentitiesResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VsanObjectIdentityAndHealth" minOccurs="0"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

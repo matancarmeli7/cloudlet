@@ -1,0 +1,160 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vsan.VsanPerfsvcHealthResult" name="vim.vsan.VsanPerfsvcHealthResult"></a>
+<h1>Data Object - VsanPerfsvcHealthResult(vim.vsan.VsanPerfsvcHealthResult)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.cluster.VsanClusterHealthSummary.html#field_detail">VsanClusterHealthSummary</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.cluster.VsanObjectInformation.html">VsanObjectInformation</a>, <a href="vim.cluster.VsanPerfNodeInformation.html">VsanPerfNodeInformation</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.7</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         This class encapsulates the vSAN performance service health test result
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="datastoreCompatible" name="datastoreCompatible"></a><strong>datastoreCompatible</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         This value indicate that if the vSAN datastore is compatible with the configuration policy.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="enoughFreeSpace" name="enoughFreeSpace"></a><strong>enoughFreeSpace</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         This value indicate that if the vSAN datastore has enough free space to enable vsan
+    performance service.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="hostResults" name="hostResults"></a><strong>hostResults</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanPerfNodeInformation.html">VsanPerfNodeInformation[]</a></td><td>
+<p></p>
+         This is list of hosts' performance service information.<br>See <a href="vim.cluster.VsanPerfNodeInformation.html">VsanPerfNodeInformation</a><br>
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="remediateAction" name="remediateAction"></a><strong>remediateAction</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         vSAN performance service remediation action.<br>See <a href="vim.vsan.PerfsvcRemediateAction.html">VsanPerfsvcRemediateAction</a><br>
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="statsObjectConsistent" name="statsObjectConsistent"></a><strong>statsObjectConsistent</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         This is vSAN stats object consistency check value.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="statsObjectInfo" name="statsObjectInfo"></a><strong>statsObjectInfo</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanObjectInformation.html">VsanObjectInformation</a></td><td>
+<p></p>
+         This is vSAN stats object information.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="statsObjectPolicyConsistent" name="statsObjectPolicyConsistent"></a><strong>statsObjectPolicyConsistent</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         This is vSAN stats object policy consistency check value.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="verboseModeStatus" name="verboseModeStatus"></a><strong>verboseModeStatus</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         This value indicate that if the vSAN performance service verbose mode is
+    enable or not.
+      <p></p>
+<B><I>Since </I></B>vSAN API vSAN 6.7U3<br>
+</td>
+</tr>
+<tr class="r1">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanPerfsvcHealthResult">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="statsObjectInfo" type="vsan:VsanObjectInformation" minOccurs="0"/>
+                     <element name="statsObjectConsistent" type="xsd:boolean" minOccurs="0"/>
+                     <element name="statsObjectPolicyConsistent" type="xsd:boolean" minOccurs="0"/>
+                     <element name="datastoreCompatible" type="xsd:boolean" minOccurs="0"/>
+                     <element name="enoughFreeSpace" type="xsd:boolean" minOccurs="0"/>
+                     <element name="remediateAction" type="xsd:string" minOccurs="0"/>
+                     <element name="hostResults" type="vsan:VsanPerfNodeInformation" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="verboseModeStatus" type="xsd:boolean" minOccurs="0"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

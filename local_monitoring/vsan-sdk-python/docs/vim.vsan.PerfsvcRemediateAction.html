@@ -1,0 +1,110 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vsan.PerfsvcRemediateAction" name="vim.vsan.PerfsvcRemediateAction"></a>
+<h1>Enum - 
+						VsanPerfsvcRemediateAction(vim.vsan.PerfsvcRemediateAction)</h1>
+<dl>
+<dt>Since </dt>
+<dd>vSAN API 6.7</dd>
+<p></p>
+</dl>
+<br>
+<h2>Enum Description</h2>
+<p></p>
+         Remediate action type.
+    When vSAN cluster remediate, vSAN will check the performance service configuration and
+    performance service status. If the vSAN performance service configuration is enable but
+    the vSAN performance service is not running, it will return "enable" to remediate vSAN
+    performance service. If the vSAN performance service configuration is disable but the
+    vSAN performance service is not running, it will return "disable" to remediate vSAN
+    performance service. If the vSAN performance service configuration is enable, the vSAN
+    performance service is running, but the profile of performance service is not match
+    the configuration, it will return "update_profile" to remediate vSAN performance service.
+    Others will return "no_action" which means no need to remediate vSAN performance service.
+ 
+    Valid types are:
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Enum Constants</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><a id="disable" name="disable"></a>disable</td><td>
+      remediate action is delete stats object.
+   <br>
+</td>
+</tr>
+<tr class="r0">
+<td><a id="enable" name="enable"></a>enable</td><td>
+      remediate action is create stats object.
+   <br>
+</td>
+</tr>
+<tr class="r1">
+<td><a id="no_action" name="no_action"></a>no_action</td><td>
+      remediate action will do no action.
+   <br>
+</td>
+</tr>
+<tr class="r0">
+<td><a id="PerfsvcRemediateAction_Unknown" name="PerfsvcRemediateAction_Unknown"></a>PerfsvcRemediateAction_Unknown</td><td>
+      represent the value when the lower version client cannot recognize the enum value
+   <br>
+</td>
+</tr>
+<tr class="r1">
+<td><a id="update_profile" name="update_profile"></a>update_profile</td><td>
+      remediate action is update stats object policy.
+   <br>
+</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <simpleType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanPerfsvcRemediateAction">
+            <restriction base="xsd:string">
+               <enumeration value="update_profile"/>
+               <enumeration value="PerfsvcRemediateAction_Unknown"/>
+               <enumeration value="enable"/>
+               <enumeration value="disable"/>
+               <enumeration value="no_action"/>
+            </restriction>
+         </simpleType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

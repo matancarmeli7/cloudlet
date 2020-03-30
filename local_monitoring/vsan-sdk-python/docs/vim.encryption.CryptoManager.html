@@ -1,0 +1,576 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.encryption.CryptoManager" name="vim.encryption.CryptoManager"></a>
+<h1>Managed Object -  
+						CryptoManager(vim.encryption.CryptoManager)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.host.ConfigManager.html#field_detail">HostConfigManager</a>, <a href="vim.ServiceInstanceContent.html#field_detail">ServiceContent</a>
+</dd>
+<dt>Extended by</dt>
+<dd>
+<a href="vim.encryption.CryptoManagerHost.html">CryptoManagerHost</a>, <a href="vim.encryption.CryptoManagerKmip.html">CryptoManagerKmip</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.encryption.CryptoKeyId.html">CryptoKeyId</a>, <a href="vim.encryption.CryptoKeyPlain.html">CryptoKeyPlain</a>, <a href="vim.encryption.CryptoKeyResult.html">CryptoKeyResult</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.5</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         Singleton Managed Object used to manage cryptographic keys.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="enabled" name="enabled"></a><strong>enabled</strong></td><td>xsd:boolean</td><td>
+<p></p>
+         Indicate if the encryption feature is enabled.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#addKey">AddKey</a>, <a href="#addKeys">AddKeys</a>, <a href="#listKeys">ListKeys</a>, <a href="#removeKey">RemoveKey</a>, <a href="#removeKeys">RemoveKeys</a></td>
+</tr>
+</table>
+<br>
+<a id="addKey" name="addKey"></a>
+<h1>AddKey(addKey)</h1>
+<p></p>
+         Add an existing key.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Cryptographer.ManageKeys</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.encryption.CryptoManager.html">CryptoManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>key</strong></td><td><a href="vim.encryption.CryptoKeyPlain.html">CryptoKeyPlain</a></td><td>
+<p></p>
+         [in] The cryptographic key to add.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.AlreadyExists.html">AlreadyExists</a></td><td>in case the key is already in the key cache</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>in case the keyID is duplicated or key properties are incorrect.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>in case the host is not Crypto Safe</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('AddKey-textarea');expandcontent(this, 'AddKey-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="AddKey-div">
+<textarea cols="20" rows="10" name="AddKey-textarea" wrap="off" readonly="1" id="AddKey-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="AddKey" type="vsan:AddKeyRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="AddKeyResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="addKeys" name="addKeys"></a>
+<h1>AddKeys(addKeys)</h1>
+<p></p>
+         Add multiple existing keys.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Cryptographer.ManageKeys</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.encryption.CryptoManager.html">CryptoManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>keys</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.encryption.CryptoKeyPlain.html">CryptoKeyPlain[]</a></td><td>
+<p></p>
+         [in] List of cryptographic keys to add.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.encryption.CryptoKeyResult.html">CryptoKeyResult[]</a></td><td>The result for each key operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>in case the host is not Crypto Safe</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('AddKeys-textarea');expandcontent(this, 'AddKeys-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="AddKeys-div">
+<textarea cols="20" rows="10" name="AddKeys-textarea" wrap="off" readonly="1" id="AddKeys-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="AddKeys" type="vsan:AddKeysRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="AddKeysResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:CryptoKeyResult" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="listKeys" name="listKeys"></a>
+<h1>ListKeys(listKeys)</h1>
+<p></p>
+         List keys.
+   * When executed against the host, lists all the keys
+     added to the host's key cache by <a href="vim.encryption.CryptoManager.html#addKey">AddKey</a>/<a href="vim.encryption.CryptoManager.html#addKeys">AddKeys</a>.
+   * When executed against the VC, lists all the keys used by
+     the correctly registered VMs, and the host key.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Cryptographer.ManageKeys</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.encryption.CryptoManager.html">CryptoManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>limit</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:int</td><td>
+<p></p>
+         [in] maximum keys to return.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.encryption.CryptoKeyId.html">CryptoKeyId[]</a></td><td>List of known keys.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('ListKeys-textarea');expandcontent(this, 'ListKeys-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="ListKeys-div">
+<textarea cols="20" rows="10" name="ListKeys-textarea" wrap="off" readonly="1" id="ListKeys-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ListKeys" type="vsan:ListKeysRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ListKeysResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:CryptoKeyId" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="removeKey" name="removeKey"></a>
+<h1>RemoveKey(removeKey)</h1>
+<p></p>
+         Remove a key (only the UUID is needed to remove).
+ If "force" is set, removal will happen even if the key is in use.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Cryptographer.ManageKeys</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.encryption.CryptoManager.html">CryptoManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>key</strong></td><td><a href="vim.encryption.CryptoKeyId.html">CryptoKeyId</a></td><td>
+<p></p>
+         [in] The key to remove.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>force</strong></td><td>xsd:boolean</td><td>
+<p></p>
+         [in] Remove the key even if in use or not existent.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>in case the keyID is not found and "force" is false.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.ResourceInUse.html">ResourceInUse</a></td><td>Thrown if the key is used to encrypt any object and "force" is false.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RemoveKey-textarea');expandcontent(this, 'RemoveKey-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RemoveKey-div">
+<textarea cols="20" rows="10" name="RemoveKey-textarea" wrap="off" readonly="1" id="RemoveKey-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RemoveKey" type="vsan:RemoveKeyRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RemoveKeyResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="removeKeys" name="removeKeys"></a>
+<h1>RemoveKeys(removeKeys)</h1>
+<p></p>
+         Remove multiple keys (only the UUID is needed to remove).
+ If "force" is set, removal will happen even if they are in use.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Cryptographer.ManageKeys</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.encryption.CryptoManager.html">CryptoManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>keys</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.encryption.CryptoKeyId.html">CryptoKeyId[]</a></td><td>
+<p></p>
+         [in] List of keys to remove.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>force</strong></td><td>xsd:boolean</td><td>
+<p></p>
+         [in] Remove the key even if in use. Always successful.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.encryption.CryptoKeyResult.html">CryptoKeyResult[]</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RemoveKeys-textarea');expandcontent(this, 'RemoveKeys-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RemoveKeys-div">
+<textarea cols="20" rows="10" name="RemoveKeys-textarea" wrap="off" readonly="1" id="RemoveKeys-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RemoveKeys" type="vsan:RemoveKeysRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RemoveKeysResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:CryptoKeyResult" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

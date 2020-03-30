@@ -1,0 +1,843 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.cns.VolumeManager" name="vim.cns.VolumeManager"></a>
+<h1>Managed Object -  
+						CnsVolumeManager(vim.cns.VolumeManager)</h1>
+<dl>
+<dt>See also</dt>
+<dd>
+<a href="vim.cns.QueryFilter.html">CnsQueryFilter</a>, <a href="vim.cns.QueryResult.html">CnsQueryResult</a>, <a href="vim.cns.VolumeAttachDetachSpec.html">CnsVolumeAttachDetachSpec</a>, <a href="vim.cns.VolumeCreateSpec.html">CnsVolumeCreateSpec</a>, <a href="vim.cns.VolumeId.html">CnsVolumeId</a>, <a href="vim.cns.VolumeMetadataUpdateSpec.html">CnsVolumeMetadataUpdateSpec</a>, <a href="vim.Task.html">Task</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API vSAN 6.7U3</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         This is the interface for managing the lifecycle of volumes that are consumed
+    by containers or pods, in case of Kubernetes. This managed interface can be 
+    accessed through MOID of cns-volume-manager, through vSAN service in vCenter.
+    <br>
+    Lifecycle of a container volume includes creation, update, query, attach,
+    detach and delete operations. This interface and its related classes are the entry
+    point for Cloud Native Storage (abbreviated to CNS) service.
+    <br>
+    These requests could come from different container orchestrator clusters running
+    on same vSphere as associated with this VolumeManager. VolumeManager is not
+    aware of presence and topology of container orchestrator clusters, except
+    for the weak association via <a href="vim.cns.ContainerCluster.html">CnsContainerCluster</a>. This is a weak
+    association because it's client's responsibility to provide unique identity
+    for this container orchestrator cluster. VolumeManager will not impose any
+    uniqueness verification on cluster identification.
+    <br>
+    Provisioning APIs of this interface return vim.Task which is vCenter Task
+    object to track the progress of operation. In case of either partial or
+    complete success, the state of the task would be set to success. In case
+    of complete failure of the task when the individual specs couldn't be scheduled,
+    the task status would be set to error. The corresponding fault, if any, will be
+    set in the fault field. For a successfully scheduled task, result of this
+    operation will be a list of <a href="vim.cns.VolumeOperationResult.html">CnsVolumeOperationResult</a> instances.
+    The client needs to go through the result and check the successful and failed
+    instances.
+    <br>
+    The Task returned by provisioning APIs is a vim.Task object. Client needs to
+    connect to vim endpoint on vCenter using the latest VSAN VMODL version
+    (not latest VIM version) to monitor task status. After the task is complete,
+    clients can refer to <a href="vim.cns.VolumeOperationResult.html">CnsVolumeOperationResult</a> set as result field in
+    task's <a href="vim.TaskInfo.html">TaskInfo</a> field.
+    <br>
+    Please refer to the required privileges in the individual API documentation and ignore
+    the <b>Required Privileges</b> section which is not used.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#attach">CnsAttachVolume</a>, <a href="#create">CnsCreateVolume</a>, <a href="#delete">CnsDeleteVolume</a>, <a href="#detach">CnsDetachVolume</a>, <a href="#query">CnsQueryVolume</a>, <a href="#updateVolumeMetadata">CnsUpdateVolumeMetadata</a></td>
+</tr>
+</table>
+<br>
+<a id="attach" name="attach"></a>
+<h1>CnsAttachVolume(attach)</h1>
+<p></p>
+         Attaches volumes to specified VM instances, to make volumes ready for mount
+    and consumption by respective containers.
+    <br>
+    For each volume in input, this API will attach block backing for this volume
+    to the VirtualMachine specified in input, via one of the available slots on
+    SCSI controller. This API will transparently add new SCSI controller to the
+    VirtualMachine, if needed.
+    <br>
+    Following privileges will be required on specified entities, to perform
+    this operation:
+    <ul>
+    <li>Datastore.FileManagement on datastores specified in input, required for
+                             block volume only</li>
+    <li>VirtualMachine.Config.AddExistingDisk on VM specified in the input</li>
+    <li>VirtualMachine.Config.AddRemoveDevice on VM specified in the input</li>
+    </ul>
+    Faults that can be set in individual result entry, corresponding to each
+    VolumeAttachDetachSpec instance in input:
+    <ul>
+    <li>vmodl.fault.InvalidArgument set in case of invalid input arguments, like empty
+                                    strings, invalid formats, invalid combination of
+                                    inputs.</li>
+    <li>vim.fault.NotFound          set in case of the volume can not be found.</li>
+    <li>vim.fault.ResourceInUse     set when volume has been attached to a VM and is
+                                    in use, client needs to first detach the volume
+                                    from that VM and then retry this operation.
+    <li>vim.fault.CnsFault          set in case of any other failure scenario.</li>
+    </ul>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Dynamic - See discussion above</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cns.VolumeManager.html">CnsVolumeManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>attachSpecs</strong></td><td><a href="vim.cns.VolumeAttachDetachSpec.html">CnsVolumeAttachDetachSpec[]</a></td><td>
+<p></p>
+         Specification for attach operation
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td><a href="vim.Task.html">Task</a> to track the progress and overall state of this operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.CnsFault.html">CnsFault</a></td><td>Thrown for all other failure scenario.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>This API supports input size of 1 only. If more or less than one entries are passed as input, this exception will be thrown and operation will fail. This fault will occur in cases where the volume ID is not found, VM is not present etc.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the volume can not be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.ResourceInUse.html">ResourceInUse</a></td><td>Thrown if the volume has been attached a VM and is in use, client needs to first detach the volume from that VM and then retry this operation.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('CnsAttachVolume-textarea');expandcontent(this, 'CnsAttachVolume-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="CnsAttachVolume-div">
+<textarea cols="20" rows="10" name="CnsAttachVolume-textarea" wrap="off" readonly="1" id="CnsAttachVolume-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsAttachVolume" type="vsan:CnsAttachVolumeRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsAttachVolumeResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="create" name="create"></a>
+<h1>CnsCreateVolume(create)</h1>
+<p></p>
+         Creates container volume with given specifications.
+    <br>
+    Following privileges will be required on specified entities, to perform
+    this operation:
+    <ul>
+    <li>Datastore.FileManagement on datastores specified in input, required for
+                             block volume only</li>
+    <li>StorageProfile.View on RootFolder to access storage policy specified in input</li>
+    </ul>
+    Faults that can be set in individual result entry, corresponding to each
+    VolumeCreateSpec instance in input:
+    <ul>
+    <li>vmodl.fault.InvalidArgument set in case of invalid input arguments,
+                                    invalid formats, invalid combination of
+                                    inputs.</li>
+    <li>vim.fault.NotFound set in case the existing disk that should
+                           be used to back the container volume cannot be found.</li>
+    <li>vim.fault.CnsFault set in case of any other failure scenario.</li>
+    </ul>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Dynamic - See discussion above</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cns.VolumeManager.html">CnsVolumeManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>createSpecs</strong></td><td><a href="vim.cns.VolumeCreateSpec.html">CnsVolumeCreateSpec[]</a></td><td>
+<p></p>
+         Specifications for volumes to be created.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td><a href="vim.Task.html">Task</a> to track the progress and overall state of this operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.CnsFault.html">CnsFault</a></td><td>Thrown for all other failure scenario.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>Thrown if the input spec is invalid like createSpecs size is not equal to 1, backing disk ID in backing object details is empty and datastores is empty, volume metadata in input spec is invalid, backing disk ID in backing object details is not present, datastore is invalid, entityMetadata containing duplicate entity types, profile size is not equal to 1 etc.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the volume can not be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('CnsCreateVolume-textarea');expandcontent(this, 'CnsCreateVolume-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="CnsCreateVolume-div">
+<textarea cols="20" rows="10" name="CnsCreateVolume-textarea" wrap="off" readonly="1" id="CnsCreateVolume-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsCreateVolume" type="vsan:CnsCreateVolumeRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsCreateVolumeResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="delete" name="delete"></a>
+<h1>CnsDeleteVolume(delete)</h1>
+<p></p>
+         Deletes given container volumes.
+    <br>
+    Multiple requests for a volume, when deletion is already in progress, will
+    not return any fault. This operation will make the volume unavailable for
+    any attach, update and query operation.
+    <br>
+    Following privileges will be required on specified entities, to perform
+    this operation:
+    <ul>
+    <li>Datastore.FileManagement on all involved Datastores, required for block
+                             volume only</li>
+    </ul>
+    Faults that can be set in individual result entry, corresponding to each
+    volume ID instance in input:
+    <ul>
+    <li>vmodl.fault.InvalidArgument set in case of empty volume ID</li>
+    <li>vim.fault.NotFound          set in case of the volume can not be found.</li>
+    <li>vim.fault.CnsFault          set in case of any other failure scenario.</li>
+    </ul>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Dynamic - See discussion above</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cns.VolumeManager.html">CnsVolumeManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>volumeIds</strong></td><td><a href="vim.cns.VolumeId.html">CnsVolumeId[]</a></td><td>
+<p></p>
+         List of <a href="vim.cns.VolumeId.html">CnsVolumeId</a> for the volumes to be deleted.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>deleteDisk</strong></td><td>xsd:boolean</td><td>
+<p></p>
+         Disk is the backing object for each container volume
+                      specified in volumeIds list. If set to true, the backing
+                      objects specified in volumeIds list will be deleted. If
+                      set to false, the backing objects specified in volumeIds
+                      list will not be deleted but will no longer be a
+                      container volume.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td><a href="vim.Task.html">Task</a> to track the progress and overall state of this operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.CnsFault.html">CnsFault</a></td><td>Thrown for all other failure scenario.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>This API supports input size of 1 only. If more or less than one entries are passed as input, this exception will be thrown and operation will fail.<br> This exception will be thrown when invalid format for VolumeId vim.cns.VolumeId.id is passed, volume IDs are not present etc.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the volume can not be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('CnsDeleteVolume-textarea');expandcontent(this, 'CnsDeleteVolume-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="CnsDeleteVolume-div">
+<textarea cols="20" rows="10" name="CnsDeleteVolume-textarea" wrap="off" readonly="1" id="CnsDeleteVolume-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsDeleteVolume" type="vsan:CnsDeleteVolumeRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsDeleteVolumeResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="detach" name="detach"></a>
+<h1>CnsDetachVolume(detach)</h1>
+<p></p>
+         Detaches volumes and makes those volumes unavailable for consumption. If a
+    volume is already detached, this operation will pass, without any failure
+    for that volume.
+    <br>
+    Following privileges will be required on specified entities, to perform
+    this operation:
+    <ul>
+    <li>Datastore.FileManagement on datastores specified in input, required for
+                            block volume only</li>
+    <li>VirtualMachine.Config.RemoveDisk on VM specified in the input</li>
+    </ul>
+    Faults that can be set in individual result entry, corresponding to each
+    VolumeAttachDetachSpec instance in input:
+    <ul>
+    <li>vmodl.fault.InvalidArgument set in case of invalid input arguments, like empty
+                                    strings, invalid formats, invalid combination of
+                                    inputs, such as the volume is not attached to any VM,
+                                    or the volume is not attached to the VM specfied.</li>
+    <li>vim.fault.NotFound          set in case of the volume can not be found.</li>
+    <li>vim.fault.CnsFault          set in case of any other failure scenario.</li>
+    </ul>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Dynamic - See discussion above</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cns.VolumeManager.html">CnsVolumeManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>detachSpecs</strong></td><td><a href="vim.cns.VolumeAttachDetachSpec.html">CnsVolumeAttachDetachSpec[]</a></td><td>
+<p></p>
+         Specification for detach operation
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td><a href="vim.Task.html">Task</a> to track the progress and overall state of this operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.CnsFault.html">CnsFault</a></td><td>Thrown for all other failure scenario.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>This API supports input size of 1 only. If more or less than one entries are passed as input, this exception will be thrown and operation will fail. This fault will occur when the volume is not attached to any VM or the volume is not attached to the VM specified etc.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the volume can not be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('CnsDetachVolume-textarea');expandcontent(this, 'CnsDetachVolume-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="CnsDetachVolume-div">
+<textarea cols="20" rows="10" name="CnsDetachVolume-textarea" wrap="off" readonly="1" id="CnsDetachVolume-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsDetachVolume" type="vsan:CnsDetachVolumeRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsDetachVolumeResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="query" name="query"></a>
+<h1>CnsQueryVolume(query)</h1>
+<p></p>
+         Returns container volumes matching criteria set in the filter.
+    <br>
+    This API will not return partial result in case of invalid input, like empty
+    volume ID, volume name fields and so on. In case of valid inputs, e.g.
+    non-empty volume ID, if the output doesn't contain information for that volume
+    that would mean that CNS is not aware of the existence of that volume.
+    Note that there could be duplicate volumes or missing volumes across
+    multiple pages returned by this API when there are parallel volume
+    provisioning operations like create, delete are in progress.
+    <br>
+    Following privileges will be required on specified entities, to perform
+    this operation:
+    <ul>
+    <li>Cns.Searchable on RootFolder to search over all container volumes</li>
+    </ul>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Dynamic - See discussion above</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cns.VolumeManager.html">CnsVolumeManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>filter</strong></td><td><a href="vim.cns.QueryFilter.html">CnsQueryFilter</a></td><td>
+<p></p>
+         All container volumes matching the criteria set in the filter
+           will be returned. See <a href="vim.cns.QueryFilter.html">CnsQueryFilter</a>
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.cns.QueryResult.html">CnsQueryResult</a></td><td>Array of <a href="vim.cns.Volume.html">CnsVolume</a> matching the input criteria</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.CnsFault.html">CnsFault</a></td><td>Thrown for all other failure scenarios</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>Thrown in case of invalid input arguments, like empty strings, invalid formats, invalid combination of inputs</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('CnsQueryVolume-textarea');expandcontent(this, 'CnsQueryVolume-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="CnsQueryVolume-div">
+<textarea cols="20" rows="10" name="CnsQueryVolume-textarea" wrap="off" readonly="1" id="CnsQueryVolume-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsQueryVolume" type="vsan:CnsQueryVolumeRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsQueryVolumeResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:CnsQueryResult"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="updateVolumeMetadata" name="updateVolumeMetadata"></a>
+<h1>CnsUpdateVolumeMetadata(updateVolumeMetadata)</h1>
+<p></p>
+         Updates volume metadata, namely labels and container cluster information for the
+    container volumes.
+    <br>
+    Following privileges will be required on specified entities, to perform
+    this operation:
+    <ul>
+    <li>Datastore.FileManagement on datastores specified in input, required for
+                             block volume only</li>
+    </ul>
+    Faults that can be set in individual result entry, corresponding to each
+    VolumeMetadataUpdateSpec instance in input:
+    <ul>
+    <li>vmodl.fault.InvalidArgument set in case of invalid but non-empty volume id.</li>
+    <li>vim.fault.NotFound          set in case of the volume can not be found.</li>
+    <li>vim.fault.CnsFault          set in case of any other failure scenario.</li>
+    </ul>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Dynamic - See discussion above</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cns.VolumeManager.html">CnsVolumeManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>updateSpecs</strong></td><td><a href="vim.cns.VolumeMetadataUpdateSpec.html">CnsVolumeMetadataUpdateSpec[]</a></td><td>
+<p></p>
+         Specifications for volumes to be updated.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td><a href="vim.Task.html">Task</a> vCenter Task to track the progress and overall state of this operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.CnsFault.html">CnsFault</a></td><td>Thrown for all other failure scenario.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>Thrown if: <ul> <li>Input size is not equal to 1 </li> <li>Volume id in input spec is empty.</li> <li>Volume metadata in input spec has empty cluster info.</li> <li>Entity objects in volume metadata has empty or invalid attributes.</li> <li>EntityMetadata in volume metadata contains duplicate entity types.</li> </ul></td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the volume can not be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('CnsUpdateVolumeMetadata-textarea');expandcontent(this, 'CnsUpdateVolumeMetadata-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="CnsUpdateVolumeMetadata-div">
+<textarea cols="20" rows="10" name="CnsUpdateVolumeMetadata-textarea" wrap="off" readonly="1" id="CnsUpdateVolumeMetadata-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsUpdateVolumeMetadata" type="vsan:CnsUpdateVolumeMetadataRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CnsUpdateVolumeMetadataResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

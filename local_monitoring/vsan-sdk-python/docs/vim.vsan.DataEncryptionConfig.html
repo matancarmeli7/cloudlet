@@ -1,0 +1,192 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vsan.DataEncryptionConfig" name="vim.vsan.DataEncryptionConfig"></a>
+<h1>Data Object - VsanDataEncryptionConfig(vim.vsan.DataEncryptionConfig)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.vsan.host.DiskMapInfoEx.html#field_detail">VimVsanHostDiskMapInfoEx</a>, <a href="vim.vsan.ReconfigSpec.html#field_detail">VimVsanReconfigSpec</a>, <a href="vim.vsan.ConfigInfoEx.html#field_detail">VsanConfigInfoEx</a>, <a href="vim.cluster.VsanDiskFormatConversionSpec.html#field_detail">VsanDiskFormatConversionSpec</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.encryption.KeyProviderId.html">KeyProviderId</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.6</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         The data encryption spec of a vSAN cluster.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="changing" name="changing"></a><strong>changing</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Whether Encryption has finished enabling or disabling operation.
+ 
+    When changing is true, then encryption has not finished enabling or
+    disabling. Changing will become false once all hosts currently in
+    the cluster have adapted to the current setting of encryptionEnabled.
+    No guarantee can be made that all data will be encrypted
+    until changing is false and encryptionEnabled is true.
+ 
+    This value can be read, but should never be set by API callers
+    Reconfiguring a cluster.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="dekGenerationId" name="dekGenerationId"></a><strong>dekGenerationId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         DEK generation number of the vSAN cluster.
+    Do not set a generation number for this when reconfiguring vSAN
+    encryption because such a field will be created and managed automatically
+    by vSAN.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="encryptionEnabled" name="encryptionEnabled"></a><strong>encryptionEnabled</strong></td><td>xsd:boolean</td><td>
+<p></p>
+         Is data encryption enabled on the cluster?
+ 
+    Enabling encryption on a cluster will proceed to encrypt all the hosts.
+    Progress of this can be tracked by the changing flag and the reconfigure
+    task.
+    Disabling encryption, will expose all previously encrypted data in the
+    clear.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="eraseDisksBeforeUse" name="eraseDisksBeforeUse"></a><strong>eraseDisksBeforeUse</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Whether disks should be wiped when a normal disk is converted to
+    encrypted disk, or a disk is claimed as encrypted disk, or a disk
+    runs deep rekey. If set true, every sector on a disk will be written
+    with random data. Disk wipe does significantly reduce the possibility
+    of data leak and increases the attacker's cost to reveal sensitive
+    data. The disadvantage of disk wipe is that it takes a long time to
+    finish, so turn it on through UI or API only when necessary. If not
+    set, disk won't be wiped.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="hostKeyId" name="hostKeyId"></a><strong>hostKeyId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The Id of host key which is used for host core dump encryption.
+ 
+    Do not set this value when reconfiguring vSAN encryption, because
+    such key will be created automatically from key management server.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="kekId" name="kekId"></a><strong>kekId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The KEK Id of the KMS cluster to use.
+ 
+    Do not set a key's Id for this when reconfiguring vSAN encryption,
+    because such key will be created automatically from key management server.
+    There is rare use case to put a valid key Id here, for example, when
+    restoring configuration for the cluster from existing running hosts.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="kmsProviderId" name="kmsProviderId"></a><strong>kmsProviderId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.encryption.KeyProviderId.html">KeyProviderId</a></td><td>
+<p></p>
+         The Id of the KMS cluster to use for vSAN Encryption. Keys will be created on
+    and used from this KMS. This parameter is ignored if encryption is disabled.
+    It must be set to a valid KMS cluster ID if encryption is enabled.
+ 
+    When it is already an encrypted vSAN cluster and a different value of
+    kmsProviderId is provided, it will switch to the new KMS cluster as specified
+    by new kmsProviderId. A new KEK Id will also be created in the new KMS
+    cluster and a shallow rekey is performed to use the new KEK.
+ 
+    See <a href="vim.encryption.CryptoManagerKmip.html#kmipServers">kmipServers</a> and
+    <a href="vim.encryption.KmipClusterInfo.html">KmipClusterInfo</a>
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r1">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanDataEncryptionConfig">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="encryptionEnabled" type="xsd:boolean"/>
+                     <element name="kmsProviderId" type="vsan:KeyProviderId" minOccurs="0"/>
+                     <element name="kekId" type="xsd:string" minOccurs="0"/>
+                     <element name="hostKeyId" type="xsd:string" minOccurs="0"/>
+                     <element name="dekGenerationId" type="xsd:long" minOccurs="0"/>
+                     <element name="changing" type="xsd:boolean" minOccurs="0"/>
+                     <element name="eraseDisksBeforeUse" type="xsd:boolean" minOccurs="0"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

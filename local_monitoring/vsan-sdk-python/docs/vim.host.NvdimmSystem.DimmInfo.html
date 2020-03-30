@@ -1,0 +1,177 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.host.NvdimmSystem.DimmInfo" name="vim.host.NvdimmSystem.DimmInfo"></a>
+<h1>Data Object - NvdimmDimmInfo(vim.host.NvdimmSystem.DimmInfo)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.host.NvdimmSystem.NvdimmSystemInfo.html#field_detail">NvdimmSystemInfo</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.host.NvdimmSystem.HealthInfo.html">NvdimmHealthInfo</a>, <a href="vim.host.NvdimmSystem.RegionInfo.html">NvdimmRegionInfo</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         Get detailed information of a nvdimm
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="availablePersistentCapacity" name="availablePersistentCapacity"></a><strong>availablePersistentCapacity</strong></td><td>xsd:long</td><td>
+<p></p>
+         Persistent Capacity in DIMM currently not allocated
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="availableVolatileCapacity" name="availableVolatileCapacity"></a><strong>availableVolatileCapacity</strong></td><td>xsd:long</td><td>
+<p></p>
+         Volatile capacity in DIMM currently not allocated
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="blockCapacity" name="blockCapacity"></a><strong>blockCapacity</strong></td><td>xsd:long</td><td>
+<p></p>
+         Total block capacity in DIMM (in bytes)
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="dimmHandle" name="dimmHandle"></a><strong>dimmHandle</strong></td><td>xsd:int</td><td>
+<p></p>
+         Unique device identifier
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="healthInfo" name="healthInfo"></a><strong>healthInfo</strong></td><td><a href="vim.host.NvdimmSystem.HealthInfo.html">NvdimmHealthInfo</a></td><td>
+<p></p>
+         Health status of nvdimm.
+  HealthInfo
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="persistentCapacity" name="persistentCapacity"></a><strong>persistentCapacity</strong></td><td>xsd:long</td><td>
+<p></p>
+         Total persistent capacity in DIMM (in bytes)
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="regionInfo" name="regionInfo"></a><strong>regionInfo</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.host.NvdimmSystem.RegionInfo.html">NvdimmRegionInfo[]</a></td><td>
+<p></p>
+         NVDIMM region information.
+ List of regions in the NVDIMM. These regions may or maynot
+ be a part of an interleave set.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="representationString" name="representationString"></a><strong>representationString</strong></td><td>xsd:string</td><td>
+<p></p>
+         NVDIMM Representation string which is a sequence of
+ numbers to uniquely identify the DIMM.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="totalCapacity" name="totalCapacity"></a><strong>totalCapacity</strong></td><td>xsd:long</td><td>
+<p></p>
+         Total capacity of NVDIMM in bytes
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="volatileCapacity" name="volatileCapacity"></a><strong>volatileCapacity</strong></td><td>xsd:long</td><td>
+<p></p>
+         Total volatile capacity in DIMM (in bytes)
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="NvdimmDimmInfo">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="dimmHandle" type="xsd:int"/>
+                     <element name="healthInfo" type="vsan:NvdimmHealthInfo"/>
+                     <element name="totalCapacity" type="xsd:long"/>
+                     <element name="persistentCapacity" type="xsd:long"/>
+                     <element name="availablePersistentCapacity" type="xsd:long"/>
+                     <element name="volatileCapacity" type="xsd:long"/>
+                     <element name="availableVolatileCapacity" type="xsd:long"/>
+                     <element name="blockCapacity" type="xsd:long"/>
+                     <element name="regionInfo" type="vsan:NvdimmRegionInfo" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="representationString" type="xsd:string"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

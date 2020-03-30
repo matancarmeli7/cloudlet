@@ -1,0 +1,171 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vsan.host.VsanSyncingObjectRecoveryDetails" name="vim.vsan.host.VsanSyncingObjectRecoveryDetails"></a>
+<h1>Data Object - VsanSyncingObjectRecoveryDetails(vim.vsan.host.VsanSyncingObjectRecoveryDetails)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.vsan.host.VsanSyncingObjectQueryResult.html#field_detail">VsanHostVsanObjectSyncQueryResult</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.8.7</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         This data object type describes details returned from querying
+          vSAN syncing components for different sync status.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="activelySyncingObjectRecoveryETA" name="activelySyncingObjectRecoveryETA"></a><strong>activelySyncingObjectRecoveryETA</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         It calculates the estimated time in seconds to recover objects
+          actively syncing.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="activeObjectsToSync" name="activeObjectsToSync"></a><strong>activeObjectsToSync</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The number of objects that are actively syncing.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="bytesToSyncForActiveObjects" name="bytesToSyncForActiveObjects"></a><strong>bytesToSyncForActiveObjects</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The amount of data in bytes to be synced for the objects which are
+          actively syncing.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="bytesToSyncForQueuedObjects" name="bytesToSyncForQueuedObjects"></a><strong>bytesToSyncForQueuedObjects</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The amount of data in bytes to be synced for the objects which are
+          in queue and for which the sync has not been started yet.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="bytesToSyncForSuspendedObjects" name="bytesToSyncForSuspendedObjects"></a><strong>bytesToSyncForSuspendedObjects</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The amount of data in bytes to be synced for the objects which are
+          in suspended state.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="queuedForSyncObjectRecoveryETA" name="queuedForSyncObjectRecoveryETA"></a><strong>queuedForSyncObjectRecoveryETA</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The estimated time in seconds to recover objects which are in queue and sync/recovery
+          has not been started for the objects. This includes time in wait queue and required
+          to finish the sync.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="queuedObjectsToSync" name="queuedObjectsToSync"></a><strong>queuedObjectsToSync</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The number of objects which are in queue and
+          for which the sync has not been started yet.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="suspendedObjectRecoveryETA" name="suspendedObjectRecoveryETA"></a><strong>suspendedObjectRecoveryETA</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The estimated time in seconds to recover objects which are in suspended
+          state. Suspended object ETA is predicted based on the current syncing
+          bandwidth and it can vary.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="suspendedObjectsToSync" name="suspendedObjectsToSync"></a><strong>suspendedObjectsToSync</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The number of objects which are in suspended state.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r1">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanSyncingObjectRecoveryDetails">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="activelySyncingObjectRecoveryETA" type="xsd:long" minOccurs="0"/>
+                     <element name="queuedForSyncObjectRecoveryETA" type="xsd:long" minOccurs="0"/>
+                     <element name="suspendedObjectRecoveryETA" type="xsd:long" minOccurs="0"/>
+                     <element name="activeObjectsToSync" type="xsd:long" minOccurs="0"/>
+                     <element name="queuedObjectsToSync" type="xsd:long" minOccurs="0"/>
+                     <element name="suspendedObjectsToSync" type="xsd:long" minOccurs="0"/>
+                     <element name="bytesToSyncForActiveObjects" type="xsd:long" minOccurs="0"/>
+                     <element name="bytesToSyncForQueuedObjects" type="xsd:long" minOccurs="0"/>
+                     <element name="bytesToSyncForSuspendedObjects" type="xsd:long" minOccurs="0"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

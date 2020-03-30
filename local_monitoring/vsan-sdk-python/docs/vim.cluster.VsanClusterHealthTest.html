@@ -1,0 +1,184 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.cluster.VsanClusterHealthTest" name="vim.cluster.VsanClusterHealthTest"></a>
+<h1>Data Object - VsanClusterHealthTest(vim.cluster.VsanClusterHealthTest)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.cluster.VsanClusterHealthGroup.html#field_detail">VsanClusterHealthGroup</a>, <a href="vim.cluster.VsanClusterProactiveTestResult.html#field_detail">VsanClusterProactiveTestResult</a>, <a href="vim.cluster.VsanHealthExtMgmtPreCheckResult.html#field_detail">VsanHealthExtMgmtPreCheckResult</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.cluster.VsanClusterHealthAction.html">VsanClusterHealthAction</a>, <a href="vim.cluster.VsanClusterHealthResultBase.html">VsanClusterHealthResultBase</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 5.5</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         The generic class for the vSAN cluster health test result.
+    All of the text message in this class will be localized except for
+    test ID.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="testActions" name="testActions"></a><strong>testActions</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanClusterHealthAction.html">VsanClusterHealthAction[]</a></td><td>
+<p></p>
+         The actions needed by user for potential vSAN health problem.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="testAllEntities" name="testAllEntities"></a><strong>testAllEntities</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:int</td><td>
+<p></p>
+         The number of entities examined by the current test.
+ 
+    Each test can set this field to the number of examined entities. For example
+    if the test checks the connectivity of the hosts, this field should be set to
+    the number of hosts that are being tested.
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.7<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="testDescription" name="testDescription"></a><strong>testDescription</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The full test description.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="testDetails" name="testDetails"></a><strong>testDetails</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanClusterHealthResultBase.html">VsanClusterHealthResultBase[]</a></td><td>
+<p></p>
+         The test result data. Each data item include the UI presentation structure
+    and the actual value.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="testHealth" name="testHealth"></a><strong>testHealth</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The test result enumeration. The possible values are
+    'green', 'yellow', 'red', 'unknown', or 'info'.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="testHealthyEntities" name="testHealthyEntities"></a><strong>testHealthyEntities</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:int</td><td>
+<p></p>
+         The number of entities considered healthy in the context of the current test.
+ 
+    Each test can set this field to the number of entities that are heatlhy
+    in the context of its execution. For example if the test examines the connectivity
+    state of the hosts, the healthy entities in its context are the "connected"
+    hosts. This field is optional as not all tests can have "healthy" objects.
+    An example for such tests are the tests that contain only errors. In such context
+    there is no "healthy" entity so the test should leave this field unset.
+      <p></p>
+<B><I>Since </I></B>vSAN API 6.7<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="testId" name="testId"></a><strong>testId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         A unique ID for this test (i.e., In the vsphere web client, this is used as a ID for
+    composing the AskVmware link, for example:
+    http://www.vmware.com/esx/support/askvmware/index.php?eventtype=&lt;id&gt;&language=en_US).
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="testName" name="testName"></a><strong>testName</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The name for this health test.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="testShortDescription" name="testShortDescription"></a><strong>testShortDescription</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The short test description.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r1">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanClusterHealthTest">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="testId" type="xsd:string" minOccurs="0"/>
+                     <element name="testName" type="xsd:string" minOccurs="0"/>
+                     <element name="testDescription" type="xsd:string" minOccurs="0"/>
+                     <element name="testShortDescription" type="xsd:string" minOccurs="0"/>
+                     <element name="testHealthyEntities" type="xsd:int" minOccurs="0"/>
+                     <element name="testAllEntities" type="xsd:int" minOccurs="0"/>
+                     <element name="testHealth" type="xsd:string" minOccurs="0"/>
+                     <element name="testDetails" type="vsan:VsanClusterHealthResultBase" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="testActions" type="vsan:VsanClusterHealthAction" minOccurs="0" maxOccurs="unbounded"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

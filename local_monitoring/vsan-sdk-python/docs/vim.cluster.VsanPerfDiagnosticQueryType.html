@@ -1,0 +1,100 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.cluster.VsanPerfDiagnosticQueryType" name="vim.cluster.VsanPerfDiagnosticQueryType"></a>
+<h1>Enum - 
+						VsanPerfDiagnosticQueryType(vim.cluster.VsanPerfDiagnosticQueryType)</h1>
+<dl>
+<dt>Since </dt>
+<dd>vSAN API 6.6</dd>
+<p></p>
+</dl>
+<br>
+<h2>Enum Description</h2>
+<p></p>
+         The query type indicating the goal of the vSAN performance diagnostic
+    query, with the following values.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Enum Constants</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><a id="eval" name="eval"></a>eval</td><td>
+      This query type is for general evaluation of the cluster. This mode is available for experiments only and not certified for production use.
+   <br>
+</td>
+</tr>
+<tr class="r0">
+<td><a id="iops" name="iops"></a>iops</td><td>
+      This query type is for a benchmarking test diagnosing if the best IOPS was achieved on the vSAN cluster.
+   <br>
+</td>
+</tr>
+<tr class="r1">
+<td><a id="lat" name="lat"></a>lat</td><td>
+      This query type is for a benchmarking test diagnosing if the best latency was achieved on the vSAN cluster.
+   <br>
+</td>
+</tr>
+<tr class="r0">
+<td><a id="tput" name="tput"></a>tput</td><td>
+      This query type is for a benchmarking test diagnosing if the best throughput was achieved on the vSAN cluster.
+   <br>
+</td>
+</tr>
+<tr class="r1">
+<td><a id="VsanPerfDiagnosticQueryType_Unknown" name="VsanPerfDiagnosticQueryType_Unknown"></a>VsanPerfDiagnosticQueryType_Unknown</td><td>
+      represent the value when the lower version client cannot recognize the enum value.
+   <br>
+</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <simpleType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanPerfDiagnosticQueryType">
+            <restriction base="xsd:string">
+               <enumeration value="iops"/>
+               <enumeration value="lat"/>
+               <enumeration value="tput"/>
+               <enumeration value="VsanPerfDiagnosticQueryType_Unknown"/>
+               <enumeration value="eval"/>
+            </restriction>
+         </simpleType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

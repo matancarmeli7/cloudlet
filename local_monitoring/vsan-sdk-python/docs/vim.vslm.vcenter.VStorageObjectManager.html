@@ -1,0 +1,3218 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vslm.vcenter.VStorageObjectManager" name="vim.vslm.vcenter.VStorageObjectManager"></a>
+<h1>Managed Object -  
+						VcenterVStorageObjectManager(vim.vslm.vcenter.VStorageObjectManager)</h1>
+<dl>
+<dt>Extends</dt>
+<dd>
+<a href="vim.vslm.VStorageObjectManagerBase.html">VStorageObjectManagerBase</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.encryption.CryptoSpec.html">CryptoSpec</a>, <a href="vim.Datastore.html">Datastore</a>, <a href="vim.vslm.ID.html">ID</a>, <a href="vim.vslm.vcenter.RetrieveVStorageObjSpec.html">RetrieveVStorageObjSpec</a>, <a href="vim.vm.ProfileSpec.html">VirtualMachineProfileSpec</a>, <a href="vim.vslm.CloneSpec.html">VslmCloneSpec</a>, <a href="vim.vslm.CreateSpec.html">VslmCreateSpec</a>, <a href="vim.vslm.InfrastructureObjectPolicy.html">vslmInfrastructureObjectPolicy</a>, <a href="vim.vslm.InfrastructureObjectPolicySpec.html">vslmInfrastructureObjectPolicySpec</a>, <a href="vim.vslm.RelocateSpec.html">VslmRelocateSpec</a>, <a href="vim.vslm.TagEntry.html">VslmTagEntry</a>, <a href="vim.vslm.VStorageObject.html">VStorageObject</a>, <a href="vim.vslm.vcenter.VStorageObjectAssociations.html">VStorageObjectAssociations</a>, <a href="vim.vslm.VStorageObjectSnapshotInfo.html">VStorageObjectSnapshotInfo</a>, <a href="vim.vslm.StateInfo.html">VStorageObjectStateInfo</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.5</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         Interface to manage virtual storage object on a vCenter.
+
+ VStorageObjectManager and SPBM policy support:
+
+ All of the VStorageObjectManager APIs requiring ESXi host
+ uses "Programatically selected" host to perform the actual operation.
+ If the selected host is of 6.5 version then policy would not be passed
+ down to host. In that case, user operation would succeed but if user checks
+ SPBM Entity Compliance, it will show "Mismatch" / "Non Compliant" as a
+ compliance result.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+<tr class="r1">
+<td colspan="3">
+						Properties inherited from <a href="vim.vslm.VStorageObjectManagerBase.html">VStorageObjectManagerBase</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#attachTagToVStorageObject">AttachTagToVStorageObject</a>, <a href="#clearVStorageObjectControlFlags">ClearVStorageObjectControlFlags</a>, <a href="#cloneVStorageObject">CloneVStorageObject_Task</a>, <a href="#createDisk">CreateDisk_Task</a>, <a href="#createDiskFromSnapshot">CreateDiskFromSnapshot_Task</a>, <a href="#deleteSnapshot">DeleteSnapshot_Task</a>, <a href="#deleteVStorageObject">DeleteVStorageObject_Task</a>, <a href="#detachTagFromVStorageObject">DetachTagFromVStorageObject</a>, <a href="#extendDisk">ExtendDisk_Task</a>, <a href="#inflateDisk">InflateDisk_Task</a>, <a href="#listTagsAttachedToVStorageObject">ListTagsAttachedToVStorageObject</a>, <a href="#listVStorageObject">ListVStorageObject</a>, <a href="#listVStorageObjectsAttachedToTag">ListVStorageObjectsAttachedToTag</a>, <a href="#reconcileDatastoreInventory">ReconcileDatastoreInventory_Task</a>, <a href="#registerDisk">RegisterDisk</a>, <a href="#relocateVStorageObject">RelocateVStorageObject_Task</a>, <a href="#renameVStorageObject">RenameVStorageObject</a>, <a href="#retrieveSnapshotInfo">RetrieveSnapshotInfo</a>, <a href="#retrieveVStorageInfrastructureObjectPolicy">RetrieveVStorageInfrastructureObjectPolicy</a>, <a href="#retrieveVStorageObject">RetrieveVStorageObject</a>, <a href="#retrieveVStorageObjectAssociations">RetrieveVStorageObjectAssociations</a>, <a href="#retrieveVStorageObjectState">RetrieveVStorageObjectState</a>, <a href="#RevertVStorageObject">RevertVStorageObject_Task</a>, <a href="#scheduleReconcileDatastoreInventory">ScheduleReconcileDatastoreInventory</a>, <a href="#setVStorageObjectControlFlags">SetVStorageObjectControlFlags</a>, <a href="#updateVStorageInfrastructureObjectPolicy">UpdateVStorageInfrastructureObjectPolicy_Task</a>, <a href="#updateVStorageObjectPolicy">UpdateVStorageObjectPolicy_Task</a>, <a href="#createSnapshot">VStorageObjectCreateSnapshot_Task</a></td>
+</tr>
+<tr class="r1">
+<td>
+            Methods inherited from <a href="vim.vslm.VStorageObjectManagerBase.html">VStorageObjectManagerBase</a></td>
+</tr>
+<tr class="r0">
+<td>None</td>
+</tr>
+</table>
+<br>
+<a id="attachTagToVStorageObject" name="attachTagToVStorageObject"></a>
+<h1>AttachTagToVStorageObject(attachTagToVStorageObject)</h1>
+<p></p>
+         Attach a tag to a virtual storage object.
+  <p>
+  Requires privilege InventoryService.Tagging.AttachTag on root folder
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The identifier(ID) of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>category</strong></td><td>xsd:string</td><td>
+<p></p>
+         The category to which the tag belongs.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>tag</strong></td><td>xsd:string</td><td>
+<p></p>
+         The tag which has to be associated with the virtual storage
+             object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified category or tag cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('AttachTagToVStorageObject-textarea');expandcontent(this, 'AttachTagToVStorageObject-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="AttachTagToVStorageObject-div">
+<textarea cols="20" rows="10" name="AttachTagToVStorageObject-textarea" wrap="off" readonly="1" id="AttachTagToVStorageObject-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="AttachTagToVStorageObject" type="vsan:AttachTagToVStorageObjectRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="AttachTagToVStorageObjectResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="clearVStorageObjectControlFlags" name="clearVStorageObjectControlFlags"></a>
+<h1>ClearVStorageObjectControlFlags(clearVStorageObjectControlFlags)</h1>
+<p></p>
+         Clear control flags on VStorageObject.
+  <p>
+  Requires Datastore.FileManagement privilege on both source and
+  destination datastore.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage
+                   object is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>controlFlags</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         control flags enum array to be cleared on the
+                      VStorageObject. All control flags not included
+                      in the array remain intact.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk. The disk may be consumed.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('ClearVStorageObjectControlFlags-textarea');expandcontent(this, 'ClearVStorageObjectControlFlags-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="ClearVStorageObjectControlFlags-div">
+<textarea cols="20" rows="10" name="ClearVStorageObjectControlFlags-textarea" wrap="off" readonly="1" id="ClearVStorageObjectControlFlags-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ClearVStorageObjectControlFlags" type="vsan:ClearVStorageObjectControlFlagsRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ClearVStorageObjectControlFlagsResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="cloneVStorageObject" name="cloneVStorageObject"></a>
+<h1>CloneVStorageObject_Task(cloneVStorageObject)</h1>
+<p></p>
+         Clone a virtual storage object.
+  <p>
+  Requires Datastore.FileManagement privilege on both source and
+  destination datastore.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage object
+                   is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>spec</strong></td><td><a href="vim.vslm.CloneSpec.html">VslmCloneSpec</a></td><td>
+<p></p>
+         The specification for cloning the virtual storage
+              object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while cloning the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="createDisk" name="createDisk"></a>
+<h1>CreateDisk_Task(createDisk)</h1>
+<p></p>
+         Create a virtual disk, which is a storage object with
+  <a href="vim.vslm.VStorageObject.ConsumptionType.html#disk">disk</a>
+  as consumption type.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual disk object is created.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>spec</strong></td><td><a href="vim.vslm.CreateSpec.html">VslmCreateSpec</a></td><td>
+<p></p>
+         The specification of the virtual storage object
+              to be created.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>This method returns a <a href="vim.Task.html">Task</a> object with which to monitor monitor the operation. The <a href="vim.TaskInfo.html#result">info.result</a> property in the <a href="vim.Task.html">Task</a> contains the newly created <a href="vim.vslm.VStorageObject.html">VStorageObject</a> upon success.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs when creating the virtual disk.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="createDiskFromSnapshot" name="createDiskFromSnapshot"></a>
+<h1>CreateDiskFromSnapshot_Task(createDiskFromSnapshot)</h1>
+<p></p>
+         Creates a new Disk from given snapshot of a VStorageObject.
+ <p>
+ Requires Datastore.FileManagement privilege.
+ <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage object
+                  is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>snapshotId</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the snapshot of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>name</strong></td><td>xsd:string</td><td>
+<p></p>
+         A user friendly name to be associated with the new disk.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>profile</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vm.ProfileSpec.html">VirtualMachineProfileSpec[]</a></td><td>
+<p></p>
+         SPBM Profile requirement on the new virtual storage object.
+                If not specified datastore default policy would be
+                assigned.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>crypto</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.encryption.CryptoSpec.html">CryptoSpec</a></td><td>
+<p></p>
+         Crypto information of the new disk.
+               If unset and if profile contains an encryption iofilter and
+               if snapshto is unencrypted, then cyrpto will be of
+               type CryptoSpecEncrypt, and filled with keyId that is
+               automatically generated and keyProviderId that is the
+               default kms cluster.
+               If unset and if profile is a default policy and if snapshot
+               is unenrypted, then crypto is treated as CryptoSpecNoOp.
+               If unset and if profile contains an encryption iofilter and
+               if snapshot is encrypted, then cyrpto is treated as
+               CryptoSpecNoOp.
+               If unset and if profile is a default policy and if
+               snapshot is encrypted, then cyrpto is treated as
+               CryptoSpecDecrypt.
+               To recrypt the disk during creating disk, crypto has to be
+               present.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>path</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         Relative location in the specified datastore where disk needs
+             to be created. If not specified disk gets created at the
+             defualt VStorageObject location on the specified datastore.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while snapshotting the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="deleteSnapshot" name="deleteSnapshot"></a>
+<h1>DeleteSnapshot_Task(deleteSnapshot)</h1>
+<p></p>
+         Deletes a given snapshot of a VStorageObject.
+ <p>
+ Requires Datastore.FileManagement privilege.
+ <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage object
+                  is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>snapshotId</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the snapshot of a virtual storage object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while snapshotting the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="deleteVStorageObject" name="deleteVStorageObject"></a>
+<h1>DeleteVStorageObject_Task(deleteVStorageObject)</h1>
+<p></p>
+         Delete a virtual storage object and its associated backings.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual storage object is located.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object to be deleted.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the virtual storage object
+                   is located.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>This method returns a <a href="vim.Task.html">Task</a> object with which to monitor the operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs when deleting the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk. The disk may be consumed and cannot be deleted.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.TaskInProgress.html">TaskInProgress</a></td><td>Thrown if the virtual storage object is busy.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="detachTagFromVStorageObject" name="detachTagFromVStorageObject"></a>
+<h1>DetachTagFromVStorageObject(detachTagFromVStorageObject)</h1>
+<p></p>
+         Detach a tag from a virtual storage object.
+  <p>
+  Requires privilege InventoryService.Tagging.AttachTag on root folder
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The identifier(ID) of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>category</strong></td><td>xsd:string</td><td>
+<p></p>
+         The category to which the tag belongs.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>tag</strong></td><td>xsd:string</td><td>
+<p></p>
+         The tag which has to be disassociated with the virtual storage
+              object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified category or tag cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('DetachTagFromVStorageObject-textarea');expandcontent(this, 'DetachTagFromVStorageObject-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="DetachTagFromVStorageObject-div">
+<textarea cols="20" rows="10" name="DetachTagFromVStorageObject-textarea" wrap="off" readonly="1" id="DetachTagFromVStorageObject-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="DetachTagFromVStorageObject" type="vsan:DetachTagFromVStorageObjectRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="DetachTagFromVStorageObjectResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="extendDisk" name="extendDisk"></a>
+<h1>ExtendDisk_Task(extendDisk)</h1>
+<p></p>
+         Expand the capacity of a virtual disk, which is a storage object with
+  <a href="vim.vslm.VStorageObject.ConsumptionType.html#disk">disk</a>, to the new
+  capacity.
+
+  The extended disk region will be the same as the original disk:
+  - For a zerothick disk, the extended disk region will be zeroedthick.
+  - For an eagerzerothick disk, the extended disk region will be
+    eagerzeroedthick
+  - A thin-provisioned disk will always be extended as a thin-provisioned
+    disk.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual disk to be extended.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the virtual disk is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>newCapacityInMB</strong></td><td>xsd:long</td><td>
+<p></p>
+         The new capacity of the virtual disk in MB.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>This method returns a <a href="vim.Task.html">Task</a> object with which to monitor the operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while extending the virtual disk.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk. The disk may be consumed and cannot be extended.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.TaskInProgress.html">TaskInProgress</a></td><td>Thrown if the virtual storage object is busy.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="inflateDisk" name="inflateDisk"></a>
+<h1>InflateDisk_Task(inflateDisk)</h1>
+<p></p>
+         Inflate a sparse or thin-provisioned virtual disk up to the full size.
+  Additional space allocated to the disk as a result of this operation
+  will be filled with zeros.
+  <p>
+  Currently inflateDisk API only supports the following combinations:
+  Valid provisioning type: THIN;
+  Valid Datastore: VMFS, NFS.
+  Inflating a disk is not applicable for VVol/VSAN datastore.
+  <p>
+
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual storage object is located.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual disk to be inflated.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the virtual disk is located.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>This method returns a <a href="vim.Task.html">Task</a> object with which to monitor the operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while inflating the virtual disk.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk. The disk may be consumed and cannot be extended.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.TaskInProgress.html">TaskInProgress</a></td><td>Thrown if the virtual storage object is busy.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="listTagsAttachedToVStorageObject" name="listTagsAttachedToVStorageObject"></a>
+<h1>ListTagsAttachedToVStorageObject(listTagsAttachedToVStorageObject)</h1>
+<p></p>
+         Lists all tags attached to virtual storage object.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.TagEntry.html">VslmTagEntry[]</a></td><td>The list of Tag-association tuples associated with the virtual storage object.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified category or tag cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('ListTagsAttachedToVStorageObject-textarea');expandcontent(this, 'ListTagsAttachedToVStorageObject-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="ListTagsAttachedToVStorageObject-div">
+<textarea cols="20" rows="10" name="ListTagsAttachedToVStorageObject-textarea" wrap="off" readonly="1" id="ListTagsAttachedToVStorageObject-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ListTagsAttachedToVStorageObject" type="vsan:ListTagsAttachedToVStorageObjectRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ListTagsAttachedToVStorageObjectResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VslmTagEntry" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="listVStorageObject" name="listVStorageObject"></a>
+<h1>ListVStorageObject(listVStorageObject)</h1>
+<p></p>
+         List all virtual storage objects located on a datastore.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual storage object is located.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore to query for the virtual storage objects.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.ID.html">ID[]</a></td><td>The list of IDs of the virtual storage objects located on the datastore.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore, such as datastore cannot be found or inaccessible.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('ListVStorageObject-textarea');expandcontent(this, 'ListVStorageObject-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="ListVStorageObject-div">
+<textarea cols="20" rows="10" name="ListVStorageObject-textarea" wrap="off" readonly="1" id="ListVStorageObject-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ListVStorageObject" type="vsan:ListVStorageObjectRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ListVStorageObjectResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ID" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="listVStorageObjectsAttachedToTag" name="listVStorageObjectsAttachedToTag"></a>
+<h1>ListVStorageObjectsAttachedToTag(listVStorageObjectsAttachedToTag)</h1>
+<p></p>
+         Lists all virtual storage objects attached to the tag.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>category</strong></td><td>xsd:string</td><td>
+<p></p>
+         The category to which the tag belongs.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>tag</strong></td><td>xsd:string</td><td>
+<p></p>
+         The tag to be queried.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.ID.html">ID[]</a></td><td>The list of IDs of the virtual storage objects.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified category or tag cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('ListVStorageObjectsAttachedToTag-textarea');expandcontent(this, 'ListVStorageObjectsAttachedToTag-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="ListVStorageObjectsAttachedToTag-div">
+<textarea cols="20" rows="10" name="ListVStorageObjectsAttachedToTag-textarea" wrap="off" readonly="1" id="ListVStorageObjectsAttachedToTag-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ListVStorageObjectsAttachedToTag" type="vsan:ListVStorageObjectsAttachedToTagRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ListVStorageObjectsAttachedToTagResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ID" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="reconcileDatastoreInventory" name="reconcileDatastoreInventory"></a>
+<h1>ReconcileDatastoreInventory_Task(reconcileDatastoreInventory)</h1>
+<p></p>
+         Reconcile the datastore inventory info of virtual storage objects.
+  <p>
+  Requires Datastore.FileManagement privilege.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore that needs to be reconciled.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td></td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="registerDisk" name="registerDisk"></a>
+<h1>RegisterDisk(registerDisk)</h1>
+<p></p>
+         Promote a virtual disk to a First Class Disk.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual disk resides.
+  <p><br>See vim.vslm.BaseConfigInfo.name
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>path</strong></td><td>xsd:string</td><td>
+<p></p>
+         URL path to the virtual disk.<br>See vim.vslm.BaseConfigInfo.name
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>name</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The descriptive name of the disk object. If
+              unset the name will be automatically determined
+              from the path.<br>See vim.vslm.BaseConfigInfo.name
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.VStorageObject.html">VStorageObject</a></td><td>The registered virtual storage object for the disk.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.AlreadyExists.html">AlreadyExists</a></td><td>Thrown if disk is already registered as a virtual storage object.<br>See vim.vslm.BaseConfigInfo.name</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while registering the virtual disk.<br>See vim.vslm.BaseConfigInfo.name</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if datastore cannot be found or the operation cannot be performed on the datastore.<br>See vim.vslm.BaseConfigInfo.name</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RegisterDisk-textarea');expandcontent(this, 'RegisterDisk-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RegisterDisk-div">
+<textarea cols="20" rows="10" name="RegisterDisk-textarea" wrap="off" readonly="1" id="RegisterDisk-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RegisterDisk" type="vsan:RegisterDiskRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RegisterDiskResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VStorageObject"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="relocateVStorageObject" name="relocateVStorageObject"></a>
+<h1>RelocateVStorageObject_Task(relocateVStorageObject)</h1>
+<p></p>
+         Relocate a virtual storage object.
+  <p>
+  Requires Datastore.FileManagement privilege on both source and
+  destination datastore.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage object
+                   is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>spec</strong></td><td><a href="vim.vslm.RelocateSpec.html">VslmRelocateSpec</a></td><td>
+<p></p>
+         The specification for relocation of the virtual
+              storage object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while relocating the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk. The disk may be consumed and cannot be relocated.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="renameVStorageObject" name="renameVStorageObject"></a>
+<h1>RenameVStorageObject(renameVStorageObject)</h1>
+<p></p>
+         Rename a virtual storage object.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object to be renamed.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the virtual storage object is
+                   located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>name</strong></td><td>xsd:string</td><td>
+<p></p>
+         The new name for the virtual storage object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while renaming the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RenameVStorageObject-textarea');expandcontent(this, 'RenameVStorageObject-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RenameVStorageObject-div">
+<textarea cols="20" rows="10" name="RenameVStorageObject-textarea" wrap="off" readonly="1" id="RenameVStorageObject-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RenameVStorageObject" type="vsan:RenameVStorageObjectRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RenameVStorageObjectResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="retrieveSnapshotInfo" name="retrieveSnapshotInfo"></a>
+<h1>RetrieveSnapshotInfo(retrieveSnapshotInfo)</h1>
+<p></p>
+         Retrieves snapshot information of a given VStorageObject.
+ <p>
+ Requires Datastore.FileManagement privilege.
+ <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage object
+                  is located.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.VStorageObjectSnapshotInfo.html">VStorageObjectSnapshotInfo</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while snapshotting the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RetrieveSnapshotInfo-textarea');expandcontent(this, 'RetrieveSnapshotInfo-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RetrieveSnapshotInfo-div">
+<textarea cols="20" rows="10" name="RetrieveSnapshotInfo-textarea" wrap="off" readonly="1" id="RetrieveSnapshotInfo-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveSnapshotInfo" type="vsan:RetrieveSnapshotInfoRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveSnapshotInfoResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VStorageObjectSnapshotInfo"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="retrieveVStorageInfrastructureObjectPolicy" name="retrieveVStorageInfrastructureObjectPolicy"></a>
+<h1>RetrieveVStorageInfrastructureObjectPolicy(retrieveVStorageInfrastructureObjectPolicy)</h1>
+<p></p>
+         Retrieve virtual storage infrastructure object SBPM policy on given
+ datastore.
+ Only support VSAN datastore.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual storage infrastructure object is located.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         Datastore on which policy needs to be retrieved.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.InfrastructureObjectPolicy.html">vslmInfrastructureObjectPolicy[]</a></td><td>The policy object of virtual storage object.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RetrieveVStorageInfrastructureObjectPolicy-textarea');expandcontent(this, 'RetrieveVStorageInfrastructureObjectPolicy-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RetrieveVStorageInfrastructureObjectPolicy-div">
+<textarea cols="20" rows="10" name="RetrieveVStorageInfrastructureObjectPolicy-textarea" wrap="off" readonly="1" id="RetrieveVStorageInfrastructureObjectPolicy-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveVStorageInfrastructureObjectPolicy" type="vsan:RetrieveVStorageInfrastructureObjectPolicyRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveVStorageInfrastructureObjectPolicyResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:vslmInfrastructureObjectPolicy" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="retrieveVStorageObject" name="retrieveVStorageObject"></a>
+<h1>RetrieveVStorageObject(retrieveVStorageObject)</h1>
+<p></p>
+         Retrieve a virtual storage object.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual storage object is located.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object to be retrieved.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the virtual storage object is
+                   located.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.VStorageObject.html">VStorageObject</a></td><td>The required virtual storage object.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs when retrieving the virtual object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RetrieveVStorageObject-textarea');expandcontent(this, 'RetrieveVStorageObject-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RetrieveVStorageObject-div">
+<textarea cols="20" rows="10" name="RetrieveVStorageObject-textarea" wrap="off" readonly="1" id="RetrieveVStorageObject-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveVStorageObject" type="vsan:RetrieveVStorageObjectRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveVStorageObjectResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VStorageObject"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="retrieveVStorageObjectAssociations" name="retrieveVStorageObjectAssociations"></a>
+<h1>RetrieveVStorageObjectAssociations(retrieveVStorageObjectAssociations)</h1>
+<p></p>
+         Retrieve vm associations for each virtual storage object in the query.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>ids</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vslm.vcenter.RetrieveVStorageObjSpec.html">RetrieveVStorageObjSpec[]</a></td><td>
+<p></p>
+         The IDs of the virtual storage objects of the query.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.vcenter.VStorageObjectAssociations.html">VStorageObjectAssociations[]</a></td><td>The list of VStorageObjectVmAssociations which provides virtual storage object id to vm associations mapping.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RetrieveVStorageObjectAssociations-textarea');expandcontent(this, 'RetrieveVStorageObjectAssociations-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RetrieveVStorageObjectAssociations-div">
+<textarea cols="20" rows="10" name="RetrieveVStorageObjectAssociations-textarea" wrap="off" readonly="1" id="RetrieveVStorageObjectAssociations-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveVStorageObjectAssociations" type="vsan:RetrieveVStorageObjectAssociationsRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveVStorageObjectAssociationsResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VStorageObjectAssociations" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="retrieveVStorageObjectState" name="retrieveVStorageObjectState"></a>
+<h1>RetrieveVStorageObjectState(retrieveVStorageObjectState)</h1>
+<p></p>
+         Retrieve a virtual storage object state.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual storage object is located.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object the state to be retrieved.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the virtual storage object is
+                   located.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vslm.StateInfo.html">VStorageObjectStateInfo</a></td><td>The required virtual storage object state.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs when retrieving the virtual object state.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RetrieveVStorageObjectState-textarea');expandcontent(this, 'RetrieveVStorageObjectState-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RetrieveVStorageObjectState-div">
+<textarea cols="20" rows="10" name="RetrieveVStorageObjectState-textarea" wrap="off" readonly="1" id="RetrieveVStorageObjectState-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveVStorageObjectState" type="vsan:RetrieveVStorageObjectStateRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveVStorageObjectStateResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VStorageObjectStateInfo"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="RevertVStorageObject" name="RevertVStorageObject"></a>
+<h1>RevertVStorageObject_Task</h1>
+<p></p>
+         Reverts to a given snapshot of a VStorageObject.
+ This operation is supported on detached VirtualDisks
+ During revert all the snapshots which were taken after the specified
+ snapshot would get deleted.
+
+ <p>
+ E.g. Consider Disk with 4 snapshots
+ <p>
+      BaseDisk -> Snap-2 -> Snap-3 -> Snap-4 -> Running-Point
+ <p>
+  If user chooses to revert to snap-2 then snap-4 and snap-3 would also
+  be deleted. After revert operation disk would have below configuration:
+ <p>
+      BaseDisk -> Snap-2 -> Running-Point
+
+ <p>
+ Requires Datastore.FileManagement privilege.
+ <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage object
+                  is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>snapshotId</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the snapshot of a virtual storage object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while snapshotting the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="scheduleReconcileDatastoreInventory" name="scheduleReconcileDatastoreInventory"></a>
+<h1>ScheduleReconcileDatastoreInventory(scheduleReconcileDatastoreInventory)</h1>
+<p></p>
+         Schedules reconcile of the inventory info of virtual storage objects on
+  one of the hosts that is connected with the datastore. This method just
+  schedules the reconcile operation for the nearby future and returns. Note
+  that since the reconcile operation will be executed after this method
+  already returns the success of this method should not be considered as
+  success of the actual reconcile operation.
+  <p>
+  Requires Datastore.FileManagement privilege.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore that needs to be reconciled.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td></td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('ScheduleReconcileDatastoreInventory-textarea');expandcontent(this, 'ScheduleReconcileDatastoreInventory-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="ScheduleReconcileDatastoreInventory-div">
+<textarea cols="20" rows="10" name="ScheduleReconcileDatastoreInventory-textarea" wrap="off" readonly="1" id="ScheduleReconcileDatastoreInventory-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ScheduleReconcileDatastoreInventory" type="vsan:ScheduleReconcileDatastoreInventoryRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ScheduleReconcileDatastoreInventoryResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="setVStorageObjectControlFlags" name="setVStorageObjectControlFlags"></a>
+<h1>SetVStorageObjectControlFlags(setVStorageObjectControlFlags)</h1>
+<p></p>
+         Set control flags on VStorageObject.
+  <p>
+  Requires Datastore.FileManagement privilege on both source and
+  destination datastore.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage
+                   object is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>controlFlags</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         control flags enum array to be set on the
+                      VStorageObject. All control flags not included
+                      in the array remain intact.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk. The disk may be consumed.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('SetVStorageObjectControlFlags-textarea');expandcontent(this, 'SetVStorageObjectControlFlags-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="SetVStorageObjectControlFlags-div">
+<textarea cols="20" rows="10" name="SetVStorageObjectControlFlags-textarea" wrap="off" readonly="1" id="SetVStorageObjectControlFlags-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="SetVStorageObjectControlFlags" type="vsan:SetVStorageObjectControlFlagsRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="SetVStorageObjectControlFlagsResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="updateVStorageInfrastructureObjectPolicy" name="updateVStorageInfrastructureObjectPolicy"></a>
+<h1>UpdateVStorageInfrastructureObjectPolicy_Task(updateVStorageInfrastructureObjectPolicy)</h1>
+<p></p>
+         Assigns specified SBPM policy to the given virtual storage
+ infrastructure object.
+ Only support VSAN datastore.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual storage infrastructure object is located.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>spec</strong></td><td><a href="vim.vslm.InfrastructureObjectPolicySpec.html">vslmInfrastructureObjectPolicySpec</a></td><td>
+<p></p>
+         specification to assign a SPBM policy to virtual storage
+             infrastructure object.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if there is issue with profile spec.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.TaskInProgress.html">TaskInProgress</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="updateVStorageObjectPolicy" name="updateVStorageObjectPolicy"></a>
+<h1>UpdateVStorageObjectPolicy_Task(updateVStorageObjectPolicy)</h1>
+<p></p>
+         Update the storage policy on a virtual storage object.
+  <p>
+  Requires Datastore.FileManagement privilege on the datastore where the
+  virtual storage object is located.
+  <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the virtual storage object is
+                   located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>profile</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vm.ProfileSpec.html">VirtualMachineProfileSpec[]</a></td><td>
+<p></p>
+         New profile requirement on the virtual storage object.
+      <br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>This method returns a <a href="vim.Task.html">Task</a> object with which to monitor the operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while updating the virtual storage object policy.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.TaskInProgress.html">TaskInProgress</a></td><td>Thrown if the virtual storage object is busy.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="createSnapshot" name="createSnapshot"></a>
+<h1>VStorageObjectCreateSnapshot_Task(createSnapshot)</h1>
+<p></p>
+         Creates a snapshot of a given VStorageObject.
+ <p>
+ Requires Datastore.FileManagement privilege.
+ <p>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.View</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vslm.vcenter.VStorageObjectManager.html">VcenterVStorageObjectManager</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>id</strong></td><td><a href="vim.vslm.ID.html">ID</a></td><td>
+<p></p>
+         The ID of the virtual storage object.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>datastore</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Datastore.html">Datastore</a></td><td>
+<p></p>
+         The datastore where the source virtual storage object
+                  is located.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>description</strong></td><td>xsd:string</td><td>
+<p></p>
+         A short description to be associated with the snapshot.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.FileFault.html">FileFault</a></td><td>Thrown if an error occurs while snapshotting the virtual storage object.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidDatastore.html">InvalidDatastore</a></td><td>Thrown if the operation cannot be performed on the datastore.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the operation cannot be performed on the disk.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if specified virtual storage object cannot be found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>
