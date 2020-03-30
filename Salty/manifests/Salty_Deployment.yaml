@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: salty
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: salty
+  template:
+    metadata:
+      labels:
+        app: salty
+    spec:
+      containers:
+      - name: salty
+        image: docker.io/dolevalgam/salty:latest
