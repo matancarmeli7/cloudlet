@@ -1,5 +1,14 @@
 import requests
 import json
+import re
+
+def getReqtoDict(URL, VERIFY, TOKEN, PARMS = None):
+    authorization = "Bearer {}".format(TOKEN)
+    HEADERS = {'content-type': 'application/json', 'Authorization': authorization}
+    r = requests.get(url = URL, params = PARMS, verify=VERIFY, headers=HEADERS)
+    response = r.json()
+
+    return json.loads(json.dumps(response))
 
 def differencesInDicts(first, second):
     unmatchedKeys = []
@@ -16,59 +25,60 @@ def main():
         remote_digests = {}
 
 	# List of repositories to pull from central cloud
-        repositories_to_pull = set()
+        repos_to_pull = set()
 
 	# Set local and remote Quay registries with basic api prefix
-	local_reg_URL = "https://quay.io/api/v1"
+	local_reg_URL = "https://quayecosystem-quay-quay-enterprise.apps.ocp43-prod.cloudlet-dev.com/api/v1"
         remote_reg_URL = "https://quay.io/api/v1"
 
-	# Get all repositories
+        # Path to trusted certificates        
+        VERIFY = '/etc/pki/tls/certs/ca-bundle.crt'
+
+	# Tokens used to authenticate to the registries
+        local_TOKEN = "YUAua36BQy2Y8vSHHlBL7tOyfRank0I1Lc5H2fx4"
+        remote_TOKEN = "86bh0B1hiEgD8wL1YkRVCRCUJcT3cDK6wGSu4WgM"
+
+	# Get all repositories from local regitsry
 	URL = "{}/repository".format(local_reg_URL)
-	PAR = {
+	PARMS = {
 	       'public':'true',
 	       'starred':'false'
 	      }
 
-	r = requests.get(url = URL, params = PAR, verify=True)
-	response = r.json()
-
-	data = json.loads(json.dumps(response))
-
+	data = getReqtoDict(URL, VERIFY, local_TOKEN, PARMS = PARMS)
+	
 	# Go over each repository
 	for repository in data['repositories']:
 	    # Check if the repository is a Container Image Repository
 	    if repository['kind'] == 'image':
 
-                # Get more infromation on each repository
+                # Get more infromation on the repository
 		URL = "{}/repository/{}/{}".format(local_reg_URL, repository['namespace'], repository['name'])
 
-		r = requests.get(url = URL, verify=True)
-		response = r.json()
-
-		data = json.loads(json.dumps(response))
-
-		# Go over each tag in the repository and print each one with its full path and digest
+		data = getReqtoDict(URL, VERIFY, local_TOKEN)
+		
+		# Go over each tag in the repository and save each one with its full path and digest
 		for tag in data['tags'].keys():
                     local_digests["{}/{}:{}".format(repository['namespace'], repository['name'], data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
                     
 
                 # Remember to pull this repository from the central cloud by namespace and repo name
-                repositories_to_pull.add("{}/{}".format(repository['namespace'], repository['name']))
+                repos_to_pull.add("{}/{}".format(repository['namespace'], repository['name']))	
+
 
 	    else:
 		pass # Helm Charts here
 
         # Get required repositories from central cloud
-        for repository in repositories_to_pull:
+	# Go over each repository
+        for repository in repos_to_pull:
 
+	     # Get more infromation on the repository
              URL = "{}/repository/{}".format(remote_reg_URL, repository)
              
-	     r = requests.get(url = URL, verify=True)
-             response = r.json()
-
-             data = json.loads(json.dumps(response))
-
-             # Go over each tag in the repository and print each one with its full path and digest
+             data = getReqtoDict(URL, VERIFY, remote_TOKEN)
+	     
+             # Go over each tag in the repository and save each one with its full path and digest
              for tag in data['tags'].keys():
                  remote_digests["{}:{}".format(repository, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
 
