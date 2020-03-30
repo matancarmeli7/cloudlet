@@ -22,7 +22,7 @@ def differencesInDicts(first, second):
 
 def logSplunk(log, TOKEN):
     url = 'https://13.90.23.80:8088/services/collector/event'
-    myobj = {"event": log}
+    myobj = {"event": log, "eventtype": "Salty"}
     x = requests.post(url, json = myobj, auth=('Splunk', TOKEN), verify=False)
 
 def scanDigests():
