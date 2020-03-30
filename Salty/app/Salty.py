@@ -24,7 +24,6 @@ def logSplunk(log, TOKEN):
     url = 'https://13.90.23.80:8088/services/collector/event'
     myobj = {"event": log}
     x = requests.post(url, json = myobj, auth=('Splunk', TOKEN), verify=False)
-    print(x.text)
 
 def scanDigests():
 
@@ -67,13 +66,12 @@ def scanDigests():
 
 		data = getReqtoDict(URL, VERIFY, local_TOKEN)
 		
-		# Go over each tag in the repository and save each one with its full path and digest
-		for tag in data['tags'].keys():
+                # Go over each tag in the repository and save each one with its full path and digest
+                for tag in data['tags'].keys():
                     local_digests["{}/{}:{}".format(repository['namespace'], repository['name'], data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
-                    
 
                 # Remember to pull this repository from the central cloud by namespace and repo name
-                repos_to_pull.add("{}/{}".format(repository['namespace'], repository['name']))	
+                repos_to_pull.add("{}/{}".format(repository['namespace'], repository['name']))
 
 
 	    else:
@@ -87,10 +85,13 @@ def scanDigests():
              URL = "{}/repository/{}".format(remote_reg_URL, repository)
              
              data = getReqtoDict(URL, VERIFY, remote_TOKEN)
-	     
+             
              # Go over each tag in the repository and save each one with its full path and digest
-             for tag in data['tags'].keys():
-                 remote_digests["{}:{}".format(repository, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
+    	     try:
+                 for tag in data['tags'].keys():
+                     remote_digests["{}:{}".format(repository, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
+	     except:
+                 print "Can't get {} tags from remote repository".format(repository)
 
 	# Print local tag that has a diffrenet digest then the central cloud
 	unmatchedKeys = differencesInDicts(local_digests, remote_digests)
