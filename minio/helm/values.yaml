@@ -1,0 +1,18 @@
+Name: minio
+
+accessKey: minio
+secretKey: minio123
+
+replicas: 4
+
+image:
+  repository: minio/minio
+  tag: RELEASE.2020-01-03T19-12-21Z
+  
+requests:
+  memory: 512Mi
+  cpu: 250m
+
+port: 9000
+
+disksize: 10

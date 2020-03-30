@@ -1,0 +1,7 @@
+apiVersion: v1
+description: MinIOInstance Helm.
+name: minioinstance
+version: 1.0
+maintainers:
+- name: Matan Tarif
+  email: LoPorimHayom@MaAtRotza.com
