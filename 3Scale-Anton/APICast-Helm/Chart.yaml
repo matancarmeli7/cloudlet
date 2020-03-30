@@ -1,6 +1,6 @@
 apiVersion: v2
-name: apicast2-8
-description: A Helm chart for Kubernetes
+name: 3scale-apicast2.7
+description: An apicast for 3Scale
 
 # A chart can be either an 'application' or a 'library' chart.
 #
