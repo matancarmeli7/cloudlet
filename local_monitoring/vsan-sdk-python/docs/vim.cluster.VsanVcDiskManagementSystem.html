@@ -1,0 +1,661 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.cluster.VsanVcDiskManagementSystem" name="vim.cluster.VsanVcDiskManagementSystem"></a>
+<h1>Managed Object -  
+						VimClusterVsanVcDiskManagementSystem(vim.cluster.VsanVcDiskManagementSystem)</h1>
+<dl>
+<dt>See also</dt>
+<dd>
+<a href="vim.ClusterComputeResource.html">ClusterComputeResource</a>, <a href="vim.host.MaintenanceSpec.html">HostMaintenanceSpec</a>, <a href="vim.HostSystem.html">HostSystem</a>, <a href="vim.Task.html">Task</a>, <a href="vim.vsan.DataEfficiencyCapacityState.html">VimVsanDataEfficiencyCapacityState</a>, <a href="vim.vsan.host.DiskMapInfoEx.html">VimVsanHostDiskMapInfoEx</a>, <a href="vim.vsan.host.DiskMappingCreationSpec.html">VimVsanHostDiskMappingCreationSpec</a>, <a href="vim.vsan.host.VsanHostCapability.html">VimVsanHostVsanHostCapability</a>, <a href="vim.vsan.host.DiskMapping.html">VsanHostDiskMapping</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.0</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         VimClusterVsanVcDiskManagementSystem enhances vSAN disk
+    management part, provides vSAN all flash disk group support,
+    exposes more detailed information of vSAN disk group, helps
+    on configure and manage vSAN disk group. <br/>
+    It deprecates APIs <a href="vim.host.VsanSystem.html#addDisks">AddDisks_Task</a> and
+    <a href="vim.host.VsanSystem.html#initializeDisks">InitializeDisks_Task</a>, exposes
+    <a href="vim.vsan.host.DiskMapInfoEx.html">VimVsanHostDiskMapInfoEx</a> through API
+    <a href="vim.cluster.VsanVcDiskManagementSystem.html#queryDiskMappings">QueryDiskMappings</a>,
+    to present whether a disk group is all flash, and whether
+    deduplication and compression is enabled on this disk group,
+    and deprecates <a href="vim.vsan.host.ConfigInfo.StorageInfo.html#diskMapping">diskMapping</a>
+    exposed by <a href="vim.host.VsanSystem.html#config">config</a>.<br/>
+    The ManagedEntity can be accessed through MOID of
+    vsan-disk-management-system, through vSAN service at vCenter
+    server side.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#initializeDiskMappings">InitializeDiskMappings</a>, <a href="#queryClusterDataEfficiencyCapacityState">QueryClusterDataEfficiencyCapacityState</a>, <a href="#queryDiskMappings">QueryDiskMappings</a>, <a href="#rebuildDiskMapping">RebuildDiskMapping</a>, <a href="#retrieveAllFlashCapabilities">RetrieveAllFlashCapabilities</a></td>
+</tr>
+</table>
+<br>
+<a id="initializeDiskMappings" name="initializeDiskMappings"></a>
+<h1>InitializeDiskMappings(initializeDiskMappings)</h1>
+<p></p>
+         This API is used to create new vSAN disk groups or attach
+    more disks into existing vSAN disk group on specified host.
+    It deprecates APIs <a href="vim.host.VsanSystem.html#addDisks">AddDisks_Task</a> and
+    <a href="vim.host.VsanSystem.html#initializeDisks">InitializeDisks_Task</a>, to support creating both hybrid
+    and all flash disk group.
+    Scsi disks eligible for vSAN service, could be retrieved through
+    API <a href="vim.host.VsanSystem.html#queryDisksForVsan">QueryDisksForVsan</a>.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> Host.Config.Storage </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanVcDiskManagementSystem.html">VimClusterVsanVcDiskManagementSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>spec</strong></td><td><a href="vim.vsan.host.DiskMappingCreationSpec.html">VimVsanHostDiskMappingCreationSpec</a></td><td>
+<p></p>
+         The specification to create vSAN disk group. Please
+                reference to VimVsanHostDiskMappingCreationSpec;
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td>Thrown if below issues exist: <ol type=1> <li>Specified host doesn't exist;</li> <li>User doesn't have Host.Config.Storage privilege on specified host;</li> <li>Specified host is not connected to vCenter server;</li> <li>If requests to create all flash disk group but host's ESX software doesn't support this feature;</li> <li>If requests to create all flash disk group but host is not licensed to support this feature;</li> <li>If requests to append disks to existing disk group, but specified more than one disks for cache tier;</li> <li>If none of specified disks for capacity tier is eligible for vSAN;</li> </ol></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('InitializeDiskMappings-textarea');expandcontent(this, 'InitializeDiskMappings-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="InitializeDiskMappings-div">
+<textarea cols="20" rows="10" name="InitializeDiskMappings-textarea" wrap="off" readonly="1" id="InitializeDiskMappings-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="InitializeDiskMappings" type="vsan:InitializeDiskMappingsRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="InitializeDiskMappingsResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="queryClusterDataEfficiencyCapacityState" name="queryClusterDataEfficiencyCapacityState"></a>
+<h1>QueryClusterDataEfficiencyCapacityState(queryClusterDataEfficiencyCapacityState)</h1>
+<p></p>
+         Retrieve logical capacity, logical capacity used, physical capacity, physical
+    capacity used and data efficiency metadata of a data efficiency enabled
+    cluster.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanVcDiskManagementSystem.html">VimClusterVsanVcDiskManagementSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ClusterComputeResource.html">ClusterComputeResource</a></td><td>
+<p></p>
+         The target cluster.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vsan.DataEfficiencyCapacityState.html">VimVsanDataEfficiencyCapacityState</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('QueryClusterDataEfficiencyCapacityState-textarea');expandcontent(this, 'QueryClusterDataEfficiencyCapacityState-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="QueryClusterDataEfficiencyCapacityState-div">
+<textarea cols="20" rows="10" name="QueryClusterDataEfficiencyCapacityState-textarea" wrap="off" readonly="1" id="QueryClusterDataEfficiencyCapacityState-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="QueryClusterDataEfficiencyCapacityState" type="vsan:QueryClusterDataEfficiencyCapacityStateRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="QueryClusterDataEfficiencyCapacityStateResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VimVsanDataEfficiencyCapacityState"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="queryDiskMappings" name="queryDiskMappings"></a>
+<h1>QueryDiskMappings(queryDiskMappings)</h1>
+<p></p>
+         Get detailed information of vSAN disk groups managed by specified host,
+    for each disk group, includes:
+    Disk structure, presents as disk for cache tier, and disks for capacity tier;
+    Whether is in-use for vSAN I/O by this host;
+    Whether is all flash disk group;
+    Whether vSAN deduplication and compression are enabled on this disk group.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanVcDiskManagementSystem.html">VimClusterVsanVcDiskManagementSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>host</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.HostSystem.html">HostSystem</a></td><td>
+<p></p>
+         Target host to query.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vsan.host.DiskMapInfoEx.html">VimVsanHostDiskMapInfoEx[]</a></td><td>List of DiskMapInfoEx, please reference to VimVsanHostDiskMapInfoEx.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td>Thrown if below issues exist: <ol type=1> <li>Specified host doesn't exist;</li> <li>Specified host is not connected to vCenter server;</li> <li>Any unexpected runtime error;</li> </ol></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('QueryDiskMappings-textarea');expandcontent(this, 'QueryDiskMappings-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="QueryDiskMappings-div">
+<textarea cols="20" rows="10" name="QueryDiskMappings-textarea" wrap="off" readonly="1" id="QueryDiskMappings-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="QueryDiskMappings" type="vsan:QueryDiskMappingsRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="QueryDiskMappingsResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VimVsanHostDiskMapInfoEx" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="rebuildDiskMapping" name="rebuildDiskMapping"></a>
+<h1>RebuildDiskMapping(rebuildDiskMapping)</h1>
+<p></p>
+         This API is used to rebuild existing vSAN disk mapping on specified host.
+    It will firstly remove the existing disk mapping with user specified
+    data evacuation mode, and then create new disk mapping on same disks.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> Host.Config.Storage </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+<dt>Since </dt>
+<dd>vSAN API vSAN 6.7U1</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanVcDiskManagementSystem.html">VimClusterVsanVcDiskManagementSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>host</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.HostSystem.html">HostSystem</a></td><td>
+<p></p>
+         Target host to rebuild.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>mapping</strong></td><td><a href="vim.vsan.host.DiskMapping.html">VsanHostDiskMapping</a></td><td>
+<p></p>
+         The disk mapping to be rebuilt from VSAN usage.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>maintenanceSpec</strong></td><td><a href="vim.host.MaintenanceSpec.html">HostMaintenanceSpec</a></td><td>
+<p></p>
+<br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td>Thrown if below issues exist: <ol type=1> <li>Specified host doesn't exist;</li> <li>User doesn't have Host.Config.Storage privilege on specified host;</li> <li>Specified host is not connected to vCenter server;</li> </ol></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RebuildDiskMapping-textarea');expandcontent(this, 'RebuildDiskMapping-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RebuildDiskMapping-div">
+<textarea cols="20" rows="10" name="RebuildDiskMapping-textarea" wrap="off" readonly="1" id="RebuildDiskMapping-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RebuildDiskMapping" type="vsan:RebuildDiskMappingRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RebuildDiskMappingResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="retrieveAllFlashCapabilities" name="retrieveAllFlashCapabilities"></a>
+<h1>RetrieveAllFlashCapabilities(retrieveAllFlashCapabilities)</h1>
+<p></p>
+         Retrieve capabilities for hosts reside in specified cluster,
+    to figure out whether all flash disk group is supported by
+    hosts' ESXi softwares, and whether they are licensed.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.cluster.VsanVcDiskManagementSystem.html">VimClusterVsanVcDiskManagementSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ClusterComputeResource.html">ClusterComputeResource</a></td><td>
+<p></p>
+         Target cluster, of which hosts' capabilities
+                   will be queried;
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.vsan.host.VsanHostCapability.html">VimVsanHostVsanHostCapability[]</a></td><td>vim.vsan.host.VsanHostCapability[]</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RetrieveAllFlashCapabilities-textarea');expandcontent(this, 'RetrieveAllFlashCapabilities-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RetrieveAllFlashCapabilities-div">
+<textarea cols="20" rows="10" name="RetrieveAllFlashCapabilities-textarea" wrap="off" readonly="1" id="RetrieveAllFlashCapabilities-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveAllFlashCapabilities" type="vsan:RetrieveAllFlashCapabilitiesRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveAllFlashCapabilitiesResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VimVsanHostVsanHostCapability" minOccurs="0" maxOccurs="unbounded"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.host.VsanHclCommonDeviceInfo" name="vim.host.VsanHclCommonDeviceInfo"></a>
+<h1>Data Object - VsanHclCommonDeviceInfo(vim.host.VsanHclCommonDeviceInfo)</h1>
+<dl>
+<dt>Extended by</dt>
+<dd>
+<a href="vim.host.VsanHclNicInfo.html">VsanHclNicInfo</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.KeyValue.html">KeyValue</a>, <a href="vim.vsan.VsanHclDriverInfo.html">VsanHclDriverInfo</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.7</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         Captures all common HCL related information about particular device, e.g physical NIC
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="deviceId" name="deviceId"></a><strong>deviceId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The deviceId of the PCI device, e.g. 48.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="deviceName" name="deviceName"></a><strong>deviceName</strong></td><td>xsd:string</td><td>
+<p></p>
+         The device name used by ESX to refer to the device right now, e.g. vmhba1, vmnic0
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="deviceOnHcl" name="deviceOnHcl"></a><strong>deviceOnHcl</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         If the device shows up on the HCL at all.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="displayName" name="displayName"></a><strong>displayName</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The human friendly product model description by which the controller
+    announces itself, e.g., "Intel Corporation PIIX4 ...".
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="driverName" name="driverName"></a><strong>driverName</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The name of the driver, e.g. mpt2sas.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="driversOnHcl" name="driversOnHcl"></a><strong>driversOnHcl</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vsan.VsanHclDriverInfo.html">VsanHclDriverInfo[]</a></td><td>
+<p></p>
+         If the device shows up on the HCL, and is supported for the release of ESXi,
+    this field will list the supported driver versions, as well as additional
+    information for each driver, like associated firmware.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="driverVersion" name="driverVersion"></a><strong>driverVersion</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The version of the driver as reported by the driver kernel module,
+    e.g. '4.23.01.00-9vmw'.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="driverVersionsOnHcl" name="driverVersionsOnHcl"></a><strong>driverVersionsOnHcl</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         If the device shows up on the HCL, and is supported for the release of ESXi,
+    this field will list the supported driver versions.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="driverVersionSupported" name="driverVersionSupported"></a><strong>driverVersionSupported</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         If the device shows up on the HCL, and is supported for the release of ESXi,
+    and the driver version is detected to be supported
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="extraInfo" name="extraInfo"></a><strong>extraInfo</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.KeyValue.html">KeyValue[]</a></td><td>
+<p></p>
+         Any additional information not explicitly modeled in API.
+    Can be used for vendor specific information about features
+    of a controller.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="fwVersion" name="fwVersion"></a><strong>fwVersion</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         Ignore this value.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="fwVersionOnHcl" name="fwVersionOnHcl"></a><strong>fwVersionOnHcl</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         Ignore this value.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="fwVersionSupported" name="fwVersionSupported"></a><strong>fwVersionSupported</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Ignore this value.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="releasesOnHcl" name="releasesOnHcl"></a><strong>releasesOnHcl</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         If the device is on the HCL, this holds the names of the supported releases.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="releaseSupported" name="releaseSupported"></a><strong>releaseSupported</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         If the device is on the HCL and the release of ESXi in use is supported.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="subDeviceId" name="subDeviceId"></a><strong>subDeviceId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The subDeviceId of the PCI device, e.g. 5549.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="subVendorId" name="subVendorId"></a><strong>subVendorId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The subVendorId of the PCI device, e.g. 6518.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="vendorId" name="vendorId"></a><strong>vendorId</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The vendorId of the PCI device, e.g. 4096.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanHclCommonDeviceInfo">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="deviceName" type="xsd:string"/>
+                     <element name="displayName" type="xsd:string" minOccurs="0"/>
+                     <element name="driverName" type="xsd:string" minOccurs="0"/>
+                     <element name="driverVersion" type="xsd:string" minOccurs="0"/>
+                     <element name="vendorId" type="xsd:long" minOccurs="0"/>
+                     <element name="deviceId" type="xsd:long" minOccurs="0"/>
+                     <element name="subVendorId" type="xsd:long" minOccurs="0"/>
+                     <element name="subDeviceId" type="xsd:long" minOccurs="0"/>
+                     <element name="extraInfo" type="vsan:KeyValue" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="deviceOnHcl" type="xsd:boolean" minOccurs="0"/>
+                     <element name="releaseSupported" type="xsd:boolean" minOccurs="0"/>
+                     <element name="releasesOnHcl" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="driverVersionsOnHcl" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="driverVersionSupported" type="xsd:boolean" minOccurs="0"/>
+                     <element name="fwVersionSupported" type="xsd:boolean" minOccurs="0"/>
+                     <element name="fwVersionOnHcl" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="fwVersion" type="xsd:string" minOccurs="0"/>
+                     <element name="driversOnHcl" type="vsan:VsanHclDriverInfo" minOccurs="0" maxOccurs="unbounded"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

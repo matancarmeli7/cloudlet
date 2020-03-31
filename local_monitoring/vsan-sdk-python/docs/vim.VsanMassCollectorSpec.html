@@ -1,0 +1,296 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.VsanMassCollectorSpec" name="vim.VsanMassCollectorSpec"></a>
+<h1>Data Object - VsanMassCollectorSpec(vim.VsanMassCollectorSpec)</h1>
+<dl>
+<dt>Parameter to</dt>
+<dd>
+<a href="vim.VsanMassCollector.html#vsanRetrieveProperties">VsanRetrieveProperties</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.VsanMassCollectorPropertyParams.html">VsanMassCollectorPropertyParams</a>, <a href="vim.VsanResourceConstraint.html">VsanResourceConstraint</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.6</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         Spec for VsanMassCollector.VsanRetrieveProperties
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="constraint" name="constraint"></a><strong>constraint</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.VsanResourceConstraint.html">VsanResourceConstraint</a></td><td>
+<p></p>
+         Filter the returned result with <a href="vim.VsanResourceConstraint.html">VsanResourceConstraint</a>
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="objectCollection" name="objectCollection"></a><strong>objectCollection</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         <p>Specify mass hosts or clusters collection. Support regular or vSAN enabled
+    host or cluster objects.</p>
+    See <a href="vim.VsanMassCollectorObjectCollectionEnum.html">VsanMassCollectorObjectCollectionEnum</a> for possible collection
+    enum.
+ 
+    <p>Note that either the <pre><code>objects</code></pre> or the
+    <pre><code>objectCollection</code></pre>parameter is required.</p><br>See <a href="vim.VsanMassCollectorObjectCollectionEnum.html">VsanMassCollectorObjectCollectionEnum</a><br>
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="objects" name="objects"></a><strong>objects</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference[]</a></td><td>
+<p></p>
+         List of ManagedObject to retrieve properties for. These are typically
+    HostSystem or ClusterComputeResource. The object type should be homogeneous
+    (mixed-type is not supported) since we collecting the same properties for
+    them.
+ 
+    This parameter will be ignored when the <a href="vim.VsanMassCollectorSpec.html#objectCollection">objectCollection</a> parameter
+    is specified (i.e. <pre><code>objectCollection =
+    VsanMassCollectorObjectCollectionEnum.ALL_HOSTS</code></pre>).
+ 
+    Note that either the <pre><code>objects</code></pre> or the
+    <pre><code>objectCollection</code></pre> parameter is required.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="properties" name="properties"></a><strong>properties</strong></td><td>xsd:string[]</td><td>
+<p></p>
+         <p>List of properties to retrieve.</p>
+ 
+    <p>Properties for vSAN enabled ClusterComputeResource can be:</p>
+    <ul>
+       <li>advanceConfigInfo</li>
+       <li>allFlashCapabilities</li>
+       <li>archivalAccessibilityStatus</li>
+       <li>attachToSrHistory</li>
+       <li>captureVsanPcap</li>
+       <li>clomdLiveness</li>
+       <li>clusterCreateVmHealthHistoryTest</li>
+       <li>clusterDataEfficiencyCapacity</li>
+       <li>clusterHclInfo</li>
+       <li>clusterHealth</li>
+       <li>clusterHealthSummary</li>
+       <li>clusterHostsProfilingData</li>
+       <li>clusterNetworkPerfHistoryTest</li>
+       <li>clusterStatus</li>
+       <li>clusterVmdkLoadHistoryTest</li>
+       <li>clusterVmdkWorkloadTypes</li>
+       <li>cmmdsPhoneHomeData</li>
+       <li>dataProtectionConfigInfo</li>
+       <li>datastoreUsage</li>
+       <li>dpdLiveness</li>
+       <li>encryptionHealthSummary</li>
+       <li>esxCliData</li>
+       <li>fileServiceHealthSummary</li>
+       <li>hostLogBundle</li>
+       <li>isRebalanceRunning</li>
+       <li>iscsiHomeObject</li>
+       <li>iscsiInitiatorGroup</li>
+       <li>iscsiInitiatorGroups</li>
+       <li>iscsiLUN</li>
+       <li>iscsiLUNs</li>
+       <li>iscsiTarget</li>
+       <li>iscsiTargetServiceConfig</li>
+       <li>iscsiTargetServiceProcessesStatus</li>
+       <li>iscsiTargetServiceStatus</li>
+       <li>iscsiTargetServiceVersion</li>
+       <li>iscsiTargets</li>
+       <li>nodeInformation</li>
+       <li>numOfWitnessHosts</li>
+       <li>objectHealthSummary</li>
+       <li>objectIdentities</li>
+       <li>phoneHomeData</li>
+       <li>physicalDiskHealthSummary</li>
+       <li>preferredFaultDomain</li>
+       <li>queryComponentsLimit</li>
+       <li>resourceCheckStatus</li>
+       <li>runtimeStats</li>
+       <li>smartStatsSummary</li>
+       <li>spaceUsage</li>
+       <li>statsObjectInformation</li>
+       <li>stretchedClusterConfigIssues</li>
+       <li>stretchedClusterVcCapability</li>
+       <li>supportedDiskFormatVersion</li>
+       <li>supportedEntityTypes</li>
+       <li>syncingVsanObjectsSummary</li>
+       <li>timeRanges</li>
+       <li>upgradeStatus</li>
+       <li>verifyClusterHealthSystemVersions</li>
+       <li>verifyClusterNetworkSettings</li>
+       <li>vsanCapabilities</li>
+       <li>vsanClusterConfigInfoEx</li>
+       <li>vsanClusterHealthCheckInterval</li>
+       <li>vsanClusterHealthConfig</li>
+       <li>vsanClusterSilentChecks</li>
+       <li>vsanDisableNetworkDiagnostic</li>
+       <li>vsanEnableNetworkDiagnostic</li>
+       <li>vsanPerf</li>
+       <li>vsanPerfTopEntities</li>
+       <li>vsanPhysicalDisks</li>
+       <li>vsanResetBundleCollectionTime</li>
+       <li>vsanTriggerDiagnosticCollection</li>
+       <li>vsanVumConfig</li>
+       <li>witnessHosts</li>
+ 
+    </ul>
+ 
+    <p>Properties for vSAN enabled HostSystem can be:</p>
+ 
+    <ul>
+       <li>advCfg</li>
+       <li>allFlashCapability</li>
+       <li>checkLimits</li>
+       <li>clomdLiveness</li>
+       <li>coredumpPartitionInfo</li>
+       <li>diskMappings</li>
+       <li>diskRebalanceStatus</li>
+       <li>encryptionHealthSummary</li>
+       <li>fileServiceHealthSummary</li>
+       <li>hclInfo</li>
+       <li>hostEMMState</li>
+       <li>hostLogBundle</li>
+       <li>hostPatch</li>
+       <li>hostRetrieveLookupTable</li>
+       <li>objectHealthSummary</li>
+       <li>physicalDiskHealthSummary</li>
+       <li>proactiveRebalanceInfo</li>
+       <li>stretchedClusterHostCapability</li>
+       <li>verifyNetworkSettings</li>
+       <li>version</li>
+       <li>vsanConfigs</li>
+       <li>vsanCountLogTraceLines</li>
+ 
+    </ul>
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="propertiesParams" name="propertiesParams"></a><strong>propertiesParams</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.VsanMassCollectorPropertyParams.html">VsanMassCollectorPropertyParams[]</a></td><td>
+<p></p>
+         <p>Some property required additional parameters to be passed in (e.g.
+    perfQuery).</p>
+ 
+    <p>Code example for perfQuery properties_params:
+ 
+    <pre><code>
+       def test_mass_collector_vsan_perf_query(vsanStub):
+          mc = GetMassCollector(vsanStub)
+          massCollectorSpec = build_mass_collector_spec(
+             properties=['vsanPerf'],
+             objectType='ALL_CLUSTERS',
+             propertiesParams=[build_vsan_perf_params()])
+          result = mc.VsanRetrieveProperties(massCollectorSpecs=[massCollectorSpec])
+ 
+       def build_vsan_perf_params():
+          return vim.VsanMassCollectorPropertyParams( propertyName='vsanPerf',
+             propertyParams=[build_perf_query_specs()])
+ 
+       def build_perf_query_specs():
+          property_param = vim.KeyAnyValue()
+          property_param.key = 'querySpecs'
+ 
+          endTime = datetime.datetime.utcnow()
+          startTime = endTime - datetime.timedelta(2)
+ 
+          perfQuerySpec = vim.cluster.VsanPerfQuerySpec(
+             entityRefId="*", startTime=startTime, endTime=endTime)
+ 
+          property_param.value = vim.DynamicArray(val=[perfQuerySpec])
+          return property_param
+ 
+       def build_mass_collector_spec(properties=None, objectType=None,
+          propertiesParams=None):
+          massCollectorSpec = vim.VsanMassCollectorSpec()
+          massCollectorSpec.properties = properties
+          objCollection = vim.VsanMassCollectorObjectCollectionEnum(objectType)
+          massCollectorSpec.objectCollection = objCollection
+          if propertiesParams:
+             massCollectorSpec.propertiesParams = propertiesParams
+          return massCollectorSpec
+ 
+    </code></pre>
+    </p>
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r1">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanMassCollectorSpec">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="objects" type="vsan:ManagedObjectReference" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="objectCollection" type="xsd:string" minOccurs="0"/>
+                     <element name="properties" type="xsd:string" maxOccurs="unbounded"/>
+                     <element name="propertiesParams" type="vsan:VsanMassCollectorPropertyParams" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="constraint" type="vsan:VsanResourceConstraint" minOccurs="0"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

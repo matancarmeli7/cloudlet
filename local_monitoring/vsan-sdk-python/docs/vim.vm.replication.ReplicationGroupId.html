@@ -1,0 +1,120 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vm.replication.ReplicationGroupId" name="vim.vm.replication.ReplicationGroupId"></a>
+<h1>Data Object - ReplicationGroupId(vim.vm.replication.ReplicationGroupId)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.vm.replication.ReplicationSpec.html#field_detail">ReplicationSpec</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.vm.replication.DeviceGroupId.html">DeviceGroupId</a>, <a href="vim.vm.replication.FaultDomainId.html">FaultDomainId</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.5</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         The identity of a replication group.
+ <p>
+ A following well-known ReplicationGroupId
+ <p>{
+ <p>   faultDomainId: <a valid fault domain id>
+ <p>   deviceGroupId:  ffffffff-ffff-ffff-ffff-ffffffffffff
+ <p>}
+ <p>means that VASA provider can create a new ReplicationGroupId
+ on demand (this feature may not be supported in the first
+ vSphere release that supports VVol replication).
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="deviceGroupId" name="deviceGroupId"></a><strong>deviceGroupId</strong></td><td><a href="vim.vm.replication.DeviceGroupId.html">DeviceGroupId</a></td><td>
+<p></p>
+         Id of the replication device group. A group may have the same (or different) id in each fault
+ domain.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="faultDomainId" name="faultDomainId"></a><strong>faultDomainId</strong></td><td><a href="vim.vm.replication.FaultDomainId.html">FaultDomainId</a></td><td>
+<p></p>
+         ID of the fault domain to which the group belongs. Combined with the fault
+ domain id, the group id is unique. A group may (or may not) have the same
+ id in all the fault domains.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ReplicationGroupId">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="faultDomainId" type="vsan:FaultDomainId"/>
+                     <element name="deviceGroupId" type="vsan:DeviceGroupId"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

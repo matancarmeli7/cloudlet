@@ -1,0 +1,207 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vsan.ResourceCheckResult" name="vim.vsan.ResourceCheckResult"></a>
+<h1>Data Object - VsanResourceCheckResult(vim.vsan.ResourceCheckResult)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.vsan.ResourceCheckStatus.html#field_detail">VsanResourceCheckStatus</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vim.vsan.EntityResourceCheckDetails.html">EntityResourceCheckDetails</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vmodl.LocalizableMessage.html">LocalizableMessage</a>, <a href="vim.cluster.VsanClusterHealthSummary.html">VsanClusterHealthSummary</a>, <a href="vim.vsan.FaultDomainResourceCheckResult.html">VsanFaultDomainResourceCheckResult</a>, <a href="vim.vsan.VsanHealthThreshold.html">VsanHealthThreshold</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.8.7</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         The resource check result for the queried spec
+    <a href="vim.vsan.ResourceCheckSpec.html">VsanResourceCheckSpec</a>.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="capacityThreshold" name="capacityThreshold"></a><strong>capacityThreshold</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vsan.VsanHealthThreshold.html">VsanHealthThreshold</a></td><td>
+<p></p>
+         Capacity threshold in percentage of total capacity. For example, if total
+    used capacity is more than {VsanHealthThreshold.yellowValue}% than status
+    or the entity capcity should be marked as 'yellow'.
+      <p></p>
+<B><I>Since </I></B>vSAN API vSAN 6.7U3<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="dataToMove" name="dataToMove"></a><strong>dataToMove</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The predicted data migration in bytes assuming the queried operation
+    gets performed. For example, if the queried resource check type is
+    for host enter maintenance mode operation, vSAN will simulate how many
+    bytes of data will need to move during the host enter maintenance mode
+    process.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="faultDomains" name="faultDomains"></a><strong>faultDomains</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.vsan.FaultDomainResourceCheckResult.html">VsanFaultDomainResourceCheckResult[]</a></td><td>
+<p></p>
+         Detailed hierarchical resource check report. At the top of the hierarchy it
+    is fault domain level resource check report. Please see
+    <a href="vim.vsan.FaultDomainResourceCheckResult.html">VsanFaultDomainResourceCheckResult</a>.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="health" name="health"></a><strong>health</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanClusterHealthSummary.html">VsanClusterHealthSummary</a></td><td>
+<p></p>
+         What-if vSAN cluster health summary which indicates how the related vSAN
+    health check will look after queried operation is performed.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="inaccessibleObjects" name="inaccessibleObjects"></a><strong>inaccessibleObjects</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         The vSAN UUID of objects which are predicted to become inaccessible after
+    the operation is done.
+    For example, for a FTT=0 object which has only one component on the host,
+    the object will become inaccessible if "noAction" is chosen as the data
+    evacuation mode after the host enters maintenance mode.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="messages" name="messages"></a><strong>messages</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.LocalizableMessage.html">LocalizableMessage[]</a></td><td>
+<p></p>
+         Informative and localizable messages for the resource check.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="nonCompliantObjects" name="nonCompliantObjects"></a><strong>nonCompliantObjects</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string[]</td><td>
+<p></p>
+         The vSAN UUID of objects which are predicted to become non-compliant after
+    the operation is done.
+    For example, the object may become non-compliant if
+    "ensureObjectAccessibility" is chosen as the data evacuation mode
+    after the host enters maintenance mode.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="status" name="status"></a><strong>status</strong></td><td>xsd:string</td><td>
+<p></p>
+         The overall status of resource check result if resource check has completed.
+    The possible statuses are:
+    <ul>
+    <li>"green":  Resource check passed for the queried operation.
+                  There is sufficient resource in vSAN cluster to perform
+                  the queried operation.</li>
+    <li>"yellow": Resource check passed for the queried operation, but there is
+                  some existing issue in the cluster, e.g., network partition.
+                  </li>
+    <li>"red":    Resource check failed for the queried operation.
+                  If any entity is suggested to be added by resource check report
+                  (i.e. "isNew" flag is set to true), then there is not enough
+                  resource in current vSAN cluster for the given operation. Extra
+                  resource is required to make the given operation succeed.</li>
+    </ul>
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="timestamp" name="timestamp"></a><strong>timestamp</strong></td><td>xsd:dateTime</td><td>
+<p></p>
+         The timestamp when the resource check result is generated. The timestamp
+    will remain unchanged if the resource check result is cached and fetched
+    in the future indicating when the resource check was performed.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td colspan="3">
+						Properties inherited from <a href="vim.vsan.EntityResourceCheckDetails.html">EntityResourceCheckDetails</a></td>
+</tr>
+<tr class="r1">
+<td colspan="3"><a href="vim.vsan.EntityResourceCheckDetails.html#additionalRequiredCapacity">additionalRequiredCapacity</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#capacity">capacity</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#components">components</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#isNew">isNew</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#maxComponents">maxComponents</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#name">name</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#postOperationCapacity">postOperationCapacity</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#postOperationUsedCapacity">postOperationUsedCapacity</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#usedCapacity">usedCapacity</a>, <a href="vim.vsan.EntityResourceCheckDetails.html#uuid">uuid</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r1">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanResourceCheckResult">
+            <complexContent>
+               <extension base="vsan:EntityResourceCheckDetails">
+                  <sequence>
+                     <element name="timestamp" type="xsd:dateTime"/>
+                     <element name="status" type="xsd:string"/>
+                     <element name="messages" type="vsan:LocalizableMessage" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="faultDomains" type="vsan:VsanFaultDomainResourceCheckResult" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="dataToMove" type="xsd:long" minOccurs="0"/>
+                     <element name="nonCompliantObjects" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="inaccessibleObjects" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                     <element name="capacityThreshold" type="vsan:VsanHealthThreshold" minOccurs="0"/>
+                     <element name="health" type="vsan:VsanClusterHealthSummary" minOccurs="0"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

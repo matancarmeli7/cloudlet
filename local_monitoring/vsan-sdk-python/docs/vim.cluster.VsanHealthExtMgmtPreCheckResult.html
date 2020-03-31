@@ -1,0 +1,152 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.cluster.VsanHealthExtMgmtPreCheckResult" name="vim.cluster.VsanHealthExtMgmtPreCheckResult"></a>
+<h1>Data Object - VsanHealthExtMgmtPreCheckResult(vim.cluster.VsanHealthExtMgmtPreCheckResult)</h1>
+<dl>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.cluster.VsanClusterHealthTest.html">VsanClusterHealthTest</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 5.5</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         Result for pre-checking if a cluster is qualified to install or uninstall vSAN
+    Health service extension on ESX hosts of this cluster.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="drsCheckPassed" name="drsCheckPassed"></a><strong>drsCheckPassed</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Indicates if the DRS fully automated check is passed or not.
+    DRS must be enabled for installing health service extension
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="eamConnectionCheckPassed" name="eamConnectionCheckPassed"></a><strong>eamConnectionCheckPassed</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Indicates if the EAM connectivity check is passed or not
+    The EAM must be connected for installing health service extension
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="esxVersionCheckPassed" name="esxVersionCheckPassed"></a><strong>esxVersionCheckPassed</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Indicates if the ESX version check is passed or not.
+    The required ESX version must be higher than 6.0.0
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="installStateCheckPassed" name="installStateCheckPassed"></a><strong>installStateCheckPassed</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Indicates if the vSAN health extension is ready for
+    uninstallation. The health extension can be uninstalled if
+    the installation is completed
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="overallResult" name="overallResult"></a><strong>overallResult</strong></td><td>xsd:boolean</td><td>
+<p></p>
+         Indicates if all the pre-checks are passed
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="results" name="results"></a><strong>results</strong></td><td><a href="vim.cluster.VsanClusterHealthTest.html">VsanClusterHealthTest[]</a></td><td>
+<p></p>
+         Pre-checks test results for install/uninstall vSAN health service
+    Detail results are combined in tables for client to retrieve
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="vumRegistered" name="vumRegistered"></a><strong>vumRegistered</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Indicates whether VUM has registered to current vCenter.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r1">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanHealthExtMgmtPreCheckResult">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="overallResult" type="xsd:boolean"/>
+                     <element name="esxVersionCheckPassed" type="xsd:boolean" minOccurs="0"/>
+                     <element name="drsCheckPassed" type="xsd:boolean" minOccurs="0"/>
+                     <element name="eamConnectionCheckPassed" type="xsd:boolean" minOccurs="0"/>
+                     <element name="installStateCheckPassed" type="xsd:boolean" minOccurs="0"/>
+                     <element name="results" type="vsan:VsanClusterHealthTest" maxOccurs="unbounded"/>
+                     <element name="vumRegistered" type="xsd:boolean" minOccurs="0"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vsan.EntityResourceCheckDetails" name="vim.vsan.EntityResourceCheckDetails"></a>
+<h1>Data Object - EntityResourceCheckDetails(vim.vsan.EntityResourceCheckDetails)</h1>
+<dl>
+<dt>Extended by</dt>
+<dd>
+<a href="vim.vsan.DiskGroupResourceCheckResult.html">VsanDiskGroupResourceCheckResult</a>, <a href="vim.vsan.DiskResourceCheckResult.html">VsanDiskResourceCheckResult</a>, <a href="vim.vsan.FaultDomainResourceCheckResult.html">VsanFaultDomainResourceCheckResult</a>, <a href="vim.vsan.HostResourceCheckResult.html">VsanHostResourceCheckResult</a>, <a href="vim.vsan.ResourceCheckResult.html">VsanResourceCheckResult</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.8.7</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         Details about the resource check result for a given entity. The result
+    contains information of current and predicted usage the various
+    resources, like capacity, for the entity. For example, for a host result
+    contains current and predicted capacity usage and component counts.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="additionalRequiredCapacity" name="additionalRequiredCapacity"></a><strong>additionalRequiredCapacity</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         vSAN's recommendation for additional capacity for this entity to be added
+    in order to make the operation succeed. This will be sum of all child
+    entitie's additionalRequiredCapacity required. For example, host's
+    additional capacity will be sum of all disk-group's additional capacity
+    on the host.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="capacity" name="capacity"></a><strong>capacity</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The total physical capacity of the entity in bytes. For example, host
+    capacity will be sum of all disk-group's capacity on the host.
+    If <a href="vim.vsan.EntityResourceCheckDetails.html#isNew">isNew</a> is true,
+    the currentUsage is set to 0 since this a recommendation for adding
+    new resource.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="components" name="components"></a><strong>components</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         Predicted number of vSAN components on this entity post operation.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="isNew" name="isNew"></a><strong>isNew</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         The flag indicates whether this is a new resource entity that is recommended
+    to be added for more resources in order to make the operation succeed. For
+    example, for a disk group entity the flag indicates whether this is a new
+    disk group that is recommended to be added for more resources in order to
+    make the operation succeed.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="maxComponents" name="maxComponents"></a><strong>maxComponents</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         Number of maximum vSAN components this entity can hold.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="name" name="name"></a><strong>name</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The friendly name for this entity.
+    This is the name specified by user when the entity is created or updated.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="postOperationCapacity" name="postOperationCapacity"></a><strong>postOperationCapacity</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The predicted total physical capacity of the resource entity in bytes after
+    the operation is done. For example, if the resource check is for host enter
+    maintenance mode operation the capacity which host was contributing will be
+    removed from the fault domain's total physical capacity.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="postOperationUsedCapacity" name="postOperationUsedCapacity"></a><strong>postOperationUsedCapacity</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The predicted physical usage of the resource entity in bytes after the
+    operation is done. For example, if the resource check is for host enter
+    maintenance mode operation, vSAN will simulate the disk usage after the
+    given host enters maintenance mode.
+ 
+    If vSAN deduplication and compression is enabled during the operation,
+    vSAN simulation will not take this into consideration and thus will make
+    a conservative estimation of the post-operation disk usage with data
+    non-deduplicated and uncompressed.
+ 
+    If vSAN deduplication and compression is disabled during the operation,
+    vSAN simulation will use the average of current deduplication/compression
+    rate of all disk-groups in the cluster to estimate the inflation of data
+    for a rough calculation of the post-operation disk usage.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="usedCapacity" name="usedCapacity"></a><strong>usedCapacity</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:long</td><td>
+<p></p>
+         The current physical usage of the entity in bytes.
+    If <a href="vim.vsan.EntityResourceCheckDetails.html#isNew">isNew</a> is true,
+    the currentUsage is set to 0.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><a id="uuid" name="uuid"></a><strong>uuid</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:string</td><td>
+<p></p>
+         The vSAN UUID of the entity.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set</span>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="EntityResourceCheckDetails">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                     <element name="name" type="xsd:string" minOccurs="0"/>
+                     <element name="uuid" type="xsd:string" minOccurs="0"/>
+                     <element name="isNew" type="xsd:boolean" minOccurs="0"/>
+                     <element name="capacity" type="xsd:long" minOccurs="0"/>
+                     <element name="postOperationCapacity" type="xsd:long" minOccurs="0"/>
+                     <element name="usedCapacity" type="xsd:long" minOccurs="0"/>
+                     <element name="postOperationUsedCapacity" type="xsd:long" minOccurs="0"/>
+                     <element name="additionalRequiredCapacity" type="xsd:long" minOccurs="0"/>
+                     <element name="maxComponents" type="xsd:long" minOccurs="0"/>
+                     <element name="components" type="xsd:long" minOccurs="0"/>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

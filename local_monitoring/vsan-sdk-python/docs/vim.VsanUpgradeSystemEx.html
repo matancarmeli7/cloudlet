@@ -1,0 +1,801 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.VsanUpgradeSystemEx" name="vim.VsanUpgradeSystemEx"></a>
+<h1>Managed Object -  
+						VsanUpgradeSystemEx(vim.VsanUpgradeSystemEx)</h1>
+<dl>
+<dt>See also</dt>
+<dd>
+<a href="vim.ClusterComputeResource.html">ClusterComputeResource</a>, <a href="vim.HostSystem.html">HostSystem</a>, <a href="vim.Task.html">Task</a>, <a href="vim.cluster.VsanDiskFormatConversionCheckResult.html">VsanDiskFormatConversionCheckResult</a>, <a href="vim.cluster.VsanDiskFormatConversionSpec.html">VsanDiskFormatConversionSpec</a>, <a href="vim.cluster.VsanUpgradeStatusEx.html">VsanUpgradeStatusEx</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.0</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         <p>It deprecates vim.VsanUpgradeSystem, to take care of vSAN
+    upgrade process.</p>
+    <p>It has capability to support additional advanced disk format
+    conversion specification, to help on configuration of
+    latest vSAN advanced features.</p>
+    It supports following vSAN on-disk format versions:
+    <ul>
+    <li>
+    version 1, released by vSAN 1.0, vSphere ESXi 5.5U1;
+    </li>
+    <li>
+    version 2, released by vSAN 6.0, which supports Virsto file
+    system;
+    </li>
+    <li>
+    version 3, released by vSAN 6.2, which supports vSAN
+    deduplication and compression.
+    </li>
+    </ul>
+    It can be accessed with MOID vsan-upgrade-systemex through vSAN
+    service at vCenter server side.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#performUpgrade">PerformVsanUpgradeEx</a>, <a href="#performUpgradePreflightAsyncCheck">PerformVsanUpgradePreflightAsyncCheck_Task</a>, <a href="#performUpgradePreflightCheck">PerformVsanUpgradePreflightCheckEx</a>, <a href="#retrieveSupportedFormatVersion">RetrieveSupportedVsanFormatVersion</a>, <a href="#queryUpgradeStatus">VsanQueryUpgradeStatusEx</a></td>
+</tr>
+</table>
+<br>
+<a id="performUpgrade" name="performUpgrade"></a>
+<h1>PerformVsanUpgradeEx(performUpgrade)</h1>
+<p></p>
+         Start vSAN disk format conversion on a particular cluster.
+ 
+    <p>It deprecates API vim.VsanUpgradeSystem.PerformVsanUpgrade,
+    besides supporting original basic upgrade options, it also supports
+    advanced disk format conversion spec, to convert vSAN disk
+    format to support corresponding vSAN advanced features, such
+    as vSAN deduplication and compression, etc.</p>
+ 
+    <p>In order to perform this on-disk format upgrade, the upgrade process
+    will perform a rolling evacuation/remove/re-add operation to accomplish
+    the upgrade. In other words, one disk group at a time, it will evacuate
+    the data from the disk group, then remove the old format from the now
+    empty disk group, then reformat the disk group with the new format.
+    Once all disk groups have been upgraded, and if the performObjectUpgrade
+    parameter is set, the vSAN object version is also upgraded. Before
+    the object version is upgraded, it is possible to downgrade the cluster
+    by passing the downgradeFormat parameter. Once objects are of the new
+    object version however, downgrade (and thus rollback) are no longer
+    possible. The new object version is required to allow objects to benefit
+    from new vSAN features.</p>
+ 
+    <p>The upgrade process performs additional "preflight checks" before
+    proceeding to upgrade the next host. The upgrade process will be halted
+    if any of those preflight checks fail.</p>
+ 
+    <p>If the upgrade process has been halted due to a problem, or even due to
+    a crash or other failure, it can be re-started at any point in time.
+    The upgrade will resume where it left off and only do the parts that
+    are still outstanding. If the upgrade process stopped after removing
+    vSAN from a disk group, but before re-adding those disks to
+    vSAN, the upgrade process can recover from that. The preflight
+    check results indicate such a condition.</p>
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> Host.Config.Storage </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.VsanUpgradeSystemEx.html">VsanUpgradeSystemEx</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ClusterComputeResource.html">ClusterComputeResource</a></td><td>
+<p></p>
+         The cluster to be upgraded
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>performObjectUpgrade</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         After all disk groups have been updated, also
+                                upgrade all objects. Once started, rollback
+                                of the on disk format is no longer possible.
+                                Object upgrade unlocks new vSAN features. The
+                                default behavior is upgrading objects is this
+                                parameter is not specified.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.0<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>downgradeFormat</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Perform a on-disk format downgrade instead of
+                           upgrade. Only possible if no upgraded objects exist.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.0<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>allowReducedRedundancy</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Removes the need for one disk group worth of
+                                  free space, by allowing reduced redundancy
+                                  during disk upgrade.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.0<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>excludeHosts</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference[]</a>
+<br> to a
+                  <a href="vim.HostSystem.html">HostSystem[]</a></td><td>
+<p></p>
+         Internal debug option meant for functional testing
+                        of vSAN upgrades. Skips upgrade on certain hosts and
+                        implies performObjectUpgrade being false. Should not
+                        be used by customers.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.0<br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>spec</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanDiskFormatConversionSpec.html">VsanDiskFormatConversionSpec</a></td><td>
+<p></p>
+         The specification of advanced disk format configuration. The
+                spec cannot be supported in downgrade process, for now we don't
+                have any advanced features supported by lower disk format.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.0<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>vim.Task</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('PerformVsanUpgradeEx-textarea');expandcontent(this, 'PerformVsanUpgradeEx-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="PerformVsanUpgradeEx-div">
+<textarea cols="20" rows="10" name="PerformVsanUpgradeEx-textarea" wrap="off" readonly="1" id="PerformVsanUpgradeEx-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="PerformVsanUpgradeEx" type="vsan:PerformVsanUpgradeExRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="PerformVsanUpgradeExResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="performUpgradePreflightAsyncCheck" name="performUpgradePreflightAsyncCheck"></a>
+<h1>PerformVsanUpgradePreflightAsyncCheck_Task(performUpgradePreflightAsyncCheck)</h1>
+<p></p>
+         Perform an upgrade preflight check on a cluster asynchronously.
+ 
+    Has the same arguments as <a href="vim.VsanUpgradeSystemEx.html#performUpgradePreflightCheck">PerformVsanUpgradePreflightCheckEx</a> for argument
+    details.
+ 
+    The checks are performed asynchronously tracked by a task. Upon completion
+    results can be obtained by calling <a href="vim.VsanUpgradeSystemEx.html#queryUpgradeStatus">VsanQueryUpgradeStatusEx</a>
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> Host.Config.Storage </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.5</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.VsanUpgradeSystemEx.html">VsanUpgradeSystemEx</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ClusterComputeResource.html">ClusterComputeResource</a></td><td>
+<p></p>
+         The target cluster to process conversion.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>downgradeFormat</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Intend to perform a on-disk format downgrade
+                           instead of upgrade. Adds additional checks.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.5<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>spec</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanDiskFormatConversionSpec.html">VsanDiskFormatConversionSpec</a></td><td>
+<p></p>
+         The specification of advanced disk format configuration.
+                Adds additional checks. The specification cannot be
+                supported in downgrade process, for now we don't
+                have any advanced features supported by lower disk format.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.5<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>A task to monitor progress. Results should be obtains by VsanQueryUpgradeStatusEx</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td></td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('PerformVsanUpgradePreflightAsyncCheck_Task-textarea');expandcontent(this, 'PerformVsanUpgradePreflightAsyncCheck_Task-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="PerformVsanUpgradePreflightAsyncCheck_Task-div">
+<textarea cols="20" rows="10" name="PerformVsanUpgradePreflightAsyncCheck_Task-textarea" wrap="off" readonly="1" id="PerformVsanUpgradePreflightAsyncCheck_Task-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="PerformVsanUpgradePreflightAsyncCheck_Task" type="vsan:PerformVsanUpgradePreflightAsyncCheck_TaskRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="PerformVsanUpgradePreflightAsyncCheck_TaskResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:ManagedObjectReference"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="performUpgradePreflightCheck" name="performUpgradePreflightCheck"></a>
+<h1>PerformVsanUpgradePreflightCheckEx(performUpgradePreflightCheck)</h1>
+<p></p>
+         Perform an upgrade preflight check on a cluster.
+ 
+    <p>It deprecates API vim.VsanUpgradeSystem.PerformVsanUpgradePreflightCheck,
+    and helps to check following issues which would break vSAN upgrade
+    process:</p>
+ 
+    <ol>
+    <li> Any vSAN host is disconnected from vCenter server </li>
+    <li> ESXi host before vSphere 6.0 exists in vSAN cluster, of
+    which on-disk format cannot be upgraded </li>
+    <li> Any vSAN host enables auto-mode to claim disk </li>
+    <li> Network issue exists in vSAN cluster, which leads to communication
+    problem among vSAN hosts </li>
+    <li> Not all vSAN member hosts reside in specified vCenter cluster </li>
+    <li> Any vSAN host contributes in the other vSAN cluster </li>
+    <li> There is inaccessible vSAN object in vSAN datastore </li>
+    <li> Any in-use vSAN disk that are unhealthy, such as physical
+    disk lost </li>
+    <li> Hybrid disk group exists in vSAN cluster, and requests to enable
+    Deduplication and Compression </li>
+    <li> To request enable Deduplication and Compression, but there is ESXi host
+    software version is below then ESXi 6.0 Update 2 </li>
+    <li> vSAN downgrade is requested, but vSAN objects have already
+    been upgraded to 2.0 or above</li>
+    <li> Any vSAN object that would present an upgrade issue </li>
+    </ol>
+ 
+    Any issue detected by preflight check, requires manual fix by end user,
+    before trigger vSAN upgrade process through PerformVsanUpgradeEx.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> Host.Config.Storage </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.VsanUpgradeSystemEx.html">VsanUpgradeSystemEx</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ClusterComputeResource.html">ClusterComputeResource</a></td><td>
+<p></p>
+         The target cluster to be converted.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>downgradeFormat</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+         Intend to perform a on-disk format downgrade
+                           instead of upgrade. Adds additional checks.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.0<br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>spec</strong><span title="Need not be set" class="footnote-ref">*</span></td><td><a href="vim.cluster.VsanDiskFormatConversionSpec.html">VsanDiskFormatConversionSpec</a></td><td>
+<p></p>
+         The specification of advanced disk format configuration.
+                Adds additional checks. The specification cannot be
+                supported in downgrade process, for now we don't
+                have any advanced features supported by lower disk format.
+      <p></p>
+<B><I>Since </I></B>vSphere API 6.0<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.cluster.VsanDiskFormatConversionCheckResult.html">VsanDiskFormatConversionCheckResult</a></td><td>Preflight check result.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('PerformVsanUpgradePreflightCheckEx-textarea');expandcontent(this, 'PerformVsanUpgradePreflightCheckEx-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="PerformVsanUpgradePreflightCheckEx-div">
+<textarea cols="20" rows="10" name="PerformVsanUpgradePreflightCheckEx-textarea" wrap="off" readonly="1" id="PerformVsanUpgradePreflightCheckEx-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="PerformVsanUpgradePreflightCheckEx" type="vsan:PerformVsanUpgradePreflightCheckExRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="PerformVsanUpgradePreflightCheckExResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VsanDiskFormatConversionCheckResult"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="retrieveSupportedFormatVersion" name="retrieveSupportedFormatVersion"></a>
+<h1>RetrieveSupportedVsanFormatVersion(retrieveSupportedFormatVersion)</h1>
+<p></p>
+         Process a scan and retrieve the highest vSAN disk format
+    version that given cluster supports, the version is up to version
+    of ESXi host in specified cluster:
+    ESX of VSAN2017Q1, support version is 5.
+    ESX of vSphere6.0u2 and vSphere6.5, support version is 4;
+    ESX of vSphere6.0 series before vSphere6.0U2, support version is 2;
+    ESX of lower version, is not supported;
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.VsanUpgradeSystemEx.html">VsanUpgradeSystemEx</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ClusterComputeResource.html">ClusterComputeResource</a></td><td>
+<p></p>
+         The target cluster to process scan.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td>xsd:int</td><td>int To present the highest supported disk format version.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('RetrieveSupportedVsanFormatVersion-textarea');expandcontent(this, 'RetrieveSupportedVsanFormatVersion-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="RetrieveSupportedVsanFormatVersion-div">
+<textarea cols="20" rows="10" name="RetrieveSupportedVsanFormatVersion-textarea" wrap="off" readonly="1" id="RetrieveSupportedVsanFormatVersion-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveSupportedVsanFormatVersion" type="vsan:RetrieveSupportedVsanFormatVersionRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="RetrieveSupportedVsanFormatVersionResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="xsd:int"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="queryUpgradeStatus" name="queryUpgradeStatus"></a>
+<h1>VsanQueryUpgradeStatusEx(queryUpgradeStatus)</h1>
+<p></p>
+         Retrieve the latest status of a running, or the previously completed,
+    upgrade or precheck process. Information about previous upgrade runs are not
+    always, e.g. when vCenter gets restarted.
+ 
+ <p></p>
+ <b>Combined Privileges Required (on vSphere ManagedEntity):</b><br>
+ <table cellspacing="0">
+ <tr> <th> Privileges </th><th> Required on </th> </tr>
+ <tr class="r1"> <td> System.Read </td><td> ClusterComputeResource </td> </tr>
+ </table>
+ * The <b>RootFolder</b> entity in above table refers to the vCenter server itself in the vCenter UI<br>
+ * The <b>ClusterComputeResource</b> entity in above table refers to the cluster which is being operated on<br>
+ <p></p>
+ * The <b>Required Privileges</b> section below is not used, please ignore.<br>
+      <dl>
+<dt>Required Privileges</dt>
+<dd>System.Read</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.5</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.VsanUpgradeSystemEx.html">VsanUpgradeSystemEx</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>cluster</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.ClusterComputeResource.html">ClusterComputeResource</a></td><td>
+<p></p>
+         The cluster for which to retrieve the upgrade status.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vim.cluster.VsanUpgradeStatusEx.html">VsanUpgradeStatusEx</a></td><td>Status</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanQueryUpgradeStatusEx-textarea');expandcontent(this, 'VsanQueryUpgradeStatusEx-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanQueryUpgradeStatusEx-div">
+<textarea cols="20" rows="10" name="VsanQueryUpgradeStatusEx-textarea" wrap="off" readonly="1" id="VsanQueryUpgradeStatusEx-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanQueryUpgradeStatusEx" type="vsan:VsanQueryUpgradeStatusExRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanQueryUpgradeStatusExResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="vsan:VsanUpgradeStatusEx"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

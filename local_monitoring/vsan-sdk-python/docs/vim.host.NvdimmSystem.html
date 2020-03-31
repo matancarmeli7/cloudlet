@@ -1,0 +1,416 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td><a href="#field_detail">Local Properties</a></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.host.NvdimmSystem" name="vim.host.NvdimmSystem"></a>
+<h1>Managed Object -  
+						HostNvdimmSystem(vim.host.NvdimmSystem)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.host.ConfigManager.html#field_detail">HostConfigManager</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.host.NvdimmSystem.Guid.html">NvdimmGuid</a>, <a href="vim.host.NvdimmSystem.NamespaceCreateSpec.html">NvdimmNamespaceCreateSpec</a>, <a href="vim.host.NvdimmSystem.NamespaceDeleteSpec.html">NvdimmNamespaceDeleteSpec</a>, <a href="vim.host.NvdimmSystem.NvdimmSystemInfo.html">NvdimmSystemInfo</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         Managed object responsible for reading and configuring
+  Non-Volatile DIMMs.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r1">
+<td nowrap="1"><a id="nvdimmSystemInfo" name="nvdimmSystemInfo"></a><strong>nvdimmSystemInfo</strong><span title="Required Privilege: Host.Config.Nvdimm" class="privilege-ref"> P</span></td><td><a href="vim.host.NvdimmSystem.NvdimmSystemInfo.html">NvdimmSystemInfo</a></td><td>
+<p></p>
+         Host NVDIMM information.
+ - Summary of all dimms on the host.
+ - Array of all DIMMs on the host.
+ - Array of DIMM information and health for all dimms on the host.
+ - Array of interleave set for all sets on the host.
+ - Array of interleave set information for all sets on the host.
+ - Array of namespace IDs for all dimms on the host.
+ - Array of namespace details of all dimms on the host.
+      <br>
+</td>
+</tr>
+</table>
+<span class="privilege-ref">P</span><span class="footnote">
+                  Required privilege:
+                  Host.Config.Nvdimm</span>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#createNamespace">CreateNvdimmNamespace_Task</a>, <a href="#deleteBlockNamespaces">DeleteNvdimmBlockNamespaces_Task</a>, <a href="#deleteNamespace">DeleteNvdimmNamespace_Task</a></td>
+</tr>
+</table>
+<br>
+<a id="createNamespace" name="createNamespace"></a>
+<h1>CreateNvdimmNamespace_Task(createNamespace)</h1>
+<p></p>
+         Create nvd namespace from information passed in NamespaceCreationSpec.
+
+  <p>
+  A new block or persistent namespace can be created on the NVDIMM(s)
+  when the system is in maintenance mode. If all the parameters passed
+  are valid and system is in maintenance mode, then a DSM (Device
+  Specific Method) call is made to create the namespace. DSM calls are
+  blockable and slow operations and hence the use of task.
+
+  <p>
+  If a new namespace is created, its UUID is returned.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Host.Config.Nvdimm</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.host.NvdimmSystem.html">HostNvdimmSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>createSpec</strong></td><td><a href="vim.host.NvdimmSystem.NamespaceCreateSpec.html">NvdimmNamespaceCreateSpec</a></td><td>
+<p></p>
+         Parameters to create the required namespace.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>This method returns a <a href="vim.Task.html">Task</a> object which is used to monitor this operation. The task result (<a href="vim.Task.html#info">info</a>.<a href="vim.TaskInfo.html#result">result</a>) contains a Guid object that has the UUID of the newly created namespace.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.AlreadyExists.html">AlreadyExists</a></td><td>Thrown if the namespace of type already exists.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.HostConfigFault.html">HostConfigFault</a></td><td>Thrown for any other failure.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>Thrown if an argument to create namespace is invalid.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidHostState.html">InvalidHostState</a></td><td>Thrown if operation is not allowed as system is not in maintenance mode.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.NotSupported.html">NotSupported</a></td><td>Thrown if no NVDIMMs are found, namespace type is not supported or if operation does not have DSM method.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.SystemError.html">SystemError</a></td><td>Thrown for other system errors along with localized reason for failure.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="deleteBlockNamespaces" name="deleteBlockNamespaces"></a>
+<h1>DeleteNvdimmBlockNamespaces_Task(deleteBlockNamespaces)</h1>
+<p></p>
+         Delete all block mode namespaces in the system.
+
+  <p>
+  Existing block namespace(s) can be deleted from all NVDIMMs, if the
+  system is in maintenance mode. If paramters passed are valid and
+  the system is in maintenance mode, then DSM calls are made to
+  delete these namespaces. DSM calls are blockable, slow operations
+  and hence the use of task.
+
+  <p>
+  If a particular block namespace is to be deleted, use
+  <a href="vim.host.NvdimmSystem.html#deleteNamespace">DeleteNvdimmNamespace_Task</a> by passing it the UUID
+  of the block namespace.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Host.Config.Nvdimm</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.host.NvdimmSystem.html">HostNvdimmSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>This method returns a <a href="vim.Task.html">Task</a> object which is used to monitor this operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.HostConfigFault.html">HostConfigFault</a></td><td>Thrown for any other failure.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>Thrown if UUID of namespace to be created is invalid.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidHostState.html">InvalidHostState</a></td><td>Thrown if operation is not allowed as system is not in maintenance mode.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the namespace to be deleted is not found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.NotSupported.html">NotSupported</a></td><td>Thrown if no NVDIMMs are found and if operation does not have DSM method.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.SystemError.html">SystemError</a></td><td>Thrown for any other system error along with localized reason for failure.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="deleteNamespace" name="deleteNamespace"></a>
+<h1>DeleteNvdimmNamespace_Task(deleteNamespace)</h1>
+<p></p>
+         Delete nvd namespace whose uuid matches passed parameter.
+
+  <p>
+  An existing namespace of type block or persistent mode can be deleted
+  from NVDIMM(s), if the system is in maintenance mode. If paramters
+  passed are valid and the system is in maintenance mode, then a DSM call
+  is made to delete this namespace. DSM calls are blockable, slow
+  operations and hence the use of task.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Host.Config.Nvdimm</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.host.NvdimmSystem.html">HostNvdimmSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>deleteSpec</strong></td><td><a href="vim.host.NvdimmSystem.NamespaceDeleteSpec.html">NvdimmNamespaceDeleteSpec</a></td><td>
+<p></p>
+         Details of namespace to be deleted.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td>This method returns a <a href="vim.Task.html">Task</a> object which is used to monitor this operation.</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.HostConfigFault.html">HostConfigFault</a></td><td>Thrown for any other failure.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.fault.InvalidArgument.html">InvalidArgument</a></td><td>Thrown if UUID of namespace to be created is invalid.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidHostState.html">InvalidHostState</a></td><td>Thrown if operation is not allowed as system is not in maintenance mode.</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Thrown if the namespace to be deleted is not found.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.NotSupported.html">NotSupported</a></td><td>Thrown if no NVDIMMs are found or if operation does not have DSM method.</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.fault.SystemError.html">SystemError</a></td><td>Thrown for any other system error along with localized reason for failure.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td><a href="#field_detail">Local Properties</a></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

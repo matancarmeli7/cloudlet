@@ -1,0 +1,306 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vsan.VsanHostVdsSystem" name="vim.vsan.VsanHostVdsSystem"></a>
+<h1>Managed Object -  
+						VsanHostVdsSystem(vim.vsan.VsanHostVdsSystem)</h1>
+<dl>
+<dt>See also</dt>
+<dd>
+<a href="vim.vsan.VsanVmVdsMigrationSpec.html">VsanVmVdsMigrationSpec</a>
+</dd>
+<dt>Since </dt>
+<dd>vSAN API 6.6</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+         vSAN optimized methods for assisting VDS related operations, especially
+    migrations from VSS to VDS.
+ 
+    In every ESXi host there is a singleton instance of this class
+    with the Managed Object ID of 'ha-vsan-host-vds-system'.
+      <a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#vsanCompleteMigrateVmsToVds">VsanCompleteMigrateVmsToVds</a>, <a href="#vsanMigrateVmsToVds">VsanMigrateVmsToVds</a></td>
+</tr>
+</table>
+<br>
+<a id="vsanCompleteMigrateVmsToVds" name="vsanCompleteMigrateVmsToVds"></a>
+<h1>VsanCompleteMigrateVmsToVds(vsanCompleteMigrateVmsToVds)</h1>
+<p></p>
+         Mark the jobID with "rollback" or "done" flag. If it is "done", the migration
+    is considered completed. But if it is marked with "rollback", all the change
+    made by previous call of "VsanMigrateVmsToVds" to the network will be rolled
+    back.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Network.Assign</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vsan.VsanHostVdsSystem.html">VsanHostVdsSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>jobId</strong></td><td>xsd:string</td><td>
+<p></p>
+         Unique identifier returned by VsanMigrateVmsToVds()
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>newState</strong></td><td>xsd:string</td><td>
+<p></p>
+         Indicates if the migration is considered completed or
+                    should be rolled back.
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Task not found</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td>Any unexpected runtime error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanCompleteMigrateVmsToVds-textarea');expandcontent(this, 'VsanCompleteMigrateVmsToVds-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanCompleteMigrateVmsToVds-div">
+<textarea cols="20" rows="10" name="VsanCompleteMigrateVmsToVds-textarea" wrap="off" readonly="1" id="VsanCompleteMigrateVmsToVds-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanCompleteMigrateVmsToVds" type="vsan:VsanCompleteMigrateVmsToVdsRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanCompleteMigrateVmsToVdsResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="vsanMigrateVmsToVds" name="vsanMigrateVmsToVds"></a>
+<h1>VsanMigrateVmsToVds(vsanMigrateVmsToVds)</h1>
+<p></p>
+         Make all the VMs on the host to adopt the VDS network.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Network.Assign</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.vsan.VsanHostVdsSystem.html">VsanHostVdsSystem</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>vmConfigSpecs</strong></td><td><a href="vim.vsan.VsanVmVdsMigrationSpec.html">VsanVmVdsMigrationSpec[]</a></td><td>
+<p></p>
+         VMs to be migrated via associated specs
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>vdsUuid</strong></td><td>xsd:string</td><td>
+<p></p>
+         UUID of the VDS that is being migrated to.
+      <br>
+</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>timeoutSec</strong></td><td>xsd:long</td><td>
+<p></p>
+         Time in seconds. See above for timeout behavior.
+      <br>
+</td>
+</tr>
+<tr class="r1">
+<td nowrap="1"><strong>revert</strong><span title="Need not be set" class="footnote-ref">*</span></td><td>xsd:boolean</td><td>
+<p></p>
+<p></p>
+<B><I>Since </I></B>vSAN API 6.6<br>
+</td>
+</tr>
+</table>
+<span class="footnote-ref">*</span><span class="footnote">Need not be set </span>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td>xsd:string</td><td>A unique identifier referring to this operation</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.NotFound.html">NotFound</a></td><td>Task not found</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.VsanFault.html">VsanFault</a></td><td>Any unexpected runtime error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('VsanMigrateVmsToVds-textarea');expandcontent(this, 'VsanMigrateVmsToVds-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="VsanMigrateVmsToVds-div">
+<textarea cols="20" rows="10" name="VsanMigrateVmsToVds-textarea" wrap="off" readonly="1" id="VsanMigrateVmsToVds-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanMigrateVmsToVds" type="vsan:VsanMigrateVmsToVdsRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VsanMigrateVmsToVdsResponse">
+            <complexType>
+               <sequence>
+                  <element name="returnval" type="xsd:string"/>
+               </sequence>
+            </complexType>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

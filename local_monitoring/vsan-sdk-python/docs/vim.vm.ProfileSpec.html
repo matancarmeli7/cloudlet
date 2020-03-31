@@ -1,0 +1,100 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.vm.ProfileSpec" name="vim.vm.ProfileSpec"></a>
+<h1>Data Object - VirtualMachineProfileSpec(vim.vm.ProfileSpec)</h1>
+<dl>
+<dt>Property of</dt>
+<dd>
+<a href="vim.cns.VolumeCreateSpec.html#field_detail">CnsVolumeCreateSpec</a>, <a href="vim.VirtualDiskManager.FileBackedVirtualDiskSpec.html#field_detail">FileBackedVirtualDiskSpec</a>, <a href="vim.storageDrs.PodSelectionSpec.DiskLocator.html#field_detail">PodDiskLocator</a>, <a href="vim.vm.device.VirtualDeviceSpec.html#field_detail">VirtualDeviceConfigSpec</a>, <a href="vim.vm.ConfigSpec.html#field_detail">VirtualMachineConfigSpec</a>, <a href="vim.vm.ProfileDetails.html#field_detail">VirtualMachineProfileDetails</a>, <a href="vim.vm.ProfileDetails.DiskProfileDetails.html#field_detail">VirtualMachineProfileDetailsDiskProfileDetails</a>, <a href="vim.vm.RelocateSpec.html#field_detail">VirtualMachineRelocateSpec</a>, <a href="vim.vm.RelocateSpec.DiskLocator.html#field_detail">VirtualMachineRelocateSpecDiskLocator</a>, <a href="vim.cluster.VsanIscsiHomeObjectSpec.html#field_detail">VsanIscsiHomeObjectSpec</a>, <a href="vim.cluster.VsanIscsiLUNSpec.html#field_detail">VsanIscsiLUNSpec</a>, <a href="vim.cluster.VsanIscsiTargetServiceSpec.html#field_detail">VsanIscsiTargetServiceSpec</a>, <a href="vim.cluster.VsanIscsiTargetSpec.html#field_detail">VsanIscsiTargetSpec</a>, <a href="vim.cluster.VsanPerfsvcConfig.html#field_detail">VsanPerfsvcConfig</a>, <a href="vim.cluster.VsanWhatifCapacity.html#field_detail">VsanWhatifCapacity</a>, <a href="vim.vslm.CreateSpec.html#field_detail">VslmCreateSpec</a>, <a href="vim.vslm.InfrastructureObjectPolicySpec.html#field_detail">vslmInfrastructureObjectPolicySpec</a>, <a href="vim.vslm.MigrateSpec.html#field_detail">VslmMigrateSpec</a>
+</dd>
+<dt>Parameter to</dt>
+<dd>
+<a href="vim.vslm.vcenter.VStorageObjectManager.html#createDiskFromSnapshot">CreateDiskFromSnapshot_Task</a>, <a href="vim.vslm.host.VStorageObjectManager.html#createDiskFromSnapshot">HostVStorageObjectCreateDiskFromSnapshot_Task</a>, <a href="vim.VirtualDiskManager.html#moveVirtualDisk">MoveVirtualDisk_Task</a>, <a href="vim.vslm.vcenter.VStorageObjectManager.html#updateVStorageObjectPolicy">UpdateVStorageObjectPolicy_Task</a>, <a href="vim.cluster.VsanObjectSystem.html#setVsanObjectPolicy">VosSetVsanObjectPolicy</a>, <a href="vim.cluster.VsanPerformanceManager.html#createStatsObject">VsanPerfCreateStatsObject</a>, <a href="vim.cluster.VsanPerformanceManager.html#createStatsObjectTask">VsanPerfCreateStatsObjectTask</a>, <a href="vim.cluster.VsanPerformanceManager.html#setStatsObjectPolicy">VsanPerfSetStatsObjectPolicy</a>, <a href="vim.cluster.VsanSpaceReportSystem.html#querySpaceUsage">VsanQuerySpaceUsage</a>
+</dd>
+<dt>Extended by</dt>
+<dd>
+<a href="vim.vm.DefaultProfileSpec.html">VirtualMachineDefaultProfileSpec</a>, <a href="vim.vm.DefinedProfileSpec.html">VirtualMachineDefinedProfileSpec</a>, <a href="vim.vm.EmptyProfileSpec.html">VirtualMachineEmptyProfileSpec</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vmodl.DynamicData.html">DynamicData</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 5.5</dd>
+<p></p>
+</dl>
+<H2>Data Object 
+                  Description</H2>
+<p></p>
+         The ProfileSpec data object is used to specify the Storage Policy to be
+  associated with a Virtual Machine Home or a Virtual Disk.
+      <p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+<tr class="r1">
+<td colspan="3">
+						Properties inherited from <a href="vmodl.DynamicData.html">DynamicData</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <complexType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="VirtualMachineProfileSpec">
+            <complexContent>
+               <extension base="vsan:DynamicData">
+                  <sequence>
+                  </sequence>
+               </extension>
+            </complexContent>
+         </complexType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

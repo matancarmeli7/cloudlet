@@ -1,0 +1,366 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.encryption.CryptoManagerHost" name="vim.encryption.CryptoManagerHost"></a>
+<h1>Managed Object -  
+						CryptoManagerHost(vim.encryption.CryptoManagerHost)</h1>
+<dl>
+<dt>Extended by</dt>
+<dd>
+<a href="vim.encryption.CryptoManagerHostKMS.html">CryptoManagerHostKMS</a>
+</dd>
+<dt>Extends</dt>
+<dd>
+<a href="vim.encryption.CryptoManager.html">CryptoManager</a>
+</dd>
+<dt>See also</dt>
+<dd>
+<a href="vim.encryption.CryptoKeyPlain.html">CryptoKeyPlain</a>
+</dd>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+<p></p>
+</dl>
+<br>
+<h2>Managed Object Description</h2>
+<p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Properties</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Name
+	        </th><th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr class="r0">
+<td colspan="3">None</td>
+</tr>
+<tr class="r1">
+<td colspan="3">
+						Properties inherited from <a href="vim.encryption.CryptoManager.html">CryptoManager</a></td>
+</tr>
+<tr class="r0">
+<td colspan="3"><a href="vim.encryption.CryptoManager.html#enabled">enabled</a></td>
+</tr>
+</table>
+<br>
+<a id="method_detail" name="method_detail"></a>
+<p class="table-title">Methods</p>
+<table cellspacing="0">
+<tr class="r1">
+<th>
+				          Methods defined in this Managed Object
+				        </th>
+</tr>
+<tr class="r0">
+<td><a href="#changeKey">ChangeKey_Task</a>, <a href="#enable">CryptoManagerHostEnable</a>, <a href="#prepare">CryptoManagerHostPrepare</a></td>
+</tr>
+<tr class="r1">
+<td>
+            Methods inherited from <a href="vim.encryption.CryptoManager.html">CryptoManager</a></td>
+</tr>
+<tr class="r0">
+<td><a href="vim.encryption.CryptoManager.html#addKey">AddKey</a>, <a href="vim.encryption.CryptoManager.html#addKeys">AddKeys</a>, <a href="vim.encryption.CryptoManager.html#listKeys">ListKeys</a>, <a href="vim.encryption.CryptoManager.html#removeKey">RemoveKey</a>, <a href="vim.encryption.CryptoManager.html#removeKeys">RemoveKeys</a></td>
+</tr>
+</table>
+<br>
+<a id="changeKey" name="changeKey"></a>
+<h1>ChangeKey_Task(changeKey)</h1>
+<p></p>
+         Change the key used for core dump encryption
+ Note: <a href="vim.encryption.CryptoManagerHost.html#enable">CryptoManagerHostEnable</a> must be called first
+
+ If successful, a "best effort" will be made to "in place" shallow recrypt
+ any core dumps found in /var/core to use the new key.
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Cryptographer.RegisterHost</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.encryption.CryptoManagerHost.html">CryptoManagerHost</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>newKey</strong></td><td><a href="vim.encryption.CryptoKeyPlain.html">CryptoKeyPlain</a></td><td>
+<p></p>
+         The key that replaces the existing core dump encryption key
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a>
+<br> to a
+                  <a href="vim.Task.html">Task</a></td><td></td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the host is not in <a href="vim.HostSystem.CryptoState.html#safe">safe</a> state</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<a id="enable" name="enable"></a>
+<h1>CryptoManagerHostEnable(enable)</h1>
+<p></p>
+         Begin core dump encryption by specifying the encryption key and put
+ the host in <a href="vim.HostSystem.CryptoState.html#safe">safe</a> state
+ Note: <a href="vim.encryption.CryptoManagerHost.html#prepare">CryptoManagerHostPrepare</a> must be called first
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Cryptographer.RegisterHost</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.encryption.CryptoManagerHost.html">CryptoManagerHost</a>
+						used to make the method call.
+					</td>
+</tr>
+<tr class="r0">
+<td nowrap="1"><strong>initialKey</strong></td><td><a href="vim.encryption.CryptoKeyPlain.html">CryptoKeyPlain</a></td><td>
+<p></p>
+         The key to be used for core dump encryption
+      <br>
+</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.AlreadyExists.html">AlreadyExists</a></td><td>Thrown if the host is in <a href="vim.HostSystem.CryptoState.html#safe">safe</a> state and initialKey differs from the existing core dump encryption key</td>
+</tr>
+<tr class="r0">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the host is in <a href="vim.HostSystem.CryptoState.html#incapable">incapable</a> state</td>
+</tr>
+<tr class="r1">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('CryptoManagerHostEnable-textarea');expandcontent(this, 'CryptoManagerHostEnable-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="CryptoManagerHostEnable-div">
+<textarea cols="20" rows="10" name="CryptoManagerHostEnable-textarea" wrap="off" readonly="1" id="CryptoManagerHostEnable-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CryptoManagerHostEnable" type="vsan:CryptoManagerHostEnableRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CryptoManagerHostEnableResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<a id="prepare" name="prepare"></a>
+<h1>CryptoManagerHostPrepare(prepare)</h1>
+<p></p>
+         Prime the host to receive sensitive information and put the host
+ in <a href="vim.HostSystem.CryptoState.html#prepared">prepared</a> state
+      <dl>
+<dt>Required Privileges</dt>
+<dd>Cryptographer.RegisterHost</dd>
+</dl>
+<p class="table-title">
+		Parameters
+		</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Type</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><strong>_this</strong></td><td><a href="vmodl.ManagedObjectReference.html">ManagedObjectReference</a></td><td>
+					A reference to the 
+						<a href="vim.encryption.CryptoManagerHost.html">CryptoManagerHost</a>
+						used to make the method call.
+					</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+		Return Value
+		</p>
+<table cellspacing="0">
+<tr>
+<th>
+	          Type
+	        </th><th>
+	          Description
+	        </th>
+</tr>
+<tr>
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<p class="table-title">
+         Faults
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th><th>
+               Description
+            </th>
+</tr>
+<tr class="r1">
+<td><a href="vim.fault.InvalidState.html">InvalidState</a></td><td>Thrown if the host is not in <a href="vim.HostSystem.CryptoState.html#incapable">incapable</a> state</td>
+</tr>
+<tr class="r0">
+<td><a href="vmodl.RuntimeFault.html">RuntimeFault</a></td><td>Thrown if any type of runtime fault is thrown that is not covered by the other faults; for example, a communication error.</td>
+</tr>
+</table>
+<p class="table-title">
+         Events
+      </p>
+<table cellspacing="0">
+<tr>
+<th>
+               Type
+            </th>
+</tr>
+<tr class="r1">
+<td colspan="2">None</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('CryptoManagerHostPrepare-textarea');expandcontent(this, 'CryptoManagerHostPrepare-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="CryptoManagerHostPrepare-div">
+<textarea cols="20" rows="10" name="CryptoManagerHostPrepare-textarea" wrap="off" readonly="1" id="CryptoManagerHostPrepare-textarea">         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CryptoManagerHostPrepare" type="vsan:CryptoManagerHostPrepareRequestType"/>
+         <element xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="CryptoManagerHostPrepareResponse">
+            <complexType/>
+         </element></textarea>
+</div>
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td><a href="#method_detail">Local Methods</a></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<html xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vim2="urn:vim2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="./commonRes.js" language="JavaScript"> type="text/javascript"></script>
+<link href="doc-style.css" type="text/css" rel="StyleSheet">
+</head>
+<script src="dynamic-content.js" type="text/javascript"></script>
+<body>
+<table cellspacing="0" class="header-footer" id="top">
+<tr>
+<td>
+<br>
+</td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<a id="vim.profile.host.ProfileManager.ApplyHostConfigResult.Status" name="vim.profile.host.ProfileManager.ApplyHostConfigResult.Status"></a>
+<h1>Enum - 
+						ApplyHostProfileConfigurationResultStatus(vim.profile.host.ProfileManager.ApplyHostConfigResult.Status)</h1>
+<dl>
+<dt>Since </dt>
+<dd>vSphere API 6.7</dd>
+<p></p>
+</dl>
+<br>
+<h2>Enum Description</h2>
+<p></p>
+<p></p>
+<a id="field_detail" name="field_detail"></a>
+<p class="table-title">Enum Constants</p>
+<table cellspacing="0">
+<tr>
+<th>Name</th><th>Description</th>
+</tr>
+<tr class="r1">
+<td><a id="canceled" name="canceled"></a>canceled</td><td>
+      The remediation was canceled.
+   <br>
+</td>
+</tr>
+<tr class="r0">
+<td><a id="check_compliance_failed" name="check_compliance_failed"></a>check_compliance_failed</td><td>
+      Remediation and reboot succeeded but check compliance after reboot
+ failed.
+
+ May treat this as a warning.
+   <br>
+</td>
+</tr>
+<tr class="r1">
+<td><a id="exit_maintenancemode_failed" name="exit_maintenancemode_failed"></a>exit_maintenancemode_failed</td><td>
+      Exit maintenance mode failed.
+   <br>
+</td>
+</tr>
+<tr class="r0">
+<td><a id="failed" name="failed"></a>failed</td><td>
+      Remediation failed.
+   <br>
+</td>
+</tr>
+<tr class="r1">
+<td><a id="reboot_failed" name="reboot_failed"></a>reboot_failed</td><td>
+      Remediation succeeded but reboot after remediation failed.
+
+ May treat this as a warning.
+   <br>
+</td>
+</tr>
+<tr class="r0">
+<td><a id="state_not_satisfied" name="state_not_satisfied"></a>state_not_satisfied</td><td>
+      The required state is not satisfied so host profiel apply cannot
+ be done.
+   <br>
+</td>
+</tr>
+<tr class="r1">
+<td><a id="stateless_reboot_failed" name="stateless_reboot_failed"></a>stateless_reboot_failed</td><td>
+      Stateless reboot for remediation failed.
+   <br>
+</td>
+</tr>
+<tr class="r0">
+<td><a id="success" name="success"></a>success</td><td>
+      Remediation succeeded.
+   <br>
+</td>
+</tr>
+</table>
+<br>
+<a style="margin-bottom:10px; margin-top:10px; cursor:hand; cursor:pointer" onclick="resize_textarea('wsdl-textarea');expandcontent(this, 'wsdl-div')">Show WSDL type definition</a>
+<div class="switchcontent" id="wsdl-div">
+<textarea cols="20" rows="10" name="wsdl-textarea" wrap="off" readonly="1" id="wsdl-textarea">         <simpleType xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vsan="urn:vsan" name="ApplyHostProfileConfigurationResultStatus">
+            <restriction base="xsd:string">
+               <enumeration value="success"/>
+               <enumeration value="failed"/>
+               <enumeration value="reboot_failed"/>
+               <enumeration value="stateless_reboot_failed"/>
+               <enumeration value="check_compliance_failed"/>
+               <enumeration value="state_not_satisfied"/>
+               <enumeration value="exit_maintenancemode_failed"/>
+               <enumeration value="canceled"/>
+            </restriction>
+         </simpleType></textarea>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="header-footer" id="bottom">
+<tr>
+<td><a href="#top">Top of page</a></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td><a href="index-mo_types.html">Managed Object Types</a></td><td><a href="index-do_types.html">Data Object Types</a></td><td><a href="index-properties.html">All Properties</a></td><td><a href="index-methods.html">All Methods</a></td>
+</tr>
+</table>
+<br>
+<script language="javascript">document.write(ID_Copyright);</script>
+<br>
+<script language="javascript">document.write(ID_VersionInformation);</script>
+</body>
+</html>
