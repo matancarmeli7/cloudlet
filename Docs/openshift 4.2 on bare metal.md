@@ -25,8 +25,8 @@ Installation:
 6. Run openshift-install command for creating ignition files.(add ignition command)
 7. Copy the master.ign to your httpd directory.
 8. Now for the bootstrap.ign there are two possibilities:
-  a. If you use bare metal bootstrap just put bootstrap.ign file in httpd directory.
-  b. If you use bootstrap vm you can base64(base64 -w0 < bootstrap.ign > bootstrap.64) your ignition file and we can use it later. Or use an append file - this file will tell RHCOS where to download the bootstrap.ign file to configure itself for the OpenShift cluster.(link for append template ).
+  - If you use bare metal bootstrap just put bootstrap.ign file in httpd directory.
+  - If you use bootstrap vm you can base64(base64 -w0 < bootstrap.ign > bootstrap.64) your ignition file and we can use it later. Or use an append file - this file will tell RHCOS where to download the bootstrap.ign file to configure itself for the OpenShift cluster.(link for append template ).
 9. Now you need to install the bootstrap server:
   a. Bare metal - you need the installer iso file and the uefi\bios installation file. Boot The server from the installer iso file and press tab to insert the parameters for rhcos, here is an example config:
   ip=192.168.1.116::192.168.1.1:255.255.255.0:bootstrap.openshift4.example.com:ens192:none
