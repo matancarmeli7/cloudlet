@@ -1,4 +1,4 @@
-openshift 4.2 on bare metal
+# openshift 4.2 on bare metal
 
 Follow the next instructions for installing openshift 4.2 on bare metal:
 
