@@ -1,0 +1,15 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: clusterloggings.admin
+  labels:
+    olm.owner: clusterlogging.4.2.13-201912230557
+    olm.owner.kind: ClusterServiceVersion
+    olm.owner.namespace: openshift-logging
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - logging.openshift.io
+    resources:
+      - clusterloggings

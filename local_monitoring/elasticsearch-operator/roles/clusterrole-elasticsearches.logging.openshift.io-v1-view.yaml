@@ -1,0 +1,13 @@
+﻿kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: elasticsearches.logging.view
+rules:
+  - verbs:
+      - get
+      - list
+      - watch
+    apiGroups:
+      - logging.openshift.io
+    resources:
+      - elasticsearches

@@ -1,0 +1,515 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: |-
+      [
+          {
+            "apiVersion": "logging.openshift.io/v1",
+            "kind": "ClusterLogging",
+            "metadata": {
+              "name": "instance",
+              "namespace": "openshift-logging"
+             },
+            "spec": {
+              "managementState": "Managed",
+              "logStore": {
+                "type": "elasticsearch",
+                "elasticsearch": {
+                  "nodeCount": 3,
+                  "redundancyPolicy": "SingleRedundancy",
+                  "storage": {
+                    "storageClassName": "gp2",
+                    "size": "200G"
+                   }
+                 }
+              },
+              "visualization": {
+                "type": "kibana",
+                "kibana": {
+                  "replicas": 1
+                }
+              },
+              "curation": {
+                "type": "curator",
+                "curator": {
+                  "schedule": "30 3 * * *"
+                }
+              },
+              "collection": {
+                "logs": {
+                  "type": "fluentd",
+                  "fluentd": {}
+                }
+              }
+            }
+          }
+      ]
+    capabilities: Seamless Upgrades
+    categories: OpenShift Optional, Logging & Tracing
+    certified: "false"
+    containerImage: registry.redhat.io/openshift4/ose-cluster-logging-operator@sha256:7c66a420c616776d9f57767b941265d43c119fb56476b0b632bb0ad69c02d256
+    createdAt: "2018-08-01T08:00:00Z"
+    description: The Cluster Logging Operator for OKD provides a means for configuring
+      and managing your aggregated logging stack.
+    olm.operatorGroup: openshift-logging-dr6fb
+    olm.operatorNamespace: openshift-logging
+    olm.skipRange: '>=4.1.0 <4.2.13-201912230557'
+    olm.targetNamespaces: openshift-logging
+    support: AOS Logging
+  creationTimestamp: "2020-01-08T13:11:19Z"
+  generation: 1
+  labels:
+    olm.api.398cc1f7861443fe: provided
+  name: clusterlogging.4.2.13-201912230557
+  namespace: openshift-logging
+  resourceVersion: "231267"
+  selfLink: /apis/operators.coreos.com/v1alpha1/namespaces/openshift-logging/clusterserviceversions/clusterlogging.4.2.13-201912230557
+  uid: 5c371390-3218-11ea-8aac-0242ac110008
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: A Cluster Logging instance
+      displayName: Cluster Logging
+      kind: ClusterLogging
+      name: clusterloggings.logging.openshift.io
+      resources:
+      - kind: Deployment
+        name: ""
+        version: v1
+      - kind: DaemonSet
+        name: ""
+        version: v1
+      - kind: CronJob
+        name: ""
+        version: v1beta1
+      - kind: ReplicaSet
+        name: ""
+        version: v1
+      - kind: Pod
+        name: ""
+        version: v1
+      - kind: ConfigMap
+        name: ""
+        version: v1
+      - kind: Secret
+        name: ""
+        version: v1
+      - kind: Service
+        name: ""
+        version: v1
+      - kind: Route
+        name: ""
+        version: v1
+      - kind: Elasticsearch
+        name: ""
+        version: v1alpha1
+      specDescriptors:
+      - description: The desired number of Kibana Pods for the Visualization component
+        displayName: Kibana Size
+        path: visualization.kibana.replicas
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:podCount
+      - description: Resource requirements for the Kibana pods
+        displayName: Kibana Resource Requirements
+        path: visualization.kibana.resources
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:resourceRequirements
+      - description: The node selector to use for the Kibana Visualization component
+        displayName: Kibana Node Selector
+        path: visualization.kibana.nodeSelector
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:nodeSelector
+      - description: The desired number of Elasticsearch Nodes for the Log Storage
+          component
+        displayName: Elasticsearch Size
+        path: logStore.elasticsearch.nodeCount
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:podCount
+      - description: Resource requirements for each Elasticsearch node
+        displayName: Elasticsearch Resource Requirements
+        path: logStore.elasticsearch.resources
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:resourceRequirements
+      - description: The node selector to use for the Elasticsearch Log Storage component
+        displayName: Elasticsearch Node Selector
+        path: logStore.elasticsearch.nodeSelector
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:nodeSelector
+      - description: Resource requirements for the Fluentd pods
+        displayName: Fluentd Resource Requirements
+        path: collection.logs.fluentd.resources
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:resourceRequirements
+      - description: The node selector to use for the Fluentd log collection component
+        displayName: Fluentd node selector
+        path: collection.logs.fluentd.nodeSelector
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:nodeSelector
+      - description: Resource requirements for the Curator pods
+        displayName: Curator Resource Requirements
+        path: curation.curator.resources
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:resourceRequirements
+      - description: The node selector to use for the Curator component
+        displayName: Curator Node Selector
+        path: curation.curator.nodeSelector
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:nodeSelector
+      - description: The cron schedule for the Curator component
+        displayName: Curation Schedule
+        path: curation.curator.schedule
+      statusDescriptors:
+      - description: The status for each of the Kibana pods for the Visualization
+          component
+        displayName: Kibana Status
+        path: visualization.kibanaStatus.pods
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:podStatuses
+      - description: The status for each of the Elasticsearch Client pods for the
+          Log Storage component
+        displayName: Elasticsearch Client Pod Status
+        path: logStore.elasticsearchStatus.pods.client
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:podStatuses
+      - description: The status for each of the Elasticsearch Data pods for the Log
+          Storage component
+        displayName: Elasticsearch Data Pod Status
+        path: logStore.elasticsearchStatus.pods.data
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:podStatuses
+      - description: The status for each of the Elasticsearch Master pods for the
+          Log Storage component
+        displayName: Elasticsearch Master Pod Status
+        path: logStore.elasticsearchStatus.pods.master
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:podStatuses
+      - description: The cluster status for each of the Elasticsearch Clusters for
+          the Log Storage component
+        displayName: Elasticsearch Cluster Health
+        path: logStore.elasticsearchStatus.clusterHealth
+      - description: The status for each of the Fluentd pods for the Log Collection
+          component
+        displayName: Fluentd status
+        path: collection.logs.fluentdStatus.pods
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:podStatuses
+      version: v1
+  description: |
+    # Cluster Logging
+    The Cluster Logging Operator orchestrates and manages the aggregated logging stack as a cluster-wide service.
+
+    ##Features
+    * **Create/Destroy**: Launch and create an aggregated logging stack to support the entire OKD cluster.
+    * **Simplified Configuration**: Configure your aggregated logging cluster's structure like components and end points easily.
+
+    ## Prerequisites and Requirements
+    ### Cluster Logging Namespace
+    Cluster logging and the Cluster Logging Operator is only deployable to the **openshift-logging** namespace. This namespace
+    must be explicitly created by a cluster administrator (e.g. `oc create ns openshift-logging`). To enable metrics
+    service discovery add namespace label `openshift.io/cluster-monitoring: "true"`.
+    ### Elasticsearch Operator
+    The Elasticsearch Operator is responsible for orchestrating and managing cluster logging's Elasticsearch cluster.  This
+    operator must be deployed to the global operator group namespace
+    ### Memory Considerations
+    Elasticsearch is a memory intensive application.  Cluster Logging will specify that each Elasticsearch node needs
+    16G of memory for both request and limit unless otherwise defined in the ClusterLogging custom resource. The initial
+    set of OKD nodes may not be large enough to support the Elasticsearch cluster.  Additional OKD nodes must be added
+    to the OKD cluster if you desire to run with the recommended(or better) memory. Each ES node can operate with a
+    lower memory setting though this is not recommended for production deployments.
+  displayName: Cluster Logging
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - scheduling.k8s.io
+          resources:
+          - priorityclasses
+          verbs:
+          - '*'
+        - apiGroups:
+          - oauth.openshift.io
+          resources:
+          - oauthclients
+          verbs:
+          - '*'
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - clusterroles
+          - clusterrolebindings
+          verbs:
+          - '*'
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          - namespaces
+          verbs:
+          - get
+          - list
+          - watch
+        serviceAccountName: cluster-logging-operator
+      deployments:
+      - name: cluster-logging-operator
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              name: cluster-logging-operator
+          template:
+            metadata:
+              labels:
+                name: cluster-logging-operator
+            spec:
+              containers:
+              - command:
+                - cluster-logging-operator
+                env:
+                - name: WATCH_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['olm.targetNamespaces']
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: OPERATOR_NAME
+                  value: cluster-logging-operator
+                - name: ELASTICSEARCH_IMAGE
+                  value: registry.redhat.io/openshift4/ose-logging-elasticsearch5@sha256:e9166d6e3245906eefd43a445b9cd941eda59b18e838106181ddaa43456b2f2b
+                - name: FLUENTD_IMAGE
+                  value: registry.redhat.io/openshift4/ose-logging-fluentd@sha256:af8e9874492c24fb6c44710142e196efc587cdce18cf73a481dbba89d422f3c7
+                - name: KIBANA_IMAGE
+                  value: registry.redhat.io/openshift4/ose-logging-kibana5@sha256:c77d318e0c5996a76bf6d1bcc2616d5bd9b26e496eec6eac2498e264a18f7c9c
+                - name: CURATOR_IMAGE
+                  value: registry.redhat.io/openshift4/ose-logging-curator5@sha256:0d4e4ca68be66965ea27a0438180eef14144a418d666b78914ea861328fa7598
+                - name: OAUTH_PROXY_IMAGE
+                  value: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:c431caacca88e0d1bccb9197ae672ea48e5056005f09fb88c97e01d0d94da5b3
+                image: registry.redhat.io/openshift4/ose-cluster-logging-operator@sha256:7c66a420c616776d9f57767b941265d43c119fb56476b0b632bb0ad69c02d256
+                imagePullPolicy: IfNotPresent
+                name: cluster-logging-operator
+              serviceAccountName: cluster-logging-operator
+      permissions:
+      - rules:
+        - apiGroups:
+          - logging.openshift.io
+          resources:
+          - '*'
+          verbs:
+          - '*'
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          - services
+          - endpoints
+          - persistentvolumeclaims
+          - events
+          - configmaps
+          - secrets
+          - serviceaccounts
+          - serviceaccounts/finalizers
+          verbs:
+          - '*'
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          - daemonsets
+          - replicasets
+          - statefulsets
+          verbs:
+          - '*'
+        - apiGroups:
+          - route.openshift.io
+          resources:
+          - routes
+          - routes/custom-host
+          verbs:
+          - '*'
+        - apiGroups:
+          - batch
+          resources:
+          - cronjobs
+          verbs:
+          - '*'
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - roles
+          - rolebindings
+          verbs:
+          - '*'
+        - apiGroups:
+          - security.openshift.io
+          resourceNames:
+          - privileged
+          resources:
+          - securitycontextconstraints
+          verbs:
+          - use
+        - apiGroups:
+          - monitoring.coreos.com
+          resources:
+          - servicemonitors
+          - prometheusrules
+          verbs:
+          - '*'
+        serviceAccountName: cluster-logging-operator
+    strategy: deployment
+  installModes:
+  - supported: true
+    type: OwnNamespace
+  - supported: true
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - elasticsearch
+  - kibana
+  - fluentd
+  - logging
+  - aggregated
+  - efk
+  links:
+  - name: Elastic
+    url: https://www.elastic.co/
+  - name: Fluentd
+    url: https://www.fluentd.org/
+  - name: Documentation
+    url: https://github.com/openshift/cluster-logging-operator/blob/master/README.md
+  - name: Cluster Logging Operator
+    url: https://github.com/openshift/cluster-logging-operator
+  maintainers:
+  - email: aos-logging@redhat.com
+    name: Red Hat
+  minKubeVersion: 1.14.0
+  provider:
+    name: Red Hat, Inc
+  version: 4.2.13-201912230557
+status:
+  certsLastUpdated: null
+  certsRotateAt: null
+  conditions:
+  - lastTransitionTime: "2020-01-08T13:11:19Z"
+    lastUpdateTime: "2020-01-08T13:11:19Z"
+    message: requirements not yet checked
+    phase: Pending
+    reason: RequirementsUnknown
+  - lastTransitionTime: "2020-01-08T13:11:19Z"
+    lastUpdateTime: "2020-01-08T13:11:20Z"
+    message: one or more requirements couldn't be found
+    phase: Pending
+    reason: RequirementsNotMet
+  - lastTransitionTime: "2020-01-08T13:11:20Z"
+    lastUpdateTime: "2020-01-08T13:11:20Z"
+    message: all requirements found, attempting install
+    phase: InstallReady
+    reason: AllRequirementsMet
+  - lastTransitionTime: "2020-01-08T13:11:21Z"
+    lastUpdateTime: "2020-01-08T13:11:21Z"
+    message: waiting for install components to report healthy
+    phase: Installing
+    reason: InstallSucceeded
+  - lastTransitionTime: "2020-01-08T13:11:21Z"
+    lastUpdateTime: "2020-01-08T13:11:23Z"
+    message: |
+      installing: Waiting: waiting for deployment cluster-logging-operator to become ready: Waiting for rollout to finish: 0 of 1 updated replicas are available...
+    phase: Installing
+    reason: InstallWaiting
+  - lastTransitionTime: "2020-01-08T13:11:42Z"
+    lastUpdateTime: "2020-01-08T13:11:42Z"
+    message: install strategy completed with no errors
+    phase: Succeeded
+    reason: InstallSucceeded
+  lastTransitionTime: "2020-01-08T13:11:42Z"
+  lastUpdateTime: "2020-01-08T13:11:42Z"
+  message: install strategy completed with no errors
+  phase: Succeeded
+  reason: InstallSucceeded
+  requirementStatus:
+  - group: operators.coreos.com
+    kind: ClusterServiceVersion
+    message: CSV minKubeVersion (1.14.0) less than server version (v1.14.6+17b1cc6)
+    name: clusterlogging.4.2.13-201912230557
+    status: Present
+    version: v1alpha1
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+    message: CRD is present and Established condition is true
+    name: clusterloggings.logging.openshift.io
+    status: Present
+    uuid: 5c458f80-3218-11ea-8aac-0242ac110008
+    version: v1beta1
+  - dependents:
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: namespaced rule:{"verbs":["*"],"apiGroups":["logging.openshift.io"],"resources":["*"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: namespaced rule:{"verbs":["*"],"apiGroups":[""],"resources":["pods","services","endpoints","persistentvolumeclaims","events","configmaps","secrets","serviceaccounts","serviceaccounts/finalizers"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: namespaced rule:{"verbs":["*"],"apiGroups":["apps"],"resources":["deployments","daemonsets","replicasets","statefulsets"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: namespaced rule:{"verbs":["*"],"apiGroups":["route.openshift.io"],"resources":["routes","routes/custom-host"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: namespaced rule:{"verbs":["*"],"apiGroups":["batch"],"resources":["cronjobs"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: namespaced rule:{"verbs":["*"],"apiGroups":["rbac.authorization.k8s.io"],"resources":["roles","rolebindings"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: namespaced rule:{"verbs":["use"],"apiGroups":["security.openshift.io"],"resources":["securitycontextconstraints"],"resourceNames":["privileged"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: namespaced rule:{"verbs":["*"],"apiGroups":["monitoring.coreos.com"],"resources":["servicemonitors","prometheusrules"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: cluster rule:{"verbs":["*"],"apiGroups":["scheduling.k8s.io"],"resources":["priorityclasses"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: cluster rule:{"verbs":["*"],"apiGroups":["oauth.openshift.io"],"resources":["oauthclients"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: cluster rule:{"verbs":["*"],"apiGroups":["rbac.authorization.k8s.io"],"resources":["clusterroles","clusterrolebindings"]}
+      status: Satisfied
+      version: v1beta1
+    - group: rbac.authorization.k8s.io
+      kind: PolicyRule
+      message: cluster rule:{"verbs":["get","list","watch"],"apiGroups":[""],"resources":["pods","namespaces"]}
+      status: Satisfied
+      version: v1beta1
+    group: ""
+    kind: ServiceAccount
+    message: ""
+    name: cluster-logging-operator
+    status: Present
+    version: v1
