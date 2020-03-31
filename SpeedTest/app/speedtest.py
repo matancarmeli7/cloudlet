@@ -3,7 +3,7 @@ import time
 import schedule
 
 # File to donwload for the test
-url = "https://speed.hetzner.de/100MB.bin"
+url = "http://speedtest-cloudapp-http.apps.ocp43-prod.cloudlet-dev.com/100MB.bin"
 
 splunk_TOKEN = "0dde0859-27ff-43aa-b981-3eaca4fa4813"
 
@@ -34,7 +34,7 @@ def speedtest():
 	# Getting the slowest result and logging splunk
 	Mbps = min(speeds)
 	logSplunk({"Mbps: ": Mbps}, splunk_TOKEN)
-        print Mbps
+        print "Mbps: {}".format(Mbps)
 
 def main():
         speedtest()
