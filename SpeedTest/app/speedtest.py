@@ -20,7 +20,10 @@ def speedtest():
 	for i in range(10):
 	    # Issue an http get request while timing it
 	    start = time.time()
-	    response = requests.get(url)
+	    try:
+	        response = requests.get(url)
+	    except requests.exceptions.ConnectionError:
+                r.status_code = "Connection refused"
 	    end = time.time()
 
 	    final_time = end - start
