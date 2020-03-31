@@ -5,4 +5,4 @@ RUN pip install requests schedule
 ADD ./app /app
 WORKDIR /app
 
-CMD python Salty.py
+CMD python speedtest.py
