@@ -8,7 +8,7 @@ spec:
     - from:
       - namespaceSelector:
           matchLabels:
-            project: 3scale-app
+            project: 3scale-apicast
         podSelector:
           matchLabels:
             deploymentconfig: apicast

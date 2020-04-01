@@ -7,8 +7,8 @@ spec:
     storage: "1Gi" 
   accessModes:
     - "ReadWriteMany"
-  storageClassName: azure-rox
+  storageClassName: azure-rwx
   azureFile:
-    secretName: azure-storage-secret
-    shareName: openshift-rwx
+    secretName: 3scale-storagre
+    shareName: 3scale
     readOnly: false

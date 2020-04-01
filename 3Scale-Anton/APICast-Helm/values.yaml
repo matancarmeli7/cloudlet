@@ -17,5 +17,5 @@ REDIS_URL:
 MANAGEMENT_API: "status"
 OPENSSL_VERIFY: "false"
 EPORTING_THREADS: "0"
-THREE_SCALE_TOKEN: "329533fb7f56e125c6f2590317ad097a7279913bbaaf3e059f9234e6cce469c7"
-OPENSHIFT_URL: "3scale-admin.apps.anton-openshift.cloudlet-dev.com"
+THREE_SCALE_TOKEN: "f4832a552a86a44f9923ddcdc9b50ea8ed6a20cef8577cc0ed1f6827f30ac8ac"
+OPENSHIFT_URL: "3scale-admin.apps.ocp43-prod.cloudlet-dev.com"
