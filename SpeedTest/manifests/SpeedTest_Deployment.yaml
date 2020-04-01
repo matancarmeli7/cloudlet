@@ -15,3 +15,7 @@ spec:
       containers:
       - name: speedtest
         image: docker.io/dolevalgam/speedtest:latest
+      hostAliases:
+      - ip: "13.86.6.56"
+        hostnames:
+        - "speedtest-cloudapp-http.apps.ocp43-prod.cloudlet-dev.com"

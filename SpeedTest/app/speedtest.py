@@ -20,18 +20,15 @@ def speedtest():
 	for i in range(10):
 	    # Issue an http get request while timing it
 	    start = time.time()
-	    try:
-	        response = requests.get(url)
-	    except requests.exceptions.ConnectionError:
-                r.status_code = "Connection refused"
+	    response = requests.get(url, verify=False)
 	    end = time.time()
 
 	    final_time = end - start
-
-	    # Transfer Bytes to MegaBytes
+	    
+            # Transfer Bytes to MegaBytes
 	    size = float(len(response.content))/1000/1000
-
-	    # Adding Mbps to list while transfering Bytes to Bits
+	    
+            # Adding Mbps to list while transfering Bytes to Bits
 	    speeds.append(size/final_time*8)
 
 	# Getting the slowest result and logging splunk
