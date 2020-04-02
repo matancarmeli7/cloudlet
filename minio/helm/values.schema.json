@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "disksize" : {
+      "description": "Size of each disk in GB",
+      "type": "number",
+      "minimum" : 2.0
+    }
+  },
+  "title": "Values",
+  "type": "object"
+}
