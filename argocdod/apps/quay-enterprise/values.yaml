@@ -1,2 +1,2 @@
-channel: "stable"
-installPlan: "Automatic"
+channel: stable
+installPlan: Automatic
