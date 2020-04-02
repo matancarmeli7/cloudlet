@@ -1,0 +1,60 @@
+---
+# Source: quay-enterprise/templates/01_quay_project.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: quay-enterprise
+
+---
+# Source: quay-enterprise/templates/02_redhat-pull-secret.yaml
+apiVersion: v1
+data:
+  .dockerconfigjson: ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICJjbVZrYUdGMEszRjFZWGs2VHpneFYxTklVbE5LVWpFMFZVRmFRa3MxTkVkUlNFcFRNRkF4VmpSRFRGZEJTbFl4V0RKRE5GTkVOMHRQTlRsRFVUbE9NMUpGTVRJMk1USllWVEZJVWc9PSIsCiAgICAgICJlbWFpbCI6ICIiCiAgICB9CiAgfQp9
+kind: Secret
+metadata:
+  annotations:
+  name: redhat-pull-secret
+  namespace: quay-enterprise
+type: kubernetes.io/dockerconfigjson
+
+---
+# Source: quay-enterprise/templates/03_operator_group.yaml
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: operator-group
+  namespace: quay-enterprise
+spec:
+  targetNamespaces:
+  - quay-enterprise
+
+---
+# Source: quay-enterprise/templates/05_redhatcop_v1alpha1_quayecosystem_cr.yaml
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: QuayEcosystem
+metadata:
+  name: quayecosystem
+  namespace: quay-enterprise
+spec:
+  quay:
+    imagePullSecretName: redhat-pull-secret
+    database:
+      volumeSize: 20Gi
+    enableRepoMirroring: true
+
+# Switch to Object Storage
+
+---
+# Source: quay-enterprise/templates/04_operator_sub.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: quay
+  namespace: quay-enterprise
+spec:
+  channel: "stable"
+  name: quay
+  source: community-operators
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: "Automatic"
+
