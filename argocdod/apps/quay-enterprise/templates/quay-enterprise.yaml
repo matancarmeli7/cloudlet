@@ -36,11 +36,11 @@ metadata:
   name: quay
   namespace: quay-enterprise
 spec:
-  channel: "stable"
+  channel: "{{ .Values.channel }}"
   name: quay
   source: community-operators
   sourceNamespace: openshift-marketplace
-  installPlanApproval: "Automatic"
+  installPlanApproval: "{{ .Values.installPlan }}"
 
 ---
 # Source: quay-enterprise/templates/05_redhatcop_v1alpha1_quayecosystem_cr.yaml
