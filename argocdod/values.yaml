@@ -6,3 +6,5 @@ spec:
     repoURL: https://github.com/matancarmeli7/cloudlet
     targetRevision: HEAD
   project: argocdod
+  
+argocdNamespace: argocd
