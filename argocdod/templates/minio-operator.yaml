@@ -14,7 +14,7 @@ spec:
     targetRevision: {{ .Values.spec.source.targetRevision }}
   helm:
     parameters:
-    - name: namespace
-      value: argocdod
+      - name: namespace
+        value: argocdod
     valueFiles:
       - values.yaml
