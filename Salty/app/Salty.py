@@ -42,8 +42,8 @@ def scanDigests():
         VERIFY = '/etc/pki/tls/certs/ca-bundle.crt'
 
 	# Tokens used to authenticate to the registries
-        local_TOKEN = "YUAua36BQy2Y8vSHHlBL7tOyfRank0I1Lc5H2fx4"
-        remote_TOKEN = "86bh0B1hiEgD8wL1YkRVCRCUJcT3cDK6wGSu4WgM"
+        local_TOKEN = "lKRTaf3md73Nl4zghZdRCNRaDjgbcHKuCwqbyWml"
+        remote_TOKEN = "lKRTaf3md73Nl4zghZdRCNRaDjgbcHKuCwqbyWml"
 
 	splunk_TOKEN = "971814b9-ddc5-4155-9a11-14230ddcb497"
 
