@@ -21,7 +21,6 @@ New in this version:
 ### Future Versions
 * Develop as a GO OCP Operator to have control over OpenShift use of Images.
 * Add cache for disconnected checks.
-* Get authentication token from secret, don't have it in the code as clear text.
+* Get authentication token from secret, don't have it in the code as clear text. !!!!
 * Don't scan local images that aren't in mirror state.
 * Alert splunk when the application has run a check so we know when checks are not being made when they should.
-* Get local Quay's Application Token from secret.
