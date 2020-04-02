@@ -17,4 +17,4 @@ spec:
     - name: namespace
       value: argocdod
     valueFiles:
-    - values.yaml
+      - values.yaml
