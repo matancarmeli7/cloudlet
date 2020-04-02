@@ -10,3 +10,5 @@
 * Create another Helm template defining your app as an ArgoCD application.
   * See full example - https://argoproj.github.io/argo-cd/operator-manual/application.yaml
   * Optional - add parameters to the repo's ```values.yaml``` if you need it for your app definition.
+
+* Place your ArgoCD application definition in the ```templates``` folder. 
