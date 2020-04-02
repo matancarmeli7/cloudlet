@@ -1,7 +1,17 @@
+---
+# Source: quay-enterprise/templates/01_Salty_project.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: salty
+
+---
+# Source: salty/templates/02_Salty_Deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: salty
+  namespace: salty
 spec:
   replicas: 1
   selector:
