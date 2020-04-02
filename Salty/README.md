@@ -1,4 +1,6 @@
-<img alt="Salty" src="SALTY_LOGO.png" width="15%" height="15%">
+<p align="center">
+<img alt="Salty" src="SALTY_LOGO.png" width="20%" height="20%">
+</p>
 
 # What is Salty?
 To make sure our deplyoment is secure and error free, we take a deeper look on the container images deployed.
