@@ -4,14 +4,14 @@ installation:
 CR:
   quay:
     persistentVolumeSize: 10
-    super:
-      user: "cloudlet_admin"
-      pass: "Password@123"
-      mail: "quay@cloudlet.com"
   db:
     volumeSize: 10
   secrets:
     quay:
+      super:
+        user: "cloudlet_admin"
+        pass: "Password@123"
+        mail: "quay@cloudlet.com"
       config:
         pass: "Password@123"
         user_autocomplete: false
