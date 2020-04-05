@@ -1,5 +1,5 @@
 apiVersion: v2
-name: 3scale-apicast2.7
+name: APICast-Helm
 description: An apicast for 3Scale
 
 # A chart can be either an 'application' or a 'library' chart.
