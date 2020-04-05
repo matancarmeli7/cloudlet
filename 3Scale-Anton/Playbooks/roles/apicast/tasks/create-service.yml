@@ -1,0 +1,26 @@
+---
+- name: "Create the service if it doesn't exist"
+  k8s:
+    state: "present"
+    api_key: "{{OC_API_KEY}}"
+    host: "{{OC_API_URL}}"
+    verify_ssl: no
+    namespace: "{{PROJ_NAME}}"
+    apply: yes
+    resource_definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: "{{APICAST_NAME}}"
+      spec:
+        ports:
+        - name: proxy
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+        - name: management
+          port: 8090
+          protocol: TCP
+          targetPort: 8090
+        selector:
+          deploymentconfig: "{{APICAST_NAME}}"

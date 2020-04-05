@@ -1,0 +1,14 @@
+---
+- name: "Create the project if doesn't exist"
+  k8s:
+    state: "present"
+    api_key: "{{OC_API_KEY}}"
+    host: "{{OC_API_URL}}"
+    verify_ssl: no
+    resource_definition:
+      api_version: v1
+      kind: Namespace
+      metadata:
+        name: "{{PROJ_NAME}}"
+        labels:
+          project: "{{PROJ_NAME}}"

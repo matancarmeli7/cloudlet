@@ -1,20 +1,12 @@
 ---
 - hosts: all
   connection: local 
-  tasks:
-    - name: "Create the project if doesn't exist"
-      k8s:
-        api_version: v1
-        state: "present"
-        name: "{{PROJ_NAME}}"
-        kind: Namespace
-        api_key: "{{OC_API_KEY}}"
-        host: "{{OC_API_URL}}"
-        verify_ssl: no
-    - name: "Install the apicast helm chart"
-      helm:
-        
+  roles: 
+    - apicast     
   vars:
     PROJ_NAME: "ansible-test2"
-    OC_API_KEY: "Sa6QdVjW3VPABdVQ8U5yQLQ9zB7gkZlPUyLEGtISGzI"
+    OC_API_KEY: "LGGWAmsLoHgVSjXIHvB3ADHFsJA5TVQAbsaL3gY9-D0"
     OC_API_URL: "https://api.ocp43-prod.cloudlet-dev.com:6443"
+    OC_WILDCARD: "apps.ocp43-prod.cloudlet-dev.com"
+    THREE_SCALE_TOKEN: "f4832a552a86a44f9923ddcdc9b50ea8ed6a20cef8577cc0ed1f6827f30ac8ac"
+    ADMIN_URL: "3scale-admin.apps.ocp43-prod.cloudlet-dev.com"
