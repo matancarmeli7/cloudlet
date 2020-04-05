@@ -36,14 +36,96 @@ metadata:
   name: quay
   namespace: quay-enterprise
 spec:
-  channel: "{{ .Values.channel }}"
+  channel: "{{ .Values.installation.channel }}"
   name: quay
   source: community-operators
   sourceNamespace: openshift-marketplace
-  installPlanApproval: "{{ .Values.installPlan }}"
+  installPlanApproval: "{{ .Values.installation.installPlan }}"
 
 ---
-# Source: quay-enterprise/templates/05_redhatcop_v1alpha1_quayecosystem_cr.yaml
+# Source: quay-enterprise/templates/05_custom-quay-ssl.yaml
+apiVersion: v1
+data:
+  ssl.cert: "{{ .Values.CR.secrets.ssl.cert }}"
+ ssl.key: "{{ .Values.CR.secrets.ssl.key }}"
+kind: Secret
+metadata:
+  annotations:
+  name: custom-quay-ssl
+  namespace: quay-enterprise
+type: Opaque
+
+---
+# Source: quay-enterprise/templates/06_db-creds.yaml
+apiVersion: v1
+stringData:
+  database-username: "{{ .Values.CR.secrets.db.user }}"
+  database-password: "{{ .Values.CR.secrets.db.pass }}"
+  database-root-password: "{{ .Values.CR.secrets.db.rootpass }}"
+  database-name:  "{{ .Values.CR.secrets.db.name }}"
+kind: Secret
+metadata:
+  annotations:
+  name: db-creds
+  namespace: quay-enterprise
+type: Opaque
+
+---
+# Source: quay-enterprise/templates/07_quay-config-creds.yaml
+apiVersion: v1
+stringData:
+  config-app-password: "{{ .Values.CR.secrets.quay.config.pass  }}"
+kind: Secret
+metadata:
+  annotations:
+  name: quay-config-creds
+  namespace: quay-enterprise
+type: Opaque
+
+---
+# Source: quay-enterprise/templates/08_quayconfigfile.yaml
+apiVersion: v1
+stringData:
+  FEATURE_PARTIAL_USER_AUTOCOMPLETE: "{{ .Values.CR.secrets.quay.config.user_autocomplete }}"
+  APP_SPECIFIC_TOKEN_EXPIRATION: "{{ .Values.CR.secrets.quay.config.token_EXP }}"
+  FEATURE_ANONYMOUS_ACCESS: "{{ .Values.CR.secrets.quay.config.anonymous }}"
+  FEATURE_REQUIRE_ENCRYPTED_BASIC_AUTH: "{{ .Values.CR.secrets.quay.config.requrie_ENCRYP }}"
+  FEATURE_INVITE_ONLY_USER_CREATION: "{{ .Values.CR.secrets.quay.config.users_Creation }}"
+kind: Secret
+metadata:
+  annotations:
+  name: quayconfigfile
+  namespace: quay-enterprise
+type: Opaque
+
+---
+# Source: quay-enterprise/templates/09_redis-creds.yaml
+apiVersion: v1
+stringData:
+  password: "{{ .Values.CR.secrets.redis.pass  }}"
+kind: Secret
+metadata:
+  annotations:
+  name: redis-creds
+  namespace: quay-enterprise
+type: Opaque
+
+---
+# Source: quay-enterprise/templates/10_super-user-quay.yaml
+apiVersion: v1
+stringData:
+  superuser-username: "{{ .Values.CR.secrets.quay.super.user }}"
+  superuser-password: "{{ .Values.CR.secrets.quay.super.pass }}"
+  superuser-email: "{{ .Values.CR.secrets.quay.super.mail }}"
+kind: Secret
+metadata:
+  annotations:
+  name: super-user-quay
+  namespace: quay-enterprise
+type: Opaque
+
+---
+# Source: quay-enterprise/templates/11_redhatcop_v1alpha1_quayecosystem_cr.yaml
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: QuayEcosystem
 metadata:
@@ -52,11 +134,11 @@ metadata:
 spec:
   quay:
     superuserCredentialsSecretName: super-user-quay
-    configSecretName: quay-config
+    configSecretName: quay-config-creds
     imagePullSecretName: redhat-pull-secret
-    persistentVolumeSize: 10Gi
+    persistentVolumeSize: "{{ .Values.CR.quay.persistentVolumeSize }}Gi"
     database:
-      volumeSize: 10Gi
+      volumeSize: "{{ .Values.CR.db.volumeSize  }}Gi"
       credentialsSecretName: db-creds
     enableRepoMirroring: true
     repoMirrorTLSVerify: true
@@ -84,7 +166,7 @@ spec:
 # Switch to Object Storage
 
 ---
-#Source: quay-enterprise/templates/06_redhatcop.redhat.io_quayecosystems_crd.yaml
+#Source: quay-enterprise/templates/12_redhatcop.redhat.io_quayecosystems_crd.yaml
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
