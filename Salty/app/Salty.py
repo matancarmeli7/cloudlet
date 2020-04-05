@@ -62,7 +62,7 @@ def scanDigests():
 	data = getReqtoDict(URL, VERIFY, local_TOKEN, PARMS = PARMS)
 	
 	# Go over each repository
-	for apps in app:
+	for app in apps:
             # Get more infromation on the repository
 	    URL = "{}/repository/{}".format(local_reg_URL, app)
 
