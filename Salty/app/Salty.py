@@ -51,15 +51,6 @@ def scanDigests():
 	# Applications, Repos to Scan
         apps = ["cloudlet/salty"]
 
-	# Get all repositories from local regitsry
-	URL = "{}/repository".format(local_reg_URL)
-	PARMS = {
-	       'public':'true',
-	       'starred':'false'
-	      }
-
-	data = getReqtoDict(URL, VERIFY, local_TOKEN, PARMS = PARMS)
-	
 	# Go over each repository
 	for app in apps:
             # Get more infromation on the repository
@@ -92,7 +83,7 @@ def scanDigests():
              if 'tags' in data:
                  try:
                      for tag in data['tags'].keys():
-                         local_digests["{}:{}".format(app, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
+                         remote_digests["{}:{}".format(app, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
                  except:
                      print "Can't get {} tags from remote repository".format(app)
              else:
