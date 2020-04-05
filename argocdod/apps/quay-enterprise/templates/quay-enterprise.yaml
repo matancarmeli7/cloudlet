@@ -42,18 +42,18 @@ spec:
   sourceNamespace: openshift-marketplace
   installPlanApproval: "{{ .Values.installation.installPlan }}"
 
----
-# Source: quay-enterprise/templates/05_custom-quay-ssl.yaml
-apiVersion: v1
-data:
-  ssl.cert: "{{ .Values.CR.secrets.ssl.cert }}"
-  ssl.key: "{{ .Values.CR.secrets.ssl.key }}"
-kind: Secret
-metadata:
-  annotations:
-  name: custom-quay-ssl
-  namespace: quay-enterprise
-type: Opaque
+#---
+## Source: quay-enterprise/templates/05_custom-quay-ssl.yaml
+#apiVersion: v1
+#data:
+#  ssl.cert: "{{ .Values.CR.secrets.ssl.cert }}"
+#  ssl.key: "{{ .Values.CR.secrets.ssl.key }}"
+#kind: Secret
+#metadata:
+#  annotations:
+#  name: custom-quay-ssl
+#  namespace: quay-enterprise
+#type: Opaque
 
 ---
 # Source: quay-enterprise/templates/06_db-creds.yaml
