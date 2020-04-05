@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: apicast
+  name: APICast-Helm
   namespace: {{ .Values.argocdNamespace }}
 spec:
   destination:
