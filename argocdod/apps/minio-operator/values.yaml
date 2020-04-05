@@ -1,0 +1,4 @@
+image:
+  repository: minio/k8s-operator
+  tag: 1.0.7
+namespace: "argocdod"

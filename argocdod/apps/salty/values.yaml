@@ -1,0 +1,4 @@
+image:
+  source: quayecosystem-quay.quay-enterprise.svc/cloudlet
+  name: salty
+  tag: latest
