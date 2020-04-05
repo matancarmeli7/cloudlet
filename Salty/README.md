@@ -17,10 +17,13 @@ New in this version:
 * Logging unmatched images to splunk.
 * Running scan every 30 min
 * Getting local quay in a generic way
+* Scanning private repositories from a list of apps.
+* Getting authentication token from secret, don't have it in the code as clear text.
+* Some error control.
 
 ### Future Versions
 * Develop as a GO OCP Operator to have control over OpenShift use of Images.
 * Add cache for disconnected checks.
-* Get authentication token from secret, don't have it in the code as clear text. !!!!
 * Don't scan local images that aren't in mirror state.
 * Alert splunk when the application has run a check so we know when checks are not being made when they should.
+* App list should be pulled externally.
