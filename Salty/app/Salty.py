@@ -3,6 +3,7 @@ import json
 import re
 import schedule
 import time
+import os
 
 def getReqtoDict(URL, VERIFY, TOKEN, PARMS = None):
     authorization = "Bearer {}".format(TOKEN)
@@ -42,7 +43,8 @@ def scanDigests():
         VERIFY = '/etc/pki/tls/certs/ca-bundle.crt'
 
 	# Tokens used to authenticate to the registries
-        local_TOKEN = "lKRTaf3md73Nl4zghZdRCNRaDjgbcHKuCwqbyWml"
+        local_TOKEN = os.environ.get('LOCAL_TOKEN_SECRET')
+        #local_TOKEN = "lKRTaf3md73Nl4zghZdRCNRaDjgbcHKuCwqbyWml"
         remote_TOKEN = "lKRTaf3md73Nl4zghZdRCNRaDjgbcHKuCwqbyWml"
 
 	splunk_TOKEN = "971814b9-ddc5-4155-9a11-14230ddcb497"
