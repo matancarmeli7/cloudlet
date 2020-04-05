@@ -47,7 +47,7 @@ spec:
 apiVersion: v1
 data:
   ssl.cert: "{{ .Values.CR.secrets.ssl.cert }}"
- ssl.key: "{{ .Values.CR.secrets.ssl.key }}"
+  ssl.key: "{{ .Values.CR.secrets.ssl.key }}"
 kind: Secret
 metadata:
   annotations:
