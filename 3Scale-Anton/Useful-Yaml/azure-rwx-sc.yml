@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  creationTimestamp: "2020-03-15T15:01:59Z"
+  name: azure-rox
+  resourceVersion: "81848"
+  selfLink: /apis/storage.k8s.io/v1/storageclasses/azure-rox
+  uid: 20692db2-ba01-4538-b3c3-32e7b57db60d
+provisioner: kubernetes.io/azure-file
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+

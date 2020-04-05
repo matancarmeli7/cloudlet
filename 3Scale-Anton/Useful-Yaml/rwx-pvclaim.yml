@@ -1,0 +1,14 @@
+apiVersion: "v1"
+kind: "PersistentVolume"
+metadata:
+  name: "pv-rwx" 
+spec:
+  capacity:
+    storage: "1Gi" 
+  accessModes:
+    - "ReadWriteMany"
+  storageClassName: azure-rwx
+  azureFile:
+    secretName: 3scale-storagre
+    shareName: 3scale
+    readOnly: false
