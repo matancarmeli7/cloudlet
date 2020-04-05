@@ -1,4 +1,4 @@
 image:
-  source: quayecosystem-quay.quay-enterprise.svc/cloudlet
+  source: docker.io/dolevalgam
   name: salty
   tag: latest
