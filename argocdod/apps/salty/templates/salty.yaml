@@ -25,3 +25,9 @@ spec:
       containers:
       - name: salty
         image: "{{ .Values.image.source }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        env:
+          - name: LOCAL_TOKEN_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: local-quay-token-secret
+                key: token
