@@ -131,9 +131,6 @@ spec:
     repoMirrorTLSVerify: true
     configFiles:
       - secretName: quayconfigfile
-    externalAccess:
-      tls:
-        secretName: custom-quay-ssl
     livenessProbe:
       initialDelaySeconds: 120
       httpGet:
