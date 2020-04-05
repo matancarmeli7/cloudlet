@@ -51,10 +51,36 @@ metadata:
   namespace: quay-enterprise
 spec:
   quay:
+    superuserCredentialsSecretName: super-user-quay
+    configSecretName: quay-config
     imagePullSecretName: redhat-pull-secret
+    persistentVolumeSize: 10Gi
     database:
-      volumeSize: 20Gi
+      volumeSize: 10Gi
+      credentialsSecretName: db-creds
     enableRepoMirroring: true
+    repoMirrorTLSVerify: true
+    configFiles:
+      - secretName: quayconfigfile
+    externalAccess:
+      tls:
+        secretName: custom-quay-ssl
+    livenessProbe:
+      initialDelaySeconds: 120
+      httpGet:
+        path: /health/instance
+        port: 8443
+        scheme: HTTPS
+    readinessProbe:
+      initialDelaySeconds: 10
+      httpGet:
+        path: /health/instance
+        port: 8443
+        scheme: HTTPS
+  redis:
+    credentialsSecretName: redis-creds
+    imagePullSecretName: redhat-pull-secret
+    
 # Switch to Object Storage
 
 ---
