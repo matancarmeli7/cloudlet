@@ -1,5 +1,5 @@
 apiVersion: v2
-name: acpicast-helm
+name: acpicast
 description: An apicast for 3Scale
 
 # A chart can be either an 'application' or a 'library' chart.
