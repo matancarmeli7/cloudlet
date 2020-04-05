@@ -36,7 +36,7 @@ def scanDigests():
         repos_to_pull = set()
 
 	# Set local and remote Quay registries with basic api prefix
-	local_reg_URL = "https://quayecosystem-quay.quay-enterprise.svc.cluster.local/api/v1"
+        local_reg_URL = "https://quayecosystem-quay.quay-enterprise.svc.cluster.local/api/v1"
         remote_reg_URL = "https://quayecosystem-quay-quay-enterprise.apps.ocp43-prod.cloudlet-dev.com/api/v1"
 
         # Path to trusted certificates        
@@ -44,7 +44,6 @@ def scanDigests():
 
 	# Tokens used to authenticate to the registries
         local_TOKEN = os.environ.get('LOCAL_TOKEN_SECRET')
-        #local_TOKEN = "lKRTaf3md73Nl4zghZdRCNRaDjgbcHKuCwqbyWml"
         remote_TOKEN = "lKRTaf3md73Nl4zghZdRCNRaDjgbcHKuCwqbyWml"
 
 	splunk_TOKEN = "971814b9-ddc5-4155-9a11-14230ddcb497"
@@ -67,10 +66,17 @@ def scanDigests():
 	    URL = "{}/repository/{}".format(local_reg_URL, app)
 
 	    data = getReqtoDict(URL, VERIFY, local_TOKEN)
-		
+    	    
             # Go over each tag in the repository and save each one with its full path and digest
-            for tag in data['tags'].keys():
-                local_digests["{}:{}".format(app, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
+            if 'tags' in data:
+                try:
+                    for tag in data['tags'].keys():
+                        local_digests["{}:{}".format(app, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
+                except:
+                    print "Can't get {} tags from remote repository".format(app)
+            else:
+                print data
+                apps.remove(app)
 
 
         # Get required repositories from central cloud
@@ -83,11 +89,14 @@ def scanDigests():
              data = getReqtoDict(URL, VERIFY, remote_TOKEN)
              
              # Go over each tag in the repository and save each one with its full path and digest
-    	     try:
-                 for tag in data['tags'].keys():
-                     remote_digests["{}:{}".format(app, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
-	     except:
-                 print "Can't get {} tags from remote repository".format(repository)
+             if 'tags' in data:
+                 try:
+                     for tag in data['tags'].keys():
+                         local_digests["{}:{}".format(app, data['tags'][tag]['name'])] = data['tags'][tag]['manifest_digest']
+                 except:
+                     print "Can't get {} tags from remote repository".format(app)
+             else:
+                 print data
 
 	# Print local tag that has a diffrenet digest then the central cloud
 	unmatchedKeys = differencesInDicts(local_digests, remote_digests)
