@@ -3,7 +3,7 @@
   block:
     - name: Deploying YAML
       k8s:
-        definition: "{{ lookup('file', 'yamls/minio-instance.yml') }}"
+        definition: "{{ lookup('file', 'yamls/minio-instance.yaml') }}"
         state: present
         namespace: argocdod
 
