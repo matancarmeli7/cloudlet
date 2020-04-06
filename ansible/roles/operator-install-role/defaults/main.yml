@@ -1,0 +1,4 @@
+namespace: openshift-operators
+channel: stable
+source: redhat-operators
+installPlan: Automatic

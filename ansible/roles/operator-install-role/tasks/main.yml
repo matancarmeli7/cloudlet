@@ -1,0 +1,10 @@
+- name: Create an Operator Group
+  k8s:
+    state: present
+    src: operator_group.yml.j2
+  when: namespace != "openshift-operators"
+
+- name: Subscribe Operator to namespace
+  k8s:
+    state: present
+    src: files/operator-sub.yml.j2
