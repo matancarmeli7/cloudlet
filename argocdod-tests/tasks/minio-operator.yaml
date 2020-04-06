@@ -25,7 +25,7 @@
   always:
     - name: Undeploy everything
       k8s:
-        definition: "{{ lookup('file', 'yamls/minio-instance.yml') }}"
+        definition: "{{ lookup('file', 'yamls/minio-instance.yaml') }}"
         state: absent
         namespace: argocdod
 
