@@ -24,3 +24,8 @@
         msg: "TASK: '{{ ansible_failed_task.name }}' FAILED WITH MSG: '{{ ansible_failed_result.msg }}'"
   always:
     - name: Undeploy everything
+      k8s:
+        definition: "{{ lookup('file', 'yamls/minio-instance.yml') }}"
+        state: absent
+        namespace: argocdod
+
