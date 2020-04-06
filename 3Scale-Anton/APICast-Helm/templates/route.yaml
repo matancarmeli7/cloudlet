@@ -1,0 +1,28 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+{{- with .Values }}
+  name: apicast-route
+  namespace: "{{.PROJ_NAME}}"
+spec:
+  host: "{{.APICAST_NAME}}.{{.OC_WILDCARD}}"
+  to:
+    kind: Service
+    name: "{{.APICAST_NAME}}"
+    weight: 100
+  port:
+    targetPort: proxy
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Allow
+  wildcardPolicy: None
+status:
+  ingress:
+  - host: "{{.APICAST_NAME}}.{{.OC_WILDCARD}}"
+    routerName: default
+    conditions:
+      - type: Admitted
+        status: 'True'
+    wildcardPolicy: None
+    routerCanonicalHostname: "{{.OC_WILDCARD}}"
+{{- end }}
