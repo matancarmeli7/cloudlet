@@ -17,7 +17,6 @@ def logSplunk(log, TOKEN):
     myobj = {"event": log}
     x = requests.post(url, json = myobj, auth=('Splunk', TOKEN), verify=False)
 
-<<<<<<< HEAD
 def speedtest(URL, last):
     # Issue an http get request while timing it
     start = time.time()
@@ -26,8 +25,7 @@ def speedtest(URL, last):
 
     final_time = end - start
      
-    # If a test takes less then 5 seconds return 0 for bad size for test
-    
+    # If a test takes less then 5 seconds return 0 for bad size for test    
     if final_time < 5 and not last:
         return 0
 
@@ -41,6 +39,7 @@ def checks():
 
         last = False
 
+        # Chooses the largest file to test with while acting on the network capabilities
 	Mbps = speedtest(f_1MB, last)
         if Mbps:
             size = f_1MB
