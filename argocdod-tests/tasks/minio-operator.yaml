@@ -1,0 +1,26 @@
+---
+- name: Running minio-operator test
+  block:
+    - name: Deploying YAML
+      k8s:
+        definition: "{{ lookup('file', 'yamls/minio-instance.yml') }}"
+        state: present
+        namespace: argocdod
+
+    - name: Waiting for all StatefulSet pods to be ready
+      k8s:
+        kind: StatefulSet
+        state: present
+        name: matan-tarif
+      register: statefulset_status
+      until:
+        - "statefulset_status.result.status.readyReplicas is defined"
+        - "statefulset_status.result.spec.replicas == statefulset_status.result.status.readyReplicas"
+      retries: 100
+      delay: 1
+    
+  rescue:
+    - debug:
+        msg: "TASK: '{{ ansible_failed_task.name }}' FAILED WITH MSG: '{{ ansible_failed_result.msg }}'"
+  always:
+    - name: Undeploy everything
