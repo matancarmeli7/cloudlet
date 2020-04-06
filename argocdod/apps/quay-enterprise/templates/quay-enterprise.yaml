@@ -128,7 +128,7 @@ spec:
       volumeSize: "{{ .Values.CR.db.volumeSize  }}Gi"
       credentialsSecretName: db-creds
     enableRepoMirroring: true
-    repoMirrorTLSVerify: true
+    repoMirrorTLSVerify: false
     configFiles:
       - secretName: quayconfigfile
     livenessProbe:
