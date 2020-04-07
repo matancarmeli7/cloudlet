@@ -6,12 +6,14 @@
         definition: "{{ lookup('file', 'yamls/minio-instance.yml') }}"
         state: present
         namespace: argocdod
+        kubeconfig: "{{ kubeconfig_path }}"
 
     - name: Waiting for all MinIO StatefulSet pods to be ready
       k8s:
         kind: StatefulSet
         state: present
         name: matan-tarif
+        kubeconfig: "{{ kubeconfig_path }}"
       register: statefulset_status
       until:
         - "statefulset_status.result.status.readyReplicas is defined"
@@ -34,3 +36,4 @@
         definition: "{{ lookup('file', 'yamls/minio-instance.yml') }}"
         state: absent
         namespace: argocdod
+        kubeconfig: "{{ kubeconfig_path }}"
