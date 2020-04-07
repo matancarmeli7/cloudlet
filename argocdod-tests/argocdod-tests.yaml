@@ -2,29 +2,24 @@
 - hosts: localhost
   gather_facts: false
   tasks:
+    - name: Initializing failed_tests list
+      set_fact:
+        failed_tests: []
+     
     - name: Testing all apps
       block:
         - name: CREATE KUBECONFIG
 
-        - name: run all the tests in parallel
+        - name: Running all tests
           include_tasks: "{{ test_task }}"
           loop: "{{ lookup('fileglob', 'tasks/*', wantlist=True) }}"
           loop_control:
             loop_var: "test_task"
-          async: 6000
-          poll: 0
-          register: async_results
-
-        - name: Check sync status - Waiting for all tests to finish
-          async_status:
-            jid: "{{ async_result_item.ansible_job_id }}"
-          loop: "{{ async_results.results }}"
-          loop_control:
-            loop_var: "async_result_item"
-          register: async_poll_results
-          until: async_poll_results.finished
-          retries: 60
-          delay: 10
 
       always:
         - name: CLEANUP KUBECONFIG
+
+    - name: TEST SUMMARY
+      debug:
+        msg: "{% if 'failed_tests' == [] %}ALL TESTS PASSED{% else %}{{ failed_tests }}{% endif %}"
+      failed_when: "failed_tests != []"
