@@ -17,13 +17,13 @@ def logSplunk(log, TOKEN):
     myobj = {"event": log}
     x = requests.post(url, json = myobj, auth=('Splunk', TOKEN), verify=False)
 
+# Downloading a file multiple times while timing each download, returning lowest speed result.
 def speedtest(URL, initialCheck, times):
 
     speeds = []
     bad_tests = 0
 
     for i in range(times):
-	print i
         # Issue an http get request while timing it
         start = time.time()
         response = requests.get(url = URL, verify=False)
@@ -48,6 +48,7 @@ def speedtest(URL, initialCheck, times):
     Mbps = min(speeds)
     return Mbps
 
+# Running speedtests scans and logging to splunk
 def checks():
 
         initialCheck = True
@@ -72,13 +73,14 @@ def checks():
                         size = f_1000MB
    
 	initialCheck = False
-	print size
+	
 	# Getting the slowest result and logging splunk
 	Mbps = speedtest(size, initialCheck, 10)
 
 	logSplunk({"Mbps: ": Mbps}, splunk_TOKEN)
         print "Mbps: {}".format(Mbps)
 
+#Run checks function every 6 min
 def main():
         checks()
 	schedule.every(6).minutes.do(checks)
