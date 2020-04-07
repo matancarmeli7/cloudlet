@@ -17,57 +17,65 @@ def logSplunk(log, TOKEN):
     myobj = {"event": log}
     x = requests.post(url, json = myobj, auth=('Splunk', TOKEN), verify=False)
 
-def speedtest(URL, last):
-    # Issue an http get request while timing it
-    start = time.time()
-    response = requests.get(url = URL, verify=False)
-    end = time.time()
+def speedtest(URL, initialCheck, times):
 
-    final_time = end - start
-     
-    # If a test takes less then 5 seconds return 0 for bad size for test    
-    if final_time < 5 and not last:
+    speeds = []
+    bad_tests = 0
+
+    for i in range(times):
+	print i
+        # Issue an http get request while timing it
+        start = time.time()
+        response = requests.get(url = URL, verify=False)
+        end = time.time()
+
+        final_time = end - start
+	     
+        # If a test takes less then 5 seconds return 0 for bad size for test    
+        if final_time < 5 and initialCheck:
+            bad_tests = bad_tests + 1
+
+	# Transfer Bytes to Megabits per second
+	size = float(len(response.content))/1000/1000
+	Mbps = size/final_time*8
+	
+	speeds.append(Mbps)
+
+    if bad_tests:
         return 0
 
-    # Transfer Bytes to Megabits per second
-    size = float(len(response.content))/1000/1000
-    Mbps = size/final_time*8
-
+    # Getting the slowest result
+    Mbps = min(speeds)
     return Mbps
 
 def checks():
 
-        last = False
+        initialCheck = True
 
         # Chooses the largest file to test with while acting on the network capabilities
-	Mbps = speedtest(f_1MB, last)
+	Mbps = speedtest(f_1MB, initialCheck, 2)
         if Mbps:
             size = f_1MB
         else:
-            Mbps = speedtest(f_10MB, last)
+            Mbps = speedtest(f_10MB, initialCheck, 2)
             if Mbps:
                 size = f_10MB
             else:
-                Mbps = speedtest(f_100MB, last)
+                Mbps = speedtest(f_100MB, initialCheck, 2)
                 if Mbps:
                     size = f_100MB
                 else:
-                    Mbps = speedtest(f_500MB, last)
+                    Mbps = speedtest(f_500MB, initialCheck, 2)
                     if Mbps:
                         size = f_500MB
                     else:
                         size = f_1000MB
-                        last = True
-
-	speeds = []
-	# Loop 10 times for minimum result
-	for i in range(10):
-            print i    
-            # Adding Mbps to list
-	    speeds.append(speedtest(size, last))
-
+   
+	initialCheck = False
+	print size
 	# Getting the slowest result and logging splunk
-	Mbps = min(speeds)
+	Mbps = speedtest(size, initialCheck, 10)
+
 	logSplunk({"Mbps: ": Mbps}, splunk_TOKEN)
         print "Mbps: {}".format(Mbps)
 
