@@ -1,0 +1,26 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: keepalive
+  namespace: keepalive
+  labels:
+    app: keepalive
+    app.kubernetes.io/component: keepalive
+    app.kubernetes.io/instance: keepalive
+    app.kubernetes.io/part-of: keepalive-app
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: keepalive
+    deploymentconfig: keepalive
+  clusterIP: 172.30.149.101
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}

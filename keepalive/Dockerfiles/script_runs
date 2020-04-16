@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+sh prameters_script
+python keepalive.py
