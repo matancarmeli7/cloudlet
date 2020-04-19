@@ -12,3 +12,5 @@
   * Optional - add parameters to the repo's ```values.yaml``` if you need it for your app definition.
 
 * Place your ArgoCD application definition in the ```templates``` folder. 
+
+* Sync your app in ArgoCD (this step is needed if sync policy is manual).
