@@ -25,5 +25,6 @@ New in this version:
 * Develop as a GO OCP Operator to have control over OpenShift use of Images.
 * Add cache for disconnected checks.
 * Don't scan local images that aren't in mirror state.
+* After Quay deployment add a Post-Job that creates an OCP secret in Salty namespace that contains an OAuth Token for Salty Application.
 * Alert splunk when the application has run a check so we know when checks are not being made when they should.
 * App list should be pulled externally.
