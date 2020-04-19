@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keepalive-conf
+  namespace: keepalive
+data:
+  keepalive.conf: |-
+    Url={{ .Values.configmap.Url }}
+    Token={{ .Values.configmap.Token }}
+    Clustername={{ .Values.configmap.Clustername }}
+
+

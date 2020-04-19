@@ -1,0 +1,21 @@
+---
+# defaults file for apicast
+PROJ_NAME: 3Scale-apicast
+CONFIGURATION_URL_SECRET: apicast-configuration-url-secret
+CONFIGURATION_FILE_PATH:
+IMAGE_NAME: 'quay.io/3scale/apicast:master'
+DEPLOYMENT_ENVIRONMENT: production
+APICAST_NAME: apicast
+APICAST_WORKERS:
+RESOLVER:
+SERVICES_LIST:
+CONFIGURATION_LOADER: boot
+LOG_LEVEL: "warn"
+PATH_ROUTING: "true"
+RESPONSE_CODES: "false"
+CONFIGURATION_CACHE: "60"
+REDIS_URL:
+MANAGEMENT_API: "status"
+OPENSSL_VERIFY: "false"
+REPORTING_THREADS: "0"
+REPLICAS_COUNT: 2

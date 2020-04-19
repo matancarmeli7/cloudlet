@@ -1,0 +1,15 @@
+---
+- name: "Create the project"
+  include: create-project.yml
+
+- name: "Create the secret"
+  include: create-secret.yml
+
+- name: "Create the deployment"
+  include: create-deployment.yml
+
+- name: "Create the service"
+  include: create-service.yml
+
+- name: "Create the route"
+  include: create-route.yml

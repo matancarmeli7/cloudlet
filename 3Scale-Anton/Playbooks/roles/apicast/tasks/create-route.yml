@@ -1,0 +1,35 @@
+---
+- name: "Create the route if it doesn't exist"
+  k8s:
+    state: "present"
+    api_key: "{{OC_API_KEY}}"
+    host: "{{OC_API_URL}}"
+    verify_ssl: no
+    apply: yes
+    resource_definition:
+      apiVersion: route.openshift.io/v1
+      kind: Route
+      metadata:
+        name: apicast-route
+        namespace: "{{PROJ_NAME}}"
+      spec:
+        host: "{{APICAST_NAME}}.{{OC_WILDCARD}}"
+        to:
+          kind: Service
+          name: "{{APICAST_NAME}}"
+          weight: 100
+        port:
+          targetPort: proxy
+        tls:
+          termination: edge
+          insecureEdgeTerminationPolicy: Allow
+        wildcardPolicy: None
+      status:
+        ingress:
+        - host: "{{APICAST_NAME}}.{{OC_WILDCARD}}"
+          routerName: default
+          conditions:
+            - type: Admitted
+              status: 'True'
+          wildcardPolicy: None
+          routerCanonicalHostname: "{{OC_WILDCARD}}"
