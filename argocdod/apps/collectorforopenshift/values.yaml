@@ -1,0 +1,7 @@
+image:
+  repository: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/collectorforopenshift
+  tag: 5.14.284
+splunk_url: https://13.90.23.80:8088/services/collector/event
+splunk_token: bfb0ea00-fad4-4166-9f20-2e7fedda26fb
+cluster_name: cloudlet-ocp43-prod-redlab
+license_key: Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
