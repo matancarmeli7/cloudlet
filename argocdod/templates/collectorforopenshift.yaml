@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.argocdNamespace }}
 spec:
   destination:
-    namespace: collectorforopenshift
+    namespace: {{ .Values.spec.destination.namespace }}
     server: {{ .Values.spec.destination.server }}
   project: {{ .Values.spec.project }}
   source:
