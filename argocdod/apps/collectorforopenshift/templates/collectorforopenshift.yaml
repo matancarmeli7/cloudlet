@@ -131,6 +131,7 @@ metadata:
 roleRef:
   kind: ClusterRole
   name: collectorforopenshift
+  apiGroup: rbac.authorization.k8s.io
 subjects:
   - kind: ServiceAccount
     name: collectorforopenshift
