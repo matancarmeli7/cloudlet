@@ -42,7 +42,7 @@ metadata:
   name: collectorforopenshift
   namespace: collectorforopenshift
 ---
-apiVersion: v1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
   labels:
@@ -121,7 +121,7 @@ rules:
   apiGroups: []
   resources: []
 ---
-apiVersion: v1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
   labels:
