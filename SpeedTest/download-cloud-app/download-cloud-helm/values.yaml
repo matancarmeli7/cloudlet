@@ -1,0 +1,4 @@
+# Default values for download-cloud-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+OPENSHIFT_URL: apps.ocp43-prod.cloudlet-dev.com

@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: speedtest-upload
+  namespace: speedtest-cloudapp
+spec:
+  host: speedtest-upload.{{ .Values.OPENSHIFT_URL }}
+  path: /
+  to:
+    kind: Service
+    name: speedtest-upload
+    weight: 100
+  port:
+    targetPort: speedtest-upload
+  wildcardPolicy: None

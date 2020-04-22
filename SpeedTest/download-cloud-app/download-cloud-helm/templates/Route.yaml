@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: speedtest-download
+  namespace: speedtest-download
+spec:
+  host: speedtest-download.{{ .Values.OPENSHIFT_URL }}
+  path: /
+  to:
+    kind: Service
+    name: speedtest-download
+    weight: 100
+  port:
+    targetPort: speedtest-download
+  wildcardPolicy: None
