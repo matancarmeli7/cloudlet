@@ -14,3 +14,27 @@
 * Place your ArgoCD application definition in the ```templates``` folder. 
 
 * Sync your app in ArgoCD (this step is needed if sync policy is manual).
+
+## Deploying the main app example
+**Notice the spec.destination.server parameter override,** this handles to which cluster the apps are deployed.
+```
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: argocdod-local
+spec:
+  destination:
+    namespace: argocdod
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: argocdod
+    repoURL: 'https://github.com/matancarmeli7/cloudlet'
+    targetRevision: HEAD
+    helm:
+      parameters:
+        - name: spec.destination.server
+          value: https://kubernetes.default.svc
+      valueFiles:
+        - values.yaml
+  project: argocdod
+  syncPolicy: null
+```
