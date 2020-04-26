@@ -32,7 +32,7 @@ spec:
         - name: TESTS_INTERVAL
           value: "{{.TESTS_INTERVAL}}"
         - name: KB_CHUNKS
-          value: "{{.KB_CHUNKS}}"
-        - name: OPENSHIFT_NAME
-          value: "{{ .argocdNamespace }}"
+          value: "{{.Values.KB_CHUNKS}}"
+        - name: OCP_NAME
+          value: "{{.Values.OCP_NAME}}"
 {{- end }}

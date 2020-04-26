@@ -11,6 +11,7 @@ SECONDS_FOR_TEST = int(os.environ['TEST_LENGTH'])
 AMOUNT_OF_TESTS = int(os.environ['TESTS_AMOUNT'])
 TESTS_INTERVAL = int(os.environ['TESTS_INTERVAL'])
 KB_CHUNKS_NUM = int(os.environ['KB_CHUNKS'])
+OCP_NAME = os.environ['OCP_NAME']
 
 def uploadCheck():
     
@@ -27,7 +28,7 @@ def uploadCheck():
         message = "a" * 1024 * KB_CHUNKS_NUM
 
         # First send the cluster name
-        client.send("ClusterInside\0".encode())
+        client.send(OCP_NAME + "\0".encode())
 
         startTime = time.time()
         amountSent = 0
