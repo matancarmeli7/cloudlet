@@ -1,8 +1,0 @@
-image:
-  source: docker.io/dolevalgam
-  name: speedtest
-  tag: latest
-main_app_url: http://speedtest-cloudapp-http.apps.ocp43-prod.cloudlet-dev.com
-splunk_token: 0dde0859-27ff-43aa-b981-3eaca4fa4813
-splunk_url: https://13.90.23.80:8088/services/collector/event
-min_check_time: 5
