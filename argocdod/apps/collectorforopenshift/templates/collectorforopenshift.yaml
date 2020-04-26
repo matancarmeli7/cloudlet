@@ -1162,7 +1162,7 @@ spec:
         # Stick to specific version
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         securityContext:
-          privileged: true
+          privileged: false
           runAsUser: 0
         # Define your resources if you need. Defaults should be fine for most.
         resources:
@@ -1326,7 +1326,7 @@ spec:
       - name: collectorforopenshift
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         securityContext:
-          privileged: true
+          privileged: false
           runAsUser: 0
         resources:
           limits:
@@ -1458,7 +1458,7 @@ spec:
       - name: collectorforopenshift
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         securityContext:
-          privileged: true
+          privileged: false
           runAsUser: 0
         resources:
           limits:
