@@ -33,6 +33,6 @@ spec:
           value: "{{.Values.TESTS_INTERVAL}}"
         - name: KB_CHUNKS
           value: "{{.Values.KB_CHUNKS}}"
-        - name: OPENSHIFT_NAME
-          value: "{{.spec.destination.server }}"
+        - name: OCP_NAME
+          value: "{{.Values.OCP_NAME}}"
 #{{- end }}

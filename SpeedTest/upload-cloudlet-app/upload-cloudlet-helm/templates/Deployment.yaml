@@ -33,4 +33,6 @@ spec:
           value: "{{.TESTS_INTERVAL}}"
         - name: KB_CHUNKS
           value: "{{.KB_CHUNKS}}"
+        - name: OCP_NAME
+          value: "{{.OCP_NAME}}"
 {{- end }}
