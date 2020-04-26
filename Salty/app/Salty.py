@@ -21,6 +21,7 @@ def differencesInDicts(first, second):
 	    unmatchedKeys.append(key)
     return unmatchedKeys
 
+# Log to central Splunk
 def logSplunk(log, TOKEN):
     url = 'https://13.90.23.80:8088/services/collector/event'
     myobj = {"event": log}

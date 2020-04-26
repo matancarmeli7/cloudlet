@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: speedtest-cloudapp
+  namespace: speedtest-cloudapp
+spec:
+  host: speedtest-cloudapp-http.apps.ocp43-prod.cloudlet-dev.com
+  path: /
+  to:
+    kind: Service
+    name: speedtest-cloudapp-service
+    weight: 100
+  port:
+    targetPort: speedtest-cloudapp-service
+  wildcardPolicy: None
