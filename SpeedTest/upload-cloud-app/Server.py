@@ -2,12 +2,13 @@ import socket
 import sys
 import time
 import requests
+import os
 
-PORT = 8000
-KB_CHUNKS = 16
-SPLUNK_TOKEN = "0dde0859-27ff-43aa-b981-3eaca4fa4813"
-SPLUNK_URL = "https://13.90.23.80:8088/services/collector/event"
-TESTS_PER_CLIENT = 6
+PORT = int(os.environ['PORT'])
+KB_CHUNKS = int(os.environ['KB_CHUNKS'])
+SPLUNK_TOKEN = os.environ['SPLUNK_TOKEN']
+SPLUNK_URL = os.environ['SPLUNK_URL']
+TESTS_PER_CLIENT = int(os.environ['TESTS_PER_CLIENT'])
 
 # Log to central Splunk
 def logSplunk(log):
@@ -37,14 +38,12 @@ def uploadTest():
             # Wait for a connection
             print('waiting for a connection')
             connection, client_address = sock.accept()
-            print('Accepted some connection')
+            print('Accepted a connection')
             start = time.time()
             
             # Init counter variables
             dataAmount = 0
             end = 0
-
-            print('connection from: ' + str(client_address))
 
             # The first 20 characters will be the cluster name
             clusterName = connection.recv(20).decode().split("\0")[0]
