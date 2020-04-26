@@ -187,7 +187,7 @@ data:
     licenseServerProxyBasicAuth =
 
     # license key
-    license = "{{ .Values.license_key }}"
+    license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
     #license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
 
     # Environment variable $KUBERNETES_NODENAME is used by default to setup hostname
@@ -323,7 +323,7 @@ data:
     [output.splunk]
 
     # Splunk HTTP Event Collector url
-    url = "{{ .Values.splunk_url }}"
+    url = https://13.90.23.80:8088/services/collector/event
     #url = https://13.90.23.80:8088/services/collector/event
     
     # You can specify muiltiple splunk URls with
@@ -345,7 +345,7 @@ data:
     urlSelection = random-with-round-robin
 
     # Splunk HTTP Event Collector Token
-    token = "{{ .Values.splunk_token }}"
+    token = bfb0ea00-fad4-4166-9f20-2e7fedda26fb
     #token = bfb0ea00-fad4-4166-9f20-2e7fedda26fb
 
     # Allow invalid SSL server certificate
@@ -1161,9 +1161,9 @@ spec:
       - name: collectorforopenshift
         # Stick to specific version
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        #securityContext:
-        #  privileged: false
-        #  runAsUser: 0
+        securityContext:
+          privileged: true
+          runAsUser: 0
         # Define your resources if you need. Defaults should be fine for most.
         resources:
           limits:
@@ -1325,9 +1325,9 @@ spec:
       containers:
       - name: collectorforopenshift
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        #securityContext:
-        #  privileged: false
-        #  runAsUser: 0
+        securityContext:
+          privileged: true
+          runAsUser: 0
         resources:
           limits:
             cpu: 1
@@ -1457,9 +1457,9 @@ spec:
       containers:
       - name: collectorforopenshift
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        #securityContext:
-        #  privileged: false
-        #  runAsUser: 0
+        securityContext:
+          privileged: true
+          runAsUser: 0
         resources:
           limits:
             cpu: 500m
