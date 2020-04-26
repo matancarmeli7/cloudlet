@@ -17,4 +17,4 @@ spec:
       - values.yaml
     parameters:
       - name: OPENSHIFT_URL
-        value: {{ .Values.spec.destination.server }}
+        value: "MyServer" #{{ .Values.spec.destination.server }}
