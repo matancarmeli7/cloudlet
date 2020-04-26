@@ -1161,9 +1161,9 @@ spec:
       - name: collectorforopenshift
         # Stick to specific version
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        securityContext:
-          privileged: false
-          runAsUser: 0
+        #securityContext:
+        #  privileged: false
+        #  runAsUser: 0
         # Define your resources if you need. Defaults should be fine for most.
         resources:
           limits:
@@ -1325,9 +1325,9 @@ spec:
       containers:
       - name: collectorforopenshift
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        securityContext:
-          privileged: false
-          runAsUser: 0
+        #securityContext:
+        #  privileged: false
+        #  runAsUser: 0
         resources:
           limits:
             cpu: 1
@@ -1457,9 +1457,9 @@ spec:
       containers:
       - name: collectorforopenshift
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        securityContext:
-          privileged: false
-          runAsUser: 0
+        #securityContext:
+        #  privileged: false
+        #  runAsUser: 0
         resources:
           limits:
             cpu: 500m
