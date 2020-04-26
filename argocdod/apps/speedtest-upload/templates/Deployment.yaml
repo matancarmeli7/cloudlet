@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: speedtest-upload
-        image: "{{ .Values.IMAGE }}"  
+        image: {{ .Values.IMAGE }}  
         env:
         - name: NODE_NAME
           valueFrom:
@@ -24,7 +24,7 @@ spec:
         - name: UPLOAD_HOST
           value: "{{.Values.UPLOAD_HOST}}"
         - name: PORT
-          value: "{{.Values..PORT}}"
+          value: "{{.Values.PORT}}"
         - name: TEST_LENGTH
           value: "{{.Values.TEST_LENGTH}}"
         - name: TESTS_AMOUNT
