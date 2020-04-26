@@ -5,4 +5,4 @@ RUN pip install schedule
 ADD . /app
 WORKDIR /app
 
-CMD python Client.py
+CMD ["python", "-u", "Client.py" ]

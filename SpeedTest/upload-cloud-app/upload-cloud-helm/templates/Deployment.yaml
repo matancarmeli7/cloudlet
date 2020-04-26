@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: speedtest-upload
+  name: speedtest-upload-cloud
 spec:
   replicas: 1
   selector:
@@ -15,8 +15,10 @@ spec:
       containers:
       - name: speedtest-upload
         image: registry.hub.docker.com/antonz23/upload-cloud-app:latest
-        ports:
-        - containerPort: 8000
-          protocol: TCP
-      restartPolicy: Always
-
+      nodeSelector:
+          type: node-port-exposed
+      env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName

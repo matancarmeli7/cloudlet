@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest-upload-cloudlet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest-upload
+  template:
+    metadata:
+      labels:
+        app: speedtest-upload
+    spec:
+      containers:
+      - name: speedtest-upload
+        image: registry.hub.docker.com/antonz23/upload-cloudlet-app:latest

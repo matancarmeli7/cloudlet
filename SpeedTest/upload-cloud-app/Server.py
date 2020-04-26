@@ -17,30 +17,29 @@ def logSplunk(log):
 def uploadTest():
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
+
     server_address = ('0.0.0.0', PORT)
     print('starting up')
     sock.bind(server_address)
-    
+
     # Listen for incoming connections
     sock.listen(1)
 
     # Create dictionary to hold data for each client
     clientsData = {}
-    print("Debug")
+
     # Listen forever
     while True:
         # Save if the current client finished successfully
         finishedSuccessfully = True;
 
         try:
-            print("Debug 2")
             # Wait for a connection
             print('waiting for a connection')
             connection, client_address = sock.accept()
-
+            print('Accepted some connection')
             start = time.time()
-
+            
             # Init counter variables
             dataAmount = 0
             end = 0
@@ -48,7 +47,7 @@ def uploadTest():
             print('connection from: ' + str(client_address))
 
             # The first 20 characters will be the cluster name
-            clusterName = connection.recv(20).decode()
+            clusterName = connection.recv(20).decode().split("\0")[0]
 
             # Init if never head about the current cluster
             if not clusterName in clientsData:
@@ -78,6 +77,8 @@ def uploadTest():
                 # Convert to MB
                 dataAmount = dataAmount  / 1024
                 finalTime = end - start
+
+                print ("Data amount: " + str(dataAmount) + ", final Time: " + str(finalTime))
 
                 # convert to Mbit per second, from Mbyte per second
                 speed = (dataAmount / finalTime) * 8

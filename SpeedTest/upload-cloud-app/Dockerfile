@@ -5,4 +5,4 @@ RUN pip install requests
 ADD . /app
 WORKDIR /app
 
-CMD python Server.py
+CMD ["python", "-u", "Server.py"]

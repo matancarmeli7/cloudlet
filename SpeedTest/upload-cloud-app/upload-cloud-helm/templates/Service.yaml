@@ -4,6 +4,7 @@ metadata:
   name: speedtest-upload
   namespace: speedtest-cloudapp
 spec:
+  type: NodePort
   selector:
     app: speedtest-upload
   ports:
@@ -11,4 +12,4 @@ spec:
       protocol: TCP
       port: 8000
       targetPort: 8000
-
+      nodePort: 30038
