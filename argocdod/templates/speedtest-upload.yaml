@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: speedtest-download
+  name: speedtest-upload
   namespace: {{ .Values.argocdNamespace }}
 spec:
   destination:
@@ -9,7 +9,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: {{ .Values.spec.project }}
   source:
-    path: argocdod/apps/speedtest-download
+    path: argocdod/apps/speedtest-upload
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
   helm:
