@@ -34,5 +34,5 @@ spec:
         - name: KB_CHUNKS
           value: "{{.KB_CHUNKS}}"
         - name: OPENSHIFT_NAME
-          value: "{{ .spec.destination.server }}"
+          value: "{{ .argocdNamespace }}"
 {{- end }}
