@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: speedtest-upload
-        image: {{ .Values.IMAGE }}  
+        image: "{{ .Values.IMAGE }}"  
         env:
         - name: NODE_NAME
           valueFrom:
@@ -34,5 +34,5 @@ spec:
         - name: KB_CHUNKS
           value: "{{.Values.KB_CHUNKS}}"
         - name: OPENSHIFT_NAME
-          value: "{{.spec.destination.server }}"
+          value: "{{ .Values.OPENSHIFT_URL }}"
 #{{- end }}
