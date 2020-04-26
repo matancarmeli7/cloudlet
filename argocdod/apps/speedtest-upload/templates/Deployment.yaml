@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: speedtest-upload
-        image: {{ .IMAGE }}  
+        image: "{{ .Values.IMAGE }}"  
         env:
         - name: NODE_NAME
           valueFrom:
