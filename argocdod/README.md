@@ -16,7 +16,8 @@
 * Sync your app in ArgoCD (this step is needed if sync policy is manual).
 
 ## Deploying the main app example
-**Notice the spec.destination.server parameter override,** this handles to which cluster the apps are deployed.
+**Notice the spec.destination.server parameter override inside spec.source.helm.parameters,** this handles to which cluster the apps are deployed. </br>
+**DO NOT CHANGE the first spec.destination.server**, it should stay ```https://kubernetes.default.svc```.
 ```
 apiVersion: argoproj.io/v1alpha1
 metadata:
