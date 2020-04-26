@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest-download-cloudlet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest-download
+  template:
+    metadata:
+      labels:
+        app: speedtest-download
+    spec:
+      containers:
+      - name: speedtest-download
+        image: docker.io/dolevalgam/speedtest-cloudapp:latest
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+      restartPolicty: Always
+
