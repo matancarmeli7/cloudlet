@@ -34,5 +34,5 @@ spec:
         - name: KB_CHUNKS
           value: "{{.KB_CHUNKS}}"
         - name: OPENSHIFT_NAME
-          value: "{{ .OPENSHIFT_URL }}"
+          value: "{{ .spec.destination.server }}"
 {{- end }}
