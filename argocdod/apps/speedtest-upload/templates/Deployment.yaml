@@ -32,7 +32,7 @@ spec:
         - name: TESTS_INTERVAL
           value: "{{.TESTS_INTERVAL}}"
         - name: KB_CHUNKS
-          value: "{{.Values.KB_CHUNKS}}"
+          value: "{{.KB_CHUNKS}}"
         - name: OCP_NAME
-          value: "{{.Values.OCP_NAME}}"
+          value: "{{.OCP_NAME}}"
 {{- end }}
