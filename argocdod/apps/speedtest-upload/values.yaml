@@ -8,3 +8,4 @@ TESTS_AMOUNT: 1
 TESTS_INTERVAL: 2
 KB_CHUNKS: 500
 IMAGE: 'registry.hub.docker.com/antonz23/upload-cloudlet-app:latest'
+OCP_NAME: 'ocp43-remote'
