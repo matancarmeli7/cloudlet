@@ -1,4 +1,4 @@
-### 2. download-cloudlet-app 
+### download-cloudlet-app 
 ##### Overview  
 This is the client of the download speed test, which will be deployed using argocd on each cloudlet. The information about the speed of the download will be sent from here.  
   
