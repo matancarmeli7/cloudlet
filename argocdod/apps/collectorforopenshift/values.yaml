@@ -1,6 +1,6 @@
 image:
-  repository: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/collectorforopenshift
-#  repository: docker.io/outcoldsolutions/collectorforopenshift
+#  repository: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/collectorforopenshift
+  repository: docker.io/outcoldsolutions/collectorforopenshift
   tag: 5.14.284
 #splunk_url: "https://13.90.23.80:8088/services/collector/event"
 #splunk_token: "bfb0ea00-fad4-4166-9f20-2e7fedda26fb"
