@@ -1,38 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
-{{- with .Values }}
 metadata:
-  name: speedtest-upload-cloudlet
+  name: speedtest-download
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: speedtest-upload
+      app: speedtest-download
   template:
     metadata:
       labels:
-        app: speedtest-upload
+        app: speedtest-download
     spec:
       containers:
-      - name: speedtest-upload
-        image: {{ .IMAGE }}  
-        env:
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        - name: UPLOAD_HOST
-          value: "{{.UPLOAD_HOST}}"
-        - name: PORT
-          value: "{{.PORT}}"
-        - name: TEST_LENGTH
-          value: "{{.TEST_LENGTH}}"
-        - name: TESTS_AMOUNT
-          value: "{{.TESTS_AMOUNT}}"
-        - name: TESTS_INTERVAL
-          value: "{{.TESTS_INTERVAL}}"
-        - name: KB_CHUNKS
-          value: "{{.KB_CHUNKS}}"
-        - name: OPENSHIFT_NAME
-          value: "{{.spec.destination.server }}"
-{{- end }}
+      - name: speedtest-download
+        image: "{{ .Values.IMAGE_NAME }}"
+        ports:
+        - containerPort: {{ .Values.PORT }}
+          protocol: TCP
+      restartPolicy: Always
+
