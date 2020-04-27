@@ -120,6 +120,8 @@ metadata:
   namespace: quay-enterprise
 spec:
   quay:
+    nodeSelector:
+      kubernetes.io/hostname: worker-3.ocp43-test.sales.lab.tlv.redhat.com
     superuserCredentialsSecretName: super-user-quay
     configSecretName: quay-config-creds
     imagePullSecretName: redhat-pull-secret
