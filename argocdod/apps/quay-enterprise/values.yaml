@@ -7,7 +7,7 @@ CR:
   db:
     volumeSize: 10
   clair:
-    enabled: "false"
+    enabled: False
     updateInterval: "60m"
   secrets:
     quay:
