@@ -8,8 +8,8 @@ import socket
 main_url = os.environ['MAIN_APP_URL']
 token = os.environ['SPLUNK_TOKEN']
 splunk_url = os.environ['SPLUNK_URL']
-min_check_time = os.environ['MIN_CHECK_TIME']
-
+min_check_time = int(os.environ['MIN_CHECK_TIME'])
+OCP_NAME = os.environ['OCP_NAME']
 
 # Files to download for the test
 f_1MB = main_url + "/1MB.bin"
@@ -22,6 +22,7 @@ f_1000MB = main_url + "/1000MB.bin"
 # Log to central Splunk
 def logSplunk(log, TOKEN):
   myobj = {"event": log}
+  print("Sending the following log to splunk: " + str(log))
   x = requests.post(splunk_url, json = myobj, auth=('Splunk', TOKEN), verify=False)
 
 # Downloading a file multiple times while timing each download, returning lowest speed result.
@@ -29,6 +30,8 @@ def speedtest(URL, initialCheck, times):
 
   speeds = []
   bad_tests = 0
+  
+  print("Started speed test")
 
   for i in range(times):
     # Issue an http get request while timing it
@@ -47,6 +50,8 @@ def speedtest(URL, initialCheck, times):
   Mbps = (size/final_time)*8
 	
   speeds.append(Mbps)
+  
+  print("Finished a download speed test for cluster: " + OCP_NAME + ", speed is: " + str(min(speeds)))
 
   # If all the tests were bad
   if bad_tests == times:
@@ -80,14 +85,14 @@ def checks():
           size = f_500MB
         else:
           size = f_1000MB
-   
-	initialCheck = False
+ 
+  initialCheck = False
 	
-	# Getting the slowest result and sending logs to splunk
-	Mbps = speedtest(size, initialCheck, 10)
+  # Getting the slowest result and sending logs to splunk
+  Mbps = speedtest(size, initialCheck, 5)
   
-	logSplunk({"Mbps" : Mbps, "Cluster": "cloudlet-ocp43-prod"}, token)
-  print "Mbps: {}".format(Mbps)
+  logSplunk({"Download Mbps" : Mbps, "Cluster": OCP_NAME}, token)
+  print ("Download Mbps: " + str(Mbps) + ", Cluster: " + OCP_NAME) 
 
 hostname = socket.gethostname()
 
