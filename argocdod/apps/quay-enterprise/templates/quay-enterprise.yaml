@@ -149,7 +149,7 @@ spec:
     credentialsSecretName: redis-creds
     imagePullSecretName: redhat-pull-secret
   clair:
-    enabled: "{{ .Values.CR.clair.enabled }}"
+    enabled: false
     imagePullSecretName: redhat-pull-secret
     updateInterval: "{{ .Values.CR.clair.updateInterval }}"
     
