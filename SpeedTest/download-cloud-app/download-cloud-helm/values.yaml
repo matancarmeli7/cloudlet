@@ -2,3 +2,5 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 OPENSHIFT_URL: apps.ocp43-prod.cloudlet-dev.com
+PORT: 8000
+IMAGE_NAME: "registry.hub.docker.com/antonz23/download-cloud-app:latest"

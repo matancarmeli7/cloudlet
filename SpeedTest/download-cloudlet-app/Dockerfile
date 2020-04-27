@@ -1,8 +1,8 @@
-FROM python:2.7.17-alpine3.11
+FROM python:3.8-alpine 
 
 RUN pip install requests schedule
 
-ADD ./download-cloudlet-app /app
+ADD . ./app
 WORKDIR /app
 
-CMD python speedtest.py
+CMD ["python", "-u", "DownloadClient.py"]

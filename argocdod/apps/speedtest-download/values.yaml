@@ -1,10 +1,6 @@
 # Default values for download-cloud-helm.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-UPLOAD_HOST: '52.154.154.164'
-PORT: 30038
-TEST_LENGTH: 5
-TESTS_AMOUNT: 1
-TESTS_INTERVAL: 2
-KB_CHUNKS: 500
-IMAGE: 'registry.hub.docker.com/antonz23/upload-cloudlet-app:latest'
+OPENSHIFT_URL: apps.ocp43-prod.cloudlet-dev.com
+PORT: 8000
+IMAGE_NAME: "registry.hub.docker.com/antonz23/download-cloud-app:latest"
