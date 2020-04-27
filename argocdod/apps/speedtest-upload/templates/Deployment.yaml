@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-#{{- with .Values }}
+{{- with .Values }}
 metadata:
   name: speedtest-upload-cloudlet
 spec:
@@ -15,24 +15,24 @@ spec:
     spec:
       containers:
       - name: speedtest-upload
-        image: {{ .Values.IMAGE }}  
+        image: "{{ .IMAGE_NAME }}"  
         env:
         - name: NODE_NAME
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
         - name: UPLOAD_HOST
-          value: "{{.Values.UPLOAD_HOST}}"
+          value: "{{.UPLOAD_HOST}}"
         - name: PORT
-          value: "{{.Values.PORT}}"
+          value: "{{.PORT}}"
         - name: TEST_LENGTH
-          value: "{{.Values.TEST_LENGTH}}"
+          value: "{{.TEST_LENGTH}}"
         - name: TESTS_AMOUNT
-          value: "{{.Values.TESTS_AMOUNT}}"
+          value: "{{.TESTS_AMOUNT}}"
         - name: TESTS_INTERVAL
-          value: "{{.Values.TESTS_INTERVAL}}"
+          value: "{{.TESTS_INTERVAL}}"
         - name: KB_CHUNKS
           value: "{{.Values.KB_CHUNKS}}"
         - name: OCP_NAME
           value: "{{.Values.OCP_NAME}}"
-#{{- end }}
+{{- end }}
