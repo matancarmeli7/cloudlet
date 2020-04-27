@@ -2,4 +2,4 @@ MAIN_APP_URL=http://speedtest-cloudapp-http.apps.ocp43-prod.cloudlet-dev.com
 SPLUNK_TOKEN=0dde0859-27ff-43aa-b981-3eaca4fa4813
 SPLUNK_URL=https://13.90.23.80:8088/services/collector/event
 MIN_CHECK_TIME=5
-
+OCP_NAME='ocp43-remote'

@@ -20,10 +20,10 @@ f_1000MB = main_url + "/1000MB.bin"
 
 
 # Log to central Splunk
-def logSplunk(log, TOKEN):
+def logSplunk(log):
   myobj = {"event": log}
   print("Sending the following log to splunk: " + str(log))
-  x = requests.post(splunk_url, json = myobj, auth=('Splunk', TOKEN), verify=False)
+  x = requests.post(splunk_url, json = myobj, auth=('Splunk', token), verify=False)
 
 # Downloading a file multiple times while timing each download, returning lowest speed result.
 def speedtest(URL, initialCheck, times):
@@ -41,25 +41,24 @@ def speedtest(URL, initialCheck, times):
 
     final_time = end - start
 
-    # If a test takes less then min_check_time return 0 for bad size for test    
-    if final_time < min_check_time and initialCheck:
-      bad_tests += 1
+    # If a test takes too much time in an initial test, don't count it    
+    if not(final_time < min_check_time and initialCheck):
 
-	# Transfer Bytes to Megabits per second
-  size = float(len(response.content))/1000/1000
-  Mbps = (size/final_time)*8
+	    # Transfer Bytes to Megabits per second
+      size = float(len(response.content))/1000/1000
+      Mbps = (size/final_time)*8
 	
-  speeds.append(Mbps)
+      speeds.append(Mbps)
   
-  print("Finished a download speed test for cluster: " + OCP_NAME + ", speed is: " + str(min(speeds)))
 
   # If all the tests were bad
-  if bad_tests == times:
+  if len(speeds) == 0:
     return 0
 
+  print("Finished a download speed test for cluster: " + OCP_NAME + ", speed is: " + str(min(speeds)))
+  
   # Getting the slowest result
-  Mbps = min(speeds)
-  return Mbps
+  return min(speeds)
 
 # Running speedtests scans and logging to splunk
 def checks():
@@ -91,10 +90,8 @@ def checks():
   # Getting the slowest result and sending logs to splunk
   Mbps = speedtest(size, initialCheck, 5)
   
-  logSplunk({"Download Mbps" : Mbps, "Cluster": OCP_NAME}, token)
+  logSplunk({"Download Mbps" : Mbps, "Cluster": OCP_NAME})
   print ("Download Mbps: " + str(Mbps) + ", Cluster: " + OCP_NAME) 
-
-hostname = socket.gethostname()
 
 #Run checks function every 6 min
 def main():

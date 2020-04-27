@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: speedtest-download
-        image: docker.io/dolevalgam/speedtest-cloudapp:latest
+        image: "{{ .Values.IMAGE_NAME }}"
         ports:
-        - containerPort: 8000
+        - containerPort: {{ .Values.PORT }}
           protocol: TCP
       restartPolicy: Always
 

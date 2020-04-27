@@ -2,7 +2,6 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: speedtest-download
-  namespace: speedtest-download
 spec:
   host: speedtest-download.{{ .Values.OPENSHIFT_URL }}
   path: /
