@@ -1,6 +1,6 @@
 apiVersion: v2
-name: download-cloud-helm
-description: A Helm chart for Kubernetes
+name: download-cloudet-helm
+description: A helm chart the deploys download speed test in cloudlet environment
 
 # A chart can be either an 'application' or a 'library' chart.
 #
