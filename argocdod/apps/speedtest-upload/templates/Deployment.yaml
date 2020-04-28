@@ -35,4 +35,6 @@ spec:
           value: "{{.KB_CHUNKS}}"
         - name: OCP_NAME
           value: "{{.OCP_NAME}}"
+        - name: OCP_URL
+          value: "{{.OCP_URL}}"
 {{- end }}
