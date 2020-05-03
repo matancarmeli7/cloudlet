@@ -3,6 +3,3 @@ image:
   repo: cloudlet
   name: nginx
   tag: latest
-spec:
-  destination:
-    server: ""
