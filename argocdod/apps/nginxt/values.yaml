@@ -3,3 +3,6 @@ image:
   repo: cloudlet
   name: nginx
   tag: latest
+spec:
+  destination:
+    server: "apps.ocp43-test.sales.lab.tlv.redhat.com"
