@@ -1,3 +1,6 @@
+spec:
+  destination:
+    server: ""
 installation:
   channel: stable
   installPlan: Automatic
