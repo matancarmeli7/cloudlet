@@ -15,7 +15,6 @@ spec:
   helm:
     valueFiles:
       - values.yaml
-    values: ''
     parameters:
       - name: spec.destination.server
         value: 'apps.ocp43-test.sales.lab.tlv.redhat.com'
