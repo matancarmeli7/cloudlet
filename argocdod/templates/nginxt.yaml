@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginxt
+  namespace: {{ .Values.argocdNamespace }}
+spec:
+  destination:
+    namespace: {{ .Values.spec.destination.namespace }}
+    server: {{ .Values.spec.destination.server }}
+  project: {{ .Values.spec.project }}
+  source:
+    path: argocdod/apps/nginxt
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+  helm:
+    valueFiles:
+      - values.yaml
+    values: ''
+      parameters:
+        - name: spec.destination.server
+          value: 'apps.ocp43-test.sales.lab.tlv.redhat.com'

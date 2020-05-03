@@ -1,0 +1,8 @@
+image:
+  registry: quayecosystem-quay-quay-enterprise
+  repo: cloudlet
+  name: nginx
+  tag: latest
+spec:
+  destination:
+    server: ""
