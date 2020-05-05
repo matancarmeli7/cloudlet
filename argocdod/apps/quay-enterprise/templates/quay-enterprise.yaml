@@ -134,13 +134,13 @@ spec:
     configFiles:
       - secretName: quayconfigfile
     livenessProbe:
-      initialDelaySeconds: 120
+      initialDelaySeconds: 420
       httpGet:
         path: /health/instance
         port: 8443
         scheme: HTTPS
     readinessProbe:
-      initialDelaySeconds: 10
+      initialDelaySeconds: 420
       httpGet:
         path: /health/instance
         port: 8443
