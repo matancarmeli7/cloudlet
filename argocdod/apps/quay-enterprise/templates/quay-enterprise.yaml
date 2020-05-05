@@ -74,11 +74,11 @@ type: Opaque
 apiVersion: v1
 stringData:
   config2.yaml: |
-    FEATURE_PARTIAL_USER_AUTOCOMPLETE: "{{ .Values.CR.secrets.quay.config.user_autocomplete }}"
-    APP_SPECIFIC_TOKEN_EXPIRATION: "{{ .Values.CR.secrets.quay.config.token_EXP }}"
-    FEATURE_ANONYMOUS_ACCESS: "{{ .Values.CR.secrets.quay.config.anonymous }}"
-    FEATURE_REQUIRE_ENCRYPTED_BASIC_AUTH: "{{ .Values.CR.secrets.quay.config.requrie_ENCRYP }}"
-    FEATURE_INVITE_ONLY_USER_CREATION: "{{ .Values.CR.secrets.quay.config.users_Creation }}"
+    FEATURE_PARTIAL_USER_AUTOCOMPLETE: {{ .Values.CR.secrets.quay.config.user_autocomplete }}
+    APP_SPECIFIC_TOKEN_EXPIRATION: {{ .Values.CR.secrets.quay.config.token_EXP }}
+    FEATURE_ANONYMOUS_ACCESS: {{ .Values.CR.secrets.quay.config.anonymous }}
+    FEATURE_REQUIRE_ENCRYPTED_BASIC_AUTH: {{ .Values.CR.secrets.quay.config.requrie_ENCRYP }}
+    FEATURE_INVITE_ONLY_USER_CREATION: {{ .Values.CR.secrets.quay.config.users_Creation }}
 kind: Secret
 metadata:
   annotations:
