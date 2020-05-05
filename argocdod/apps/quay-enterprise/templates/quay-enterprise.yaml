@@ -72,13 +72,9 @@ type: Opaque
 ---
 # Source: quay-enterprise/templates/08_quayconfigfile.yaml
 apiVersion: v1
-stringData:
-  config2.yaml: |
-    FEATURE_PARTIAL_USER_AUTOCOMPLETE: {{ .Values.CR.secrets.quay.config.user_autocomplete }}
-    APP_SPECIFIC_TOKEN_EXPIRATION: {{ .Values.CR.secrets.quay.config.token_EXP }}
-    FEATURE_ANONYMOUS_ACCESS: {{ .Values.CR.secrets.quay.config.anonymous }}
-    FEATURE_REQUIRE_ENCRYPTED_BASIC_AUTH: {{ .Values.CR.secrets.quay.config.requrie_ENCRYP }}
-    FEATURE_INVITE_ONLY_USER_CREATION: {{ .Values.CR.secrets.quay.config.users_Creation }}
+data:
+configmore.yaml: >-
+    QVBQX1NQRUNJRklDX1RPS0VOX0VYUElSQVRJT046IDNtCkZFQVRVUkVfQU5PTllNT1VTX0FDQ0VTUzogZmFsc2UKRkVBVFVSRV9JTlZJVEVfT05MWV9VU0VSX0NSRUFUSU9OOiBmYWxzZQpGRUFUVVJFX1BBUlRJQUxfVVNFUl9BVVRPQ09NUExFVEU6IGZhbHNlCkZFQVRVUkVfUkVRVUlSRV9FTkNSWVBURURfQkFTSUNfQVVUSDogdHJ1ZQo=
 kind: Secret
 metadata:
   annotations:
