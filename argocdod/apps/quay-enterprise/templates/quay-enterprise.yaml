@@ -121,7 +121,6 @@ metadata:
   namespace: quay-enterprise
 spec:
   quay:
-    keepConfigDeployment: true
     superuserCredentialsSecretName: super-user-quay
     configSecretName: quay-config-creds
     imagePullSecretName: redhat-pull-secret
