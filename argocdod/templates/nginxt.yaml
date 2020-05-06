@@ -16,5 +16,5 @@ spec:
     valueFiles:
       - values.yaml
     parameters:
-      - name: spec.destination.server
-        value: 'apps.ocp43-test.sales.lab.tlv.redhat.com'
+      - name: shpizan
+        value: 'nitzan'
