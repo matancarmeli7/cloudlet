@@ -76,7 +76,7 @@ spec:
   selector:
     deploymentConfig: {{ .Values.APPLICATION_NAME }}
 ---
-apiVersion: v1
+apiVersion: route.openshift.io/v1
 id: "{{ .Values.APPLICATION_NAME }}-https"
 kind: Route
 metadata:
@@ -92,7 +92,7 @@ spec:
   to:
     name: {{ .Values.APPLICATION_NAME }}
 ---
-apiVersion: v1
+apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
@@ -205,7 +205,7 @@ spec:
   triggers:
   - type: ConfigChange
 ---
-apiVersion: v1
+apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
