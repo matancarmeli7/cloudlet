@@ -1514,7 +1514,7 @@ allowedCapabilities:
 allowedUnsafeSysctls:
 - '*'
 apiVersion: security.openshift.io/v1
-defaultAddCapabilities: []
+defaultAddCapabilities: 0
 fsGroup:
   type: RunAsAny
 groups:
@@ -1530,9 +1530,9 @@ metadata:
       only for cluster administration. Grant with caution.'
 
   name: collectorforopenshift
-priority: []
+priority: 0
 readOnlyRootFilesystem: false
-requiredDropCapabilities: []
+requiredDropCapabilities: 0
 runAsUser:
   type: RunAsAny
 seLinuxContext:
