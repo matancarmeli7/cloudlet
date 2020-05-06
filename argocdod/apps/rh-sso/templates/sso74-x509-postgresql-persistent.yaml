@@ -1,0 +1,290 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app: {{ .Values.APPLICATION_NAME }}
+  name: {{ .Values.rhsso_namespace }}
+  annotations:
+    openshift.io/description: 'RedHat SSO'
+    openshift.io/display-name: 'RedHat SSO'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rhsso-view
+  namespace: {{ .Values.rhsso_namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {{ .Values.rhsso_namespace }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    description: The web server's https port.
+    service.alpha.openshift.io/dependencies: '[{"name": "{{ .Values.APPLICATION_NAME }}-postgresql",
+      "kind": "Service" }}]'
+    service.alpha.openshift.io/serving-cert-secret-name: sso-x509-https-secret
+  labels:
+    application: {{ .Values.APPLICATION_NAME }}
+  name: {{ .Values.APPLICATION_NAME }}
+  namespace: {{ .Values.rhsso_namespace }}
+spec:
+  ports:
+  - port: 8443
+    targetPort: 8443
+  selector:
+    deploymentConfig: {{ .Values.APPLICATION_NAME }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    description: The database server's port.
+  labels:
+    application: {{ .Values.APPLICATION_NAME }}
+  name: "{{ .Values.APPLICATION_NAME }}-postgresql"
+  namespace: {{ .Values.rhsso_namespace }}
+spec:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    deploymentConfig: "{{ .Values.APPLICATION_NAME }}-postgresql"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    description: The JGroups ping port for clustering.
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: 'true'
+    service.alpha.openshift.io/serving-cert-secret-name: sso-x509-jgroups-secret
+  labels:
+    application: {{ .Values.APPLICATION_NAME }}
+  name: "{{ .Values.APPLICATION_NAME }}-ping"
+  namespace: {{ .Values.rhsso_namespace }}
+spec:
+  clusterIP: None
+  ports:
+  - name: ping
+    port: 8888
+  selector:
+    deploymentConfig: {{ .Values.APPLICATION_NAME }}
+---
+apiVersion: v1
+id: "{{ .Values.APPLICATION_NAME }}-https"
+kind: Route
+metadata:
+  annotations:
+    description: Route for application's https service.
+  labels:
+    application: {{ .Values.APPLICATION_NAME }}
+  name: {{ .Values.APPLICATION_NAME }}
+  namespace: {{ .Values.rhsso_namespace }}
+spec:
+  tls:
+    termination: reencrypt
+  to:
+    name: {{ .Values.APPLICATION_NAME }}
+---
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    application: {{ .Values.APPLICATION_NAME }}
+  name: {{ .Values.APPLICATION_NAME }}
+  namespace: {{ .Values.rhsso_namespace }}
+spec:
+  replicas: 1
+  selector:
+    deploymentConfig: {{ .Values.APPLICATION_NAME }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        application: {{ .Values.APPLICATION_NAME }}
+        deploymentConfig: {{ .Values.APPLICATION_NAME }}
+      name: {{ .Values.APPLICATION_NAME }}
+    spec:
+      containers:
+      - env:
+        - name: SSO_HOSTNAME
+          value: {{ .Values.SSO_HOSTNAME }}
+        - name: DB_SERVICE_PREFIX_MAPPING
+          value: "{{ .Values.APPLICATION_NAME }}-postgresql=DB"
+        - name: DB_JNDI
+          value: {{ .Values.DB_JNDI }}
+        - name: DB_USERNAME
+          value: {{ .Values.DB_USERNAME }}
+        - name: DB_PASSWORD
+          value: {{ .Values.DB_PASSWORD }}
+        - name: DB_DATABASE
+          value: {{ .Values.DB_DATABASE }}
+        - name: TX_DATABASE_PREFIX_MAPPING
+          value: "{{ .Values.APPLICATION_NAME }}-postgresql=DB"
+        - name: DB_MIN_POOL_SIZE
+          value: {{ .Values.DB_MIN_POOL_SIZE }}
+        - name: DB_MAX_POOL_SIZE
+          value: {{ .Values.DB_MAX_POOL_SIZE }}
+        - name: DB_TX_ISOLATION
+          value: {{ .Values.DB_TX_ISOLATION }}
+        - name: JGROUPS_PING_PROTOCOL
+          value: openshift.DNS_PING
+        - name: OPENSHIFT_DNS_PING_SERVICE_NAME
+          value: "{{ .Values.APPLICATION_NAME }}-ping"
+        - name: OPENSHIFT_DNS_PING_SERVICE_PORT
+          value: '8888'
+        - name: X509_CA_BUNDLE
+          value: /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        - name: JGROUPS_CLUSTER_PASSWORD
+          value: {{ .Values.JGROUPS_CLUSTER_PASSWORD }}
+        - name: SSO_ADMIN_USERNAME
+          value: {{ .Values.SSO_ADMIN_USERNAME }}
+        - name: SSO_ADMIN_PASSWORD
+          value: {{ .Values.SSO_ADMIN_PASSWORD }}
+        - name: SSO_REALM
+          value: {{ .Values.SSO_REALM }}
+        - name: SSO_SERVICE_USERNAME
+          value: {{ .Values.SSO_SERVICE_USERNAME }}
+        - name: SSO_SERVICE_PASSWORD
+          value: {{ .Values.SSO_SERVICE_PASSWORD }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Always
+        livenessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - /opt/eap/bin/livenessProbe.sh
+          initialDelaySeconds: 120
+        name: {{ .Values.APPLICATION_NAME }}
+        ports:
+        - containerPort: 8778
+          name: jolokia
+          protocol: TCP
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        - containerPort: 8888
+          name: ping
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - /opt/eap/bin/readinessProbe.sh
+          initialDelaySeconds: 60
+        resources:
+          limits:
+            memory: {{ .Values.MEMORY_LIMIT }}
+        volumeMounts:
+        - mountPath: /etc/x509/https
+          name: sso-x509-https-volume
+          readOnly: true
+        - mountPath: /etc/x509/jgroups
+          name: sso-x509-jgroups-volume
+          readOnly: true
+      terminationGracePeriodSeconds: 75
+      volumes:
+      - name: sso-x509-https-volume
+        secret:
+          secretName: sso-x509-https-secret
+      - name: sso-x509-jgroups-volume
+        secret:
+          secretName: sso-x509-jgroups-secret
+  triggers:
+  - type: ConfigChange
+---
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    application: {{ .Values.APPLICATION_NAME }}
+  name: "{{ .Values.APPLICATION_NAME }}-postgresql"
+  namespace: {{ .Values.rhsso_namespace }}
+spec:
+  replicas: 1
+  selector:
+    deploymentConfig: "{{ .Values.APPLICATION_NAME }}-postgresql"
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        application: {{ .Values.APPLICATION_NAME }}
+        deploymentConfig: "{{ .Values.APPLICATION_NAME }}-postgresql"
+      name: "{{ .Values.APPLICATION_NAME }}-postgresql"
+    spec:
+      containers:
+      - env:
+        - name: POSTGRESQL_USER
+          value: {{ .Values.DB_USERNAME }}
+        - name: POSTGRESQL_PASSWORD
+          value: {{ .Values.DB_PASSWORD }}
+        - name: POSTGRESQL_DATABASE
+          value: {{ .Values.DB_DATABASE }}
+        - name: POSTGRESQL_MAX_CONNECTIONS
+          value: {{ .Values.POSTGRESQL_MAX_CONNECTIONS }}
+        - name: POSTGRESQL_MAX_PREPARED_TRANSACTIONS
+          value: {{ .Values.POSTGRESQL_MAX_CONNECTIONS }}
+        - name: POSTGRESQL_SHARED_BUFFERS
+          value: {{ .Values.POSTGRESQL_SHARED_BUFFERS }}
+        image: "{{ .Values.pg_image.repository }}:{{ .Values.pg_image.tag }}"
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 90
+          'successThreshold:': 1
+          tcpSocket:
+            port: 5432
+          timeoutSeconds: 10
+        name: "{{ .Values.APPLICATION_NAME }}-postgresql"
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -i
+            - -c
+            - psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c
+              'SELECT 1'
+          failureThreshold: 3
+          initialDelaySeconds: 90
+          'successThreshold:': 1
+          timeoutSeconds: 10
+        volumeMounts:
+        - mountPath: /var/lib/pgsql/data
+          name: "{{ .Values.APPLICATION_NAME }}-postgresql-pvol"
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: "{{ .Values.APPLICATION_NAME }}-postgresql-pvol"
+        persistentVolumeClaim:
+          claimName: "{{ .Values.APPLICATION_NAME }}-postgresql-claim"
+  triggers:
+  - type: ConfigChange
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    application: {{ .Values.APPLICATION_NAME }}
+  name: "{{ .Values.APPLICATION_NAME }}-postgresql-claim"
+  namespace: {{ .Values.rhsso_namespace }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.VOLUME_CAPACITY }}
