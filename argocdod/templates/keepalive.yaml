@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: keepalive
+  name: keepalive-{{ template "cluster_name" . }}
   namespace: {{ .Values.argocdNamespace }}
 spec:
   destination:
