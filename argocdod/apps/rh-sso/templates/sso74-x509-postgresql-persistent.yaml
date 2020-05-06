@@ -77,7 +77,6 @@ spec:
     deploymentConfig: {{ .Values.APPLICATION_NAME }}
 ---
 apiVersion: route.openshift.io/v1
-id: "{{ .Values.APPLICATION_NAME }}-https"
 kind: Route
 metadata:
   annotations:
@@ -244,7 +243,6 @@ spec:
         livenessProbe:
           failureThreshold: 3
           initialDelaySeconds: 90
-          'successThreshold:': 1
           tcpSocket:
             port: 5432
           timeoutSeconds: 10
@@ -262,7 +260,6 @@ spec:
               'SELECT 1'
           failureThreshold: 3
           initialDelaySeconds: 90
-          'successThreshold:': 1
           timeoutSeconds: 10
         volumeMounts:
         - mountPath: /var/lib/pgsql/data
