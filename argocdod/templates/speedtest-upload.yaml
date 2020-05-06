@@ -12,9 +12,9 @@ spec:
     path: argocdod/apps/speedtest-upload
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
-  helm:
-    valueFiles:
-      - values.yaml
-    parameters:
-      - name: OPENSHIFT_URL
-        value: "MyServer" #{{ .Values.spec.destination.server }}
+    helm:
+      valueFiles:
+        - values.yaml
+      parameters:
+        - name: cluster_name
+          value: {{ template "cluster_name" . }}
