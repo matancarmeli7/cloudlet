@@ -1530,9 +1530,9 @@ metadata:
       only for cluster administration. Grant with caution.'
 
   name: collectorforopenshift
-priority: null
+priority: []
 readOnlyRootFilesystem: false
-requiredDropCapabilities: null
+requiredDropCapabilities: []
 runAsUser:
   type: RunAsAny
 seLinuxContext:
