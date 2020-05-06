@@ -1514,7 +1514,7 @@ allowedCapabilities:
 allowedUnsafeSysctls:
 - '*'
 apiVersion: security.openshift.io/v1
-defaultAddCapabilities: null
+defaultAddCapabilities: []
 fsGroup:
   type: RunAsAny
 groups:
