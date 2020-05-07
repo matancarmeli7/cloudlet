@@ -1,0 +1,2 @@
+[localhost]
+localhost Application=ztube QUAY_ENDPOINT=https://quayecosystem-quay-quay-enterprise.apps.ocp43-prod.cloudlet-dev.com QUAY_AUTH_TOKEN=T1KFUkWKpabsaF9GF0SjjchhHrsWEKqjuXlFiyhO organization=cloudlet visibillity=private REGISTRY=quay.io UPSTREAM_USERNAME=dolevalgam UPSTREAM_PASSWORD=g@Zjx116 robot_username=cloudlet+robot tags='["latest"]'
