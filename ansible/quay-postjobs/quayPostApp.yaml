@@ -62,3 +62,4 @@
           external_registry_password: "{{ UPSTREAM_PASSWORD }}"
           sync_interval: 500
           robot_username: "{{ robot_username }}"
+      ignore_errors: true # ignore only error_code that  says already exist/if status code not generic use regex
