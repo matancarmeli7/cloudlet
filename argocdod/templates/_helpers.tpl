@@ -3,12 +3,7 @@
 {{- $matches._1 -}}
 {{- end -}}
 
-{{- define "cluster_fqdntemp" -}}
-{{- $matches := split "api." ( .Values.spec.destination.server | toString ) -}}
-{{- $matches -}}
-{{- end -}}
-
 {{- define "cluster_fqdn" -}}
-{{- $matches := split ":" ( .Values.cluster_fqdntemp | toString ) -}}
-{{- $matches._0 -}}
+{{- $match := .Values.spec.destination.server | toString | regexFind "//.*:" -}}
+{{- $match | trimAll ":" | trimAll "/" -}}
 {{- end -}}
