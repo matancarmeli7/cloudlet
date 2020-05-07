@@ -16,5 +16,5 @@ spec:
       valueFiles:
         - values.yaml
       parameters:
-        - name: cluster_name
+        - name: cluster_fqdn
           value: {{ template "cluster_fqdn" . }}
