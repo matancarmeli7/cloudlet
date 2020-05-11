@@ -1,0 +1,2 @@
+minio/minio:latest
+minio/k8s-operator:1.0.7
