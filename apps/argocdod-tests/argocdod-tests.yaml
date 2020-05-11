@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Initializing failed_tests list
+      set_fact:
+        failed_tests: []
+     
+    - name: Testing all apps
+      block:
+        - name: CREATE KUBECONFIG
+
+        - name: Running all tests
+          include_tasks: "{{ test_task }}"
+          loop: "{{ lookup('fileglob', 'tasks/*', wantlist=True) }}"
+          loop_control:
+            loop_var: "test_task"
+
+      always:
+        - name: CLEANUP KUBECONFIG
+
+    - name: TEST SUMMARY
+      debug:
+        msg: "{% if 'failed_tests' == [] %}ALL TESTS PASSED{% else %}{{ failed_tests }}{% endif %}"
+      failed_when: "failed_tests != []"

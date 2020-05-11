@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+{{- with .Values }}
+metadata:
+  name: speedtest-upload-cloudlet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest-upload
+  template:
+    metadata:
+      labels:
+        app: speedtest-upload
+    spec:
+      containers:
+      - name: speedtest-upload
+        image: "{{ .IMAGE_NAME }}"  
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: UPLOAD_HOST
+          value: "{{.UPLOAD_HOST}}"
+        - name: PORT
+          value: "{{.PORT}}"
+        - name: TEST_LENGTH
+          value: "{{.TEST_LENGTH}}"
+        - name: TESTS_AMOUNT
+          value: "{{.TESTS_AMOUNT}}"
+        - name: TESTS_INTERVAL
+          value: "{{.TESTS_INTERVAL}}"
+        - name: KB_CHUNKS
+          value: "{{.KB_CHUNKS}}"
+        - name: OCP_NAME
+          value: "{{.cluster_name}}"
+        - name: OCP_URL
+          value: "{{.OCP_URL}}"
+{{- end }}
