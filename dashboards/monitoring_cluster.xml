@@ -1,0 +1,541 @@
+<form>
+  <label>Monitoring Cluster</label>
+  <search id="search_uniq">
+    <query>
+      ( `macro_openshift_logs` ) | eval stream=coalesce(stream, docker_stream, source) | stats count by host, openshift_node_labels, openshift_container_id, openshift_container_name, openshift_container_unique_name, stream, openshift_namespace, openshift_cluster_eval
+    </query>
+    <earliest>$period.earliest$</earliest>
+    <latest>$period.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+    <refresh>$form.refresh$</refresh>
+  </search>
+  <search id="search_logs">
+    <query>
+      `macro_openshift_logs` ($openshift_node_label$) ($host$) ($openshift_container_unique_name$) ($openshift_namespace$) ($openshift_cluster_eval$) $search$ $limit$ |
+      eval stream=coalesce(stream, docker_stream, source) |
+      search ($stream$) |
+      eval container=openshift_container_unique_name |
+      fields _time, container, stream, _raw, openshift_cluster_eval
+    </query>
+    <earliest>$period.earliest$</earliest>
+    <latest>$period.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+    <refresh>$form.refresh$</refresh>
+  </search>
+  <search id="search_metric">
+    <query>
+      ( `macro_openshift_stats_host`) | stats count by host, openshift_node_labels, openshift_cluster_eval
+    </query>
+    <earliest>$period.earliest$</earliest>
+    <latest>$period.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+    <refresh>$form.refresh$</refresh>
+  </search>
+  <search id="search_host_stats">
+    <query>
+      `macro_openshift_stats_host` ($openshift_node_label$) ($host$) ($openshift_cluster_eval$) |
+      bin _time span=$span$ |
+      stats
+        avg(openshift_stats_cpu_percent_of_host) as openshift_stats_cpu_percent_of_host,
+        avg(openshift_stats_memory_percent_of_host) as openshift_stats_memory_percent_of_host,
+        latest(node_status_allocatable_cpu) as node_status_allocatable_cpu,
+        latest(node_status_capacity_cpu) as node_status_capacity_cpu,
+        latest(node_status_allocatable_memory) as node_status_allocatable_memory,
+        latest(node_status_capacity_memory) as node_status_capacity_memory,
+        latest(node_status_allocatable_pods) as node_status_allocatable_pods,
+        latest(node_status_capacity_pods) as node_status_capacity_pods,
+        latest(openshift_stats_last_seen) as openshift_stats_last_seen,
+        latest(proc__sys__kernel__ostype) as proc__sys__kernel__ostype,
+        latest(proc__sys__kernel__osrelease) as proc__sys__kernel__osrelease,
+        latest(openshift_node_info_osimage) as openshift_node_info_osimage,
+        latest(openshift_node_info_kubeletversion) as openshift_node_info_kubeletversion,
+        latest(proc__stat__uptime_seconds) as proc__stat__uptime_seconds,
+        avg(openshift_stats_io_wait_read_percent) as openshift_stats_io_wait_read_percent,
+        avg(openshift_stats_io_wait_write_percent) as openshift_stats_io_wait_write_percent,
+        values(openshift_node_labels) as openshift_node_labels,
+      by _time, host
+    </query>
+    <earliest>$period.earliest$</earliest>
+    <latest>$period.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+    <refresh>$form.refresh$</refresh>
+  </search>
+  <search id="search_io_stats">
+    <query>
+      (`macro_openshift_stats_host` OR `macro_openshift_proc_stats`) ($openshift_node_label$) ($host$) ($openshift_cluster_eval$) |
+      bin _time span=$span$ |
+      stats
+        sum(openshift_stats_io_read_mb) as openshift_stats_io_read_mb,
+        sum(openshift_proc_stats_io_read_mb) as openshift_proc_stats_io_read_mb,
+        sum(openshift_stats_io_write_mb) as openshift_stats_io_write_mb,
+        sum(openshift_proc_stats_io_write_mb) as openshift_proc_stats_io_write_mb
+      by _time, host
+    </query>
+    <earliest>$period.earliest$</earliest>
+    <latest>$period.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+    <refresh>$form.refresh$</refresh>
+  </search>
+  <fieldset submitButton="false">
+    <input type="time" token="period">
+      <label>Period</label>
+      <default>
+        <earliest>-4h@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="span">
+      <label>Span</label>
+      <choice value="30s">30s</choice>
+      <choice value="1m">1m</choice>
+      <choice value="5m">5m</choice>
+      <choice value="10m">10m</choice>
+      <choice value="30m">30m</choice>
+      <default>1m</default>
+    </input>
+    <input type="dropdown" token="refresh">
+      <label>Auto-Refresh</label>
+      <choice value="0">Off</choice>
+      <choice value="30">30s</choice>
+      <choice value="60">1m</choice>
+      <choice value="300">5m</choice>
+      <choice value="600">10m</choice>
+      <choice value="1800">30m</choice>
+      <default>0</default>
+    </input>
+    <input type="multiselect" token="openshift_cluster_eval">
+      <label>Cluster</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>openshift_cluster_eval</fieldForLabel>
+      <fieldForValue>openshift_cluster_eval</fieldForValue>
+      <default>*</default>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($host$) ($openshift_container_unique_name$) ($openshift_namespace$) |
+          stats count by openshift_cluster_eval | sort openshift_cluster_eval
+        </query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>openshift_cluster_eval="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="openshift_cluster_eval"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="openshift_node_label">
+      <label>Node Label</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>openshift_node_labels</fieldForLabel>
+      <fieldForValue>openshift_node_labels</fieldForValue>
+      <default>*</default>
+      <search base="search_uniq">
+        <query>
+          search ($host$) ($openshift_container_unique_name$) ($openshift_namespace$) ($openshift_cluster_eval$) |
+          fields openshift_node_labels | stats count by openshift_node_labels | mvexpand openshift_node_labels | stats count by openshift_node_labels | sort openshift_node_label</query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>openshift_node_labels="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="openshift_node_label"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="openshift_namespace">
+      <label>Project</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>openshift_namespace</fieldForLabel>
+      <fieldForValue>openshift_namespace</fieldForValue>
+      <default>*</default>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($host$) ($openshift_container_unique_name$) ($openshift_cluster_eval$) |
+          fields openshift_namespace | stats count by openshift_namespace | sort openshift_namespace
+        </query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>openshift_namespace="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="openshift_namespace"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="host">
+      <label>Host</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>host</fieldForLabel>
+      <fieldForValue>host</fieldForValue>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($openshift_container_unique_name$) ($openshift_namespace$) ($openshift_cluster_eval$) |
+          stats count by host | sort host
+        </query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>host="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="host"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="openshift_container_unique_name">
+      <label>Container</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>openshift_container_unique_name</fieldForLabel>
+      <fieldForValue>openshift_container_unique_name</fieldForValue>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($host$) ($openshift_namespace$) ($openshift_cluster_eval$) |
+          stats count by openshift_container_unique_name | sort openshift_container_unique_name
+        </query>
+      </search>
+      <default>*</default>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>openshift_container_unique_name="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="openshift_container_unique_name"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="stream">
+      <label>Stream</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>stream</fieldForLabel>
+      <fieldForValue>stream</fieldForValue>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($host$) ($openshift_container_unique_name$) ($openshift_namespace$) ($openshift_cluster_eval$) |
+          stats count by stream
+        </query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>stream="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="stream"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="text" token="search" searchWhenChanged="true">
+      <label>Search</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="dropdown" token="limit">
+      <label>Limit</label>
+      <choice value="| head 500 ">500 events</choice>
+      <choice value="| head 1000 ">1000 events</choice>
+      <choice value="| head 5000 ">5000 events</choice>
+      <choice value="| head 10000 ">10000 events</choice>
+      <choice value="| search">Off</choice>
+      <default>| head 500</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel depends="$alwaysHideCSS$">
+      <title>DO NOT DELETE</title>
+      <html>
+         <style>
+           #totlresource{
+             width:75% !important;
+             height: 300px !important;
+           }
+           #keepalive{
+             width:25% !important;
+             font-size:2px !important;
+           }
+         </style>
+       </html>
+    </panel>
+    <panel id="totlresource">
+      <title>Total Resources</title>
+      <single>
+        <title>CPU Capacity</title>
+        <search base="search_host_stats">
+          <query>timechart span=$span$ sum(node_status_capacity_cpu) as CPU | where CPU&gt;0 AND _time&lt;relative_time(now(), "-$span$")</query>
+        </search>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">0</option>
+        <option name="height">200px</option>
+      </single>
+      <single>
+        <title>CPU Allocatable</title>
+        <search base="search_host_stats">
+          <query>timechart span=$span$ sum(node_status_allocatable_cpu) as CPU | where CPU&gt;0 AND _time&lt;relative_time(now(), "-$span$")</query>
+        </search>
+        <option name="numberPrecision">0.00</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">0</option>
+        <option name="height">200px</option>
+      </single>
+      <single>
+        <title>Memory Capacity</title>
+        <search base="search_host_stats">
+          <query>timechart span=$span$ eval(sum(node_status_capacity_memory)/1024/1024/1024) as Memory | where Memory&gt;0 AND _time&lt;relative_time(now(), "-$span$")</query>
+        </search>
+        <option name="numberPrecision">0.000</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">0</option>
+        <option name="unit">GB</option>
+        <option name="height">200px</option>
+      </single>
+      <single>
+        <title>Memory Allocatable</title>
+        <search base="search_host_stats">
+          <query>timechart span=$span$ eval(sum(node_status_allocatable_memory)/1024/1024/1024) as Memory | where Memory&gt;0 AND _time&lt;relative_time(now(), "-$span$")</query>
+        </search>
+        <option name="numberPrecision">0.000</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">0</option>
+        <option name="unit">GB</option>
+        <option name="height">200px</option>
+      </single>
+    </panel>
+    <panel id="keepalive">
+      <title>Keep Alive</title>
+      <viz type="status_indicator_app.status_indicator">
+        <search>
+          <query>index="cloudlet" event_type="keepalive" | rename cluster_name as openshift_cluster_eval | search $openshift_cluster_eval$ | stats count | eval status=case(count&lt;1, "Dead", count&gt;0, "Alive") | eval color=case(status=="Dead" , "#ff0000", status=="Alive", "#008b00" )
+| table status icon color</query>
+          <earliest>rt-3m</earliest>
+          <latest>rt</latest>
+          <refresh>1m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="status_indicator_app.status_indicator.colorBy">field_value</option>
+        <option name="status_indicator_app.status_indicator.fillTarget">text</option>
+        <option name="status_indicator_app.status_indicator.fixIcon">cloud</option>
+        <option name="status_indicator_app.status_indicator.icon">fix_icon</option>
+        <option name="status_indicator_app.status_indicator.precision">0</option>
+        <option name="status_indicator_app.status_indicator.showOption">1</option>
+        <option name="status_indicator_app.status_indicator.staticColor">#53a051</option>
+        <option name="status_indicator_app.status_indicator.useColors">true</option>
+        <option name="status_indicator_app.status_indicator.useThousandSeparator">true</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.size">small</option>
+        <option name="trellis.splitBy">_aggregation</option>
+      </viz>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>CPU Usage (%) per Host</title>
+      <chart>
+        <search base="search_host_stats">
+          <query>
+            timechart span=$span$ eval(round(avg(openshift_stats_cpu_percent_of_host), 2)) as "CPU Usage %" by host limit=200
+          </query>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.maximumNumber">100</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisEnd</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Memory (%) per Host</title>
+      <chart>
+        <search base="search_host_stats">
+          <query>
+            timechart span=$span$ eval(round(avg(openshift_stats_memory_percent_of_host), 2)) as "Memory Usage (%)" by host limit=200
+          </query>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.maximumNumber">100</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisEnd</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Upload Speed Test</title>
+      <chart>
+        <title>Upload (in Mega BIT per seconds)</title>
+        <search>
+          <query>index="cloudlet" sourcetype=httpevent source="http:speedtest" | rename Cluster as openshift_cluster_eval | search $openshift_cluster_eval$ | table "Upload Mbps",openshift_cluster_eval,_time | rename "Upload Mbps" AS Mbps |  sort -_time | stats first(Mbps)</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">radialGauge</option>
+        <option name="charting.chart.rangeValues">[0,30,70,500,1000]</option>
+        <option name="charting.gaugeColors">["0xdc4e41","0xf1813f","0xf8be34","0x53a051"]</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Upload Speed Test</title>
+      <chart>
+        <title>Upload (in Mega BIT per seconds)</title>
+        <search>
+          <query>index="cloudlet" sourcetype=httpevent source="http:speedtest" | rename Cluster as openshift_cluster_eval | search $openshift_cluster_eval$ | table _time,openshift_cluster_eval,"Upload Mbps" | rename "Upload Mbps" AS Mbps | timechart span=5m min(Mbps) BY openshift_cluster_eval</query>
+          <earliest>@w0</earliest>
+          <latest>now</latest>
+          <refresh>5m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.rangeValues">[0,5,30,100]</option>
+        <option name="charting.chart.style">minimal</option>
+        <option name="charting.gaugeColors">["0xdc4e41","0xf8be34","0x53a051"]</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="height">252</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.size">large</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Download Speed Test</title>
+      <chart>
+        <title>Download (in Mega BIT per seconds)</title>
+        <search>
+          <query>index="cloudlet" sourcetype=httpevent source="http:speedtest" | rename Cluster as openshift_cluster_eval | search $openshift_cluster_eval$ | table "Download Mbps",openshift_cluster_eval,_time | rename "Download Mbps" AS Mbps | sort -_time | stats first(Mbps)</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">radialGauge</option>
+        <option name="charting.chart.rangeValues">[0,30,70,500,1000]</option>
+        <option name="charting.gaugeColors">["0xdc4e41","0xf1813f","0xf8be34","0x53a051"]</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Download Speed Test</title>
+      <chart>
+        <title>Download (in Mega BIT per seconds)</title>
+        <search>
+          <query>index="cloudlet" sourcetype=httpevent source="http:speedtest" | rename Cluster as openshift_cluster_eval | search $openshift_cluster_eval$ | table _time,openshift_cluster_eval,"Download Mbps" | rename "Download Mbps" AS Mbps | timechart span=5m min(Mbps) BY openshift_cluster_eval</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Logs</title>
+      <table>
+        <search base="search_logs">
+          <query>table _time, openshift_cluster_eval, container, stream, _raw | rename stream AS status _time AS timestamp _raw AS message openshift_cluster_eval AS cluster | sort - "timestamp" | convert ctime("timestamp")</query>
+          <refresh>$form.refresh$</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="count">5</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="number" field="status"></format>
+        <format type="color" field="status">
+          <colorPalette type="map">{"stderr":#DC4E41,"stdout":#4FA484}</colorPalette>
+        </format>
+        <format type="number" field="timestamp">
+          <option name="precision">0</option>
+        </format>
+        <fields>["timestamp","cluster","container","status","message"]</fields>
+      </table>
+    </panel>
+  </row>
+</form>
