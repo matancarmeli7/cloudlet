@@ -153,8 +153,9 @@ spec:
         path: /health/instance
         port: 8443
         scheme: HTTPS
-    tls:
-      secretName: custom-quay-tls
+    externalAccess:
+      tls:
+        secretName: custom-quay-tls
   redis:
     credentialsSecretName: redis-creds
     imagePullSecretName: redhat-pull-secret
