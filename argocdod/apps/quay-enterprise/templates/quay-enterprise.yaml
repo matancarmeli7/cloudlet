@@ -136,7 +136,6 @@ spec:
     imagePullSecretName: redhat-pull-secret
     persistentVolumeSize: "{{ .Values.CR.quay.persistentVolumeSize }}Gi"
     database:
-      volumeSize: "{{ .Values.CR.db.volumeSize }}Gi"
       credentialsSecretName: db-creds
     enableRepoMirroring: true
     repoMirrorTLSVerify: false
@@ -163,3 +162,5 @@ spec:
     enabled: false
     imagePullSecretName: redhat-pull-secret
     updateInterval: "{{ .Values.CR.clair.updateInterval }}"
+
+#add under db:       volumeSize: "{{ .Values.CR.db.volumeSize }}Gi"
