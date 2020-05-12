@@ -1,0 +1,285 @@
+<form hideEdit="false">
+  <label>Applications Logs</label>
+  <search id="search_uniq">
+    <query>
+      ( `macro_openshift_logs` ) | eval stream=coalesce(stream, docker_stream, source) | stats count by host, openshift_node_labels, openshift_container_id, openshift_container_name, openshift_container_unique_name, stream, openshift_namespace, openshift_cluster_eval
+    </query>
+    <earliest>$period.earliest$</earliest>
+    <latest>$period.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+    <refresh>$form.refresh$</refresh>
+  </search>
+  <search id="search_logs">
+    <query>
+      `macro_openshift_logs` ($openshift_node_label$) ($host$) ($openshift_container_unique_name$) ($openshift_namespace$) ($openshift_cluster_eval$) $search$ $limit$ |
+      eval stream=coalesce(stream, docker_stream, source) |
+      search ($stream$) |
+      eval container=openshift_container_unique_name |
+      fields _time, container, stream, _raw, openshift_cluster_eval
+    </query>
+    <earliest>$period.earliest$</earliest>
+    <latest>$period.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+    <refresh>$form.refresh$</refresh>
+  </search>
+  <fieldset submitButton="false">
+    <input type="time" token="period">
+      <label>Period</label>
+      <default>
+        <earliest>-4h@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="refresh">
+      <label>Auto-Refresh</label>
+      <choice value="0">Off</choice>
+      <choice value="30">30s</choice>
+      <choice value="60">1m</choice>
+      <choice value="300">5m</choice>
+      <choice value="600">10m</choice>
+      <choice value="1800">30m</choice>
+      <default>0</default>
+    </input>
+    <input type="multiselect" token="openshift_cluster_eval">
+      <label>Cluster</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>openshift_cluster_eval</fieldForLabel>
+      <fieldForValue>openshift_cluster_eval</fieldForValue>
+      <default>*</default>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($host$) ($openshift_container_unique_name$) ($openshift_namespace$) |
+          stats count by openshift_cluster_eval | sort openshift_cluster_eval
+        </query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>openshift_cluster_eval="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="openshift_cluster_eval"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="openshift_node_label">
+      <label>Node Label</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>openshift_node_labels</fieldForLabel>
+      <fieldForValue>openshift_node_labels</fieldForValue>
+      <default>*</default>
+      <search base="search_uniq">
+        <query>
+          search ($host$) ($openshift_container_unique_name$) ($openshift_namespace$) ($openshift_cluster_eval$) |
+          fields openshift_node_labels | stats count by openshift_node_labels | mvexpand openshift_node_labels | stats count by openshift_node_labels | sort openshift_node_label</query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>openshift_node_labels="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="openshift_node_label"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="openshift_namespace">
+      <label>Project</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>openshift_namespace</fieldForLabel>
+      <fieldForValue>openshift_namespace</fieldForValue>
+      <default>*</default>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($host$) ($openshift_container_unique_name$) ($openshift_cluster_eval$) |
+          fields openshift_namespace | stats count by openshift_namespace | sort openshift_namespace
+        </query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>openshift_namespace="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="openshift_namespace"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="host">
+      <label>Host</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>host</fieldForLabel>
+      <fieldForValue>host</fieldForValue>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($openshift_container_unique_name$) ($openshift_namespace$) ($openshift_cluster_eval$) |
+          stats count by host | sort host
+        </query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>host="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="host"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="openshift_container_unique_name">
+      <label>Container</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>openshift_container_unique_name</fieldForLabel>
+      <fieldForValue>openshift_container_unique_name</fieldForValue>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($host$) ($openshift_namespace$) ($openshift_cluster_eval$) |
+          stats count by openshift_container_unique_name | sort openshift_container_unique_name
+        </query>
+      </search>
+      <default>*</default>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>openshift_container_unique_name="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="openshift_container_unique_name"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="stream">
+      <label>Stream</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>stream</fieldForLabel>
+      <fieldForValue>stream</fieldForValue>
+      <search base="search_uniq">
+        <query>
+          search ($openshift_node_label$) ($host$) ($openshift_container_unique_name$) ($openshift_namespace$) ($openshift_cluster_eval$) |
+          stats count by stream
+        </query>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>stream="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="stream"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="text" token="search" searchWhenChanged="true">
+      <label>Search</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="dropdown" token="limit">
+      <label>Limit</label>
+      <choice value="| head 500 ">500 events</choice>
+      <choice value="| head 1000 ">1000 events</choice>
+      <choice value="| head 5000 ">5000 events</choice>
+      <choice value="| head 10000 ">10000 events</choice>
+      <choice value="| search">Off</choice>
+      <default>| head 500</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        Theme: <a href="?theme=light">Light</a> | <a href="?theme=dark">Dark</a>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Error Count</title>
+      <table>
+        <search base="search_logs">
+          <query>stats count by stream, openshift_cluster_eval | chart values(count) over stream by openshift_cluster_eval</query>
+          <refresh>$form.refresh$</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">row</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">true</option>
+        <option name="wrap">true</option>
+        <format type="color" field="stream">
+          <colorPalette type="map">{"stderr":#DC4E41,"stdout":#4FA484}</colorPalette>
+        </format>
+      </table>
+    </panel>
+    <panel>
+      <title>Logs By time</title>
+      <chart>
+        <search base="search_logs">
+          <query>timechart count by openshift_cluster_eval</query>
+          <refresh>$form.refresh$</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisEnd</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="height">164</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Logs</title>
+      <table>
+        <search base="search_logs">
+          <query>table _time, openshift_cluster_eval, container, stream, _raw | rename stream AS status _time AS timestamp _raw AS message openshift_cluster_eval AS cluster | sort - "timestamp" | convert ctime("timestamp")</query>
+          <refresh>$form.refresh$</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="number" field="status"></format>
+        <format type="color" field="status">
+          <colorPalette type="map">{"stderr":#DC4E41,"stdout":#4FA484}</colorPalette>
+        </format>
+        <format type="number" field="timestamp">
+          <option name="precision">0</option>
+        </format>
+        <fields>["timestamp","cluster","container","status","message"]</fields>
+      </table>
+    </panel>
+  </row>
+</form>

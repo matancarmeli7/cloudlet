@@ -1,0 +1,26 @@
+<dashboard>
+  <label>configurations statuses</label>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>index=cloudlet source=cloudlet_tower job_project_id=118 | rename inventory_name AS cluster workflow_id AS workflow_job_id| table _time, workflow_job_id, workflow_name, job_id, job_name, cluster, status | sort - _time</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="status">
+          <colorPalette type="map">{"failed":#DC4E41,"successful":#B6C75A}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+</dashboard>

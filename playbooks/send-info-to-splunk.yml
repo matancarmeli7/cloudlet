@@ -1,0 +1,45 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+
+  - name: job status
+    uri:
+      url_password: Password@123
+      url_username: admin
+      force_basic_auth: yes
+      url: "https://10.35.76.250/api/v2/workflow_jobs/{{ hostvars.localhost.awx_workflow_job_id }}/workflow_nodes"
+      method: GET
+      return_content: yes
+      body_format: json
+      #headers:
+      #  Authorization: "Basic YWRtaW5AZXhhbXBsZS5jb206UGFzc3dvcmRAMTIz"
+      validate_certs: no
+    register: result
+
+  - name: job status extension
+    uri:
+      url_password: Password@123
+      url_username: admin
+      force_basic_auth: yes
+      url: "https://10.35.76.250/api/v2/jobs/{{ result.json.results[1].summary_fields.job.id }}"
+      method: GET
+      return_content: yes
+      body_format: json
+      #headers:
+      #  Authorization: "Basic YWRtaW5AZXhhbXBsZS5jb206UGFzc3dvcmRAMTIz"
+      validate_certs: no
+    register: result_ext
+
+
+  - name: send information to splunk
+    uri:
+      url: https://13.90.23.80:8088/services/collector/event
+      method: POST
+      body: '{"event": {"workflow_id": "{{ hostvars.localhost.awx_workflow_job_id }}", "workflow_name": "{{ hostvars.localhost.awx_workflow_job_name }}", "inventory_id": "{{ result.json.results[1].summary_fields.inventory.id }}" ,"inventory_name": "{{ result.json.results[1].summary_fields.inventory.name }}" , "job_project_id": "{{ result_ext.json.summary_fields.project.id }}" , "job_id": "{{ result.json.results[1].summary_fields.job.id }}", "job_name": "{{ result.json.results[1].summary_fields.job.name }}", "status": "{{ result.json.results[1].summary_fields.job.status }}" }}'
+      body_format: json
+      headers:
+        Content-Type: "application/json"
+        Authorization: "Splunk 7d6c928f-79da-4d88-98d3-f62e5a3bc886"
+      validate_certs: no
+

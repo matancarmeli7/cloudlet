@@ -1,0 +1,253 @@
+<form>
+  <label>Deployments Dashboard</label>
+  <search id="search_uniq">
+    <query>
+      index="cloudlet" | spath event_type  | search event_type=argocd  | rename data.spec.destination.namespace AS Namespace data.metadata.name as Name data.spec.destination.server AS Server data.status.health.status AS Health data.status.sync.status AS Sync data.status.sync.revision AS Revision data.status.operationState.message AS Message  | fields _time, Namespace, Name, Server, Health, Sync, Revision, Message   | rename Health AS RootObject.Health Message AS RootObject.Message Name AS RootObject.Name Namespace AS RootObject.Namespace Revision AS RootObject.Revision Server AS RootObject.Server Sync AS RootObject.Sync | fields "_time" "host" "source" "sourcetype" "RootObject.Health" "RootObject.Message" "RootObject.Name" "RootObject.Namespace" "RootObject.Revision" "RootObject.Server" "RootObject.Sync" | stats dedup_splitvals=t latest(_time) AS latest_time  by RootObject.Name, RootObject.Namespace, RootObject.Server, RootObject.Sync, RootObject.Health, RootObject.Message, RootObject.Revision | sort limit=100 RootObject.Name | fields - _span  | rename RootObject.Name AS Name RootObject.Namespace AS Namespace RootObject.Server AS Server RootObject.Sync AS Sync RootObject.Health AS Health RootObject.Message AS Message RootObject.Revision AS Revision  | fields Name, Namespace, Server, Sync, Health, Message, Revision
+    </query>
+    <earliest>$period.earliest$</earliest>
+    <latest>$period.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+    <refresh>$form.refresh$</refresh>
+  </search>
+  <fieldset submitButton="false">
+    <input type="time" token="period">
+      <label>Period</label>
+      <default>
+        <earliest>-4h@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="multiselect" token="Server">
+      <label>Server</label>
+      <choice value="*">All</choice>
+      <fieldForLabel>Server</fieldForLabel>
+      <fieldForValue>Server</fieldForValue>
+      <default>*</default>
+      <search base="search_uniq">
+        <query>stats count by Server | sort Server</query>
+        <refresh>$form.refresh$</refresh>
+        <refreshType>delay</refreshType>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>Server="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="Server"></set>
+        </condition>
+      </change>
+    </input>
+    <input type="multiselect" token="Namespace">
+      <label>Namespace</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>Namespace</fieldForLabel>
+      <fieldForValue>Namespace</fieldForValue>
+      <search base="search_uniq">
+        <query>stats count by Namespace | sort Namespace</query>
+        <refresh>$form.refresh$</refresh>
+        <refreshType>delay</refreshType>
+      </search>
+      <allowCustomValues>true</allowCustomValues>
+      <delimiter> OR </delimiter>
+      <valuePrefix>Namespace="</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <change>
+        <condition label="All">
+          <set token="Namespace"></set>
+        </condition>
+      </change>
+    </input>
+  </fieldset>
+  <row>
+    <panel depends="$alwaysHideCSS$">
+      <title>DO NOT DELETE</title>
+      <html>
+         <style>
+           #statsHealthPanel{
+             width:80% !important;
+           }
+           #healthPanel{
+             width:20% !important;
+           }
+         </style>
+       </html>
+    </panel>
+    <panel id="statsHealthPanel">
+      <title>Missing % Per Cluster Over TIme</title>
+      <chart>
+        <search>
+          <query>index="cloudlet" | spath event_type  | search event_type=argocd  | rename data.spec.destination.namespace AS Namespace data.metadata.name as Name data.spec.destination.server AS Server data.status.health.status AS Health data.status.sync.status AS Sync data.status.sync.revision AS Revision data.status.operationState.message AS Message  | fields _time, Namespace, Name, Server, Health, Sync, Revision, Message | search ($Server$) ($Namespace$) | bin _time as t span=5m | eval time_host=t."@".Server | chart count over time_host by Health | addtotals | eval Perc=Missing/Total*100 | rex field=time_host "(?&lt;Time&gt;\d+)@(?&lt;Host&gt;\S+)" | table Time Host Perc | fieldformat Time=strftime(Time, "%Y-%m-%d %H:%M:%S") | xyseries Time Host Perc</query>
+          <earliest>$period.earliest$</earliest>
+          <latest>$period.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Distinct Count of RootObject.object.involvedObject.name</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.maximumNumber">100</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">area</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">1</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisEnd</option>
+        <option name="charting.legend.mode">seriesCompare</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+    <panel id="healthPanel">
+      <title>Health Status ATM</title>
+      <chart>
+        <search>
+          <query>index="cloudlet"| spath event_type | search event_type=argocd | rename data.spec.destination.namespace AS Namespace data.metadata.name as Name data.spec.destination.server AS Server data.status.health.status AS Health data.status.sync.status AS Sync data.status.sync.revision AS Revision data.status.operationState.message AS Message | fields _time, Namespace, Name, Server, Health, Sync, Revision, Message | search ($Server$) ($Namespace$) | stats count by Health</query>
+          <earliest>$period.earliest$</earliest>
+          <latest>$period.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.fieldColors">{"Healthy":#53A051,"Missing":#F1813F}</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel depends="$alwaysHideCSS$">
+      <title>DO NOT DELETE</title>
+      <html>
+         <style>
+           #statsSyncPanel{
+             width:80% !important;
+           }
+           #syncPanel{
+             width:20% !important;
+           }
+         </style>
+       </html>
+    </panel>
+    <panel id="statsSyncPanel">
+      <title>Out Of Sync % Per Cluster Over TIme</title>
+      <chart>
+        <search>
+          <query>index="cloudlet" | spath event_type  | search event_type=argocd  | rename data.spec.destination.namespace AS Namespace data.metadata.name as Name data.spec.destination.server AS Server data.status.health.status AS Health data.status.sync.status AS Sync data.status.sync.revision AS Revision data.status.operationState.message AS Message  | fields _time, Namespace, Name, Server, Health, Sync, Revision, Message | search ($Server$) ($Namespace$) | bin _time as t span=5m | eval time_host=t."@".Server | chart count over time_host by Sync | addtotals | eval Perc=OutOfSync/Total*100 | rex field=time_host "(?&lt;Time&gt;\d+)@(?&lt;Host&gt;\S+)" | table Time Host Perc | fieldformat Time=strftime(Time, "%Y-%m-%d %H:%M:%S") | xyseries Time Host Perc</query>
+          <earliest>$period.earliest$</earliest>
+          <latest>$period.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Distinct Count of RootObject.object.involvedObject.name</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.maximumNumber">100</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">area</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">1</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisEnd</option>
+        <option name="charting.legend.mode">seriesCompare</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+    <panel id="syncPanel">
+      <title>Sync Status ATM</title>
+      <chart>
+        <search>
+          <query>index="cloudlet"| spath event_type | search event_type=argocd | rename data.spec.destination.namespace AS Namespace data.metadata.name as Name data.spec.destination.server AS Server data.status.health.status AS Health data.status.sync.status AS Sync data.status.sync.revision AS Revision data.status.operationState.message AS Message | fields _time, Namespace, Name, Server, Health, Sync, Revision, Message | search ($Server$) ($Namespace$) | stats count by Sync</query>
+          <earliest>$period.earliest$</earliest>
+          <latest>$period.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.fieldColors">{"Synced":#53A051,"OutOfSync":#F8BE34}</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>index="cloudlet"  | spath event_type  | search event_type=argocd  | rename data.spec.destination.namespace AS Namespace data.metadata.name as Name data.spec.destination.server AS Server data.status.health.status AS Health data.status.sync.status AS Sync data.status.sync.revision AS Revision data.status.operationState.message AS Message  | fields _time, Namespace, Name, Server, Health, Sync, Revision, Message   | rename Health AS RootObject.Health Message AS RootObject.Message Name AS RootObject.Name Namespace AS RootObject.Namespace Revision AS RootObject.Revision Server AS RootObject.Server Sync AS RootObject.Sync | fields "_time" "host" "source" "sourcetype" "RootObject.Health" "RootObject.Message" "RootObject.Name" "RootObject.Namespace" "RootObject.Revision" "RootObject.Server" "RootObject.Sync" | stats dedup_splitvals=t latest(_time) AS latest_time  by RootObject.Name, RootObject.Namespace, RootObject.Server, RootObject.Sync, RootObject.Health, RootObject.Message, RootObject.Revision | sort limit=100 RootObject.Name | fields - _span  | rename RootObject.Name AS Name RootObject.Namespace AS Namespace RootObject.Server AS Server RootObject.Sync AS Sync RootObject.Health AS Health RootObject.Message AS Message RootObject.Revision AS Revision  | fields Name, Namespace, Server, Sync, Health, Message, Revision, latest_time | search ($Server$) ($Namespace$) | eval latest_time= strftime('latest_time', "%FT%H:%M:%S.%3N%z")</query>
+          <earliest>$period.earliest$</earliest>
+          <latest>$period.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="Health">
+          <colorPalette type="map">{"Healthy":#53A051,"Missing":#F1813F}</colorPalette>
+        </format>
+        <format type="color" field="Sync">
+          <colorPalette type="map">{"Synced":#53A051,"OutOfSync":#F8BE34}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>
