@@ -73,7 +73,7 @@ type: Opaque
 # Source: quay-enterprise/templates/08_quayconfigfile.yaml
 apiVersion: v1
 data:
-  config.yaml: >-
+  configmore.yaml: >-
     QVBQX1NQRUNJRklDX1RPS0VOX0VYUElSQVRJT046IDNtCkZFQVRVUkVfQU5PTllNT1VTX0FDQ0VTUzogZmFsc2UKRkVBVFVSRV9JTlZJVEVfT05MWV9VU0VSX0NSRUFUSU9OOiBmYWxzZQpGRUFUVVJFX1BBUlRJQUxfVVNFUl9BVVRPQ09NUExFVEU6IGZhbHNlCkZFQVRVUkVfUkVRVUlSRV9FTkNSWVBURURfQkFTSUNfQVVUSDogdHJ1ZQo=
 kind: Secret
 metadata:
@@ -155,6 +155,12 @@ spec:
       - secretName: quayconfigfile
       - secretName: trust-ca
         type: extraCaCert
+      - secretName: trust-ca
+        files:
+          - key: tls.crt
+            filename: ssl.cert
+          - key: tls.key
+            filename: ssl.key
     livenessProbe:
       initialDelaySeconds: 420
       httpGet:
