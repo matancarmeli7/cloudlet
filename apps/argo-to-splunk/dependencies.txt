@@ -1,0 +1,9 @@
+IMAGE
+------------
+FROM python:3.6
+MAINTAINER XenonStack
+
+PYTHON
+---------------
+requests==2.23.0
+schedule==0.6.0

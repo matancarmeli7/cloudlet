@@ -1,0 +1,19 @@
+FROM python:3.6
+MAINTAINER XenonStack
+
+# Creating Application Source Code Directory
+RUN mkdir -p /argocd_to_splunk/src/config
+
+# Setting Home Directory for containers
+WORKDIR /argocd_to_splunk/src
+
+# Installing python dependencies
+COPY requirements.txt /argocd_to_splunk/src
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copying src code to Container
+COPY config.py /argocd_to_splunk/src/config
+COPY app.py /argocd_to_splunk/src
+
+# Running Python Application
+CMD ["python", "app.py"]
