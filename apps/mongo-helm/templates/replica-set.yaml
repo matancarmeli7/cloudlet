@@ -1,0 +1,14 @@
+---
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: {{ .Values.replicaset.name }}
+spec:
+  members: {{ .Values.replicaset.members }}
+  version: {{ .Values.replicaset.version }} 
+  opsManager:
+    configMapRef:
+      name: mdboperatorcm
+  credentials: mdboperatorcreds
+  type: ReplicaSet
+  persistent: {{ .Values.replicaset.persistent }}

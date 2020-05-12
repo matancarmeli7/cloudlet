@@ -1,0 +1,14 @@
+namespace: mongodb
+
+apiPublicKey: "nmsexsxs"
+
+apiPrivateKey: "9c330463-cfdf-499c-9ed7-92e903097b38"
+
+# Opsmanager organization Id
+orgId: "5eba940faa420800707574b4"
+
+replicaset:
+  name: replica-set-test
+  members: 3
+  version: 4.2.2-ent
+  persistent: true

@@ -1,0 +1,5 @@
+name: mongodb-replicaset
+description: MongoDB ReplicaSet CR
+version: 1.0.0
+maintainers:
+- name: Cloudlet

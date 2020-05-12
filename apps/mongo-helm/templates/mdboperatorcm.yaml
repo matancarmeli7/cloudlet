@@ -1,0 +1,8 @@
+apiVersion: v1
+metadata:
+  name: mdboperatorcm
+  namespace: {{ .Values.namespace }}
+data:
+  baseUrl: http://mongodb-opsmanager-svc.mongodb.svc.cluster.local:8080
+  orgId: {{ .Values.orgId }}
+kind: ConfigMap

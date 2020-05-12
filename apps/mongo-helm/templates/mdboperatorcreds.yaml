@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mdboperatorcreds
+  namespace: {{ .Values.namespace }}
+data:
+  publicApiKey: {{ .Values.apiPrivateKey | b64enc }}
+  user: {{ .Values.apiPublicKey | b64enc }}
+type: Opaque
