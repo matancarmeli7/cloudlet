@@ -13,11 +13,6 @@ kind: {{ if eq (.Values.operator.watchNamespace | default "") "*" }} ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ .Values.operator.name }}
-  {{- if not (eq (.Values.operator.watchNamespace | default "*") "*") }}
-  namespace: {{ .Values.operator.watchNamespace }}
-  {{- else }}
-  namespace: {{ .Values.namespace }}
-  {{- end }}
 rules:
 - apiGroups:
   - ""
@@ -106,7 +101,6 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ .Values.operator.name }}-{{ .Values.namespace }}-certs
-  namespace: {{ .Values.namespace }}
 rules:
 - apiGroups:
   - certificates.k8s.io
