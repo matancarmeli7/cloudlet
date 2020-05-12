@@ -155,7 +155,7 @@ spec:
       - secretName: quayconfigfile
       - secretName: trust-ca
         type: extraCaCert
-      - secretName: trust-ca
+      - secretName: custom-quay-tls
         files:
           - key: tls.crt
             filename: ssl.cert
