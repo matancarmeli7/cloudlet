@@ -168,9 +168,6 @@ spec:
         port: 8443
         scheme: HTTPS
     externalAccess:
-      tls:
-        termination: passthrough
-        secretName: custom-quay-tls
   redis:
     credentialsSecretName: redis-creds
     imagePullSecretName: redhat-pull-secret
