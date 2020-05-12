@@ -169,6 +169,7 @@ spec:
         scheme: HTTPS
     externalAccess:
       tls:
+        termination: passthrough
         secretName: custom-quay-tls
   redis:
     credentialsSecretName: redis-creds
