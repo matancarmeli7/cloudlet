@@ -5,78 +5,107 @@
   gather_facts: yes
   become: false
   tasks:
-    - name: "Get Quay and cookie /"
-      uri:
-        url: "{{ QUAY_ENDPOINT }}/"
-        method: GET
-        validate_certs: no #delete when certs are trusted
-        headers:
-          Content-Type: application/json
-      register: login
 
-    - name: debug to view login output
-      debug: var=login
+#    - name: "Get Quay and cookie /"
+#      uri:
+#        url: "{{ QUAY_ENDPOINT }}/"
+#        method: GET
+#        validate_certs: no #delete when certs are trusted
+#        headers:
+#          Content-Type: application/json
+#      register: login
+#
+#    - name: debug to view login output
+#      debug: var=login
+#
+#    - name: "Get Quay and cookie"
+#      uri:
+#        url: "{{ QUAY_ENDPOINT }}/api/v1/user"
+#        method: GET
+#        validate_certs: no #delete when certs are trusted
+#        headers:
+#          Cookie: 'session={{ login.cookies.session }}'
+#          Content-Type: application/json
+#      register: login
+#      ignore_errors: yes
+#
+#    - name: debug to view login output
+#      debug: var=login
+#
+#    - name: "Login"
+#      uri:
+#        url: "{{ QUAY_ENDPOINT }}/api/v1/signin"
+#        method: POST
+#        validate_certs: no #delete when certs are trusted
+#        body_format: json
+#        headers:
+#          X-CSRF-TOKEN: '{{ login.cookies.csrftoken }}'
+#          Cookie: 'session={{ login.cookies.session }}'
+#          Content-Type: application/json
+#        body:
+#          username: "cloudlet_admin"
+#          password: "Password@123"
+#
+#    - name: "Create cloudlet Organization"
+#      uri:
+#        url: "{{ QUAY_ENDPOINT }}/api/v1/organization/"
+#        method: POST
+#        headers:
+#          Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
+#        validate_certs: no #delete when certs are trusted
+#        body_format: json
+#        status_code: 201
+#        body:
+#          name: "{{ organization }}"
+#
+#    - name: "Create mgmt (managment) OAuth Application under cloudlet org"
+#      uri:
+#          url: "{{ QUAY_ENDPOINT }}/api/v1/organization/{{ organization }}/applications"
+#          method: POST
+#          headers:
+#            Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
+#          validate_certs: no #delete when certs are trusted
+#          body_format: json
+#          status_code: 201
+#          body:
+#            name: "mgmt"
 
-    - name: "Get Quay and cookie"
-      uri:
-        url: "{{ QUAY_ENDPOINT }}/api/v1/user"
-        method: GET
-        validate_certs: no #delete when certs are trusted
-        headers:
-          Cookie: 'session={{ login.cookies.session }}'
-          Content-Type: application/json
-      register: login
-      ignore_errors: yes
-
-    - name: debug to view login output
-      debug: var=login
-
-    - name: "Login"
-      uri:
-        url: "{{ QUAY_ENDPOINT }}/api/v1/signin"
-        method: POST
-        validate_certs: no #delete when certs are trusted
-        body_format: json
-        headers:
-          X-CSRF-TOKEN: '{{ login.cookies.csrftoken }}'
-          Cookie: 'session={{ login.cookies.session }}'
-          Content-Type: application/json
-        body:
-          username: "cloudlet_admin"
-          password: "Password@123"
-
-    - name: "Create cloudlet Organization"
-      uri:
-        url: "{{ QUAY_ENDPOINT }}/api/v1/organization/"
-        method: POST
-        headers:
-          Authorization: "Basic Y2xvdWRsZXRfYWRtaW46UGFzc3dvcmRAMTIz"
-        validate_certs: no #delete when certs are trusted
-        body_format: json
-        status_code: 201
-        return_content: yes
-        follow_redirects: yes
-        body:
-          name: "{{ organization }}"
-
-    - name: "Create mgmt (managment) OAuth Application under cloudlet org"
-      uri:
-          url: "{{ QUAY_ENDPOINT }}/api/v1/organization/{{ organization }}/applications"
-          method: POST
-          headers:
-            Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
-          validate_certs: no #delete when certs are trusted
-          body_format: json
-          status_code: 201
-          body:
-            name: "mgmt"
-
-#  - name: "White list mgmt client-id in Quay's configuration"
-
-#  - name: "Rollout Quay deployment"
-
-#  - name: "Generate OAuth Token with admin scopre"
-
-#  - name: "Uploud Token to OCP as a secret in Quay's Project"
-
-#  - name: "Create cloudlet+mirror robot for mirroing of all applications"
+    - name: "Update Quay Configuration"
+      shell: oc login https://api.ocp43-prod.sales.lab.tlv.redhat.com:6443 -uadmin -predhat -n quay-enterprise
+ 
+    - name: "Create temporary directory"
+      file:
+        path: ./tmpdir
+        state: directory
+        mode: '0755'
+  
+    - name: "Get current Configuration"
+      shell: oc extract secret/quay-enterprise-config-secret --to=./tmpdir --keys=config.yaml 
+  
+    - name: "Modify Configuration"
+      include_vars:
+        file: ./tmpdir/config.yaml
+        name: default_config
+      
+    - template:
+        src: config.yaml
+        dest: ./tmpdir/config.yaml
+  
+    - name: "Apply new Configuration"
+      shell: oc create secret generic quayconfigfile2 --from-file=./tmpdir/config.yaml
+  
+    - name: "Remove temporary directory"
+      file:
+        path: ./tmpdir
+        state: absent
+  
+#    - name: "White list mgmt client-id in Quay's configuration"
+       
+#    - name: "Rollout Quay deployment"
+  #    shell: oc rollout restart deployment quayecosystem-quay
+  
+#    - name: "Generate OAuth Token with admin scopre"
+  
+#    - name: "Uploud Token to OCP as a secret in Quay's Project"
+  
+#    - name: "Create cloudlet+mirror robot for mirroing of all applications"
