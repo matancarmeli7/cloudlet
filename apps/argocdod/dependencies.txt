@@ -2,9 +2,9 @@ minio/minio:latest
 minio/k8s-operator:1.0.7
 registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/rh-sso-7/sso74-openshift-rhel8:7.4
 registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/rhel8/postgresql-10:latest
-registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/enterprise-operator:latest registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/enterprise-operator:latest
-registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/enterprise-database:latest registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/enterprise-database:latest
-registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-ops-manager:latest registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-ops-manager:latest
-registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-appdb:latest registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-appdb:latest
-registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-init-ops-manager:1.0.0 registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-init-ops-manager:1.0.0
-registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-init-appdb:1.0.0 registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-init-appdb:1.0.0
+registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/enterprise-operator:latest
+registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/enterprise-database:latest
+registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-ops-manager:latest
+registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-appdb:latest
+registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-init-ops-manager:1.0.0
+registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb/mongodb-enterprise-init-appdb:1.0.0
