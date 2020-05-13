@@ -71,8 +71,7 @@ data:
     licenseServerProxyBasicAuth =
 
     # license key
-    license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
-    #license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
+    license = {{ .Values.config_map.license_key }}
 
     # Environment variable $KUBERNETES_NODENAME is used by default to setup hostname
     # Use value below to override specific name
@@ -94,7 +93,7 @@ data:
     # Better way to configure that is to specify labels for OpenShift Nodes.
     # ; fields.my_environment = dev
     # Identify the cluster if you are planning to monitor multiple clusters
-    fields.openshift_cluster = "{{ .Values.cluster_name }}"
+    fields.openshift_cluster = {{ .Values.config_map.cluster_name }}
 
     # Include EC2 Metadata (see list of possible fields https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
     # Should be in format ec2Metadata.{desired_field_name} = {url path to read the value}
