@@ -148,7 +148,6 @@ spec:
         path: /health/instance
         port: 8443
         scheme: HTTPS
-    externalAccess:
   redis:
     credentialsSecretName: redis-creds
     imagePullSecretName: redhat-pull-secret
