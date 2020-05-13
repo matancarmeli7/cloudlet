@@ -1,5 +1,4 @@
 FROM python:3.6
-MAINTAINER XenonStack
 
 # Creating Application Source Code Directory
 RUN mkdir -p /argocd_to_splunk/src/config
