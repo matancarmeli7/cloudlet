@@ -29,7 +29,7 @@ metadata:
   labels:
     app: collectorforopenshift
 data:
-  001-general.conf: |-
+  001-general.conf: |
     # The general configuration is used for all deployments
     #
     # Run collector with the flag `-conf` and specify location of the configuration files.
