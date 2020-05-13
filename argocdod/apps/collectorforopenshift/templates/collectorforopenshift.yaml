@@ -71,7 +71,6 @@ data:
     licenseServerProxyBasicAuth =
 
     # license key
-    # license = {{ .Values.config_map.license_key }}
     license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
 
     # Environment variable $KUBERNETES_NODENAME is used by default to setup hostname
