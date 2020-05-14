@@ -16,5 +16,5 @@ spec:
       valueFiles:
         - values.yaml
       parameters:
-        - name: OCP_NAME
+        - name: cluster_name
           value: {{ template "cluster_name" . }}
