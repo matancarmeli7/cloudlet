@@ -46,7 +46,7 @@ def uploadTest():
             end = 0
 
             # The first 20 characters will be the cluster name
-            clusterName = connection.recv(20).decode().split("\0")[0]
+            clusterName = connection.recv(40).decode().split("\0")[0]
 
             # Init if never head about the current cluster
             if not clusterName in clientsData:
