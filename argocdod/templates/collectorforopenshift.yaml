@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: collectorforopenshift
+  name: collectorforopenshift-{{ template "cluster_name" . }}
   namespace: {{ .Values.argocdNamespace }}
 spec:
   destination:
@@ -12,6 +12,6 @@ spec:
     path: argocdod/apps/collectorforopenshift
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
-  helm:
-    valueFiles:
-      - values.yaml
+    helm:
+      valueFiles:
+        - values.yaml

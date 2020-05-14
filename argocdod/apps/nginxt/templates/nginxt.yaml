@@ -1,0 +1,27 @@
+---
+# Source: quay-enterprise/templates/01_Salty_project.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginxt
+
+---
+# Source: salty/templates/02_Salty_Deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxt
+  namespace: nginxt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginxt
+  template:
+    metadata:
+      labels:
+        app: nginxt
+    spec:
+      containers:
+      - name: nginxt
+        image: "{{ .Values.image.registry }}.apps.{{ .Values.cluster_fqdn }}/{{ .Values.image.repo }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
