@@ -1,4 +1,4 @@
-FROM docker.io/tiangolo/python-machine-learning
+FROM docker.io/tiangolo/python-machine-learning:cuda9.1-python3.7
 
 RUN adduser --disabled-password --gecos '' app_gpu
 
