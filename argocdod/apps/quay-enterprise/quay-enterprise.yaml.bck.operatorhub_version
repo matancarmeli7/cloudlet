@@ -18,6 +18,31 @@ metadata:
 type: kubernetes.io/dockerconfigjson
 
 ---
+# Source: quay-enterprise/templates/03_operator_group.yaml
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: operator-group
+  namespace: quay-enterprise
+spec:
+  targetNamespaces:
+  - quay-enterprise
+
+---
+# Source: quay-enterprise/templates/04_operator_sub.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: quay
+  namespace: quay-enterprise
+spec:
+  channel: "{{ .Values.installation.channel }}"
+  name: quay
+  source: community-operators
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: "{{ .Values.installation.installPlan }}"
+
+---
 # Source: quay-enterprise/templates/06_db-creds.yaml
 apiVersion: v1
 stringData:
@@ -148,6 +173,7 @@ spec:
         path: /health/instance
         port: 8443
         scheme: HTTPS
+    externalAccess:
   redis:
     credentialsSecretName: redis-creds
     imagePullSecretName: redhat-pull-secret

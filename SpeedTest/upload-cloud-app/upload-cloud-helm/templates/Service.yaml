@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: speedtest-upload
-  namespace: speedtest-cloudapp
+  namespace: speedtest-cloud
 spec:
   type: NodePort
   selector:

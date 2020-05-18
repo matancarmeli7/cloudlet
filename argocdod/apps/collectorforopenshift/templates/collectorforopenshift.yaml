@@ -42,7 +42,7 @@ metadata:
   name: collectorforopenshift
   namespace: collectorforopenshift
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
@@ -121,7 +121,7 @@ rules:
   apiGroups: []
   resources: []
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
@@ -129,9 +129,9 @@ metadata:
   name: collectorforopenshift
   namespace: collectorforopenshift
 roleRef:
+  apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: collectorforopenshift
-  apiGroup: rbac.authorization.k8s.io
 subjects:
   - kind: ServiceAccount
     name: collectorforopenshift
@@ -187,7 +187,7 @@ data:
     licenseServerProxyBasicAuth =
 
     # license key
-    license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
+    license = {{ .Values.configmap.license_key }}
     #license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
 
     # Environment variable $KUBERNETES_NODENAME is used by default to setup hostname
@@ -210,7 +210,8 @@ data:
     # Better way to configure that is to specify labels for OpenShift Nodes.
     # ; fields.my_environment = dev
     # Identify the cluster if you are planning to monitor multiple clusters
-    fields.openshift_cluster = "{{ .Values.cluster_name }}"
+    fields.openshift_cluster = {{ .Values.configmap.cluster_name }}
+    #fields.openshift_cluster = cloudlet-ocp43-offline-redhat
 
     # Include EC2 Metadata (see list of possible fields https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
     # Should be in format ec2Metadata.{desired_field_name} = {url path to read the value}
@@ -288,7 +289,7 @@ data:
     # watch for changes (annotations) in the objects
     watch.namespaces = v1/namespace
     watch.deploymentconfigs = apis/v1/apps.openshift.io/deploymentconfig
-    watch.configurations = apis/v1/collectord.io/configuration
+    watch.configurations =  collectord.io/v1/configuration
 
 
     # watch for pods annotations, setup prometheus collection
@@ -323,9 +324,8 @@ data:
     [output.splunk]
 
     # Splunk HTTP Event Collector url
-    url = https://13.90.23.80:8088/services/collector/event
+    url = {{ .Values.configmap.splunk_url }}
     #url = https://13.90.23.80:8088/services/collector/event
-    
     # You can specify muiltiple splunk URls with
     #
     # urls.0 = https://server1:8088/services/collector/event/1.0
@@ -345,7 +345,7 @@ data:
     urlSelection = random-with-round-robin
 
     # Splunk HTTP Event Collector Token
-    token = bfb0ea00-fad4-4166-9f20-2e7fedda26fb
+    token = {{ .Values.configmap.splunk_token }}
     #token = bfb0ea00-fad4-4166-9f20-2e7fedda26fb
 
     # Allow invalid SSL server certificate
@@ -1114,7 +1114,9 @@ data:
     output =
 
 ---
-apiVersion: extensions/v1beta1
+
+apiVersion: apps/v1
+
 kind: DaemonSet
 metadata:
   name: collectorforopenshift
@@ -1160,7 +1162,7 @@ spec:
       containers:
       - name: collectorforopenshift
         # Stick to specific version
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1281,7 +1283,9 @@ spec:
           - key: 002-daemonset.conf
             path: 002-daemonset.conf
 ---
-apiVersion: extensions/v1beta1
+
+apiVersion: apps/v1
+
 kind: DaemonSet
 metadata:
   name: collectorforopenshift-master
@@ -1324,7 +1328,7 @@ spec:
         effect: "NoExecute"
       containers:
       - name: collectorforopenshift
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1431,7 +1435,9 @@ spec:
           - key: 003-daemonset-master.conf
             path: 003-daemonset-master.conf
 ---
-apiVersion: apps/v1beta1
+
+apiVersion: apps/v1
+
 kind: Deployment
 metadata:
   name: collectorforopenshift-addon
@@ -1456,7 +1462,7 @@ spec:
       serviceAccountName: collectorforopenshift
       containers:
       - name: collectorforopenshift
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1494,3 +1500,47 @@ spec:
             path: 001-general.conf
           - key: 004-addon.conf
             path: 004-addon.conf
+---
+allowHostDirVolumePlugin: true
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: true
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities:
+- '*'
+allowedUnsafeSysctls:
+- '*'
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: []
+fsGroup:
+  type: RunAsAny
+groups:
+- system:cluster-admins
+- system:nodes
+- system:masters
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: 'privileged allows access to all privileged and host
+      features and the ability to run as any user, any group, any fsGroup, and with
+      any SELinux context.  WARNING: this is the most relaxed SCC and should be used
+      only for cluster administration. Grant with caution.'
+
+  name: collectorforopenshift
+priority: 0
+readOnlyRootFilesystem: false
+requiredDropCapabilities: []
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+- '*'
+supplementalGroups:
+  type: RunAsAny
+users:
+- system:serviceaccount:collectorforopenshift:collectorforopenshift
+volumes:
+- '*'

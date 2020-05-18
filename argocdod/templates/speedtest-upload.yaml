@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: speedtest-upload
+  name: speedtest-upload-{{ template "cluster_name" . }}
   namespace: {{ .Values.argocdNamespace }}
 spec:
   destination:
