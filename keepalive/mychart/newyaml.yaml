@@ -1,0 +1,101 @@
+---
+# Source: keepalive/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keepalive-conf
+  namespace: keepalive
+data:
+  keepalive.conf: |-
+    Url=https://13.90.23.80:8088/services/collector/event
+    Token=5e9874b6-77d7-4fce-84be-80977f6114a5
+    Clustername=ocp43test
+
+
+
+---
+# Source: keepalive/templates/services.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: keepalive
+  namespace: keepalive
+  labels:
+    app: keepalive
+    app.kubernetes.io/component: keepalive
+    app.kubernetes.io/instance: keepalive
+    app.kubernetes.io/part-of: keepalive-app
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: keepalive
+    deploymentconfig: keepalive
+  clusterIP: 172.30.149.101
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}
+
+---
+# Source: keepalive/templates/deployment.yaml
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: keepalive
+  namespace: keepalive
+  labels:
+    app: keepalive
+    app.kubernetes.io/component: keepalive
+    app.kubernetes.io/instance: keepalive
+    app.kubernetes.io/part-of: keepalive-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keepalive
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: keepalive
+        deploymentconfig: keepalive
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+    spec:
+      volumes:
+        - name: keepalive-vol
+          configMap:
+            name: keepalive-conf
+            defaultMode: 420
+      containers:
+        - name: keepalive
+          image: snir1234/keepalive:6.0 
+          ports: 
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: keepalive-vol
+              mountPath: /home/app_python/conf
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+

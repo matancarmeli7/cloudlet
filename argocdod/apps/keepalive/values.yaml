@@ -1,0 +1,11 @@
+  containers:
+    repository: snir1234
+    image: keepalive
+    version: "6.0"
+
+
+  configmap:
+    Url: https://13.90.23.80:8088/services/collector/event
+    Token: 5e9874b6-77d7-4fce-84be-80977f6114a5
+    Clustername: ocp43test
+

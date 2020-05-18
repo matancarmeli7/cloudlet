@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+
+TOKEN=`grep Token conf/keepalive.conf | awk -F = '{print $2}'`
+URL=`grep Url conf/keepalive.conf | awk -F = '{print $2}'`
+CLUSTER_NAME=`grep Clustername conf/keepalive.conf | awk -F = '{print $2}'`
+
+sed -i "s/Token/$TOKEN/" /home/app_python/keepalive.py
+sed -i "s/Clustername/$CLUSTER_NAME/" /home/app_python/keepalive.py
+sed -i "s=Url=$URL=" /home/app_python/keepalive.py
