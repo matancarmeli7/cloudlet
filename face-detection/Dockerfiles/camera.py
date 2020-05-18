@@ -1,6 +1,6 @@
 #camera.py
 # import the necessary packages
-from numba import jit, cuda, numba
+from numba import njit, cuda, numba
 import cv2
 # defining face detector
 face_cascade=cv2.CascadeClassifier("alg.xml")
@@ -12,8 +12,7 @@ class VideoCamera(object):
     def __del__(self):
         #releasing camera
         self.video.release()
-    @numba.cuda.jit
-    #(target ="cuda", boundscheck=False)
+    @njit(target ="cuda")
     def get_frame(self):
        #extracting frames
         ret, frame = self.video.read()
