@@ -10,13 +10,14 @@ token = os.environ['SPLUNK_TOKEN']
 splunk_url = os.environ['SPLUNK_URL']
 min_check_time = int(os.environ['MIN_CHECK_TIME'])
 OCP_NAME = os.environ['OCP_NAME']
+num_of_checks = 3
 
 # Files to download for the test
-f_1MB = main_url + "/1MB.bin"
-f_10MB = main_url + "/10MB.bin"
-f_100MB = main_url + "/100MB.bin"
-f_500MB = main_url + "/500MB.bin"
-f_1000MB = main_url + "/1000MB.bin"
+f_1MB = main_url + "1MB.bin"
+f_10MB = main_url + "10MB.bin"
+f_100MB = main_url + "100MB.bin"
+f_500MB = main_url + "500MB.bin"
+f_1000MB = main_url + "1000MB.bin"
 
 
 # Log to central Splunk
@@ -26,7 +27,7 @@ def logSplunk(log):
   x = requests.post(splunk_url, json = myobj, auth=('Splunk', token), verify=False)
 
 # Downloading a file multiple times while timing each download, returning lowest speed result.
-def speedtest(URL, initialCheck, times):
+def speedtest(URL, times):
 
   speeds = []
   bad_tests = 0
@@ -35,25 +36,29 @@ def speedtest(URL, initialCheck, times):
 
   for i in range(times):
     # Issue an http get request while timing it
+    
     start = time.time()
     response = requests.get(url = URL, verify=False)
     end = time.time()
 
     final_time = end - start
 
-    # If a test takes too much time in an initial test, don't count it    
-    if not(final_time < min_check_time and initialCheck):
+
+    # If a test takes too little time in an initial test, don't count it    
+    if (final_time > min_check_time):
 
 	    # Transfer Bytes to Megabits per second
       size = float(len(response.content))/1000/1000
       Mbps = (size/final_time)*8
-	
+	    
+      print("Current URL is:" + URL + ", Current test time was: " +  str(final_time) + " And current Mbps is: " + str(Mbps))
+      
       speeds.append(Mbps)
   
-
   # If all the tests were bad
-  if len(speeds) == 0:
-    return 0
+  #if len(speeds) == 0:
+    if len(speeds) == 0 or 0 in speeds:
+      return 0
 
   print("Finished a download speed test for cluster: " + OCP_NAME + ", speed is: " + str(min(speeds)))
   
@@ -63,33 +68,21 @@ def speedtest(URL, initialCheck, times):
 # Running speedtests scans and logging to splunk
 def checks():
 
-  initialCheck = True
-
+  # Run initial small test to resolve DNS
+  Mbps = speedtest(f_1MB, 2)
+  
   # Chooses the largest file to test with while acting on the network capabilities
-  Mbps = speedtest(f_1MB, initialCheck, 2)
+  Mbps = speedtest(f_1MB, num_of_checks)
   
-  if Mbps:
-    size = f_1MB
-  else:
-    Mbps = speedtest(f_10MB, initialCheck, 2)
-    if Mbps:
-      size = f_10MB
-    else:
-      Mbps = speedtest(f_100MB, initialCheck, 2)
-      if Mbps:
-        size = f_100MB
-      else:
-        Mbps = speedtest(f_500MB, initialCheck, 2)
-        if Mbps:
-          size = f_500MB
-        else:
-          size = f_1000MB
+  if not Mbps:
+    Mbps = speedtest(f_10MB, num_of_checks)
+    if not Mbps:
+      Mbps = speedtest(f_100MB, num_of_checks)
+      if not Mbps:
+        Mbps = speedtest(f_500MB, num_of_checks)
+        if not Mbps:
+          Mbps = speedtest(f_1000MB, num_of_checks)
  
-  initialCheck = False
-	
-  # Getting the slowest result and sending logs to splunk
-  Mbps = speedtest(size, initialCheck, 5)
-  
   logSplunk({"Download Mbps" : Mbps, "Cluster": OCP_NAME})
   print ("Download Mbps: " + str(Mbps) + ", Cluster: " + OCP_NAME) 
 
