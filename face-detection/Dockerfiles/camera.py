@@ -12,7 +12,7 @@ class VideoCamera(object):
     def __del__(self):
         #releasing camera
         self.video.release()
-    @cuda.jit
+    @cuda.jit(self)
     #(target ="cuda")
     def get_frame(self):
        #extracting frames
