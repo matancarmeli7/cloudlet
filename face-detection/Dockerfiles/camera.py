@@ -1,5 +1,6 @@
 #camera.py
 # import the necessary packages
+from numba import jit, cuda
 import cv2
 # defining face detector
 face_cascade=cv2.CascadeClassifier("alg.xml")
