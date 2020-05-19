@@ -5,7 +5,10 @@ CR:
   quay:
     persistentVolumeSize: 10
   db:
-    volumeSize: 10
+    volumeSize: 5
+  clair:
+    enabled: false
+    updateInterval: "60m"
   secrets:
     quay:
       super:
@@ -25,3 +28,5 @@ CR:
       user: "quaydb"
       pass: "Password@123"
       name: "quaydb"
+operator:
+  image: "quay.io/redhat-cop/quay-operator:v1.1.0"

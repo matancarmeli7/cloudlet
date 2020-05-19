@@ -1,4 +1,0 @@
-image:
-  source: docker.io/dolevalgam
-  name: speedtest
-  tag: latest

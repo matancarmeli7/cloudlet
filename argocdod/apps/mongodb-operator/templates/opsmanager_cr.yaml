@@ -1,0 +1,21 @@
+---
+apiVersion: mongodb.com/v1
+kind: MongoDBOpsManager
+metadata:
+  name: mongodb-opsmanager
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.opsmanagercr.replicas }}
+  version: {{ .Values.opsmanagercr.version }}
+  adminCredentials: opsmanageradmin
+  applicationDatabase:
+    members: {{ .Values.opsmanagercr.appdb.members }}
+    persistent: {{ .Values.opsmanagercr.appdb.persistent }}
+  configuration:
+    mms.ignoreInitialUiSetup: "{{ .Values.opsmanagercr.mms.ignoreInitialUiSetup }}"
+    mms.fromEmailAddr: "{{ .Values.opsmanagercr.mms.fromEmailAddr }}"
+    mms.replyToEmailAddr: "{{ .Values.opsmanagercr.mms.replyToEmailAddr }}"
+    mms.adminEmailAddr: "{{ .Values.opsmanagercr.mms.adminEmailAddr }}"
+    mms.mail.transport: "{{ .Values.opsmanagercr.mms.mail.transport }}"
+    mms.mail.hostname: "{{ .Values.opsmanagercr.mms.mail.hostname }}"
+    mms.mail.port: "{{ .Values.opsmanagercr.mms.mail.port }}"

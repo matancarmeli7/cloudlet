@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest-upload-cloud
+{{- with .Values }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest-upload
+  template:
+    metadata:
+      labels:
+        app: speedtest-upload
+    spec:
+      containers:
+      - name: speedtest-upload
+        image: "{{.IMAGE}}" 
+        env:
+        - name: PORT
+          value: "{{.PORT}}"
+        - name: KB_CHUNKS
+          value: "{{.KB_CHUNKS}}"
+        - name: SPLUNK_TOKEN
+          value: "{{.SPLUNK_TOKEN}}"
+        - name: SPLUNK_URL
+          value: "{{.SPLUNK_URL}}"
+        - name: TESTS_PER_CLIENT
+          value: "{{.TESTS_PER_CLIENT}}"
+      nodeSelector:
+          type: "{{.NODE_SELECTOR}}" 
+{{- end }}
+

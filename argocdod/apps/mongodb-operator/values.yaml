@@ -1,0 +1,85 @@
+# Create the CustomerResourceDefinition for MongoDB custom types.
+createCrds: true
+
+# Name of the Namespace to use
+namespace: mongodb
+
+# OpenShift manages security context on its own
+managedSecurityContext: true
+
+operator:
+  # Execution environment for the operator, dev or prod. Use dev for more verbose logging
+  env: prod
+
+  # Name that will be assigned to most of internal Kubernetes objects like Deployment, ServiceAccount, Role etc.
+  name: enterprise-operator
+
+  # Version of mongodb-enterprise-operator and mongodb-enterprise-database images
+  version: latest
+
+  # The Custom Resources that will be watched by the Operator. Needs to be changed if only some of the CRDs are installed
+  
+  watchNamespace: "*"
+
+  watchedResources:
+  - mongodb
+  - opsmanagers
+  - mongodbusers
+
+database:
+  name: enterprise-database
+
+opsManager:
+  name: mongodb-enterprise-ops-manager
+
+initOpsManager:
+  name: mongodb-enterprise-init-ops-manager
+  version: 1.0.0
+
+appDb:
+  name: mongodb-enterprise-appdb
+
+initAppDb:
+  name: mongodb-enterprise-init-appdb
+  version: 1.0.0
+
+registry:
+  # The pull secret must be specified
+  imagePullSecrets:
+  pullPolicy: Always
+  operator: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb
+  initOpsManager: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb
+  opsManager: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb
+  initAppDb: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb
+  appDb: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/mongodb
+
+# Set this to true if the operator will require Kubernetes CA
+# infrastructure to generate TLS certificates.
+needsCAInfrastructure: true
+
+# Set this to false to disable subresource utilization
+# It might be required on some versions of Openshift
+subresourceEnabled: true
+
+# Opsmanager vars
+opsmanageradmin:
+  FirstName: "cloudlet"
+  LastName: "cloudlet"
+  Password: "Aa123456123456!"
+  Username: "cloudlet"
+
+opsmanagercr:
+  replicas: 1
+  version: latest
+  appdb:
+    members: 3
+    persistent: true
+  mms:
+    ignoreInitialUiSetup: "true"
+    fromEmailAddr: "cloudlet@cloudlet.com"
+    replyToEmailAddr: "cloudlet@cloudlet.com"
+    adminEmailAddr: "cloudlet@cloudlet.com"
+    mail:
+      transport: "smtp"
+      hostname: "mail.cloudlet.com"
+      port: "25"
