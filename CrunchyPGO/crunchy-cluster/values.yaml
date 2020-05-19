@@ -1,2 +1,11 @@
 cluster_name: "hippo3"
 namespace: "wateringhole"
+pgo_version: 4.3.0
+storage_class: azure-rwo
+storage_size: 1G
+image_name: crunchy-postgres-ha
+image_tag: centos7-12.2-4.3.0
+database_name: mydb
+replicas: '\"2\"'
+username: myuser
+password: password

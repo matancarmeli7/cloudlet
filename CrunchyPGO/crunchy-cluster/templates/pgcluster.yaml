@@ -1,39 +1,36 @@
 apiVersion: crunchydata.com/v1
 kind: Pgcluster
+{{- with .Values  }}
 metadata:
   labels:
-    archive: 'false'
-    archive-timeout: '60'
     crunchy-pgbadger: 'false'
     crunchy_collect: 'false'
-    current-primary: "{{.Values.cluster_name}}"
-    deployment-name: "{{.Values.cluster_name}}"
-    name: "{{.Values.cluster_name}}"
-    pg-cluster: "{{.Values.cluster_name}}"
+    current-primary: "{{.cluster_name}}"
+    deployment-name: "{{.cluster_name}}"
+    name: "{{.cluster_name}}"
+    pg-cluster: "{{.cluster_name}}"
     pgo-backrest: 'true'
-    pgo-version: 4.3.0
+    pgo-version: "{{.pgo_version}}"
     primary: 'true'
   annotations:
-    current-primary: "{{.Values.cluster_name}}"
-  name: "{{.Values.cluster_name}}"
-  namespace: wateringhole
+    current-primary: "{{.cluster_name}}"
+  name: "{{.cluster_name}}"
+  namespace: "{{.namespace}}"
 spec:
   ArchiveStorage:
     accessmode: ''
-    fsgroup: '26'
     matchLabels: ''
     name: ''
     size: ''
-    storageclass: azure-rwo
+    storageclass: "{{.storage_class}}"
     storagetype: dynamic
     supplementalgroups: ''
   BackrestStorage:
     accessmode: ReadWriteOnce
-    fsgroup: '26'
     matchLabels: ''
     name: ''
     size: 1G
-    storageclass: azure-rwo
+    storageclass: "{{.storage_class}}"
     storagetype: dynamic
     supplementalgroups: ''
   ContainerResources:
@@ -43,47 +40,46 @@ spec:
     requestsmemory: ''
   PrimaryStorage:
     accessmode: ReadWriteOnce
-    fsgroup: '26'
     matchLabels: ''
-    name: crdcluster
-    size: 1G
-    storageclass: azure-rwo
+    name: "{{.cluster_name}}"
+    size: "{{.storage_size}}"
+    storageclass: "{{.storage_class}}"
     storagetype: dynamic
     supplementalgroups: ''
   ReplicaStorage:
     accessmode: ReadWriteOnce
-    fsgroup: '26'
     matchLabels: ''
     name: ''
-    size: 1G
-    storageclass: azure-rwo
+    size: "{{.storage_size}}"
+    storageclass: "{{.storage_class}}"
     storagetype: dynamic
     supplementalgroups: ''
   backuppath: ''
   backuppvcname: ''
-  ccpimage: crunchy-postgres-ha
-  ccpimagetag: centos7-12.2-4.3.0
-  clustername: "{{.Values.cluster_name}}"
+  ccpimage: "{{.image_name}}"
+  ccpimagetag: "{{.image_tag}}"
+  clustername: "{{.cluster_name}}"
   customconfig: ''
-  database: mydb
-  name: "{{.Values.cluster_name}}"
-  namespace: wateringhole
+  database: "{{.database_name}}"
+  name: "{{.cluster_name}}"
+  namespace: "{{.namespace}}"
   nodename: ''
   policies: ''
   port: '5432'
-  primaryhost: "{{.Values.cluster_name}}"
-  primarysecretname: "{{.Values.cluster_name}}-primaryuser-secret"
-  replicas: '0'
-  rootsecretname: "{{.Values.cluster_name}}-postgres-secret"
+  primaryhost: "{{.cluster_name}}"
+  primarysecretname: "{{.cluster_name}}-primaryuser-secret"
+  replicas: '1'
+  rootsecretname: "{{.cluster_name}}-postgres-secret"
   secretfrom: ''
   status: ''
   strategy: '1'
-  user: myuser
+  user: "{{.username}}"
   userlabels:
     archive: 'false'
     archive-timeout: '60'
     crunchy-pgbadger: 'false'
     crunchy_collect: 'false'
     pgo-backrest: 'true'
-    pgo-version: 4.3.0
-  usersecretname: "{{.Values.cluster_name}}-otheruser-secret"
+    pgo-version: "{{.pgo_version}}"
+  usersecretname: "{{.cluster_name}}-myuser-secret"
+{{- end }}
