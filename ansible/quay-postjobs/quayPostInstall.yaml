@@ -71,38 +71,41 @@
 #            name: "mgmt"
 
     - name: "Update Quay Configuration"
-      shell: oc login https://api.ocp43-prod.sales.lab.tlv.redhat.com:6443 -uadmin -predhat -n quay-enterprise
+      shell: oc login https://api.ocp43-prod.sales.lab.tlv.redhat.com:6443 -uadmin -predhat -n quay-enterprise --insecure-skip-tls-verify=true
  
     - name: "Create temporary directory"
-      file:
-        path: ./tmpdir
+      tempfile:
         state: directory
-        mode: '0755'
-  
+      register: tempdir
+ 
     - name: "Get current Configuration"
-      shell: oc extract secret/quay-enterprise-config-secret --to=./tmpdir --keys=config.yaml 
-  
+      shell: "oc extract secret/quay-enterprise-config-secret --to={{ tempdir.path }} --keys=config.yaml"
+
     - name: "Modify Configuration"
       include_vars:
-        file: ./tmpdir/config.yaml
+        file: "{{ tempdir.path }}/config.yaml"
         name: default_config
       
     - template:
-        src: config.yaml
-        dest: ./tmpdir/config.yaml
+        src: config.yaml.j2
+        dest: "{{ tempdir.path }}/config.yaml"
   
     - name: "Apply new Configuration"
-      shell: oc create secret generic quayconfigfile2 --from-file=./tmpdir/config.yaml
+      shell: "oc create secret generic quayconfigfile --from-file={{ tempdir.path }}/config.yaml"
   
     - name: "Remove temporary directory"
       file:
-        path: ./tmpdir
+        path: "{{ tempfile.path }}"
         state: absent
-  
+      when: tempfile.path is defined
+
+#    - name: "Add new configuration file to the CR"  
+      
+
 #    - name: "White list mgmt client-id in Quay's configuration"
        
 #    - name: "Rollout Quay deployment"
-  #    shell: oc rollout restart deployment quayecosystem-quay
+#      shell: oc rollout restart deployment quayecosystem-quay
   
 #    - name: "Generate OAuth Token with admin scopre"
   
