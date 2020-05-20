@@ -11,7 +11,7 @@ ADD . /home/app_gpu
 
 #RUN ls -l 
 RUN apt update
-RUN apt install python3 python3-pip -y
+RUN apt install python3 python3-pip libSM -y
 RUN pip3 install -r req.txt
 
 RUN chown app_gpu:app_gpu ./ -R
