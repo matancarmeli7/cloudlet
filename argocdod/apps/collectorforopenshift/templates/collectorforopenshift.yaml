@@ -1502,10 +1502,10 @@ spec:
             path: 004-addon.conf
 ---
 allowHostDirVolumePlugin: true
-allowHostIPC: false
-allowHostNetwork: false
+allowHostIPC: true
+allowHostNetwork: true
 allowHostPID: true
-allowHostPorts: false
+allowHostPorts: true
 allowPrivilegeEscalation: true
 allowPrivilegedContainer: true
 allowedCapabilities:
