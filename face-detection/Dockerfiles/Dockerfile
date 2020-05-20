@@ -9,8 +9,9 @@ RUN chmod 777 /home/app_gpu
 
 ADD . /home/app_gpu
 
-RUN ls -l 
-RUN apt install python3
+#RUN ls -l 
+RUN apt update
+RUN apt install python3.7
 RUN pip3 install -r req.txt
 
 RUN chown app_gpu:app_gpu ./ -R
