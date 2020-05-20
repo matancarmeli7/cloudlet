@@ -10,7 +10,7 @@ RUN chmod 777 /home/app_gpu
 ADD . /home/app_gpu
 
 RUN ls -l 
-
+RUN python --version
 RUN pip install -r req.txt
 
 RUN chown app_gpu:app_gpu ./ -R
