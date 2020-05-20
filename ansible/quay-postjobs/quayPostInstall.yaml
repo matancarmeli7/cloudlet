@@ -2,50 +2,10 @@
 
 - name: "Run postjobs for Quay installation"
   hosts: localhost
-  gather_facts: yes
+  gather_facts: no
   become: false
   tasks:
 
-#    - name: "Get Quay and cookie /"
-#      uri:
-#        url: "{{ QUAY_ENDPOINT }}/"
-#        method: GET
-#        validate_certs: no #delete when certs are trusted
-#        headers:
-#          Content-Type: application/json
-#      register: login
-#
-#    - name: debug to view login output
-#      debug: var=login
-#
-#    - name: "Get Quay and cookie"
-#      uri:
-#        url: "{{ QUAY_ENDPOINT }}/api/v1/user"
-#        method: GET
-#        validate_certs: no #delete when certs are trusted
-#        headers:
-#          Cookie: 'session={{ login.cookies.session }}'
-#          Content-Type: application/json
-#      register: login
-#      ignore_errors: yes
-#
-#    - name: debug to view login output
-#      debug: var=login
-#
-#    - name: "Login"
-#      uri:
-#        url: "{{ QUAY_ENDPOINT }}/api/v1/signin"
-#        method: POST
-#        validate_certs: no #delete when certs are trusted
-#        body_format: json
-#        headers:
-#          X-CSRF-TOKEN: '{{ login.cookies.csrftoken }}'
-#          Cookie: 'session={{ login.cookies.session }}'
-#          Content-Type: application/json
-#        body:
-#          username: "cloudlet_admin"
-#          password: "Password@123"
-#
 #    - name: "Create cloudlet Organization"
 #      uri:
 #        url: "{{ QUAY_ENDPOINT }}/api/v1/organization/"
@@ -91,7 +51,10 @@
         dest: "{{ tempdir.path }}/config.yaml"
   
     - name: "Apply new Configuration"
-      shell: "oc create secret generic quayconfigfile --from-file={{ tempdir.path }}/config.yaml"
+      shell: "oc delete secret quayconfigfile"
+      ignore_errors: true
+
+    - shell: "oc create secret generic quayconfigfile --from-file={{ tempdir.path }}/config.yaml"
   
     - name: "Remove temporary directory"
       file:
@@ -99,16 +62,31 @@
         state: absent
       when: tempfile.path is defined
 
-#    - name: "Add new configuration file to the CR"  
-      
-
 #    - name: "White list mgmt client-id in Quay's configuration"
        
-#    - name: "Rollout Quay deployment"
-#      shell: oc rollout restart deployment quayecosystem-quay
+    - name: "Rollout Quay deployment"
+      shell: "oc rollout restart deployment {{ item }}"
+      with_items:
+        - "quayecosystem-quay"
+        - "quayecosystem-quay-repomirror"
   
 #    - name: "Generate OAuth Token with admin scopre"
   
 #    - name: "Uploud Token to OCP as a secret in Quay's Project"
   
-#    - name: "Create cloudlet+mirror robot for mirroing of all applications"
+    - name: "Create cloudlet+mirror robot for mirroing of all applications"
+      uri:
+        url: "{{ QUAY_ENDPOINT }}/api/v1/organization/{{ organization }}/robots/{{ robot_username }}"
+        method: PUT
+        headers:
+          Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
+        validate_certs: no
+        body_format: json
+        status_code: 201
+        body:
+          description: "Robot for mirroring"
+      ignore_errors: true
+      register: robot
+
+    - name: "Generate pullsecret from robot"
+      
