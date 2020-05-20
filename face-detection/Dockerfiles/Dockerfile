@@ -12,6 +12,7 @@ ADD . /home/app_gpu
 #RUN ls -l 
 RUN apt update
 RUN apt install python3.7 -y
+RUN python3.7 -m pip install pip
 RUN pip3 install -r req.txt
 
 RUN chown app_gpu:app_gpu ./ -R
