@@ -1,5 +1,5 @@
 #FROM docker.io/tiangolo/python-machine-learning:cuda9.1-python3.7
-FROM nvidia/opencl:runtime-ubuntu18.04
+FROM nvidia/opencl:runtime-centos7
 
 RUN adduser --disabled-password --gecos '' app_gpu
 
