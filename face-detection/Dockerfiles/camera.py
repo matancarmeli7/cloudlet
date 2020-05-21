@@ -20,7 +20,7 @@ class VideoCamera(object):
         interpolation=cv2.INTER_AREA)     
         gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         gray=cv2.UMat(gray)
-        cv2.ocl.setUseOpenCL(True)
+      #  cv2.ocl.setUseOpenCL(True)
         face_rects=face_cascade.detectMultiScale(gray,1.3,5)
         for (x,y,w,h) in face_rects:
          cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
