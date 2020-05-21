@@ -1,13 +1,13 @@
 #!/usr/bin/sh
 
-QUAY_TOKEN=`grep quay_token conf/keepalive.conf | awk -F = '{print $2}'`
-QUAY_URL=`grep quay_url conf/keepalive.conf | awk -F = '{print $2}'`
-CLUSTER_NAME=`grep cluster_name conf/keepalive.conf | awk -F = '{print $2}'`
-SPLUNK_TOKEN=`grep splunk_token conf/keepalive.conf | awk -F = '{print $2}'`
-SPLUNK_URL=`grep splunk_url conf/keepalive.conf | awk -F = '{print $2}'`
+QUAY_TOKEN=`grep quay_token quaylogs.conf | awk -F = '{print $2}'`
+QUAY_URL=`grep quay_url quaylogs.conf | awk -F = '{print $2}'`
+CLUSTER_NAME=`grep cluster_name quaylogs.conf | awk -F = '{print $2}'`
+SPLUNK_TOKEN=`grep splunk_token quaylogs.conf | awk -F = '{print $2}'`
+SPLUNK_URL=`grep splunk_url quaylogs.conf | awk -F = '{print $2}'`
 
-sed -i "s/quay_token/$QUAY_TOKEN/" /home/app_python/keepalive.py
-sed -i "s/cluster_name/$CLUSTER_NAME/" /home/app_python/keepalive.py
-sed -i "s/splunk_token/$SPLUNK_TOKEN/" /home/app_python/keepalive.py
-sed -i "s=quay_url=$QUAY_URL=" /home/app_python/keepalive.py
-sed -i "s=splunk_url=$SPLUNK_URL=" /home/app_python/keepalive.py
+sed -i "s/quay_token/$QUAY_TOKEN/" /home/app_python/quaylogs.py
+sed -i "s/cluster_name/$CLUSTER_NAME/" /home/app_python/quaylogs.py
+sed -i "s/splunk_token/$SPLUNK_TOKEN/" /home/app_python/quaylogs.py
+sed -i "s=quay_url=$QUAY_URL=" /home/app_python/quaylogs.py
+sed -i "s=splunk_url=$SPLUNK_URL=" /home/app_python/quaylogs.py
