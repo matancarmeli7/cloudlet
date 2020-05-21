@@ -1,4 +1,4 @@
 #!/usr/bin/sh
 
-sh prameters
+sh parameters
 python quaylogs.py
