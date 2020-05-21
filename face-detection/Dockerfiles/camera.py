@@ -15,7 +15,7 @@ class VideoCamera(object):
     def get_frame(self):
        #extracting frames
         ret, frame = self.video.read()
-        frame=cv2.UMat(frame)
+        #frame=cv2.UMat(frame)
         frame=cv2.resize(frame,None,fx=ds_factor,fy=ds_factor,
         interpolation=cv2.INTER_AREA)     
         gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
