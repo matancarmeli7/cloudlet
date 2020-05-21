@@ -15,17 +15,17 @@ class VideoCamera(object):
     def get_frame(self):
        #extracting frames
         ret, frame = self.video.read()
-        #frame=cv2.UMat(frame)
+        frame=cv2.UMat(frame)
         frame=cv2.resize(frame,None,fx=ds_factor,fy=ds_factor,
         interpolation=cv2.INTER_AREA)     
         gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-       # gray=cv2.UMat(gray)
-        #cv2.ocl.setUseOpenCL(True)
+        gray=cv2.UMat(gray)
+        cv2.ocl.setUseOpenCL(True)
         face_rects=face_cascade.detectMultiScale(gray,1.3,5)
         for (x,y,w,h) in face_rects:
          cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
          break
         # encode OpenCV raw frame to jpg and displaying it
-        #frame =  cv2.UMat.get(frame)
+        frame =  cv2.UMat.get(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes()
