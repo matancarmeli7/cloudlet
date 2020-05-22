@@ -9,18 +9,13 @@ RUN chmod 777 /home/app_gpu
 
 ADD . /home/app_gpu
 
-#RUN ls -l 
 RUN apt update
 RUN apt install python3 python3-pip libsm6 libxrender1 libxtst6 -y 
 RUN pip3 install -r req.txt
 
 RUN chown app_gpu:app_gpu ./ -R
 
-#RUN ls -l
-
 USER app_gpu
-
-#RUN ls -l
 
 CMD ["python3" , "main.py"]
 
