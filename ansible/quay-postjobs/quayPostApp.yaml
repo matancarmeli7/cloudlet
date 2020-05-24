@@ -7,7 +7,7 @@
   tasks:
     - name: Create Repository
       uri:
-        url: "{{ QUAY_ENDPOINT }}/api/v1/repository"
+        url: "https://{{ QUAY_ENDPOINT }}/api/v1/repository"
         method: POST
         headers:
           Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
@@ -25,7 +25,7 @@
 
     - name: Set repository state to Mirror
       uri:
-        url: "{{ QUAY_ENDPOINT }}/api/v1/repository/{{ organization }}/{{ Application }}/changestate"
+        url: "https://{{ QUAY_ENDPOINT }}/api/v1/repository/{{ organization }}/{{ Application }}/changestate"
         method: PUT
         headers:
           Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
@@ -37,7 +37,7 @@
 
     - name: Configure Mirroring
       uri:
-        url: "{{ QUAY_ENDPOINT }}/api/v1/repository/{{ organization }}/{{ Application }}/mirror"
+        url: "https://{{ QUAY_ENDPOINT }}/api/v1/repository/{{ organization }}/{{ Application }}/mirror"
         method: POST
         headers:
           Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"

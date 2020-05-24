@@ -1,0 +1,7 @@
+{
+        "auths": {
+                "{{ QUAY_ENDPOINT }}": {
+                        "auth": "{{ robot.json.name + ':' + robot.json.token | b64encode }}"
+                }
+        }
+}

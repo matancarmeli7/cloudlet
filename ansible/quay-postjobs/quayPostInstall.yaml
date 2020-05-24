@@ -8,7 +8,7 @@
 
 #    - name: "Create cloudlet Organization"
 #      uri:
-#        url: "{{ QUAY_ENDPOINT }}/api/v1/organization/"
+#        url: "https://{{ QUAY_ENDPOINT }}/api/v1/organization/"
 #        method: POST
 #        headers:
 #          Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
@@ -20,7 +20,7 @@
 #
 #    - name: "Create mgmt (managment) OAuth Application under cloudlet org"
 #      uri:
-#          url: "{{ QUAY_ENDPOINT }}/api/v1/organization/{{ organization }}/applications"
+#          url: "https://{{ QUAY_ENDPOINT }}/api/v1/organization/{{ organization }}/applications"
 #          method: POST
 #          headers:
 #            Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
@@ -31,7 +31,7 @@
 #            name: "mgmt"
 
     - name: "Update Quay Configuration"
-      shell: oc login https://api.ocp43-prod.sales.lab.tlv.redhat.com:6443 -uadmin -predhat -n quay-enterprise --insecure-skip-tls-verify=true
+      shell: oc login https://api.ocp43-offline.sales.lab.tlv.redhat.com:6443 -uadmin -predhat -n quay-enterprise --insecure-skip-tls-verify=true
  
     - name: "Create temporary directory"
       tempfile:
@@ -56,11 +56,19 @@
 
     - shell: "oc create secret generic quayconfigfile --from-file={{ tempdir.path }}/config.yaml"
   
-    - name: "Remove temporary directory"
-      file:
-        path: "{{ tempfile.path }}"
-        state: absent
-      when: tempfile.path is defined
+    - name: "Apply TLS Certificates"
+      shell: "oc delete secret custom-quay-ssl"
+      ignore_errors: true
+
+    - copy:
+        src: "tls/{{ item }}"
+        dest: "{{ tempdir.path }}"
+        mode: '0400'
+      with_items:
+       - "{{ cert_file }}"
+       - "{{ cert_key_file }}"
+      
+    - shell: "oc create secret tls custom-quay-ssl --key={{ tempdir.path }}/{{ cert_key_file }} --cert={{ tempdir.path }}/{{ cert_file }}"
 
 #    - name: "White list mgmt client-id in Quay's configuration"
        
@@ -76,7 +84,7 @@
   
     - name: "Create cloudlet+mirror robot for mirroing of all applications"
       uri:
-        url: "{{ QUAY_ENDPOINT }}/api/v1/organization/{{ organization }}/robots/{{ robot_username }}"
+        url: "https://{{ QUAY_ENDPOINT }}/api/v1/organization/{{ organization }}/robots/{{ robot_username }}"
         method: PUT
         headers:
           Authorization: "Bearer {{ QUAY_AUTH_TOKEN }}"
@@ -88,5 +96,25 @@
       ignore_errors: true
       register: robot
 
-    - name: "Generate pullsecret from robot"
-      
+    - name: "Get current pull secret"
+      shell: "oc extract secret/pull-secret -n openshift-config --to={{ tempdir.path }} --keys .dockerconfigjson"
+
+    - include_vars:
+        file: "{{ tempdir.path }}/.dockerconfigjson"
+        name: pull_secret_current
+
+    - set_fact:
+        pull_secret: "{{ lookup('template', 'config.json.j2') | combine(pull_secret_current, recursive=True) }}"
+
+    - copy:
+        content: "{{ pull_secret }}"
+        dest: "{{ tempdir.path }}/config.json"
+
+    - name: "Uploud pull secret to OCP as gloabl pull secret"
+      shell: "oc set data secret/pull-secret -n openshift-config --from-file=.dockerconfigjson={{ tempdir.path }}/config.json"
+
+    - name: "Remove temporary directory"
+      file:
+        path: "{{ tempdir.path }}"
+        state: absent
+      when: tempdir.path is defined
