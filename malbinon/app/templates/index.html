@@ -1,0 +1,11 @@
+<h1>Malbinon 1.0</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.image_list.label }}<br>
+        {{ form.image_list(rows='50',cols='100') }}
+    </p>
+    <p>
+        {{ form.submit() }}
+    </p>
+</form>

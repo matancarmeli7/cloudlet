@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Running scripts/opsmanager_create_apikey.py
+      script: scripts/opsmanager_create_apikey.py --url "{{ url }}" --user "{{ user }}" --password "{{ password }}"
+      args:
+        executable: python3
+      register: script_result
+  
+    - name: set results_args
+      set_fact:
+        results_args: "{{ script_result.stdout | from_json }}"
+
+    - name: Creating mdboperatorcreds Secret
+      k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: mdboperatorcreds
+            namespace: mongodb
+          data:
+            publicApiKey: '{{ results_args["api_privatekey"] | b64encode }}'
+            user: '{{ results_args["api_publickey"] | b64encode }}'
+          type: Opaque
+
+    - name: Creating mdboperatorcm ConfigMap
+      k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: mdboperatorcm
+            namespace: mongodb
+          data:
+            baseUrl: 'http://mongodb-opsmanager-svc.mongodb.svc.cluster.local:8080'
+            orgId: '{{ results_args["orgId"] }}'
