@@ -15,7 +15,6 @@ class VideoCamera(object):
     def get_frame(self):
        #extracting frames
         ret, frame = self.video.read()
-        #frame=cv2.resize(frame,None,fx=ds_factor,fy=ds_factor,
         frame=cv2.UMat(frame)
         frame=cv2.resize(frame,None,fx=ds_factor,fy=ds_factor,
         interpolation=cv2.INTER_AREA)     
@@ -27,6 +26,6 @@ class VideoCamera(object):
          cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
          break
         # encode OpenCV raw frame to jpg and displaying it
-        frame =  cv2.UMat.get(frame)
+        #frame =  cv2.UMat.get(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes()
