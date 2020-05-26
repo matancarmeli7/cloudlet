@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cloudlet
+  namespace: gpu-test
+  selfLink: /api/v1/namespaces/gpu-test/services/cloudlet
+  uid: 04443b35-9cb6-43b3-b38d-7330221e55b0
+  resourceVersion: '445149'
+  creationTimestamp: '2020-05-18T08:30:31Z'
+  labels:
+    app: cloudlet
+    app.kubernetes.io/component: cloudlet
+    app.kubernetes.io/instance: cloudlet
+    app.kubernetes.io/part-of: cloudlet-app
+  annotations:
+    app.openshift.io/vcs-ref: snir
+    app.openshift.io/vcs-uri: 'https://github.com/matancarmeli7/cloudlet'
+spec:
+  ports:
+    - name: 5000-tcp
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+  selector:
+    app: cloudlet
+    deploymentconfig: cloudlet
+  clusterIP: 172.30.152.40
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}
+

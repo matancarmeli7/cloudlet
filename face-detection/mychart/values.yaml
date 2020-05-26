@@ -1,0 +1,4 @@
+containers:
+  repository: snir1234
+  image: app_gpu
+  version: "1.0"
