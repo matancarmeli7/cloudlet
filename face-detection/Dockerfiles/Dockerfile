@@ -2,7 +2,7 @@
 #FROM nvidia/opencl:runtime-ubuntu18.04
 FROM nvidia/opencl:runtime-centos7
 
-RUN adduser --disabled-password --gecos '' app_gpu
+RUN useradd -ms /bin/bash app_gpu
 
 WORKDIR /home/app_gpu
 
