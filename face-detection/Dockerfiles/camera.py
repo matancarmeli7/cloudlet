@@ -26,6 +26,6 @@ class VideoCamera(object):
          cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
          break
         # encode OpenCV raw frame to jpg and displaying it
-        #frame =  cv2.UMat.get(frame)
+        frame =  cv2.UMat.get(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes()
