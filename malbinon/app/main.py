@@ -35,8 +35,8 @@ def my_form_post():
             df.save_image(image, newdir)
             yield f"saved {c}/{len(images_list)} images<br><br>"
 
-        yield f"<br><br>Finished! your images are at: http://{HOST_IP}:555/static/{newdir.split('/')[-1]}<br><br>"
-        yield render_template('link.html',link_url=f"http://{HOST_IP}:555/static/{newdir.split('/')[-1]}")
+        yield f"<br><br>Finished! your images are at: https://{HOST_IP}/static/{newdir.split('/')[-1]}<br><br>"
+        yield render_template('link.html',link_url=f"http://{HOST_IP}/static/{newdir.split('/')[-1]}")
 
     resp = Response(stream_with_context(generate()))
     resp.headers['X-Accel-Buffering'] = 'no'
@@ -44,4 +44,4 @@ def my_form_post():
     return resp
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=555) 
+    app.run(host='0.0.0.0', port=443) 
