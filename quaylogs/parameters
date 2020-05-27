@@ -1,13 +1,15 @@
 #!/usr/bin/sh
 
 QUAY_TOKEN=`grep quay_token conf/quaylogs.conf | awk -F = '{print $2}'`
-QUAY_URL=`grep quay_url conf/quaylogs.conf | awk -F = '{print $2}'`
+QUAY_REPO=`grep quay_repo conf/quaylogs.conf | awk -F = '{print $2}'`
+QUAY_MIRROR=`grep quay_mirror conf/quaylogs.conf | awk -F = '{print $2}'`
 CLUSTER_NAME=`grep cluster_name conf/quaylogs.conf | awk -F = '{print $2}'`
 SPLUNK_TOKEN=`grep splunk_token conf/quaylogs.conf | awk -F = '{print $2}'`
-SPLUNK_URL=`grep splunk_url conf/quaylogs.conf | awk -F = '{print $2}'`
+SPLUNK_EVENT_URL=`grep splunk_event_url conf/quaylogs.conf | awk -F = '{print $2}'`
 
 sed -i "s/quay_token/$QUAY_TOKEN/" /home/app_python/quaylogs.py
 sed -i "s/cluster_name/$CLUSTER_NAME/" /home/app_python/quaylogs.py
 sed -i "s/splunk_token/$SPLUNK_TOKEN/" /home/app_python/quaylogs.py
-sed -i "s=quay_url=$QUAY_URL=" /home/app_python/quaylogs.py
-sed -i "s=splunk_url=$SPLUNK_URL=" /home/app_python/quaylogs.py
+sed -i "s=quay_repo=$QUAY_REPO=" /home/app_python/quaylogs.py
+sed -i "s=quay_mirror=$QUAY_MIRROR=" /home/app_python/quaylogs.py
+sed -i "s=splunk_event_url=$SPLUNK_EVENT_URL=" /home/app_python/quaylogs.py
