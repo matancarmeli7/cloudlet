@@ -29,12 +29,12 @@ class VideoCamera(object):
         return jpeg.tobytes()
     
     def get_frame_cpu(self):
-       #extracting frames
+        cv2.ocl.setUseOpenCL(False)
+       #extracticv2.ocl.setUseOpenCL(False)ng frames
         ret, frame = self.video.read()
         frame=cv2.resize(frame,None,fx=ds_factor,fy=ds_factor,
         interpolation=cv2.INTER_AREA)     
         gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-        cv2.ocl.setUseOpenCL(False)
         face_rects=face_cascade.detectMultiScale(gray,1.3,5)
         for (x,y,w,h) in face_rects:
          cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
