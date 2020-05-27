@@ -1,6 +1,11 @@
 apiVersion: v1
-kind: ServiceAccount
 {{- with .Values }}
+kind: Namespace
+metadata:
+  name: {{ .OPERATOR_NAMESPACE }}
+---
+apiVersion: v1
+kind: ServiceAccount
 metadata:
     name: pgo-deployer-sa
     namespace: "{{.OPERATOR_NAMESPACE}}"
