@@ -1,5 +1,5 @@
 cluster_name: "hippo3"
-namespace: "wateringhole"
+namespace: "wateringtest"
 pgo_version: 4.3.0
 storage_class: azure-rwo
 storage_size: 1G
