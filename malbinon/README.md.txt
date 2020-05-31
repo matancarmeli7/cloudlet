@@ -1,1 +1,0 @@
-docker run -d -p 555:80 -e "HOST_IP=$(ip -4 addr show ens192 | grep -Po 'inet \K[\d.]+')" -v /var/run/docker.sock:/var/run/docker.sock --name malbinon malbinon:latest
