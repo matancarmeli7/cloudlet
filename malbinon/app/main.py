@@ -22,18 +22,33 @@ def my_form_post():
         images_list = [x for x in form.image_list.data.split("\r\n") if not x.isspace() and x]
 
     def generate():
+        len_images_list = len(images_list)
+        bad_images = []
         # Pull images
         yield f"Starting pulling images<br><br>"
         for c, image in enumerate(images_list, 1):
-            yield f"pulling {image}... --> "
-            df.pull_image(image)
-            yield f"pulled {c}/{len(images_list)} images<br><br>"
+            try:
+                yield f"pulling {image}... --> "
+                df.pull_image(image)
+                yield f"success!<br>"
+            except Exception as e:
+                yield f"could not pull {image}, error of type {type(e).__name__} occured.<br>"
+                bad_images.append(f"{image}")
+                continue
+        yield f"pulled {len_images_list - len(bad_images)}/{len_images_list} images<br><br>"
+        # clean image list
+        for bad_image in bad_images:
+            images_list.remove(bad_image)
         # Save images
         yield f"Starting saving images<br><br>"
         for c, image in enumerate(images_list, 1):
-            yield f"saving {image}... --> "
-            df.save_image(image, newdir)
-            yield f"saved {c}/{len(images_list)} images<br><br>"
+            try:
+                yield f"saving {image}... --> "
+                df.save_image(image, newdir)
+                yield f"success!<br>"
+            except Exception as e:
+                yield f"could not save {image}, error of type {type(e).__name__} occured.<br>"
+                continue
 
         yield f"<br><br>Finished! your images are at: https://{HOST_IP}/static/{newdir.split('/')[-1]}/<br><br>"
         yield render_template('link.html',link_url=f"https://{HOST_IP}/static/{newdir.split('/')[-1]}/")
@@ -44,4 +59,4 @@ def my_form_post():
     return resp
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=443) 
+    app.run(host='0.0.0.0', port=555) 
