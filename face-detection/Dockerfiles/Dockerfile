@@ -16,4 +16,6 @@ RUN chown app_gpu:app_gpu ./ -R
 
 USER app_gpu
 
+EXPOSE 5000
+
 CMD ["python3" , "main.py"]
