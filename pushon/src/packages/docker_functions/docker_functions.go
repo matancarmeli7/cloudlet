@@ -23,7 +23,6 @@ func LoadTagAndPush(imagePath string, registryName string, registryUser string, 
 		wg.Done()
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 
@@ -33,7 +32,6 @@ func LoadTagAndPush(imagePath string, registryName string, registryUser string, 
 		wg.Done()
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 	defer cli.Close()
@@ -43,7 +41,6 @@ func LoadTagAndPush(imagePath string, registryName string, registryUser string, 
 		wg.Done()
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 	defer f.Close()
@@ -56,7 +53,6 @@ func LoadTagAndPush(imagePath string, registryName string, registryUser string, 
 		wg.Done()
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 
@@ -76,7 +72,6 @@ func LoadTagAndPush(imagePath string, registryName string, registryUser string, 
 		wg.Done()
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 
@@ -87,7 +82,6 @@ func LoadTagAndPush(imagePath string, registryName string, registryUser string, 
 		wg.Done()
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 
@@ -95,7 +89,6 @@ func LoadTagAndPush(imagePath string, registryName string, registryUser string, 
 	if err != nil {
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 	mutex.Lock()
@@ -112,7 +105,6 @@ func PushImage(imageName string, registryUser string, registryUserPass string, w
 	if err != nil {
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 
@@ -121,7 +113,6 @@ func PushImage(imageName string, registryUser string, registryUserPass string, w
 	if err != nil {
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 	defer cli.Close()
@@ -137,7 +128,6 @@ func PushImage(imageName string, registryUser string, registryUserPass string, w
 	if err != nil {
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 	defer p.Close()
@@ -145,7 +135,6 @@ func PushImage(imageName string, registryUser string, registryUserPass string, w
 	if err != nil {
 		mutex.Lock()
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 
@@ -153,7 +142,6 @@ func PushImage(imageName string, registryUser string, registryUserPass string, w
 	err = conn.WriteMessage(websocket.TextMessage, []byte("Successfully pushed "+imageName))
 	if err != nil {
 		conn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		mutex.Unlock()
 		return
 	}
 

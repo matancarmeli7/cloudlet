@@ -16,6 +16,7 @@ func main() {
 	router := gin.Default()
 	// Set a lower memory limit for multipart forms (default is 32 MiB)
 	router.MaxMultipartMemory = 8 << 20 // 8 MiB
+	router.Static("/public", "./public")
 	router.StaticFile("/", "./public/html/index.html")
 	router.StaticFile("/pushon", "./public/html/pushon.html")
 	store := cookie.NewStore([]byte("secret"))
@@ -33,11 +34,12 @@ func main() {
 			c.String(http.StatusBadRequest, fmt.Sprintf("get form err: %s", err.Error()))
 			return
 		}
-		files := form.File["files"]
+
+		files := form.File
 
 		for _, file := range files {
-			filename := "/tmp/" + filepath.Base(file.Filename)
-			if err := c.SaveUploadedFile(file, filename); err != nil {
+            filename := "/tmp/" + filepath.Base(file[0].Filename)
+			if err := c.SaveUploadedFile(file[0], filename); err != nil {
 				c.String(http.StatusBadRequest, fmt.Sprintf("upload file err: %s", err.Error()))
 				return
 			}
@@ -77,9 +79,6 @@ func wshandler(w http.ResponseWriter, r *http.Request, sess sessions.Session) {
 	if !ok {
 		return
 	}
-
-	fmt.Println(fp)
-	fmt.Println(sess.Get("email"))
 
 	var wg sync.WaitGroup
 	var mutex = &sync.Mutex{}

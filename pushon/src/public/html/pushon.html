@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/public/js/style.css">
+    <script src="/public/js/confetti.browser.min.js"></script>
+    <title>Pushon</title>
+  </head>
+
+  <style>
+    .stars, .twinkling, .clouds {
+	position:absolute;
+	display:block;
+	top:0; bottom:0;
+	left:0; right:0;
+	width:100%; height:100%;
+}
+
+.stars {
+	z-index: 0;
+	background: #000 url('/public/images/stars.png') repeat top center;
+}
+
+.twinkling{
+	z-index: 1;
+	background:transparent url('/public/images/twinkling.png') repeat top center;
+	animation: move-twink-back 200s linear infinite;
+}
+
+.clouds{
+	z-index: 2;
+    background:transparent url('/public/images/clouds.png') repeat top center;
+	animation: move-clouds-back 200s linear infinite;
+}
+
+@keyframes move-twink-back {
+	from {background-position:0 0;}
+	to {background-position:-10000px 5000px;}
+}
+
+@keyframes move-clouds-back {
+	from {background-position:0 0;}
+	to {background-position:10000px 0;}
+}
+</style>
+
+  <body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
+    <div id="zalame" style="position: absolute; z-index: 15; margin: auto; left: 20%; right: 20%;">
+      <h1>Ahhhh ya Pushon</h1>
+      <div id="mainDiv"></div>
+    </div>
+    <script>
+
+      function sleep(milliseconds) {
+          const date = Date.now();
+          let currentDate = null;
+          do {
+            currentDate = Date.now();
+          } while (currentDate - date < milliseconds);
+      }
+
+      url = 'ws://'+location.host+'/ws';
+      c = new WebSocket(url);
+      err_count = 0;
+
+      c.onmessage = function(msg){
+        var newDiv = document.createElement("div");
+        var textnode = document.createTextNode((new Date().toLocaleTimeString())+ " ==> "+msg.data+"\n");
+        newDiv.appendChild(textnode);
+        newDiv.style.color = "white"
+        if (msg.data.includes("err")) {
+            newDiv.style.border = "2px solid red";
+            err_count++;
+        } else {
+          newDiv.style.border = "2px solid green";
+        }
+        document.getElementById("mainDiv").appendChild(newDiv);
+      }
+
+      c.onclose = function(event) {
+        if (err_count > 0) {
+          setTimeout(function(){ alert(err_count + " Errors occured. Fix them if you want confetti fireworks.") }, 100);
+          confetti({particleCount: 50,spread: 70,origin: { y: 0.6 }});
+        } else {
+
+          var duration = 30 * 1000;
+          var animationEnd = Date.now() + duration;
+          var defaults = { startVelocity: 30, spread: 360, ticks: 120, zIndex: 0 };
+
+          function randomInRange(min, max) {
+              return Math.random() * (max - min) + min;
+          }
+
+          var interval = setInterval(function() {
+              var timeLeft = animationEnd - Date.now();
+
+              if (timeLeft <= 0) {
+                  return clearInterval(interval);
+              }
+
+              var particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+              }, 250);
+          }
+      }
+    </script>
+
+  </body>
+</html>
