@@ -1,6 +1,7 @@
 ---
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
 apiVersion: v1
-kind: Project
+kind: Namespace
 metadata:
   labels:
     app: collectorforopenshift
@@ -10,30 +11,7 @@ metadata:
     openshift.io/description: 'Monitoring OpenShift in Splunk, built by Outcold Solutions'
     openshift.io/display-name: 'Collector for OpenShift'
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: configurations.collectord.io
-spec:
-  group: collectord.io
-  versions:
-    - name: v1
-      served: true
-      storage: true
-  scope: Cluster
-  names:
-    plural: configurations
-    singular: configuration
-    kind: Configuration
-
----
-apiVersion: scheduling.k8s.io/v1beta1
-kind: PriorityClass
-metadata:
-  name: collectorforopenshift-critical
-value: 1000000000
-
----
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -42,100 +20,7 @@ metadata:
   name: collectorforopenshift
   namespace: collectorforopenshift
 ---
-apiVersion: v1
-kind: ClusterRole
-metadata:
-  labels:
-    app: collectorforopenshift
-  name: collectorforopenshift
-rules:
-- apiGroups:
-  - ""
-  - apps
-  - batch
-  - extensions
-  - monitoring.coreos.com
-  - etcd.database.coreos.com
-  - vault.security.coreos.com
-  - apps.openshift.io
-  - build.openshift.io
-  - operator.openshift.io
-  - tuned.openshift.io
-  - operators.coreos.com
-  - certmanager.k8s.io
-  - kafka.strimzi.io
-  - org.eclipse.che
-  - dynatrace.com
-  - template.openshift.io
-  - nats.io
-  - syndesis.io
-  - collectord.io
-  resources:
-  - alertmanagers
-  - buildconfigs
-  - builds
-  - cronjobs
-  - daemonsets
-  - deploymentconfigs
-  - deployments
-  - endpoints
-  - events
-  - jobs
-  - namespaces
-  - nodes
-  - nodes/metrics
-  - nodes/proxy
-  - pods
-  - prometheuses
-  - replicasets
-  - replicationcontrollers
-  - scheduledjobs
-  - services
-  - statefulsets
-  - vaultservices
-  - etcdclusters
-  - challenges
-  - networks
-  - tuneds
-  - dnses
-  - catalogsources
-  - configmaps
-  - clusterserviceversions
-  - kafkas
-  - checlusters
-  - oneagents
-  - templateinstances
-  - natsclusters
-  - syndesises
-  - persistentvolumeclaims
-  - configurations
-  - dns
-  verbs:
-  - get
-  - list
-  - watch
-- nonResourceURLs:
-  - /metrics
-  verbs:
-  - get
-  apiGroups: []
-  resources: []
----
-apiVersion: v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    app: collectorforopenshift
-  name: collectorforopenshift
-  namespace: collectorforopenshift
-roleRef:
-  kind: ClusterRole
-  name: collectorforopenshift
-subjects:
-  - kind: ServiceAccount
-    name: collectorforopenshift
-    namespace: collectorforopenshift
----
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -186,7 +71,8 @@ data:
     licenseServerProxyBasicAuth =
 
     # license key
-    license = {{ .Values.configmap.license_key }}
+    license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
+    #license = Qkw4TlVBOFJTSE9TVTo0MDA6MTU5NDA0NzY1Nzoy.d95rME87sUw1BkxWJDESANJbMr7PFiEEOXHZAg.MOVIiXtIwEQzMAmBFDOnSIm+RkCrHaP7LQthPg
 
     # Environment variable $KUBERNETES_NODENAME is used by default to setup hostname
     # Use value below to override specific name
@@ -208,7 +94,7 @@ data:
     # Better way to configure that is to specify labels for OpenShift Nodes.
     # ; fields.my_environment = dev
     # Identify the cluster if you are planning to monitor multiple clusters
-    fields.openshift_cluster = {{ .Values.configmap.cluster_name }}
+    fields.openshift_cluster = "{{ .Values.cluster_name }}"
 
     # Include EC2 Metadata (see list of possible fields https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
     # Should be in format ec2Metadata.{desired_field_name} = {url path to read the value}
@@ -286,7 +172,7 @@ data:
     # watch for changes (annotations) in the objects
     watch.namespaces = v1/namespace
     watch.deploymentconfigs = apis/v1/apps.openshift.io/deploymentconfig
-    watch.configurations =  collectord.io/v1/configuration
+    watch.configurations = apis/v1/collectord.io/configuration
 
 
     # watch for pods annotations, setup prometheus collection
@@ -321,7 +207,9 @@ data:
     [output.splunk]
 
     # Splunk HTTP Event Collector url
-    url = {{ .Values.configmap.splunk_url }}
+    url = https://13.90.23.80:8088/services/collector/event
+    #url = https://13.90.23.80:8088/services/collector/event
+    
     # You can specify muiltiple splunk URls with
     #
     # urls.0 = https://server1:8088/services/collector/event/1.0
@@ -341,7 +229,8 @@ data:
     urlSelection = random-with-round-robin
 
     # Splunk HTTP Event Collector Token
-    token = {{ .Values.configmap.splunk_token }}
+    token = bfb0ea00-fad4-4166-9f20-2e7fedda26fb
+    #token = bfb0ea00-fad4-4166-9f20-2e7fedda26fb
 
     # Allow invalid SSL server certificate
     insecure = true
@@ -1107,11 +996,123 @@ data:
 
     # set output (splunk or devnull, default is [general]defaultOutput)
     output =
-
 ---
-
-apiVersion: apps/v1
-
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: configurations.collectord.io
+spec:
+  group: collectord.io
+  versions:
+    - name: v1
+      served: true
+      storage: true
+  scope: Cluster
+  names:
+    plural: configurations
+    singular: configuration
+    kind: Configuration
+---
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  labels:
+    app: collectorforopenshift
+  name: collectorforopenshift
+rules:
+- apiGroups:
+  - ""
+  - apps
+  - batch
+  - extensions
+  - monitoring.coreos.com
+  - etcd.database.coreos.com
+  - vault.security.coreos.com
+  - apps.openshift.io
+  - build.openshift.io
+  - operator.openshift.io
+  - tuned.openshift.io
+  - operators.coreos.com
+  - certmanager.k8s.io
+  - kafka.strimzi.io
+  - org.eclipse.che
+  - dynatrace.com
+  - template.openshift.io
+  - nats.io
+  - syndesis.io
+  - collectord.io
+  resources:
+  - alertmanagers
+  - buildconfigs
+  - builds
+  - cronjobs
+  - daemonsets
+  - deploymentconfigs
+  - deployments
+  - endpoints
+  - events
+  - jobs
+  - namespaces
+  - nodes
+  - nodes/metrics
+  - nodes/proxy
+  - pods
+  - prometheuses
+  - replicasets
+  - replicationcontrollers
+  - scheduledjobs
+  - services
+  - statefulsets
+  - vaultservices
+  - etcdclusters
+  - challenges
+  - networks
+  - tuneds
+  - dnses
+  - catalogsources
+  - configmaps
+  - clusterserviceversions
+  - kafkas
+  - checlusters
+  - oneagents
+  - templateinstances
+  - natsclusters
+  - syndesises
+  - persistentvolumeclaims
+  - configurations
+  - dns
+  verbs:
+  - get
+  - list
+  - watch
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+  apiGroups: []
+  resources: []
+---
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: collectorforopenshift
+  name: collectorforopenshift
+  namespace: collectorforopenshift
+roleRef:
+  kind: ClusterRole
+  name: collectorforopenshift
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: ServiceAccount
+    name: collectorforopenshift
+    namespace: collectorforopenshift
+---
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
+apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: collectorforopenshift
@@ -1157,7 +1158,7 @@ spec:
       containers:
       - name: collectorforopenshift
         # Stick to specific version
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1278,9 +1279,8 @@ spec:
           - key: 002-daemonset.conf
             path: 002-daemonset.conf
 ---
-
-apiVersion: apps/v1
-
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
+apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: collectorforopenshift-master
@@ -1323,7 +1323,7 @@ spec:
         effect: "NoExecute"
       containers:
       - name: collectorforopenshift
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1430,9 +1430,8 @@ spec:
           - key: 003-daemonset-master.conf
             path: 003-daemonset-master.conf
 ---
-
-apiVersion: apps/v1
-
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: collectorforopenshift-addon
@@ -1457,7 +1456,7 @@ spec:
       serviceAccountName: collectorforopenshift
       containers:
       - name: collectorforopenshift
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1495,6 +1494,13 @@ spec:
             path: 001-general.conf
           - key: 004-addon.conf
             path: 004-addon.conf
+---
+# Source: collectorforopenshift/templates/collectorforopenshift.yaml
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PriorityClass
+metadata:
+  name: collectorforopenshift-critical
+value: 1000000000
 ---
 allowHostDirVolumePlugin: true
 allowHostIPC: false
