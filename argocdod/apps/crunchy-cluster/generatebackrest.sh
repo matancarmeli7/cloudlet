@@ -27,7 +27,7 @@ metadata:
     pg-cluster: fromcrd
     pgo-backrest-repo: "true"
   name: fromcrd-backrest-repo-config
-  namespace: pgouser1
+  namespace: pgo
 type: Opaque
 EOF
 
