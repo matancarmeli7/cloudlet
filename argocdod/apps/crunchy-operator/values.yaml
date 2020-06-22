@@ -1,4 +1,4 @@
-STORAGE_CLASS: "azure-rwo"
+STORAGE_CLASS: "managed-premium"
 OPERATOR_NAMESPACE: "pgo"
 INSTALLATION_NAME: "pgoperator"
 PGO_IMAGE_TAG: "centos7-4.3.0"
