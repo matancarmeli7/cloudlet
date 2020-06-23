@@ -68,7 +68,7 @@ spec:
   port: '5432'
   primaryhost: "{{.cluster_name}}"
   primarysecretname: "{{.cluster_name}}-primaryuser-secret"
-  replicas: 2
+  replicas: "2"
   rootsecretname: "{{.cluster_name}}-postgres-secret"
   secretfrom: ''
   status: ''
