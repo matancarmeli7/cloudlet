@@ -79,8 +79,6 @@ spec:
   strategy: '1'
   user: "{{.username}}"
   userlabels:
-    archive: 'false'
-    archive-timeout: '60'
     crunchy-pgbadger: 'false'
     crunchy_collect: 'false'
     pgo-backrest: 'true'
