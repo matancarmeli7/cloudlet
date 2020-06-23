@@ -3,12 +3,15 @@ kind: Pgcluster
 {{- with .Values  }}
 metadata:
   labels:
+    autofail: 'true'
     crunchy-pgbadger: 'false'
+    crunchy-pgha-scope: "{{.cluster_name}}"
     crunchy_collect: 'false'
     current-primary: "{{.cluster_name}}"
     deployment-name: "{{.cluster_name}}"
     name: "{{.cluster_name}}"
     pg-cluster: "{{.cluster_name}}"
+    pg-pod-anti-affinity: ''
     pgo-backrest: 'true'
     pgo-version: "{{.pgo_version}}"
     primary: 'true'
@@ -61,6 +64,7 @@ spec:
   clustername: "{{.cluster_name}}"
   customconfig: ''
   database: "{{.database_name}}"
+  exporterport: '9187'
   name: "{{.cluster_name}}"
   namespace: "{{.namespace}}"
   nodename: ''
