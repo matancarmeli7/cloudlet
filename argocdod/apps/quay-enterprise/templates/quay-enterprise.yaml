@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: quay-e
+  name: quay-enterprise
 
 ---
 # Source: quay-enterprise/templates/02_redhat-pull-secret.yaml
@@ -14,7 +14,7 @@ kind: Secret
 metadata:
   annotations:
   name: redhat-pull-secret
-  namespace: quay-e
+  namespace: quay-enterprisenterprisenterprisenterprisenterprisenterprise
 type: kubernetes.io/dockerconfigjson
 
 ---
@@ -29,7 +29,7 @@ kind: Secret
 metadata:
   annotations:
   name: db-creds
-  namespace: quay-e
+  namespace: quay-enterprisenterprisenterprisenterprisenterprisenterprise
 type: Opaque
 
 ---
@@ -41,7 +41,7 @@ kind: Secret
 metadata:
   annotations:
   name: quay-config-creds
-  namespace: quay-e
+  namespace: quay-enterprisenterprisenterprisenterprisenterprisenterprise
 type: Opaque
 
 ---
@@ -52,7 +52,7 @@ kind: Secret
 metadata:
   annotations:
   name: quayconfigfile
-  namespace: quay-e
+  namespace: quay-enterprisenterprisenterprisenterprisenterprisenterprise
 type: Opaque
 
 ---
@@ -64,7 +64,7 @@ kind: Secret
 metadata:
   annotations:
   name: redis-creds
-  namespace: quay-e
+  namespace: quay-enterprisenterprisenterprisenterprisenterprisenterprise
 type: Opaque
 
 ---
@@ -78,7 +78,7 @@ kind: Secret
 metadata:
   annotations:
   name: super-user-quay
-  namespace: quay-e
+  namespace: quay-enterprisenterprisenterprisenterprisenterprisenterprise
 type: Opaque
 
 ---
@@ -87,7 +87,7 @@ kind: Secret
 apiVersion: v1
 metadata:
   name: trust-ca
-  namespace: quay-e
+  namespace: quay-enterprisenterprisenterprisenterprisenterprisenterprise
 data:
   rootCA.pem: >-
     LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURlVENDQW1HZ0F3SUJBZ0lKQU5JNjVvWHpYRk5mTUEwR0NTcUdTSWIzRFFFQkN3VUFNRk14Q3pBSkJnTlYKQkFZVEFsaFlNUlV3RXdZRFZRUUhEQXhFWldaaGRXeDBJRU5wZEhreEREQUtCZ05WQkFvTUEwMVBSREVSTUE4RwpBMVVFQ3d3SVEyeHZkV1JzWlhReEREQUtCZ05WQkFNTUExSnVSREFlRncweU1EQTFNVEV4TVRReU1UbGFGdzB6Ck1EQTFNRGt4TVRReU1UbGFNRk14Q3pBSkJnTlZCQVlUQWxoWU1SVXdFd1lEVlFRSERBeEVaV1poZFd4MElFTnAKZEhreEREQUtCZ05WQkFvTUEwMVBSREVSTUE4R0ExVUVDd3dJUTJ4dmRXUnNaWFF4RERBS0JnTlZCQU1NQTFKdQpSRENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFKbkV5ckZwcVNNcmJRckdmdlp1CkYwM1JSNXVwMVN2QTZOb20ySC9CbFlhK05KTlJuem0zdmZCaVNGb3dmRFRVOEsxcy9mdU03ajkzNCtBUkUvSjAKMDhRWEliS3NjanBjRE14OFBGdkpNSnlCZkRUS0ZuVERxMDdHV01QRWpmWVFDaWdKUkwrZFp2eWpDNHZWTWpzdgpCMDgrRGJobDhNSDNRWUxoeXhHSFBmUllHZ2lDNERzd015ckxtZU4vZUt2a0k3RXVEUC92LzNvSHY3T2FPLzlzCkFHdkNuS1ZEUzh1aE41TGdBeFprT3M5MDdsYXMyUWtHS202VDB1UTBoUU9jMWF2ZXZOTXh5YmswVGRBM0NEbHcKNzZjZ2lHTW1acmVNbHBHMy9JbTQ4MDBSK1Y5RGpHbDBHdElaeVpZL1g3N0VkOWpHdjZZZThjcC84b2dXNlhEQwowYk1DQXdFQUFhTlFNRTR3SFFZRFZSME9CQllFRklFWVprYy9ZYlNaQVNudUc4MUZIaTVDT3pzcE1COEdBMVVkCkl3UVlNQmFBRklFWVprYy9ZYlNaQVNudUc4MUZIaTVDT3pzcE1Bd0dBMVVkRXdRRk1BTUJBZjh3RFFZSktvWkkKaHZjTkFRRUxCUUFEZ2dFQkFDYWNzZ2FNSlAvcDl5OVgzeC9EY01jOWVjdEpqQTN1RHcxME4xV2VGTmVqK1RDawp3bExYc05nRHVXdEF1dWI1ZXRGckNKOXJZUTRMaWtBU0RLVElnMThuWEdLVlNWcVk0TFNieU9WWGxOcDliVng0Cm1xK2tQRGhGMTFNdCtZNndacEZOUldlRFVBQkxiOTZKMDJRSlBPQjU3a0RrOTNXNDlmMWpuUzFzd2MrZFBOUlMKTUhMWWlNcWtCUEd6Zk51Y2VYOTFXSnl6dUo4cmFmclpDaWxKaXpzVGQ0VUlaVHBNbndmWnRKMTZYNTFHZG9QUApvLzM4dVZjeGZxL2xvL2pWZjNWbmpoOWpnemU5VFZtRHdJYzlZbnN0Mnp3YWM3eC95cUdJaU1KWTcvOVN0djdpCjJteVpyaUR3Y1JaRWF2MXpyY0MwSXQ5cHVtN2FnMCtpM1UzRFZYVT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
@@ -99,7 +99,7 @@ apiVersion: redhatcop.redhat.io/v1alpha1
 kind: QuayEcosystem
 metadata:
   name: quayecosystem
-  namespace: quay-e
+  namespace: quay-enterprisenterprisenterprisenterprisenterprisenterprise
 spec:
   quay:
     externalAccess:
