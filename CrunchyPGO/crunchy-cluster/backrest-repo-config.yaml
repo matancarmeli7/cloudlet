@@ -8,8 +8,8 @@ data:
 kind: Secret
 metadata:
   labels:
-    pg-cluster: fromcrd
+    pg-cluster: pgcluster
     pgo-backrest-repo: "true"
-  name: fromcrd-backrest-repo-config
+  name: pgcluster-backrest-repo-config
   namespace: pgo
 type: Opaque
