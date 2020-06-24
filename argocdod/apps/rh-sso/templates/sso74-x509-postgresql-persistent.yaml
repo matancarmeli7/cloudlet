@@ -51,11 +51,11 @@ metadata:
   name: "{{ .Values.APPLICATION_NAME }}-postgresql"
   namespace: {{ .Values.rhsso_namespace }}
 spec:
+  type: ExternalName
+  externalName: testdb.pgo.svc.cluster.local
   ports:
   - port: 5432
-    targetPort: 5432
-  selector:
-    deploymentConfig: "{{ .Values.APPLICATION_NAME }}-postgresql"
+    
 ---
 apiVersion: v1
 kind: Service
@@ -154,16 +154,6 @@ spec:
           value: {{ .Values.SSO_SERVICE_USERNAME }}
         - name: SSO_SERVICE_PASSWORD
           value: {{ .Values.SSO_SERVICE_PASSWORD }}
-        - name: SSO_POSTGRESQL_SERVICE_PORT
-          value: "5432"
-        - name: SSO_POSTGRESQL_PORT
-          value: {{ .Values.SSO_POSTGRESQL_PORT }}
-        - name: SSO_POSTGRESQL_PORT_5432_TCP
-          value: {{ .Values.SSO_POSTGRESQL_PORT_5432_TCP }}
-        - name: SSO_POSTGRESQL_SERVICE_HOST
-          value: {{ .Values.SSO_POSTGRESQL_SERVICE_HOST }}
-        - name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
-          value: {{ .Values.SSO_POSTGRESQL_PORT_5432_TCP_ADDR }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         livenessProbe:
@@ -214,85 +204,3 @@ spec:
           secretName: sso-x509-jgroups-secret
   triggers:
   - type: ConfigChange
----
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
-metadata:
-  labels:
-    application: {{ .Values.APPLICATION_NAME }}
-  name: "{{ .Values.APPLICATION_NAME }}-postgresql"
-  namespace: {{ .Values.rhsso_namespace }}
-spec:
-  replicas: 1
-  selector:
-    deploymentConfig: "{{ .Values.APPLICATION_NAME }}-postgresql"
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        application: {{ .Values.APPLICATION_NAME }}
-        deploymentConfig: "{{ .Values.APPLICATION_NAME }}-postgresql"
-      name: "{{ .Values.APPLICATION_NAME }}-postgresql"
-    spec:
-      containers:
-      - env:
-        - name: POSTGRESQL_USER
-          value: {{ .Values.DB_USERNAME }}
-        - name: POSTGRESQL_PASSWORD
-          value: {{ .Values.DB_PASSWORD }}
-        - name: POSTGRESQL_DATABASE
-          value: {{ .Values.DB_DATABASE }}
-        - name: POSTGRESQL_MAX_CONNECTIONS
-          value: {{ .Values.POSTGRESQL_MAX_CONNECTIONS }}
-        - name: POSTGRESQL_MAX_PREPARED_TRANSACTIONS
-          value: {{ .Values.POSTGRESQL_MAX_CONNECTIONS }}
-        - name: POSTGRESQL_SHARED_BUFFERS
-          value: {{ .Values.POSTGRESQL_SHARED_BUFFERS }}
-        image: "{{ .Values.pg_image.repository }}:{{ .Values.pg_image.tag }}"
-        imagePullPolicy: Always
-        livenessProbe:
-          failureThreshold: 3
-          initialDelaySeconds: 90
-          tcpSocket:
-            port: 5432
-          timeoutSeconds: 10
-        name: "{{ .Values.APPLICATION_NAME }}-postgresql"
-        ports:
-        - containerPort: 5432
-          protocol: TCP
-        readinessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -i
-            - -c
-            - psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c
-              'SELECT 1'
-          failureThreshold: 3
-          initialDelaySeconds: 90
-          timeoutSeconds: 10
-        volumeMounts:
-        - mountPath: /var/lib/pgsql/data
-          name: "{{ .Values.APPLICATION_NAME }}-postgresql-pvol"
-      terminationGracePeriodSeconds: 60
-      volumes:
-      - name: "{{ .Values.APPLICATION_NAME }}-postgresql-pvol"
-        persistentVolumeClaim:
-          claimName: "{{ .Values.APPLICATION_NAME }}-postgresql-claim"
-  triggers:
-  - type: ConfigChange
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    application: {{ .Values.APPLICATION_NAME }}
-  name: "{{ .Values.APPLICATION_NAME }}-postgresql-claim"
-  namespace: {{ .Values.rhsso_namespace }}
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: {{ .Values.VOLUME_CAPACITY }}
