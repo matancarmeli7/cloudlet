@@ -1,0 +1,29 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: Endpoints
+metadata:
+  annotations:
+    endpoints.kubernetes.io/last-change-trigger-time: "2020-06-24T13:22:57Z"
+  creationTimestamp: "2020-06-24T13:22:46Z"
+  labels:
+    app.kubernetes.io/instance: rh-sso-ocp43-preprod
+    application: sso
+  name: sso-postgresql
+  namespace: rh-sso
+  resourceVersion: "2285977"
+  selfLink: /api/v1/namespaces/rh-sso/endpoints/sso-postgresql
+  uid: 26c4d29d-2bec-4fef-afbb-29fadd50b11e
+subsets:
+- notReadyAddresses:
+  - ip: 10.131.0.48
+    nodeName: ocp43-preprod-t6n8r-worker-eastus1-xlv9x
+    targetRef:
+      kind: Pod
+      name: testdb-bnqs-78cb5b5cfb-c7c88
+      namespace: pgo
+  ports:
+  - port: 5432
+    protocol: TCP
