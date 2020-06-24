@@ -154,6 +154,16 @@ spec:
           value: {{ .Values.SSO_SERVICE_USERNAME }}
         - name: SSO_SERVICE_PASSWORD
           value: {{ .Values.SSO_SERVICE_PASSWORD }}
+        - name: SSO_POSTGRESQL_SERVICE_PORT
+          value: "5432"
+        - name: SSO_POSTGRESQL_PORT
+          value: {{ .Values.SSO_POSTGRESQL_PORT }}
+        - name: SSO_POSTGRESQL_PORT_5432_TCP
+          value: {{ .Values.SSO_POSTGRESQL_PORT_5432_TCP }}
+        - name: SSO_POSTGRESQL_SERVICE_HOST
+          value: {{ .Values.SSO_POSTGRESQL_SERVICE_HOST }}
+        - name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+          value: {{ .Values.SSO_POSTGRESQL_PORT_5432_TCP_ADDR }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         livenessProbe:
