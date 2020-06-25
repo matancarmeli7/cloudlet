@@ -4,6 +4,6 @@ description: "Chart to deploy RedHat SSO in cluster"
 name: rh-sso
 version: 1.0.0
 dependencies:
-  - name: crunchy-cluster
+  - name: pg-cluster
     version: 0.1.0
-    repository: "@crunchy-cluster"
+    repository: "@pg-cluster"
