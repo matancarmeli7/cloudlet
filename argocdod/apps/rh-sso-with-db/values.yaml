@@ -24,7 +24,7 @@ SSO_POSTGRESQL_SERVICE_HOST: "ssodb.pgo.svc.cluster.local"
 SSO_POSTGRESQL_PORT_5432_TCP_ADDR: "ssodb.pgo.svc.cluster.local"
 
 # DB VARS
-global:
+pg-cluster:
   pg_cluster_name: "ssodb"
   pg_namespace: "pgo"
   pg_pgo_version: 4.3.0
