@@ -1,0 +1,87 @@
+apiVersion: crunchydata.com/v1
+kind: Pgcluster
+{{- with .Values  }}
+metadata:
+  labels:
+    autofail: 'true'
+    crunchy-pgbadger: 'false'
+    crunchy-pgha-scope: "{{.pg_cluster_name}}"
+    crunchy_collect: 'false'
+    current-primary: "{{.pg_cluster_name}}"
+    deployment-name: "{{.pg_cluster_name}}"
+    name: "{{.pg_cluster_name}}"
+    pg-cluster: "{{.pg_cluster_name}}"
+    pg-pod-anti-affinity: ''
+    pgo-backrest: 'true'
+    pgo-version: "{{.pg_pgo_version}}"
+    primary: 'true'
+  annotations:
+    current-primary: "{{.pg_cluster_name}}"
+  name: "{{.pg_cluster_name}}"
+  namespace: "{{.pg_namespace}}"
+spec:
+  ArchiveStorage:
+    accessmode: ''
+    matchLabels: ''
+    name: ''
+    size: ''
+    storageclass: "{{.pg_storage_class}}"
+    storagetype: dynamic
+    supplementalgroups: ''
+  BackrestStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ''
+    name: ''
+    size: 1G
+    storageclass: "{{.pg_storage_class}}"
+    storagetype: dynamic
+    supplementalgroups: ''
+  ContainerResources:
+    limitscpu: ''
+    limitsmemory: ''
+    requestscpu: ''
+    requestsmemory: ''
+  PrimaryStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ''
+    name: "{{.pg_cluster_name}}"
+    size: "{{.pg_storage_size}}"
+    storageclass: "{{.pg_storage_class}}"
+    storagetype: dynamic
+    supplementalgroups: ''
+  ReplicaStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ''
+    name: ''
+    size: "{{.pg_storage_size}}"
+    storageclass: "{{.pg_storage_class}}"
+    storagetype: dynamic
+    supplementalgroups: ''
+  backuppath: ''
+  backuppvcname: ''
+  ccpimage: "{{.pg_image_name}}"
+  ccpimagetag: "{{.pg_image_tag}}"
+  clustername: "{{.pg_cluster_name}}"
+  customconfig: ''
+  database: "{{.pg_database_name}}"
+  exporterport: '9187'
+  name: "{{.pg_cluster_name}}"
+  namespace: "{{.pg_namespace}}"
+  nodename: ''
+  policies: ''
+  port: '5432'
+  primaryhost: "{{.pg_cluster_name}}"
+  primarysecretname: "{{.pg_cluster_name}}-primaryuser-secret"
+  replicas: "{{.pg_replicas}}"
+  rootsecretname: "{{.pg_cluster_name}}-postgres-secret"
+  secretfrom: ''
+  status: ''
+  strategy: '1'
+  user: "{{.pg_username}}"
+  userlabels:
+    crunchy-pgbadger: 'false'
+    crunchy_collect: 'false'
+    pgo-backrest: 'true'
+    pgo-version: "{{.pg_pgo_version}}"
+  usersecretname: "{{.pg_cluster_name}}-myuser-secret"
+{{- end }}
