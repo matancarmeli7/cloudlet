@@ -4,6 +4,6 @@ description: "Chart to deploy RedHat SSO in cluster"
 name: rh-sso
 version: 1.0.0
 dependencies:
-  - name: pg-cluster
+  - name: pgcluster
     version: 0.1.0
     repository: "@pgcluster"
