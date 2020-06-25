@@ -6,4 +6,4 @@ version: 1.0.0
 dependencies:
   - name: pg-cluster
     version: 0.1.0
-    repository: "@pg-cluster"
+    repository: "@pgcluster"
