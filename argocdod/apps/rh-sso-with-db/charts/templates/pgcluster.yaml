@@ -1,6 +1,6 @@
 apiVersion: crunchydata.com/v1
 kind: Pgcluster
-{{- with .Values  }}
+{{- with .Values.global  }}
 metadata:
   labels:
     autofail: 'true'
