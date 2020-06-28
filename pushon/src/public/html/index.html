@@ -23,24 +23,26 @@
   }
 
   button{
-      display: inline-block;
-      padding: 0.6em 36%;
-      margin:0 2% 2% 0;
-      border:0.16em solid rgba(255,255,255,0);
-      border-radius:2em;
-      box-sizing: border-box;
-      text-decoration:none;
-      font-family:'Roboto',sans-serif;
-      font-weight:300;
-      color:#FFFFFF;
-      text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-      text-align:center;
-      transition: all 0.2s;
+    background: transparent;
   }
 
   button:hover{
     border-color: rgba(255,255,255,1);
   }
+
+  .pushIt {
+	  position:relative;
+	  -webkit-animation:linear infinite alternate;
+	  -webkit-animation-name: run;
+	  -webkit-animation-duration: 3s;
+  }
+
+@-webkit-keyframes run {
+    0% { left: 0;}
+    50%{ left : 100%;}
+    100%{ left: 0;}
+}
+
 </style>
 
 <style>
@@ -85,17 +87,17 @@
     <div class="clouds"></div>
     <div id="dropzone" style="position: absolute; z-index: 15; margin: auto; left: 20%; right: 20%;">
         <h1 style="text-align: center;">Pushon</h1>
-        <form id='frmTarget' name='frmTarget' action='/upload' style="height: 300px; width: 100%;" style="background-color: transparent;" class='dropzone needsclick dz-clickable'>
+        <form id='frmTarget' name='frmTarget' action='/upload' style="height: 250px; width: 100%;" style="background-color: transparent;" class='dropzone needsclick dz-clickable'>
         <div class="dz-message needsclick">
             <button type="button" class="dz-button">Drop images or click to upload.</button><br />
         </div>
         </form>
         <br>
-        <div style="width: 10%; margin: 0 auto;">
+        <div style="width: 22%; margin: 0 auto;">
             <input type="text" id="registryurl" placeholder="Registry url" name="registryurl" required><br>
             <input type="text" id="registryuser" name="registryuser" placeholder="Registry username" required><br>
-            <input type="password" id="registrypass" name="registrypass" placeholder="Password" required><br><br><br>
-            <button type="submit" id="submit-dropzone-btn" style="background-color:dodgerblue; margin: 0 auto;" disabled>Submit</button>
+            <input type="password" id="registrypass" name="registrypass" placeholder="Password" required><br><br>
+            <button type="submit" id="submit-dropzone-btn" style="margin: 0 auto;" disabled><img id="ori-samar" src="/public/images/ori-samar.png" style="height: 103px;width: 100%;border: 0;"></button>
         </div>
     </div>
 
@@ -108,12 +110,16 @@
         parallelUploads: 20,
         maxFiles: 20,
         maxFilesize: 16384,
+	timeout: 9999999,
+	addRemoveLinks: true,
         init: function()
         {
           let myDropzone = this;
           /* 'submit-dropzone-btn' is the ID of the form submit button */
           document.getElementById('submit-dropzone-btn').addEventListener("click", function (e) {
               e.preventDefault();
+	      var pushAnimation = document.getElementById("submit-dropzone-btn");
+	      pushAnimation.setAttribute("class", "pushIt");
               var rurl = document.getElementById('registryurl').value;
               var rusr = document.getElementById('registryuser').value;
               var rpas = document.getElementById('registrypass').value;

@@ -60,7 +60,7 @@
           } while (currentDate - date < milliseconds);
       }
 
-      url = 'ws://'+location.host+'/ws';
+      url = 'wss://'+location.host+'/ws';
       c = new WebSocket(url);
       err_count = 0;
 
