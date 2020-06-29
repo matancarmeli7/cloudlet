@@ -34,19 +34,24 @@ spec:
     persistent: {{ .Values.opsmanagercr.appdb.persistent }}
     podSpec:
       persistence:
-        multiple:
-          data:
-            labelSelector: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.data.labelSelector }}
-            storage: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.data.storage }}
-            storageClass: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.data.storageClass }}
-          journal:
-            labelSelector: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.journal.labelSelector }}
-            storage: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.journal.storage }}
-            storageClass: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.journal.storageClass }}
-          logs:
-            labelSelector: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.logs.labelSelector }}
-            storage: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.logs.storage }}
-            storageClass: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.logs.storageClass }}
+        properties:
+          multiple:
+            properties:
+              data:
+                properties:
+                  labelSelector: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.data.labelSelector }}
+                  storage: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.data.storage }}
+                  storageClass: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.data.storageClass }}
+              journal:
+                properties:
+                  labelSelector: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.journal.labelSelector }}
+                  storage: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.journal.storage }}
+                  storageClass: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.journal.storageClass }}
+              logs:
+                properties:
+                  labelSelector: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.logs.labelSelector }}
+                  storage: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.logs.storage }}
+                  storageClass: {{ .Values.opsmanagercr.appdb.podSpec.persistence.multiple.logs.storageClass }}
   configuration:
     automation.versions.source: local
     mms.ignoreInitialUiSetup: "{{ .Values.opsmanagercr.mms.ignoreInitialUiSetup }}"
