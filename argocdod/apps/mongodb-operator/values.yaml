@@ -47,11 +47,11 @@ registry:
   # The pull secret must be specified
   imagePullSecrets:
   pullPolicy: Always
-  operator: registry.redhat.io/mongodb
-  initOpsManager: registry.redhat.io/mongodb
-  opsManager: registry.redhat.io/mongodb
-  initAppDb: registry.redhat.io/mongodb
-  appDb: registry.redhat.io/mongodb
+  operator: quay.io/mongodb
+  initOpsManager: quay.io/mongodb
+  opsManager: quay.io/mongodb
+  initAppDb: quay.io/mongodb
+  appDb: quay.io/mongodb
 
 # Set this to true if the operator will require Kubernetes CA
 # infrastructure to generate TLS certificates.
