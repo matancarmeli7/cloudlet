@@ -19,7 +19,7 @@ spec:
       serviceAccountName: {{ .Values.operator.name }}
 {{- if not .Values.managedSecurityContext }}
       securityContext:
-        runAsNonRoot: false
+        runAsNonRoot: true
         runAsUser: 2000
 {{- end }}
 {{- if .Values.registry.imagePullSecrets}}
