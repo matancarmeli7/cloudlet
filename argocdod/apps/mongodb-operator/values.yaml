@@ -79,13 +79,13 @@ opsmanagercr:
         multiple:
           data:
             storage: "16G"
-            storageClass: "managed-premium"
+            storageClass: "filestorage"
           journal:
             storage: "1G"
-            storageClass: "managed-premium"
+            storageClass: "filestorage"
           logs:
             storage: "3G"
-            storageClass: "managed-premium"
+            storageClass: "filestorage"
   mms:
     ignoreInitialUiSetup: "true"
     fromEmailAddr: "cloudlet@cloudlet.com"
