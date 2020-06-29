@@ -78,17 +78,17 @@ opsmanagercr:
       persistence:
         multiple:
           data:
-            labelSelector: data
-            storage: 16G
-            storageClass: managed-premium
+            labelSelector: "data"
+            storage: "16G"
+            storageClass: "managed-premium"
           journal:
-            labelSelector: journal
-            storage: 1G
-            storageClass: managed-premium
+            labelSelector: "journal"
+            storage: "1G"
+            storageClass: "managed-premium"
           logs:
-            labelSelector: logs
-            storage: 3G
-            storageClass: managed-premium
+            labelSelector: "logs"
+            storage: "3G"
+            storageClass: "managed-premium"
   mms:
     ignoreInitialUiSetup: "true"
     fromEmailAddr: "cloudlet@cloudlet.com"
