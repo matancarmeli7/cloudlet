@@ -4,7 +4,7 @@ labels:
   rhsso: 7.4.1.GA
   template: sso74-x509-postgresql-external
 message: A new persistent RH-SSO service (using PostgreSQL) has been created in your
-  project. The admin username/password for accessing the master realm via the RH-SSO
+  pgo operator project. The admin username/password for accessing the master realm via the RH-SSO
   console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for
   accessing the PostgreSQL database "${DB_DATABASE}" is ${DB_USERNAME}/${DB_PASSWORD}.
   The HTTPS keystore used for serving secure content, the JGroups keystore used for
@@ -13,7 +13,7 @@ message: A new persistent RH-SSO service (using PostgreSQL) has been created in 
   secrets.
 metadata:
   annotations:
-    description: An example application based on RH-SSO 7.4 on OpenJDK image. For
+    description: An example application based on RH-SSO 7.4 on OpenJDK image with an external postgres DB service by CrunchyData. For
       more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso74-dev/docs.
     iconClass: icon-sso
     openshift.io/display-name: Red Hat Single Sign-On 7.4 on OpenJDK + PostgreSQL
@@ -449,19 +449,19 @@ parameters:
 - description: External DB Connection String
   displayname: SSO_POSTGRESQL_PORT
   name: SSO_POSTGRESQL_PORT
-  value: tcp://${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local:5432
+  value: tcp://ssodb.pgo.svc.cluster.local:5432
 - description: External DB Connection String
   displayname: SSO_POSTGRESQL_PORT_5432_TCP
   name: SSO_POSTGRESQL_PORT_5432_TCP
-  value: tcp://${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local:5432
+  value: tcp://ssodb.pgo.svc.cluster.local:5432
 - description: External DB Connection DNS
   displayname: SSO_POSTGRESQL_SERVICE_HOST
   name: SSO_POSTGRESQL_SERVICE_HOST
-  value: ${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local
+  value: ssodb.pgo.svc.cluster.local
 - description: External DB Connection DNS
   displayname: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
   name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
-  value: ${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local
+  value: ssodb.pgo.svc.cluster.local
 - description: DB cluster and database name
   displayname: DB_SERVICE_NAME
   name: DB_SERVICE_NAME
