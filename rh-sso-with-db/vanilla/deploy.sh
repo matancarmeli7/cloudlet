@@ -13,3 +13,4 @@ oc new-app --template=sso74-postgresql-persistent \
  -p SSO_TRUSTSTORE="truststore.jks" \
  -p SSO_TRUSTSTORE_PASSWORD="redhat" \
  -p SSO_TRUSTSTORE_SECRET="sso-app-secret"
+ -p PG_STORAGE_CLASS="managed-premium"
