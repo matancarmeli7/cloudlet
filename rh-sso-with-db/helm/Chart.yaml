@@ -1,0 +1,9 @@
+apiVersion: v2
+appVersion: "1.0"
+description: "Chart to deploy RedHat SSO in cluster"
+name: rh-sso
+version: 1.0.0
+dependencies:
+  - name: pgcluster
+    version: 0.1.0
+    repository: "@pgcluster"

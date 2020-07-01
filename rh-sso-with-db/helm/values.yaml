@@ -1,0 +1,39 @@
+image:
+  repository: registry.redhat.io/rh-sso-7/sso74-openshift-rhel8
+  tag: 7.4
+
+rhsso_namespace: rh-sso
+
+APPLICATION_NAME: "sso"
+SSO_HOSTNAME: ""
+JGROUPS_CLUSTER_PASSWORD: "Aa123456"
+DB_JNDI: "java:jboss/datasources/KeycloakDS"
+DB_DATABASE: "ssodb"
+DB_USERNAME: "myuser"
+DB_PASSWORD: "password"
+VOLUME_CAPACITY: "1Gi"
+SSO_ADMIN_USERNAME: "admin"
+SSO_ADMIN_PASSWORD: "Aa123456"
+SSO_REALM: ""
+SSO_SERVICE_USERNAME: ""
+SSO_SERVICE_PASSWORD: ""
+MEMORY_LIMIT: "1Gi"
+SSO_POSTGRESQL_PORT: "tcp://ssodb.pgo.svc.cluster.local:5432"
+SSO_POSTGRESQL_PORT_5432_TCP: "tcp://ssodb.pgo.svc.cluster.local:5432"
+SSO_POSTGRESQL_SERVICE_HOST: "ssodb.pgo.svc.cluster.local"
+SSO_POSTGRESQL_PORT_5432_TCP_ADDR: "ssodb.pgo.svc.cluster.local"
+
+# DB VARS
+pgcluster:
+  pg_cluster_name: "ssodb"
+  pg_namespace: "pgo"
+  pg_pgo_version: 4.3.0
+  pg_storage_class: managed-premium
+  pg_storage_size: 1G
+  pg_image_name: crunchy-postgres-ha
+  pg_image_tag: centos7-12.2-4.3.0
+  pg_database_name: ssodb
+  pg_replicas: "2"
+  pg_username: myuser
+  pg_password: password
+  pg_service_prefix: ssodb.pgo
