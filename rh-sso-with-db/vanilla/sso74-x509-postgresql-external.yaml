@@ -61,7 +61,7 @@ objects:
     name: ${APPLICATION_NAME}-postgresql
   spec:
     type: ExternalName
-    externalName: ${DB_SERVICE_NAME}.{PG_NAMESPACE}.svc.cluster.local
+    externalName: ${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local
     ports:
     - port: 5432
 - apiVersion: v1
@@ -310,7 +310,7 @@ objects:
     port: '5432'
     primaryhost: ${DB_SERVICE_NAME}
     primarysecretname: ${DB_SERVICE_NAME}-primaryuser-secret
-    replicas: ${PG_REPLICAS}
+    replicas: ${{PG_REPLICAS}}
     rootsecretname: ${DB_SERVICE_NAME}-postgres-secret
     secretfrom: ''
     status: ''
