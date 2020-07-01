@@ -1,4 +1,4 @@
-oc new-app --template=sso74-postgresql-external \
+oc new-app --template=sso74-x509-postgresql-external \
  -p HTTPS_SECRET="sso-app-secret" \
  -p HTTPS_KEYSTORE="keystore.jks" \
  -p HTTPS_NAME="jboss" \
