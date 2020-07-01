@@ -481,3 +481,71 @@ parameters:
 - description: Postgres cluster storage size
   name: PG_STORAGE_SIZE
   value: 1G
+- description: Realm to be created in the RH-SSO server (e.g. demorealm).
+  displayName: RH-SSO Realm
+  name: SSO_REALM
+- description: The username used to access the RH-SSO service. This is used by clients
+    to create the appliction client(s) within the specified RH-SSO realm.
+  displayName: RH-SSO Service Username
+  name: SSO_SERVICE_USERNAME
+- description: The password for the RH-SSO service user.
+  displayName: RH-SSO Service Password
+  name: SSO_SERVICE_PASSWORD
+- description: The tag to use for the "postgresql" image stream.  Typically, this
+    aligns with the major.minor version of PostgreSQL.
+  displayName: PostgreSQL Image Stream Tag
+  name: POSTGRESQL_IMAGE_STREAM_TAG
+  required: true
+  value: "10"
+- description: Container memory limit.
+  displayName: Container Memory Limit
+  name: MEMORY_LIMIT
+  value: 1Gi
+- description: External DB Connection String
+  displayname: SSO_POSTGRESQL_PORT
+  name: SSO_POSTGRESQL_PORT
+  value: tcp://${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local:5432
+- description: External DB Connection String
+  displayname: SSO_POSTGRESQL_PORT_5432_TCP
+  name: SSO_POSTGRESQL_PORT_5432_TCP
+  value: tcp://${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local:5432
+- description: External DB Connection DNS
+  displayname: SSO_POSTGRESQL_SERVICE_HOST
+  name: SSO_POSTGRESQL_SERVICE_HOST
+  value: ${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local
+- description: External DB Connection DNS
+  displayname: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+  name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+  value: ${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local
+- description: DB cluster and database name
+  displayname: DB_SERVICE_NAME
+  name: DB_SERVICE_NAME
+  value: ssodb
+- description: Postgres Operator managed project namespace
+  displayname: PG_NAMESPACE
+  name: PG_NAMESPACE
+  value: pgo
+- description: Cluster storage class
+  displayname: PG_STORAGE_CLASS
+  name: PG_STORAGE_CLASS
+  value: managed-premium
+- description: Postgres Operator image version
+  displayname: PG_VERSION
+  name: PG_VERSION
+  value: 4.3.0
+- description: Postgres Operator image name
+  displayname: PG_IMAGE_NAME
+  name: PG_IMAGE_NAME
+  value: crunchy-postgres-ha
+- description: Postgres Operator image tag
+  displayname: PG_IMAGE_TAG
+  name: PG_IMAGE_TAG
+  value: centos7-12.2-4.3.0
+- description: Postgres cluster replica count
+  displayname: PG_REPLICAS
+  name: PG_REPLICAS
+  value: "2"
+- description: Postgres cluster storage size
+  displayname: PG_STORAGE_SIZE
+  name: PG_STORAGE_SIZE
+  value: 1G
