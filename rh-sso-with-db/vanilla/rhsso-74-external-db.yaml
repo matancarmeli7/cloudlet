@@ -61,7 +61,7 @@ objects:
     name: ${APPLICATION_NAME}-postgresql
   spec:
     type: ExternalName
-    externalName: ${DB_SERVICE_NAME}.svc.cluster.local
+    externalName: ${DB_SERVICE_NAME}.{PG_NAMESPACE}.svc.cluster.local
     ports:
     - port: 5432
 - apiVersion: v1
@@ -462,3 +462,35 @@ parameters:
   displayname: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
   name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
   value: ${DB_SERVICE_NAME}.${PG_NAMESPACE}.svc.cluster.local
+- description: DB cluster and database name
+  displayname: DB_SERVICE_NAME
+  name: DB_SERVICE_NAME
+  value: ssodb
+- description: Postgres Operator managed project namespace
+  displayname: PG_NAMESPACE
+  name: PG_NAMESPACE
+  value: pgo
+- description: Cluster storage class
+  displayname: PG_STORAGE_CLASS
+  name: PG_STORAGE_CLASS
+  value: managed-premium
+- description: Postgres Operator image version
+  displayname: PG_VERSION
+  name: PG_VERSION
+  value: 4.3.0
+- description: Postgres Operator image name
+  displayname: PG_IMAGE_NAME
+  name: PG_IMAGE_NAME
+  value: crunchy-postgres-ha
+- description: Postgres Operator image tag
+  displayname: PG_IMAGE_TAG
+  name: PG_IMAGE_TAG
+  value: centos7-12.2-4.3.0
+- description: Postgres cluster replica count
+  displayname: PG_REPLICAS
+  name: PG_IMAGE_TAG
+  value: 2
+- description: Postgres cluster storage size
+  displayname: PG_STORAGE_SIZE
+  name: PG_STORAGE_SIZE
+  value: 1G
