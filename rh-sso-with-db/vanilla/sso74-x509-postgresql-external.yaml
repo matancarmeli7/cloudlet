@@ -28,10 +28,10 @@ metadata:
     template.openshift.io/support-url: https://access.redhat.com
     version: 7.4.1.GA
   creationTimestamp: "2020-06-24T12:11:50Z"
-  name: sso74-x509-postgresql-persistent
+  name: sso74-x509-postgresql-external
   namespace: openshift
   resourceVersion: "2236210"
-  selfLink: /apis/template.openshift.io/v1/namespaces/openshift/templates/sso74-x509-postgresql-persistent
+  selfLink: /apis/template.openshift.io/v1/namespaces/openshift/templates/sso74-x509-postgresql-external
   uid: fe0ecfa5-dbc6-460c-b3a0-2be5e32047e1
 objects:
 - apiVersion: v1
