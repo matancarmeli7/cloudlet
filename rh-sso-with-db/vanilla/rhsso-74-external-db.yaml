@@ -489,7 +489,7 @@ parameters:
 - description: Postgres cluster replica count
   displayname: PG_REPLICAS
   name: PG_REPLICAS
-  value: 2
+  value: "2"
 - description: Postgres cluster storage size
   displayname: PG_STORAGE_SIZE
   name: PG_STORAGE_SIZE
