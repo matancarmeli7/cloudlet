@@ -488,7 +488,7 @@ parameters:
   value: centos7-12.2-4.3.0
 - description: Postgres cluster replica count
   displayname: PG_REPLICAS
-  name: PG_IMAGE_TAG
+  name: PG_REPLICAS
   value: 2
 - description: Postgres cluster storage size
   displayname: PG_STORAGE_SIZE
