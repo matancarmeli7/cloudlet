@@ -312,3 +312,19 @@ parameters:
   displayName: Container Memory Limit
   name: MEMORY_LIMIT
   value: 1Gi
+- description: External DB Connection String
+  displayname: SSO_POSTGRESQL_PORT
+  name: SSO_POSTGRESQL_PORT
+  value: tcp://${DB_SERVICE_NAME}.pgo.svc.cluster.local:5432
+- description: External DB Connection String
+  displayname: SSO_POSTGRESQL_PORT_5432_TCP
+  name: SSO_POSTGRESQL_PORT_5432_TCP
+  value: tcp://${DB_SERVICE_NAME}.pgo.svc.cluster.local:5432
+- description: External DB Connection DNS
+  displayname: SSO_POSTGRESQL_SERVICE_HOST
+  name: SSO_POSTGRESQL_SERVICE_HOST
+  value: ${DB_SERVICE_NAME}.pgo.svc.cluster.local
+- description: External DB Connection DNS
+  displayname: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+  name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+  value: ${DB_SERVICE_NAME}.pgo.svc.cluster.local
