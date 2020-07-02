@@ -310,7 +310,7 @@ objects:
     port: '5432'
     primaryhost: ${DB_SERVICE_NAME}
     primarysecretname: ${DB_SERVICE_NAME}-primaryuser-secret
-    replicas: ${{PG_REPLICAS}}
+    replicas: ${PG_REPLICAS}
     rootsecretname: ${DB_SERVICE_NAME}-postgres-secret
     secretfrom: ''
     status: ''
