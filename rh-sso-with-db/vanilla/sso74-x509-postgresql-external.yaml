@@ -223,7 +223,7 @@ objects:
   metadata:
     labels:
       pg-cluster: ${DB_SERVICE_NAME}
-    name: ${DB_SERVICE_NAME}-primaryuser-secret"
+    name: ${DB_SERVICE_NAME}-primaryuser-secret
     namespace: ${PG_NAMESPACE}
   type: Opaque
 - apiVersion: v1
@@ -234,7 +234,7 @@ objects:
   metadata:
     labels:
       pg-cluster: ${DB_SERVICE_NAME}
-    name: ${DB_SERVICE_NAME}-postgres-secret"
+    name: ${DB_SERVICE_NAME}-postgres-secret
     namespace: ${PG_NAMESPACE}
   type: Opaque
 - apiVersion: crunchydata.com/v1
@@ -345,7 +345,7 @@ objects:
     labels:
       pg-cluster: ${DB_SERVICE_NAME}
       pgo-backrest-repo: "true"
-    name: ${DB_SERVICE_NAME}-backrest-repo-config"
+    name: ${DB_SERVICE_NAME}-backrest-repo-config
     namespace: ${PG_NAMESPACE}
   type: 
 parameters:
