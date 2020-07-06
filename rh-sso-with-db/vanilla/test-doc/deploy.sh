@@ -1,0 +1,1 @@
+oc process -f sso74-x509-postgresql-external.yaml --param-file=params.yaml | oc create -f -
