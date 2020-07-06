@@ -4,24 +4,24 @@ image:
 
 rhsso_namespace: rh-sso
 
-APPLICATION_NAME: "sso"
+APPLICATION_NAME: sso
 SSO_HOSTNAME: ""
-JGROUPS_CLUSTER_PASSWORD: "Aa123456"
-DB_JNDI: "java:jboss/datasources/KeycloakDS"
-DB_DATABASE: "ssodb"
-DB_USERNAME: "myuser"
-DB_PASSWORD: "password"
-VOLUME_CAPACITY: "1Gi"
-SSO_ADMIN_USERNAME: "admin"
-SSO_ADMIN_PASSWORD: "Aa123456"
+JGROUPS_CLUSTER_PASSWORD: Aa123456
+DB_JNDI: java:jboss/datasources/KeycloakDS
+DB_DATABASE: ssodb
+DB_USERNAME: myuser
+DB_PASSWORD: password
+VOLUME_CAPACITY: 1Gi
+SSO_ADMIN_USERNAME: admin
+SSO_ADMIN_PASSWORD: Aa123456
 SSO_REALM: ""
 SSO_SERVICE_USERNAME: ""
 SSO_SERVICE_PASSWORD: ""
-MEMORY_LIMIT: "1Gi"
-SSO_POSTGRESQL_PORT: "tcp://ssodb.pgo.svc.cluster.local:5432"
-SSO_POSTGRESQL_PORT_5432_TCP: "tcp://ssodb.pgo.svc.cluster.local:5432"
-SSO_POSTGRESQL_SERVICE_HOST: "ssodb.pgo.svc.cluster.local"
-SSO_POSTGRESQL_PORT_5432_TCP_ADDR: "ssodb.pgo.svc.cluster.local"
+MEMORY_LIMIT: 1Gi
+SSO_POSTGRESQL_PORT: tcp://ssodb.pgo.svc.cluster.local:5432
+SSO_POSTGRESQL_PORT_5432_TCP: tcp://ssodb.pgo.svc.cluster.local:5432
+SSO_POSTGRESQL_SERVICE_HOST: ssodb.pgo.svc.cluster.local
+SSO_POSTGRESQL_PORT_5432_TCP_ADDR: ssodb.pgo.svc.cluster.local
 
 HTTPS_SECRET: sso-app-secret 
 HTTPS_KEYSTORE: keystore.jks
@@ -37,8 +37,8 @@ SSO_TRUSTSTORE_SECRET: sso-app-secret
 
 # DB VARS
 pgcluster:
-  PG_CLUSTER_NAME: "ssodb"
-  PG_NAMESPACE: "pgo"
+  PG_CLUSTER_NAME: ssodb
+  PG_NAMESPACE: pgo
   PG_PGO_VERSION: 4.3.0
   PG_STORAGE_CLASS: managed-premium
   PG_STORAGE_SIZE: 1G
