@@ -8,5 +8,5 @@
   PG_DATABASE_NAME: ""
   PG_REPLICAS: ""
   PG_SERVICE_PREFIX: ""
-  DB_USERNAME: "myuser"
-  DB_PASSWORD: "password"
+  DB_USERNAME: ""
+  DB_PASSWORD: ""
