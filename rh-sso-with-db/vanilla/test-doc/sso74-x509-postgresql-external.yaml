@@ -209,6 +209,14 @@ objects:
             value: /etc/sso-secret-volume
           - name: SSO_TRUSTSTORE_PASSWORD
             value: ${SSO_TRUSTSTORE_PASSWORD}
+          - name: SSO_POSTGRESQL_PORT
+            value: ${SSO_POSTGRESQL_PORT}
+          - name: SSO_POSTGRESQL_PORT_5432_TCP
+            value: ${SSO_POSTGRESQL_PORT_5432_TCP}
+          - name: SSO_POSTGRESQL_SERVICE_HOST
+            value: ${SSO_POSTGRESQL_SERVICE_HOST}
+          - name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+            value: ${SSO_POSTGRESQL_PORT_5432_TCP_ADDR}
           image: ${APPLICATION_NAME}
           imagePullPolicy: Always
           livenessProbe:
