@@ -14,7 +14,7 @@ metadata:
   annotations:
     description: The web server's http port.
     service.alpha.openshift.io/dependencies: '[{"name": "{{ .Values.APPLICATION_NAME }}-postgresql",
-      "kind": "Service" }]'
+      "kind": "Service" }}]'
   labels:
     application: {{ .Values.APPLICATION_NAME }}
   name: {{ .Values.APPLICATION_NAME }}
@@ -31,7 +31,7 @@ metadata:
   annotations:
     description: The web server's https port.
     service.alpha.openshift.io/dependencies: '[{"name": "{{ .Values.APPLICATION_NAME }}-postgresql",
-      "kind": "Service" }]'
+      "kind": "Service" }}]'
   labels:
     application: {{ .Values.APPLICATION_NAME }}
   name: "secure-{{ .Values.APPLICATION_NAME }}"
