@@ -47,4 +47,4 @@ pgcluster:
   PG_IMAGE_TAG: centos7-12.2-4.3.0
   PG_DATABASE_NAME: ssodb
   PG_REPLICAS: "2"
-  PG_SERVICE_PREFIX: ssodb.pgo
+  PG_SERVICE_PREFIX: "ssodb.pgo"
