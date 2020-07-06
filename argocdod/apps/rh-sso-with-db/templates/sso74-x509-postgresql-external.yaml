@@ -77,7 +77,6 @@ spec:
     deploymentConfig: {{ .Values.APPLICATION_NAME }}
 ---
 apiVersion: route.openshift.io/v1
-id: "{{ .Values.APPLICATION_NAME }}-http"
 kind: Route
 metadata:
   annotations:
@@ -92,7 +91,6 @@ spec:
     name: {{ .Values.APPLICATION_NAME }}
 ---
 apiVersion: route.openshift.io/v1
-id: "{{ .Values.APPLICATION_NAME }}-https"
 kind: Route
 metadata:
   annotations:
