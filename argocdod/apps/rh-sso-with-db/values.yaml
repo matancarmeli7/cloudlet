@@ -4,7 +4,7 @@ image:
 
 rhsso_namespace: rh-sso
 
-APPLICATION_NAME: sso
+APPLICATION_NAME: "sso"
 SSO_HOSTNAME: ""
 JGROUPS_CLUSTER_PASSWORD: Aa123456
 DB_JNDI: java:jboss/datasources/KeycloakDS
