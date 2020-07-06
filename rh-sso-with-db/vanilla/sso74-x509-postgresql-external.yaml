@@ -380,7 +380,7 @@ parameters:
   displayName: Database Name
   name: DB_DATABASE
   required: true
-  value: root
+  value: ssodb
 - description: Sets xa-pool/min-pool-size for the configured datasource.
   displayName: Datasource Minimum Pool Size
   name: DB_MIN_POOL_SIZE
