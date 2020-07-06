@@ -18,6 +18,7 @@ metadata:
   labels:
     application: {{ .Values.APPLICATION_NAME }}
   name: {{ .Values.APPLICATION_NAME }}
+  namespace: {{ .Values.rhsso_namespace }}
 spec:
   ports:
   - port: 8080
