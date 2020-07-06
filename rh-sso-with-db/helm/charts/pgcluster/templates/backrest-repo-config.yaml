@@ -10,6 +10,6 @@ metadata:
   labels:
     pg-cluster: "{{.Values.pg_cluster_name}}"
     pgo-backrest-repo: "true"
-  name: "{{.Values.pg_cluster_name}}-backrest-repo-config"
-  namespace: "{{.Values.pg_namespace}}"
+  name: "{{.Values.PG_CLUSTER_NAME}}-backrest-repo-config"
+  namespace: "{{.Values.PG_NAMESPACE}}"
 type: 

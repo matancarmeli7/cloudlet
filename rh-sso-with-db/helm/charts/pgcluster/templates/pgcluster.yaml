@@ -5,27 +5,27 @@ metadata:
   labels:
     autofail: 'true'
     crunchy-pgbadger: 'false'
-    crunchy-pgha-scope: "{{.pg_cluster_name}}"
+    crunchy-pgha-scope: "{{.PG_CLUSTER_NAME}}"
     crunchy_collect: 'false'
-    current-primary: "{{.pg_cluster_name}}"
-    deployment-name: "{{.pg_cluster_name}}"
-    name: "{{.pg_cluster_name}}"
-    pg-cluster: "{{.pg_cluster_name}}"
+    current-primary: "{{.PG_CLUSTER_NAME}}"
+    deployment-name: "{{.PG_CLUSTER_NAME}}"
+    name: "{{.PG_CLUSTER_NAME}}"
+    pg-cluster: "{{.PG_CLUSTER_NAME}}"
     pg-pod-anti-affinity: ''
     pgo-backrest: 'true'
-    pgo-version: "{{.pg_pgo_version}}"
+    pgo-version: "{{.PG_PGO_VERSION}}"
     primary: 'true'
   annotations:
-    current-primary: "{{.pg_cluster_name}}"
-  name: "{{.pg_cluster_name}}"
-  namespace: "{{.pg_namespace}}"
+    current-primary: "{{.PG_CLUSTER_NAME}}"
+  name: "{{.PG_CLUSTER_NAME}}"
+  namespace: "{{.PG_NAMESPACE}}"
 spec:
   ArchiveStorage:
     accessmode: ''
     matchLabels: ''
     name: ''
     size: ''
-    storageclass: "{{.pg_storage_class}}"
+    storageclass: "{{.PG_STORAGE_CLASS}}"
     storagetype: dynamic
     supplementalgroups: ''
   BackrestStorage:
@@ -33,7 +33,7 @@ spec:
     matchLabels: ''
     name: ''
     size: 1G
-    storageclass: "{{.pg_storage_class}}"
+    storageclass: "{{.PG_STORAGE_CLASS}}"
     storagetype: dynamic
     supplementalgroups: ''
   ContainerResources:
@@ -44,44 +44,44 @@ spec:
   PrimaryStorage:
     accessmode: ReadWriteOnce
     matchLabels: ''
-    name: "{{.pg_cluster_name}}"
-    size: "{{.pg_storage_size}}"
-    storageclass: "{{.pg_storage_class}}"
+    name: "{{.PG_CLUSTER_NAME}}"
+    size: "{{.PG_STORAGE_SIZE}}"
+    storageclass: "{{.PG_STORAGE_CLASS}}"
     storagetype: dynamic
     supplementalgroups: ''
   ReplicaStorage:
     accessmode: ReadWriteOnce
     matchLabels: ''
     name: ''
-    size: "{{.pg_storage_size}}"
-    storageclass: "{{.pg_storage_class}}"
+    size: "{{.PG_STORAGE_SIZE}}"
+    storageclass: "{{.PG_STORAGE_CLASS}}"
     storagetype: dynamic
     supplementalgroups: ''
   backuppath: ''
   backuppvcname: ''
-  ccpimage: "{{.pg_image_name}}"
-  ccpimagetag: "{{.pg_image_tag}}"
-  clustername: "{{.pg_cluster_name}}"
+  ccpimage: "{{.PG_IMAGE_NAME}}"
+  ccpimagetag: "{{.PG_IMAGE_TAG}}"
+  clustername: "{{.PG_CLUSTER_NAME}}"
   customconfig: ''
-  database: "{{.pg_database_name}}"
+  database: "{{.PG_DATABASE_NAME}}"
   exporterport: '9187'
-  name: "{{.pg_cluster_name}}"
-  namespace: "{{.pg_namespace}}"
+  name: "{{.PG_CLUSTER_NAME}}"
+  namespace: "{{.PG_NAMESPACE}}"
   nodename: ''
   policies: ''
   port: '5432'
-  primaryhost: "{{.pg_cluster_name}}"
-  primarysecretname: "{{.pg_cluster_name}}-primaryuser-secret"
-  replicas: "{{.pg_replicas}}"
-  rootsecretname: "{{.pg_cluster_name}}-postgres-secret"
+  primaryhost: "{{.PG_CLUSTER_NAME}}"
+  primarysecretname: "{{.PG_CLUSTER_NAME}}-primaryuser-secret"
+  replicas: "{{.PG_REPLICAS}}"
+  rootsecretname: "{{.PG_CLUSTER_NAME}}-postgres-secret"
   secretfrom: ''
   status: ''
   strategy: '1'
-  user: "{{.pg_username}}"
+  user: "{{.DB_USERNAME}}"
   userlabels:
     crunchy-pgbadger: 'false'
     crunchy_collect: 'false'
     pgo-backrest: 'true'
-    pgo-version: "{{.pg_pgo_version}}"
-  usersecretname: "{{.pg_cluster_name}}-myuser-secret"
+    pgo-version: "{{.PG_PGO_VERSION}}"
+  usersecretname: "{{.PG_CLUSTER_NAME}}-myuser-secret"
 {{- end }}

@@ -23,17 +23,27 @@ SSO_POSTGRESQL_PORT_5432_TCP: "tcp://ssodb.pgo.svc.cluster.local:5432"
 SSO_POSTGRESQL_SERVICE_HOST: "ssodb.pgo.svc.cluster.local"
 SSO_POSTGRESQL_PORT_5432_TCP_ADDR: "ssodb.pgo.svc.cluster.local"
 
+HTTPS_SECRET: sso-app-secret 
+HTTPS_KEYSTORE: keystore.jks
+HTTPS_NAME: jboss
+HTTPS_PASSWORD: redhat
+JGROUPS_ENCRYPT_SECRET: sso-app-secret
+JGROUPS_ENCRYPT_KEYSTORE: jgroups.jceks 
+JGROUPS_ENCRYPT_NAME: secret-key
+JGROUPS_ENCRYPT_PASSWORD: redhat
+SSO_TRUSTSTORE: truststore.jks
+SSO_TRUSTSTORE_PASSWORD: redhat
+SSO_TRUSTSTORE_SECRET: sso-app-secret
+
 # DB VARS
 pgcluster:
-  pg_cluster_name: "ssodb"
-  pg_namespace: "pgo"
-  pg_pgo_version: 4.3.0
-  pg_storage_class: managed-premium
-  pg_storage_size: 1G
-  pg_image_name: crunchy-postgres-ha
-  pg_image_tag: centos7-12.2-4.3.0
-  pg_database_name: ssodb
-  pg_replicas: "2"
-  pg_username: myuser
-  pg_password: password
-  pg_service_prefix: ssodb.pgo
+  PG_CLUSTER_NAME: "ssodb"
+  PG_NAMESPACE: "pgo"
+  PG_PGO_VERSION: 4.3.0
+  PG_STORAGE_CLASS: managed-premium
+  PG_STORAGE_SIZE: 1G
+  PG_IMAGE_NAME: crunchy-postgres-ha
+  PG_IMAGE_TAG: centos7-12.2-4.3.0
+  PG_DATABASE_NAME: ssodb
+  PG_REPLICAS: "2"
+  PG_SERVICE_PREFIX: ssodb.pgo
