@@ -433,7 +433,7 @@ parameters:
   displayName: Database Name
   name: DB_DATABASE
   required: true
-  value: root
+  value: ssodb
 - description: The name of the secret containing the keystore file
   displayName: Server Keystore Secret Name
   name: HTTPS_SECRET
@@ -469,14 +469,12 @@ parameters:
   name: POSTGRESQL_SHARED_BUFFERS
 - description: Database user name
   displayName: Database Username
-  from: user[a-zA-Z0-9]{3}
-  generate: expression
   name: DB_USERNAME
+  value: admin
   required: true
 - description: Database user password
   displayName: Database Password
-  from: '[a-zA-Z0-9]{8}'
-  generate: expression
+  value: Aa123456
   name: DB_PASSWORD
   required: true
 - description: Size of persistent storage for database volume.
@@ -555,3 +553,51 @@ parameters:
   displayName: Container Memory Limit
   name: MEMORY_LIMIT
   value: 1Gi
+- description: External DB Connection String
+  displayname: SSO_POSTGRESQL_PORT
+  name: SSO_POSTGRESQL_PORT
+  value: tcp://ssodb.pgo.svc.cluster.local:5432
+- description: External DB Connection String
+  displayname: SSO_POSTGRESQL_PORT_5432_TCP
+  name: SSO_POSTGRESQL_PORT_5432_TCP
+  value: tcp://ssodb.pgo.svc.cluster.local:5432
+- description: External DB Connection DNS
+  displayname: SSO_POSTGRESQL_SERVICE_HOST
+  name: SSO_POSTGRESQL_SERVICE_HOST
+  value: ssodb.pgo.svc.cluster.local
+- description: External DB Connection DNS
+  displayname: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+  name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+  value: ssodb.pgo.svc.cluster.local
+- description: DB cluster and database name
+  displayname: DB_SERVICE_NAME
+  name: DB_SERVICE_NAME
+  value: ssodb
+- description: Postgres Operator managed project namespace
+  displayname: PG_NAMESPACE
+  name: PG_NAMESPACE
+  value: pgo
+- description: Cluster storage class
+  displayname: PG_STORAGE_CLASS
+  name: PG_STORAGE_CLASS
+  value: managed-premium
+- description: Postgres Operator image version
+  displayname: PG_VERSION
+  name: PG_VERSION
+  value: 4.3.0
+- description: Postgres Operator image name
+  displayname: PG_IMAGE_NAME
+  name: PG_IMAGE_NAME
+  value: crunchy-postgres-ha
+- description: Postgres Operator image tag
+  displayname: PG_IMAGE_TAG
+  name: PG_IMAGE_TAG
+  value: centos7-12.2-4.3.0
+- description: Postgres cluster replica count
+  displayname: PG_REPLICAS
+  name: PG_REPLICAS
+  value: "2"
+- description: Postgres cluster storage size
+  displayname: PG_STORAGE_SIZE
+  name: PG_STORAGE_SIZE
+  value: 1G
