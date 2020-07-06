@@ -88,6 +88,7 @@ metadata:
 spec:
   host: {{ .Values.HOSTNAME_HTTP }}
   to:
+    kind: Service
     name: {{ .Values.APPLICATION_NAME }}
 ---
 apiVersion: route.openshift.io/v1
@@ -104,6 +105,7 @@ spec:
   tls:
     termination: passthrough
   to:
+    kind: Service
     name: "secure-{{ .Values.APPLICATION_NAME }}"
 ---
 apiVersion: apps.openshift.io/v1
