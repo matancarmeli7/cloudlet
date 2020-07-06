@@ -202,7 +202,7 @@ spec:
           value: {{ .Values.SSO_POSTGRESQL_SERVICE_HOST }}
         - name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
           value: {{ .Values.SSO_POSTGRESQL_PORT_5432_TCP_ADDR }}
-        image: {{ .Values.APPLICATION_NAME }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         livenessProbe:
           exec:
