@@ -100,6 +100,7 @@ metadata:
   labels:
     application: {{ .Values.APPLICATION_NAME }}
   name: "secure-{{ .Values.APPLICATION_NAME }}"
+  namespace: {{ .Values.rhsso_namespace }}
 spec:
   host: {{ .Values.HOSTNAME_HTTPS }}
   tls:
