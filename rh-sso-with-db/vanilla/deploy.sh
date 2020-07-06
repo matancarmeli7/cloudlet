@@ -1,4 +1,4 @@
-oc new-app --template=sso74-x509-postgresql-external \
+oc process -f sso74-x509-postgresql-external.yaml \
  -p HTTPS_SECRET="sso-app-secret" \
  -p HTTPS_KEYSTORE="keystore.jks" \
  -p HTTPS_NAME="jboss" \
