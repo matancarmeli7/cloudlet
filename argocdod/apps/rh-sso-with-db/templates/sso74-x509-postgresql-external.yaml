@@ -1,262 +1,262 @@
 apiVersion: v1
-  kind: Namespace
-  metadata:
-    labels:
-      app: "{{ .Values.APPLICATION_NAME  }}"
-    name: "{{ .Values.rhsso_namespace  }}"
-    annotations:
-      openshift.io/description: 'RedHat SSO'
-      openshift.io/display-name: 'RedHat SSO'
+kind: Namespace
+metadata:
+  labels:
+    app: "{{ .Values.APPLICATION_NAME  }}"
+  name: "{{ .Values.rhsso_namespace  }}"
+  annotations:
+    openshift.io/description: 'RedHat SSO'
+    openshift.io/display-name: 'RedHat SSO'
 ---
 apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      description: The web server's http port.
-      service.alpha.openshift.io/dependencies: '[{"name": "{{ .Values.APPLICATION_NAME }}-postgresql",
-        "kind": "Service" }]'
-    labels:
-      application: "{{ .Values.APPLICATION_NAME }}"
+kind: Service
+metadata:
+  annotations:
+    description: The web server's http port.
+    service.alpha.openshift.io/dependencies: '[{"name": "{{ .Values.APPLICATION_NAME }}-postgresql",
+      "kind": "Service" }]'
+  labels:
+    application: "{{ .Values.APPLICATION_NAME }}"
+  name: "{{ .Values.APPLICATION_NAME }}"
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    description: The web server's https port.
+    service.alpha.openshift.io/dependencies: '[{"name": "{{ .Values.APPLICATION_NAME }}-postgresql",
+      "kind": "Service" }]'
+  labels:
+    application: "{{ .Values.APPLICATION_NAME }}"
+  name: "secure-{{ .Values.APPLICATION_NAME }}"
+spec:
+  ports:
+  - port: 8443
+    targetPort: 8443
+  selector:
+    deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    description: The database server's port.
+  labels:
+    application: "{{ .Values.APPLICATION_NAME }}"
+  name: "{{ .Values.APPLICATION_NAME }}-postgresql"
+spec:
+  type: ExternalName
+  externalName: "{{ .Values.DB_SERVICE_NAME }}.{{ .Values.PG_NAMESPACE }}.svc.cluster.local"
+  ports:
+  - port: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    description: The JGroups ping port for clustering.
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  labels:
+    application: "{{ .Values.APPLICATION_NAME }}"
+  name: "{{ .Values.APPLICATION_NAME }}-ping"
+spec:
+  clusterIP: None
+  ports:
+  - name: ping
+    port: 8888
+  selector:
+    deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
+---
+apiVersion: v1
+id: "{{ .Values.APPLICATION_NAME }}-http"
+kind: Route
+metadata:
+  annotations:
+    description: Route for application's http service.
+  labels:
+    application: "{{ .Values.APPLICATION_NAME }}"
+  name: "{{ .Values.APPLICATION_NAME }}"
+spec:
+  host: "{{ .Values.HOSTNAME_HTTP }}"
+  to:
     name: "{{ .Values.APPLICATION_NAME }}"
-  spec:
-    ports:
-    - port: 8080
-      targetPort: 8080
-    selector:
-      deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
 ---
 apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      description: The web server's https port.
-      service.alpha.openshift.io/dependencies: '[{"name": "{{ .Values.APPLICATION_NAME }}-postgresql",
-        "kind": "Service" }]'
-    labels:
-      application: "{{ .Values.APPLICATION_NAME }}"
+id: "{{ .Values.APPLICATION_NAME }}-https"
+kind: Route
+metadata:
+  annotations:
+    description: Route for application's https service.
+  labels:
+    application: "{{ .Values.APPLICATION_NAME }}"
+  name: "secure-{{ .Values.APPLICATION_NAME }}"
+spec:
+  host: "{{ .Values.HOSTNAME_HTTPS }}"
+  tls:
+    termination: passthrough
+  to:
     name: "secure-{{ .Values.APPLICATION_NAME }}"
-  spec:
-    ports:
-    - port: 8443
-      targetPort: 8443
-    selector:
-      deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
 ---
 apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      description: The database server's port.
-    labels:
-      application: "{{ .Values.APPLICATION_NAME }}"
-    name: "{{ .Values.APPLICATION_NAME }}-postgresql"
-  spec:
-    type: ExternalName
-    externalName: "{{ .Values.DB_SERVICE_NAME }}.{{ .Values.PG_NAMESPACE }}.svc.cluster.local"
-    ports:
-    - port: 5432
----
-apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      description: The JGroups ping port for clustering.
-      service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
-    labels:
-      application: "{{ .Values.APPLICATION_NAME }}"
-    name: "{{ .Values.APPLICATION_NAME }}-ping"
-  spec:
-    clusterIP: None
-    ports:
-    - name: ping
-      port: 8888
-    selector:
-      deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
----
-apiVersion: v1
-  id: "{{ .Values.APPLICATION_NAME }}-http"
-  kind: Route
-  metadata:
-    annotations:
-      description: Route for application's http service.
-    labels:
-      application: "{{ .Values.APPLICATION_NAME }}"
-    name: "{{ .Values.APPLICATION_NAME }}"
-  spec:
-    host: "{{ .Values.HOSTNAME_HTTP }}"
-    to:
+kind: DeploymentConfig
+metadata:
+  labels:
+    application: "{{ .Values.APPLICATION_NAME }}"
+  name: "{{ .Values.APPLICATION_NAME }}"
+spec:
+  replicas: 1
+  selector:
+    deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        application: "{{ .Values.APPLICATION_NAME }}"
+        deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
       name: "{{ .Values.APPLICATION_NAME }}"
----
-apiVersion: v1
-  id: "{{ .Values.APPLICATION_NAME }}-https"
-  kind: Route
-  metadata:
-    annotations:
-      description: Route for application's https service.
-    labels:
-      application: "{{ .Values.APPLICATION_NAME }}"
-    name: "secure-{{ .Values.APPLICATION_NAME }}"
-  spec:
-    host: "{{ .Values.HOSTNAME_HTTPS }}"
-    tls:
-      termination: passthrough
-    to:
-      name: "secure-{{ .Values.APPLICATION_NAME }}"
----
-apiVersion: v1
-  kind: DeploymentConfig
-  metadata:
-    labels:
-      application: "{{ .Values.APPLICATION_NAME }}"
-    name: "{{ .Values.APPLICATION_NAME }}"
-  spec:
-    replicas: 1
-    selector:
-      deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        labels:
-          application: "{{ .Values.APPLICATION_NAME }}"
-          deploymentConfig: "{{ .Values.APPLICATION_NAME }}"
+    spec:
+      containers:
+      - env:
+        - name: SSO_HOSTNAME
+          value: "{{ .Values.SSO_HOSTNAME }}"
+        - name: DB_SERVICE_PREFIX_MAPPING
+          value: "{{ .Values.APPLICATION_NAME }}-postgresql=DB"
+        - name: DB_JNDI
+          value: "{{ .Values.DB_JNDI }}"
+        - name: DB_USERNAME
+          value: "{{ .Values.DB_USERNAME }}"
+        - name: DB_PASSWORD
+          value: "{{ .Values.DB_PASSWORD }}"
+        - name: DB_DATABASE
+          value: "{{ .Values.DB_DATABASE }}"
+        - name: TX_DATABASE_PREFIX_MAPPING
+          value: "{{ .Values.APPLICATION_NAME }}-postgresql=DB"
+        - name: DB_MIN_POOL_SIZE
+          value: "{{ .Values.DB_MIN_POOL_SIZE }}"
+        - name: DB_MAX_POOL_SIZE
+          value: "{{ .Values.DB_MAX_POOL_SIZE }}"
+        - name: DB_TX_ISOLATION
+          value: "{{ .Values.DB_TX_ISOLATION }}"
+        - name: JGROUPS_PING_PROTOCOL
+          value: openshift.DNS_PING
+        - name: OPENSHIFT_DNS_PING_SERVICE_NAME
+          value: "{{ .Values.APPLICATION_NAME }}-ping"
+        - name: OPENSHIFT_DNS_PING_SERVICE_PORT
+          value: "8888"
+        - name: HTTPS_KEYSTORE_DIR
+          value: /etc/eap-secret-volume
+        - name: HTTPS_KEYSTORE
+          value: "{{ .Values.HTTPS_KEYSTORE }}"
+        - name: HTTPS_KEYSTORE_TYPE
+          value: "{{ .Values.HTTPS_KEYSTORE_TYPE }}"
+        - name: HTTPS_NAME
+          value: "{{ .Values.HTTPS_NAME }}"
+        - name: HTTPS_PASSWORD
+          value: "{{ .Values.HTTPS_PASSWORD }}"
+        - name: JGROUPS_ENCRYPT_SECRET
+          value: "{{ .Values.JGROUPS_ENCRYPT_SECRET }}"
+        - name: JGROUPS_ENCRYPT_KEYSTORE_DIR
+          value: /etc/jgroups-encrypt-secret-volume
+        - name: JGROUPS_ENCRYPT_KEYSTORE
+          value: "{{ .Values.JGROUPS_ENCRYPT_KEYSTORE }}"
+        - name: JGROUPS_ENCRYPT_NAME
+          value: "{{ .Values.JGROUPS_ENCRYPT_NAME }}"
+        - name: JGROUPS_ENCRYPT_PASSWORD
+          value: "{{ .Values.JGROUPS_ENCRYPT_PASSWORD }}"
+        - name: JGROUPS_CLUSTER_PASSWORD
+          value: "{{ .Values.JGROUPS_CLUSTER_PASSWORD }}"
+        - name: SSO_ADMIN_USERNAME
+          value: "{{ .Values.SSO_ADMIN_USERNAME }}"
+        - name: SSO_ADMIN_PASSWORD
+          value: "{{ .Values.SSO_ADMIN_PASSWORD }}"
+        - name: SSO_REALM
+          value: "{{ .Values.SSO_REALM }}"
+        - name: SSO_SERVICE_USERNAME
+          value: "{{ .Values.SSO_SERVICE_USERNAME }}"
+        - name: SSO_SERVICE_PASSWORD
+          value: "{{ .Values.SSO_SERVICE_PASSWORD }}"
+        - name: SSO_TRUSTSTORE
+          value: "{{ .Values.SSO_TRUSTSTORE }}"
+        - name: SSO_TRUSTSTORE_DIR
+          value: /etc/sso-secret-volume
+        - name: SSO_TRUSTSTORE_PASSWORD
+          value: "{{ .Values.SSO_TRUSTSTORE_PASSWORD }}"
+        - name: SSO_POSTGRESQL_PORT
+          value: "{{ .Values.SSO_POSTGRESQL_PORT }}"
+        - name: SSO_POSTGRESQL_PORT_5432_TCP
+          value: "{{ .Values.SSO_POSTGRESQL_PORT_5432_TCP }}"
+        - name: SSO_POSTGRESQL_SERVICE_HOST
+          value: "{{ .Values.SSO_POSTGRESQL_SERVICE_HOST }}"
+        - name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
+          value: "{{ .Values.SSO_POSTGRESQL_PORT_5432_TCP_ADDR }}"
+        image: "{{ .Values.APPLICATION_NAME }}"
+        imagePullPolicy: Always
+        livenessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - /opt/eap/bin/livenessProbe.sh
+          initialDelaySeconds: 60
         name: "{{ .Values.APPLICATION_NAME }}"
-      spec:
-        containers:
-        - env:
-          - name: SSO_HOSTNAME
-            value: "{{ .Values.SSO_HOSTNAME }}"
-          - name: DB_SERVICE_PREFIX_MAPPING
-            value: "{{ .Values.APPLICATION_NAME }}-postgresql=DB"
-          - name: DB_JNDI
-            value: "{{ .Values.DB_JNDI }}"
-          - name: DB_USERNAME
-            value: "{{ .Values.DB_USERNAME }}"
-          - name: DB_PASSWORD
-            value: "{{ .Values.DB_PASSWORD }}"
-          - name: DB_DATABASE
-            value: "{{ .Values.DB_DATABASE }}"
-          - name: TX_DATABASE_PREFIX_MAPPING
-            value: "{{ .Values.APPLICATION_NAME }}-postgresql=DB"
-          - name: DB_MIN_POOL_SIZE
-            value: "{{ .Values.DB_MIN_POOL_SIZE }}"
-          - name: DB_MAX_POOL_SIZE
-            value: "{{ .Values.DB_MAX_POOL_SIZE }}"
-          - name: DB_TX_ISOLATION
-            value: "{{ .Values.DB_TX_ISOLATION }}"
-          - name: JGROUPS_PING_PROTOCOL
-            value: openshift.DNS_PING
-          - name: OPENSHIFT_DNS_PING_SERVICE_NAME
-            value: "{{ .Values.APPLICATION_NAME }}-ping"
-          - name: OPENSHIFT_DNS_PING_SERVICE_PORT
-            value: "8888"
-          - name: HTTPS_KEYSTORE_DIR
-            value: /etc/eap-secret-volume
-          - name: HTTPS_KEYSTORE
-            value: "{{ .Values.HTTPS_KEYSTORE }}"
-          - name: HTTPS_KEYSTORE_TYPE
-            value: "{{ .Values.HTTPS_KEYSTORE_TYPE }}"
-          - name: HTTPS_NAME
-            value: "{{ .Values.HTTPS_NAME }}"
-          - name: HTTPS_PASSWORD
-            value: "{{ .Values.HTTPS_PASSWORD }}"
-          - name: JGROUPS_ENCRYPT_SECRET
-            value: "{{ .Values.JGROUPS_ENCRYPT_SECRET }}"
-          - name: JGROUPS_ENCRYPT_KEYSTORE_DIR
-            value: /etc/jgroups-encrypt-secret-volume
-          - name: JGROUPS_ENCRYPT_KEYSTORE
-            value: "{{ .Values.JGROUPS_ENCRYPT_KEYSTORE }}"
-          - name: JGROUPS_ENCRYPT_NAME
-            value: "{{ .Values.JGROUPS_ENCRYPT_NAME }}"
-          - name: JGROUPS_ENCRYPT_PASSWORD
-            value: "{{ .Values.JGROUPS_ENCRYPT_PASSWORD }}"
-          - name: JGROUPS_CLUSTER_PASSWORD
-            value: "{{ .Values.JGROUPS_CLUSTER_PASSWORD }}"
-          - name: SSO_ADMIN_USERNAME
-            value: "{{ .Values.SSO_ADMIN_USERNAME }}"
-          - name: SSO_ADMIN_PASSWORD
-            value: "{{ .Values.SSO_ADMIN_PASSWORD }}"
-          - name: SSO_REALM
-            value: "{{ .Values.SSO_REALM }}"
-          - name: SSO_SERVICE_USERNAME
-            value: "{{ .Values.SSO_SERVICE_USERNAME }}"
-          - name: SSO_SERVICE_PASSWORD
-            value: "{{ .Values.SSO_SERVICE_PASSWORD }}"
-          - name: SSO_TRUSTSTORE
-            value: "{{ .Values.SSO_TRUSTSTORE }}"
-          - name: SSO_TRUSTSTORE_DIR
-            value: /etc/sso-secret-volume
-          - name: SSO_TRUSTSTORE_PASSWORD
-            value: "{{ .Values.SSO_TRUSTSTORE_PASSWORD }}"
-          - name: SSO_POSTGRESQL_PORT
-            value: "{{ .Values.SSO_POSTGRESQL_PORT }}"
-          - name: SSO_POSTGRESQL_PORT_5432_TCP
-            value: "{{ .Values.SSO_POSTGRESQL_PORT_5432_TCP }}"
-          - name: SSO_POSTGRESQL_SERVICE_HOST
-            value: "{{ .Values.SSO_POSTGRESQL_SERVICE_HOST }}"
-          - name: SSO_POSTGRESQL_PORT_5432_TCP_ADDR
-            value: "{{ .Values.SSO_POSTGRESQL_PORT_5432_TCP_ADDR }}"
-          image: "{{ .Values.APPLICATION_NAME }}"
-          imagePullPolicy: Always
-          livenessProbe:
-            exec:
-              command:
-              - /bin/bash
-              - -c
-              - /opt/eap/bin/livenessProbe.sh
-            initialDelaySeconds: 60
-          name: "{{ .Values.APPLICATION_NAME }}"
-          ports:
-          - containerPort: 8778
-            name: jolokia
-            protocol: TCP
-          - containerPort: 8080
-            name: http
-            protocol: TCP
-          - containerPort: 8443
-            name: https
-            protocol: TCP
-          - containerPort: 8888
-            name: ping
-            protocol: TCP
-          readinessProbe:
-            exec:
-              command:
-              - /bin/bash
-              - -c
-              - /opt/eap/bin/readinessProbe.sh
-          resources:
-            limits:
-              memory: "{{ .Values.MEMORY_LIMIT }}"
-          volumeMounts:
-          - mountPath: /etc/eap-secret-volume
-            name: eap-keystore-volume
-            readOnly: true
-          - mountPath: /etc/jgroups-encrypt-secret-volume
-            name: eap-jgroups-keystore-volume
-            readOnly: true
-          - mountPath: /etc/sso-secret-volume
-            name: sso-truststore-volume
-            readOnly: true
-        terminationGracePeriodSeconds: 75
-        volumes:
-        - name: eap-keystore-volume
-          secret:
-            secretName: "{{ .Values.HTTPS_SECRET }}"
-        - name: eap-jgroups-keystore-volume
-          secret:
-            secretName: "{{ .Values.JGROUPS_ENCRYPT_SECRET }}"
-        - name: sso-truststore-volume
-          secret:
-            secretName: "{{ .Values.SSO_TRUSTSTORE_SECRET }}"
-    triggers:
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - "{{ .Values.APPLICATION_NAME }}"
-        from:
-          kind: ImageStreamTag
-          name: sso74-openshift-rhel8:7.4
-          namespace: "{{ .Values.IMAGE_STREAM_NAMESPACE }}"
-      type: ImageChange
-    - type: ConfigChange
+        ports:
+        - containerPort: 8778
+          name: jolokia
+          protocol: TCP
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        - containerPort: 8888
+          name: ping
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - /opt/eap/bin/readinessProbe.sh
+        resources:
+          limits:
+            memory: "{{ .Values.MEMORY_LIMIT }}"
+        volumeMounts:
+        - mountPath: /etc/eap-secret-volume
+          name: eap-keystore-volume
+          readOnly: true
+        - mountPath: /etc/jgroups-encrypt-secret-volume
+          name: eap-jgroups-keystore-volume
+          readOnly: true
+        - mountPath: /etc/sso-secret-volume
+          name: sso-truststore-volume
+          readOnly: true
+      terminationGracePeriodSeconds: 75
+      volumes:
+      - name: eap-keystore-volume
+        secret:
+          secretName: "{{ .Values.HTTPS_SECRET }}"
+      - name: eap-jgroups-keystore-volume
+        secret:
+          secretName: "{{ .Values.JGROUPS_ENCRYPT_SECRET }}"
+      - name: sso-truststore-volume
+        secret:
+          secretName: "{{ .Values.SSO_TRUSTSTORE_SECRET }}"
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - "{{ .Values.APPLICATION_NAME }}"
+      from:
+        kind: ImageStreamTag
+        name: sso74-openshift-rhel8:7.4
+        namespace: "{{ .Values.IMAGE_STREAM_NAMESPACE }}"
+    type: ImageChange
+  - type: ConfigChange
