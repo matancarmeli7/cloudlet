@@ -257,13 +257,4 @@ spec:
         secret:
           secretName: {{ .Values.SSO_TRUSTSTORE_SECRET }}
   triggers:
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - {{ .Values.APPLICATION_NAME }}
-      from:
-        kind: ImageStreamTag
-        name: sso74-openshift-rhel8:7.4
-        namespace: {{ .Values.IMAGE_STREAM_NAMESPACE }}
-    type: ImageChange
   - type: ConfigChange
