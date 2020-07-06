@@ -54,7 +54,7 @@ metadata:
   namespace: {{ .Values.rhsso_namespace }}
 spec:
   type: ExternalName
-  externalName: "{{ .Values.PG_SERVICE_PREFIX }}.svc.cluster.local"
+  externalName: "{{ .Values.pgcluster.PG_SERVICE_PREFIX }}.svc.cluster.local"
   ports:
   - port: 5432
 ---
