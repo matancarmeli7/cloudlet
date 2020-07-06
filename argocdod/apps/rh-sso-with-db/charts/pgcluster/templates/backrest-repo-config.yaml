@@ -8,7 +8,7 @@ data:
 kind: Secret
 metadata:
   labels:
-    pg-cluster: "{{.Values.pg_cluster_name}}"
+    pg-cluster: "{{.Values.PG_CLUSTER_NAME}}"
     pgo-backrest-repo: "true"
   name: "{{.Values.PG_CLUSTER_NAME}}-backrest-repo-config"
   namespace: "{{.Values.PG_NAMESPACE}}"

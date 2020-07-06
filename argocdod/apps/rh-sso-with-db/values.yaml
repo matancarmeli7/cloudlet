@@ -48,3 +48,5 @@ pgcluster:
   PG_DATABASE_NAME: ssodb
   PG_REPLICAS: "2"
   PG_SERVICE_PREFIX: "ssodb.pgo"
+  DB_USERNAME: "myuser"
+  DB_PASSWORD: "password"
