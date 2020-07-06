@@ -226,7 +226,7 @@ objects:
 - apiVersion: v1
   stringData:
     password: ${DB_PASSWORD}
-    username: ${DB_USERNAME}
+    username: primaryuser
   kind: Secret
   metadata:
     labels:
@@ -399,16 +399,14 @@ parameters:
   name: POSTGRESQL_SHARED_BUFFERS
 - description: Database user name
   displayName: Database Username
-  from: user[a-zA-Z0-9]{3}
-  generate: expression
   name: DB_USERNAME
   required: true
+  value: admin
 - description: Database user password
   displayName: Database Password
-  from: '[a-zA-Z0-9]{32}'
-  generate: expression
   name: DB_PASSWORD
   required: true
+  value: Aa123456
 - description: Size of persistent storage for database volume.
   displayName: Database Volume Capacity
   name: VOLUME_CAPACITY
