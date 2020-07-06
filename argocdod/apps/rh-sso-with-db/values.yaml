@@ -22,6 +22,7 @@ SSO_POSTGRESQL_PORT: tcp://ssodb.pgo.svc.cluster.local:5432
 SSO_POSTGRESQL_PORT_5432_TCP: tcp://ssodb.pgo.svc.cluster.local:5432
 SSO_POSTGRESQL_SERVICE_HOST: ssodb.pgo.svc.cluster.local
 SSO_POSTGRESQL_PORT_5432_TCP_ADDR: ssodb.pgo.svc.cluster.local
+HOSTNAME_HTTP: ""
 
 HTTPS_SECRET: sso-app-secret 
 HTTPS_KEYSTORE: keystore.jks
