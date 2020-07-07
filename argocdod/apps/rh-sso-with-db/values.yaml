@@ -9,8 +9,6 @@ SSO_HOSTNAME: ""
 JGROUPS_CLUSTER_PASSWORD: "Aa123456"
 DB_JNDI: "java:jboss/datasources/KeycloakDS"
 DB_DATABASE: "ssodb"
-DB_USERNAME: "myuser"
-DB_PASSWORD: "password"
 VOLUME_CAPACITY: "1Gi"
 SSO_ADMIN_USERNAME: "admin"
 SSO_ADMIN_PASSWORD: "Aa123456"
@@ -48,5 +46,5 @@ pgcluster:
   PG_DATABASE_NAME: ssodb
   PG_REPLICAS: "2"
   PG_SERVICE_PREFIX: "ssodb.pgo"
-  DB_USERNAME: "myuser"
-  DB_PASSWORD: "password"
+  DB_USERNAME: myuser
+  DB_PASSWORD: password

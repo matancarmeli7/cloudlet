@@ -138,9 +138,9 @@ spec:
         - name: DB_JNDI
           value: {{ .Values.DB_JNDI }}
         - name: DB_USERNAME
-          value: {{ .Values.DB_USERNAME }}
+          value: {{ .Values.pgcluster.DB_USERNAME }}
         - name: DB_PASSWORD
-          value: {{ .Values.DB_PASSWORD }}
+          value: {{ .Values.pgcluster.DB_PASSWORD }}
         - name: DB_DATABASE
           value: {{ .Values.DB_DATABASE }}
         - name: TX_DATABASE_PREFIX_MAPPING
