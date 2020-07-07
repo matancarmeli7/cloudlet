@@ -73,7 +73,7 @@ opsmanagercr:
   version: latest
   appdb:
     members: 3
-    persistent: true
+    persistent: false
     podSpec:
       persistence:
         multiple:
