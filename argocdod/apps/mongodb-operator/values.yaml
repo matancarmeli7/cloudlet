@@ -73,19 +73,7 @@ opsmanagercr:
   version: latest
   appdb:
     members: 3
-    persistent: false
-    podSpec:
-      persistence:
-        multiple:
-          data:
-            storage: "16G"
-            storageClass: "managed-premium"
-          journal:
-            storage: "1G"
-            storageClass: "managed-premium"
-          logs:
-            storage: "3G"
-            storageClass: "managed-premium"
+    persistent: true
   mms:
     ignoreInitialUiSetup: "true"
     fromEmailAddr: "cloudlet@cloudlet.com"
