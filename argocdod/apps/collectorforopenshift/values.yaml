@@ -1,5 +1,5 @@
 image:
-  repository: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/collectorforopenshift
+  repository: docker.io/meshistern/collectorforopenshift
 #  repository: docker.io/outcoldsolutions/collectorforopenshift
   tag: 5.14.284
 configmap:
