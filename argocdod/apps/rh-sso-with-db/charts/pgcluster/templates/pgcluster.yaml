@@ -75,9 +75,9 @@ spec:
   replicas: "{{.PG_REPLICAS}}"
   rootsecretname: "{{.PG_CLUSTER_NAME}}-postgres-secret"
   tls:
-    caSecret: "{{.cluster_name}}-postgresql-ca"
+    caSecret: "{{.PG_CLUSTER_NAME}}-postgresql-ca"
     replicationTLSSecret: ""
-    tlsSecret: "{{.cluster_name}}-hacluster-tls-keypair"
+    tlsSecret: "{{.PG_CLUSTER_NAME}}-hacluster-tls-keypair"
   secretfrom: ''
   status: ''
   strategy: '1'
