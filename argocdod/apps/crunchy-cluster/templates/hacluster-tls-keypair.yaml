@@ -5,7 +5,7 @@ data:
 kind: Secret
 metadata:
   creationTimestamp: "2020-07-18T06:44:16Z"
-  name: hacluster-tls-keypair
+  name: "{{.Values.cluster_name}}-hacluster-tls-keypair"
   namespace: pgo
   resourceVersion: "6683180"
   selfLink: /api/v1/namespaces/pgo/secrets/hacluster-tls-keypair
