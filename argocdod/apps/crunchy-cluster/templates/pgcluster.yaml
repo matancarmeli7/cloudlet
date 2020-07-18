@@ -74,6 +74,10 @@ spec:
   primarysecretname: "{{.cluster_name}}-primaryuser-secret"
   replicas: "{{.replicas}}"
   rootsecretname: "{{.cluster_name}}-postgres-secret"
+  tls:
+    caSecret: "{{.caSecret}}"
+    replicationTLSSecret: ""
+    tlsSecret: "{{.tlsSecret}}"
   secretfrom: ''
   status: ''
   strategy: '1'
