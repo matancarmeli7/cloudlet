@@ -9,5 +9,3 @@ database_name: testdb
 replicas: "2"
 username: myuser
 password: password
-caSecret: postgresql-ca
-tlsSecret: hacluster-tls-keypair
