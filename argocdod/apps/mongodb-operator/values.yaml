@@ -30,7 +30,7 @@ database:
   name: enterprise-database
 
 opsManager:
-  name: mongodb-enterprise-ops-manager
+  name: opsmgr
 
 initOpsManager:
   name: mongodb-enterprise-init-ops-manager
