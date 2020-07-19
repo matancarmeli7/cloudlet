@@ -1,11 +1,14 @@
-cluster_name: "testdb"
-namespace: "pgo"
-pgo_version: 4.3.0
-storage_class: managed-premium
-storage_size: 1G
-image_name: crunchy-postgres-ha
-image_tag: centos7-12.2-4.3.0
-database_name: testdb
-replicas: "2"
-username: myuser
-password: password
+# Change the following according to your application
+
+cluster_name: mycluster # Replica set name
+storage_size: 1G # DB storage size request
+database_name: mydb # Database name used by your app
+replicas: 2 # Replicas (secondaries). 2 recommnded.
+username: myuser # DBAdministrator user name
+password: password # DB Administrator password
+
+namespace: pgo # Do not change
+pgo_version: 4.3.0 # Do not change
+storage_class: managed-premium # Do not change
+image_name: crunchy-postgres-ha # Do not change
+image_tag: centos7-12.2-4.3.0 # Do not change
