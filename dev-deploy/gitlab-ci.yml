@@ -1,0 +1,20 @@
+variables:
+  REGISTRY_USERNAME: admin
+  REGISTRY_PASSWORD: redhat
+  REGISTRY_SERVER: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000
+
+container:
+  stage: build
+  image: tomkukral/buildah:0.19
+  before_script:
+    - podman version
+    - buildah version
+    - podman login -u "${REGISTRY_USERNAME}" -p "${REGISTRY_PASSWORD}" --tls-verify=false "${REGISTRY_SERVER}"
+    
+  script:
+    - cd /builds/cloudlet/dev-deploy
+    - chmod +x ./build.sh 
+    - ./build.sh $CI_JOB_ID $REGISTRY_SERVER
+    
+  after_script:
+    - podman logout "${REGISTRY_SERVER}"
