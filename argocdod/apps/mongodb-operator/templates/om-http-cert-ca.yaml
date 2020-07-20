@@ -4,4 +4,4 @@ data:
 kind: Secret
 metadata:
   namespace: {{ .Values.namespace }}
-  name: om-http-cert
+  name: om-http-cert-ca
