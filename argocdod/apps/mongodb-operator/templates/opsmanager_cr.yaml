@@ -19,6 +19,7 @@ spec:
     persistent: {{ .Values.opsmanagercr.appdb.persistent }}
     security:
       tls:
+        ca: appdb-ca
         secretRef:
           name: appdb-certs # Name of the Secret object
   configuration:
