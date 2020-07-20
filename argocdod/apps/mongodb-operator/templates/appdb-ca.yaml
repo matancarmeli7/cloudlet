@@ -5,5 +5,5 @@ data:
     CERTIFICATE-----\r\n"
 kind: ConfigMap
 metadata:
-  creationTimestamp: null
+  namespace: {{ .Values.namespace }}
   name: appdb-ca
