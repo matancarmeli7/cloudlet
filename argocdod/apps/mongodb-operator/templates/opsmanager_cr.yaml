@@ -45,7 +45,7 @@ spec:
       template:
         spec:
           containers:
-            - name: mongodb-ops-manager
+            - name: opsmanager
               volumeMounts:
                 - name: mongodb-versions
                   # this is the directory in each Pod where all MongoDB
