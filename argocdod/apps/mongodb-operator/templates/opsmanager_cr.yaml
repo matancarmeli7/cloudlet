@@ -12,6 +12,8 @@ spec:
     tls:
       secretRef:
         name: om-http-cert
+  externalConnectivity:
+    type: LoadBalancer
   applicationDatabase:
     members: {{ .Values.opsmanagercr.appdb.members }}
     persistent: {{ .Values.opsmanagercr.appdb.persistent }}
