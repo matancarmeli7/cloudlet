@@ -8,13 +8,17 @@ spec:
   replicas: {{ .Values.opsmanagercr.replicas }}
   version: {{ .Values.opsmanagercr.version }}
   adminCredentials: opsmanageradmin
+  security:
+    tls:
+      secretRef:
+        name: om-http-cert
   applicationDatabase:
     members: {{ .Values.opsmanagercr.appdb.members }}
     persistent: {{ .Values.opsmanagercr.appdb.persistent }}
     security:
       tls:
         secretRef:
-          name: "appdb-certs" # Name of the Secret object
+          name: appdb-certs # Name of the Secret object
   configuration:
     automation.versions.source: local
     mms.ignoreInitialUiSetup: "{{ .Values.opsmanagercr.mms.ignoreInitialUiSetup }}"
