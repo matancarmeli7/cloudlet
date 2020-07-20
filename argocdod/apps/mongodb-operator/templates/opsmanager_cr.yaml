@@ -17,11 +17,11 @@ spec:
   applicationDatabase:
     members: {{ .Values.opsmanagercr.appdb.members }}
     persistent: {{ .Values.opsmanagercr.appdb.persistent }}
-    security:
-      tls:
-        ca: appdb-ca
-        secretRef:
-          name: appdb-certs # Name of the Secret object
+    #security:
+    #  tls:
+    #    ca: appdb-ca
+    #    secretRef:
+    #      name: appdb-certs # Name of the Secret object
   configuration:
     automation.versions.source: local
     mms.ignoreInitialUiSetup: "{{ .Values.opsmanagercr.mms.ignoreInitialUiSetup }}"
