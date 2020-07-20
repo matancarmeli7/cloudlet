@@ -1,0 +1,21 @@
+image:
+  repository: quay.io/amitai333/sampleapp
+  tag: latest
+
+namespace: rh-sso
+APPLICATION_NAME: sampleapp
+
+# DB VARS
+pgcluster:
+  PG_CLUSTER_NAME: "sampleapp"
+  PG_NAMESPACE: "pgo"
+  PG_PGO_VERSION: 4.3.0
+  PG_STORAGE_CLASS: managed-premium
+  PG_STORAGE_SIZE: 1G
+  PG_IMAGE_NAME: crunchy-postgres-ha
+  PG_IMAGE_TAG: centos7-12.2-4.3.0
+  PG_DATABASE_NAME: sampleapp
+  PG_REPLICAS: "2"
+  PG_SERVICE_PREFIX: "sampleapp.pgo"
+  DB_USERNAME: myuser
+  DB_PASSWORD: password

@@ -1,0 +1,91 @@
+apiVersion: crunchydata.com/v1
+kind: Pgcluster
+{{- with .Values }}
+metadata:
+  labels:
+    autofail: 'true'
+    crunchy-pgbadger: 'false'
+    crunchy-pgha-scope: "{{.PG_CLUSTER_NAME}}"
+    crunchy_collect: 'false'
+    current-primary: "{{.PG_CLUSTER_NAME}}"
+    deployment-name: "{{.PG_CLUSTER_NAME}}"
+    name: "{{.PG_CLUSTER_NAME}}"
+    pg-cluster: "{{.PG_CLUSTER_NAME}}"
+    pg-pod-anti-affinity: ''
+    pgo-backrest: 'true'
+    pgo-version: "{{.PG_PGO_VERSION}}"
+    primary: 'true'
+  annotations:
+    current-primary: "{{.PG_CLUSTER_NAME}}"
+  name: "{{.PG_CLUSTER_NAME}}"
+  namespace: "{{.PG_NAMESPACE}}"
+spec:
+  ArchiveStorage:
+    accessmode: ''
+    matchLabels: ''
+    name: ''
+    size: ''
+    storageclass: "{{.PG_STORAGE_CLASS}}"
+    storagetype: dynamic
+    supplementalgroups: ''
+  BackrestStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ''
+    name: ''
+    size: 1G
+    storageclass: "{{.PG_STORAGE_CLASS}}"
+    storagetype: dynamic
+    supplementalgroups: ''
+  ContainerResources:
+    limitscpu: ''
+    limitsmemory: ''
+    requestscpu: ''
+    requestsmemory: ''
+  PrimaryStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ''
+    name: "{{.PG_CLUSTER_NAME}}"
+    size: "{{.PG_STORAGE_SIZE}}"
+    storageclass: "{{.PG_STORAGE_CLASS}}"
+    storagetype: dynamic
+    supplementalgroups: ''
+  ReplicaStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ''
+    name: ''
+    size: "{{.PG_STORAGE_SIZE}}"
+    storageclass: "{{.PG_STORAGE_CLASS}}"
+    storagetype: dynamic
+    supplementalgroups: ''
+  backuppath: ''
+  backuppvcname: ''
+  ccpimage: "{{.PG_IMAGE_NAME}}"
+  ccpimagetag: "{{.PG_IMAGE_TAG}}"
+  clustername: "{{.PG_CLUSTER_NAME}}"
+  customconfig: ''
+  database: "{{.PG_DATABASE_NAME}}"
+  exporterport: '9187'
+  name: "{{.PG_CLUSTER_NAME}}"
+  namespace: "{{.PG_NAMESPACE}}"
+  nodename: ''
+  policies: ''
+  port: '5432'
+  primaryhost: "{{.PG_CLUSTER_NAME}}"
+  primarysecretname: "{{.PG_CLUSTER_NAME}}-primaryuser-secret"
+  replicas: "{{.PG_REPLICAS}}"
+  rootsecretname: "{{.PG_CLUSTER_NAME}}-postgres-secret"
+  tls:
+    caSecret: "{{.PG_CLUSTER_NAME}}-postgresql-ca"
+    replicationTLSSecret: ""
+    tlsSecret: "{{.PG_CLUSTER_NAME}}-hacluster-tls-keypair"
+  secretfrom: ''
+  status: ''
+  strategy: '1'
+  user: "{{.DB_USERNAME}}"
+  userlabels:
+    crunchy-pgbadger: 'false'
+    crunchy_collect: 'false'
+    pgo-backrest: 'true'
+    pgo-version: "{{.PG_PGO_VERSION}}"
+  usersecretname: "{{.PG_CLUSTER_NAME}}-myuser-secret"
+{{- end }}

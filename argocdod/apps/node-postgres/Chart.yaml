@@ -1,0 +1,9 @@
+apiVersion: v2
+appVersion: "1.0"
+description: "Chart to deploy Sample node.js app with postgres in cluster"
+name: node-with-postgres
+version: 1.0.0
+dependencies:
+  - name: pgcluster
+    version: 0.1.0
+    repository: "@pgcluster"
