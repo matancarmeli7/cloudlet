@@ -2,7 +2,7 @@ image:
   repository: quay.io/amitai333/sampleapp
   tag: latest
 
-namespace: rh-sso
+namespace: node-postgres
 APPLICATION_NAME: sampleapp
 
 # DB VARS
