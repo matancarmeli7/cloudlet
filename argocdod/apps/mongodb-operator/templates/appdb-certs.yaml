@@ -6,3 +6,4 @@ data:
 kind: Secret
 metadata:
   name: appdb-certs
+  namespace: {{ .Values.namespace }}
