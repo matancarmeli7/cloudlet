@@ -8,10 +8,10 @@ spec:
   replicas: {{ .Values.opsmanagercr.replicas }}
   version: {{ .Values.opsmanagercr.version }}
   adminCredentials: opsmanageradmin
-  security:
-    tls:
-      secretRef:
-        name: om-http-cert
+  #security:
+  #  tls:
+  #    secretRef:
+  #      name: om-http-cert
   externalConnectivity:
     type: LoadBalancer
   applicationDatabase:
