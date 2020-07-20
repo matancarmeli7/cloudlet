@@ -2,7 +2,7 @@
 apiVersion: mongodb.com/v1
 kind: MongoDBOpsManager
 metadata:
-  name: opsmanager
+  name: mongodb-opsmanager
   namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.opsmanagercr.replicas }}
