@@ -60,7 +60,7 @@ spec:
               value: "600000"
 
             - name: ADMIN_PASSWORD
-              value: {{ .Values.credentials.password | quote }}
+              value: {{ .Values.credentials.password }}
 
           command: ["bash"]
           args:
