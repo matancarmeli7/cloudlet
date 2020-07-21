@@ -1,0 +1,156 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "percona.fullname" . }}
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    app: {{ template "percona.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  serviceName: {{ template "percona.fullname" . }}
+  replicas: 1
+  updateStrategy: 
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: {{ template "percona.fullname" . }}
+      component: pmm
+  template:
+    metadata:
+      labels:
+        app: {{ template "percona.fullname" . }}
+        component: pmm
+    spec:
+      securityContext:
+        supplementalGroups: [1000]
+{{ if eq .Values.platform "kubernetes" }}
+        fsGroup: 1000
+{{ end }}
+      containers:
+        - name: {{ template "percona.fullname" . }}
+          image: "{{ .Values.imageRepo }}:{{ .Values.imageTag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+
+          ports:
+            - name: https
+              protocol: TCP
+              containerPort: 443
+          volumeMounts:
+            - name: pmmdata
+              mountPath: /pmmdata
+{{ if .Values.prometheus.configMap.name }}              
+            - name: prometheus-configmap
+              mountPath: /srv/prometheus/prometheus.base.yml
+              subPath: prometheus.base.yml
+{{ end }}            
+
+          env:
+            - name: DISABLE_UPDATES
+              value: "true"
+
+            - name: METRICS_RESOLUTION
+              value: {{ .Values.metric.resolution | quote }}
+
+            - name: METRICS_RETENTION
+              value: {{ .Values.metric.retention | quote }}
+
+            - name: QUERIES_RETENTION
+              value: {{ .Values.queries.retention | quote }}
+
+            - name: METRICS_MEMORY
+              value: "600000"
+
+{{ if .Values.credentials.password }}
+            - name: ADMIN_PASSWORD
+              value: {{ .Values.credentials.password | quote }}
+{{ end }}
+
+          command: ["bash"]
+          args:
+            - "-c"
+            - |
+              set -ex
+
+
+              if [[ $EUID != 1000 ]]; then
+                  # logrotate requires UID in /etc/passwd
+                  sed -e "s^x:1000:^x:$EUID:^" /etc/passwd > /tmp/passwd
+                  cat /tmp/passwd > /etc/passwd
+                  rm -rf /tmp/passwd
+              fi
+              if [ ! -f /pmmdata/app-init ]; then
+                  # the PV hasn't been initialized, so copy over default
+                  # pmm-server directories before symlinking
+                  mkdir -p /pmmdata
+
+                  rsync -a --owner=$EUID /srv/prometheus/data/  /pmmdata/prometheus-data/
+                  rsync -a --owner=$EUID /srv/prometheus/rules/ /pmmdata/prometheus-rules/
+                  rsync -a --owner=$EUID /srv/postgres/         /pmmdata/postgres/
+                  rsync -a --owner=$EUID /srv/grafana/          /pmmdata/grafana/
+                  rsync -a --owner=$EUID /srv/clickhouse/       /pmmdata/clickhouse/
+
+                  # initialize the PV and then mark it complete
+                  touch /pmmdata/app-init
+              fi
+
+              # remove the default directories so we can symlink the
+              # existing PV directories
+              rm -Rf /srv/prometheus/data
+              rm -Rf /srv/prometheus/rules
+              rm -Rf /srv/postgres
+              rm -Rf /srv/grafana
+              rm -Rf /srv/clickhouse
+
+              # symlink pmm-server paths to point to our PV
+              ln -s /pmmdata/prometheus-data  /srv/prometheus/data
+              ln -s /pmmdata/prometheus-rules /srv/prometheus/rules
+              ln -s /pmmdata/postgres         /srv/
+              ln -s /pmmdata/grafana          /srv/
+              ln -s /pmmdata/clickhouse       /srv/
+
+              sed -ri "s/(^log_directory = ).*/\1\'\/srv\/logs\'/g" /pmmdata/postgres/postgresql.conf
+              chmod 700 /pmmdata/postgres
+
+{{ if and (eq .Values.platform "openshift") (eq .Values.service.type "LoadBalancer") }}
+              # http2 is not supported in openshift now
+              sed -e "s^ http2^^" /etc/nginx/conf.d/pmm.conf > /tmp/nginx
+              cat /tmp/nginx > /etc/nginx/conf.d/pmm.conf
+              rm -rf /tmp/nginx
+{{ end }}
+
+{{ if .Values.credentials.password }}
+              ln -s /srv/grafana /usr/share/grafana/data
+              grafana-cli --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini admin reset-admin-password "$ADMIN_PASSWORD"
+{{ end }}
+
+              bash -x /opt/entrypoint.sh
+
+{{ if .Values.prometheus.configMap.name }}              
+      volumes:
+      - name: prometheus-configmap
+        configMap:
+          name: {{ .Values.prometheus.configMap.name }}
+{{ end }}
+
+      {{- if .Values.persistence.enabled }}
+  volumeClaimTemplates:
+  - metadata:
+      name: pmmdata
+    spec:
+      accessModes: [ {{ .Values.persistence.accessMode | quote }} ]
+      {{ if .Values.persistence.storageClassName }}
+      storageClassName: {{ .Values.persistence.storageClassName }}
+      {{ end }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size }}
+      {{- else }}
+      volumes:
+      - name: pmmdata
+        hostPath:
+          path: "/mnt/disks/ssd0"
+      {{- end -}}
