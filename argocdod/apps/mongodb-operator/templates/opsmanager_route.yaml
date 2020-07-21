@@ -2,7 +2,7 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: opsmanager
+  name: opsmanager-https
   namespace: {{ .Values.namespace }}
   labels:
     app: opsmanager-svc
@@ -16,4 +16,20 @@ spec:
   tls:
     termination: passthrough
     insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: opsmanager-http
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: opsmanager-svc
+spec:
+  to:
+    kind: Service
+    name: opsmanager-svc-ext
+    weight: 100
+  port:
+    targetPort: 8080
   wildcardPolicy: None
