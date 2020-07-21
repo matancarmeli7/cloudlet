@@ -3,3 +3,7 @@ appVersion: "1.0"
 description: "Mongodb Replica set operator"
 name: percona-mongo-operator
 version: 1.0.0
+dependencies:
+  - name: pmm-server
+    version: 2.7.0
+    repository: "@pmm-server"
