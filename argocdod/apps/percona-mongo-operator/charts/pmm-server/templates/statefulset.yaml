@@ -58,7 +58,10 @@ spec:
 
             - name: METRICS_MEMORY
               value: "600000"
-        
+
+            - name: ADMIN_PASSWORD
+              value: {{ .Values.credentials.password | quote }}
+
           command: ["bash"]
           args:
             - "-c"

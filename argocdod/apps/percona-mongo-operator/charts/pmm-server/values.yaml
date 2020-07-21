@@ -27,6 +27,10 @@ persistence:
   accessMode: ReadWriteOnce
   size: 8Gi
 
+## set credentials
+credentials:
+  password: "admin"
+
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
