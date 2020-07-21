@@ -16,7 +16,7 @@ spec:
   secrets:
     users: "{{ .Values.cluster_name }}-secrets"
   pmm:
-    enabled: false
+    enabled: true
     image: percona/percona-server-mongodb-operator:1.4.0-pmm
     serverHost: monitoring-service
   replsets:
