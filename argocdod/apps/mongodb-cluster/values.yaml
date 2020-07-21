@@ -1,4 +1,5 @@
 namespace: mongodb
+operator_namespace: mongodb
 name: myreplicaset
 members: 3
 version: 4.2.2-ent

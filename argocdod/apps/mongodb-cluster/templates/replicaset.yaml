@@ -2,7 +2,7 @@
 apiVersion: mongodb.com/v1
 kind: MongoDB
 metadata:
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.operator_namespace }}
   name: {{ .Values.name }}
 
 spec:
