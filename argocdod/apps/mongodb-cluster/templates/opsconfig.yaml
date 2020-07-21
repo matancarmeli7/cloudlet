@@ -3,5 +3,5 @@ data:
   baseUrl: http://opsmanager-svc.mongodb.svc.cluster.local:8080
 kind: ConfigMap
 metadata:
-  namespace: mongodb
+  namespace: {{ .Values.namespace }}
   name: opsconfig
