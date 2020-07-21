@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ template "percona.fullname" . }}
+  name: monitoring
   namespace: "{{ .Values.namespace }}"
   labels:
-    app: {{ template "percona.fullname" . }}
+    app: monitoring
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
-  serviceName: {{ template "percona.fullname" . }}
+  serviceName: monitoring
   replicas: 1
   updateStrategy: 
     type: RollingUpdate
   selector:
     matchLabels:
-      app: {{ template "percona.fullname" . }}
+      app: monitoring
       component: pmm
   template:
     metadata:
       labels:
-        app: {{ template "percona.fullname" . }}
+        app: monitoring
         component: pmm
     spec:
       securityContext:
@@ -29,7 +29,7 @@ spec:
         fsGroup: 1000
 {{ end }}
       containers:
-        - name: {{ template "percona.fullname" . }}
+        - name: monitoring
           image: "{{ .Values.imageRepo }}:{{ .Values.imageTag }}"
           imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
           resources:

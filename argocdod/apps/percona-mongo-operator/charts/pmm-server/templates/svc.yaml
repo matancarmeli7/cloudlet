@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: "{{ template "percona.fullname" . }}-service"
+  name: "monitoring-service"
   namespace: "{{ .Values.namespace }}"
   labels:
     component: pmm
-    app: {{ template "percona.fullname" . }}
+    app: monitoring
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
@@ -17,6 +17,6 @@ spec:
       targetPort: 443
   selector:
     component: pmm
-    app: {{ template "percona.fullname" . }}
+    app: monitoring
   type: {{ .Values.service.type | quote }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
