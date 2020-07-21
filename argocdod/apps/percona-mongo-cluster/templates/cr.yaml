@@ -100,8 +100,8 @@ spec:
 #        path: /data
 #        type: Directory
       persistentVolumeClaim:
-#        storageClassName: standard
-#        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: filestorage
+        accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
             storage: 3Gi
