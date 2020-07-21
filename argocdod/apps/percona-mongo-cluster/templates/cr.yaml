@@ -101,7 +101,7 @@ spec:
 #        type: Directory
       persistentVolumeClaim:
         storageClassName: filestorage
-        accessModes: [ "ReadWriteMany" ]
+        accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
             storage: 3Gi
