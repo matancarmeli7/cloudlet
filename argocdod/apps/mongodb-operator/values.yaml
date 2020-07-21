@@ -74,7 +74,7 @@ opsmanagercr:
   appdb:
     members: 3
     persistent: false
-    podSpec:
+    podSpec: # Not Used
       persistence:
         multiple:
           data:

@@ -1,0 +1,24 @@
+---
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ .Values.name }}
+
+spec:
+
+  members: {{ .Values.members }}
+
+  version: {{ .Values.version }}
+
+  opsManager:
+    configMapRef:
+
+      name: opsconfig
+
+            # Must match metadata.name in ConfigMap file
+
+  credentials: credentials
+
+  type: ReplicaSet
+  persistent: {{ .Values.persistent }}
