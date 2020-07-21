@@ -14,7 +14,7 @@ spec:
   allowUnsafeConfigurations: false
 #  updateStrategy: RollingUpdate
   secrets:
-    users: {{ .Values.cluster_name }}-secrets
+    users: "{{ .Values.cluster_name }}-secrets"
   pmm:
     enabled: false
     image: percona/percona-server-mongodb-operator:1.4.0-pmm
@@ -112,7 +112,7 @@ spec:
     security:
       redactClientLogData: false
       enableEncryption: true
-      encryptionKeySecret: {{ .Values.cluster_name }}-mongodb-encryption-key
+      encryptionKeySecret: "{{ .Values.cluster_name }}-mongodb-encryption-key"
       encryptionCipherMode: AES256-CBC
     setParameter:
       ttlMonitorSleepSecs: 60
