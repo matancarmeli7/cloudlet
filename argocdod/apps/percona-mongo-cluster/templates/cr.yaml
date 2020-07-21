@@ -21,7 +21,7 @@ spec:
     serverHost: monitoring-service
   replsets:
   - name: rs0
-    size: 3
+    size: {{ .Values.repl_size }}
     affinity:
       antiAffinityTopologyKey: "kubernetes.io/hostname"
 #      advanced:
