@@ -23,7 +23,7 @@ spec:
     #    secretRef:
     #      name: appdb-certs # Name of the Secret object
   configuration:
-    automation.versions.source: local
+    automation.versions.source: {{ .Values.source }}
     mms.ignoreInitialUiSetup: "{{ .Values.opsmanagercr.mms.ignoreInitialUiSetup }}"
     mms.fromEmailAddr: "{{ .Values.opsmanagercr.mms.fromEmailAddr }}"
     mms.replyToEmailAddr: "{{ .Values.opsmanagercr.mms.replyToEmailAddr }}"

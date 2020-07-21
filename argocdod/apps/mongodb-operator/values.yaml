@@ -7,6 +7,9 @@ namespace: mongodb
 # OpenShift manages security context on its own
 managedSecurityContext: true
 
+# mongodb,hybrid,local
+source: hybrid
+
 operator:
   # Execution environment for the operator, dev or prod. Use dev for more verbose logging
   env: prod
