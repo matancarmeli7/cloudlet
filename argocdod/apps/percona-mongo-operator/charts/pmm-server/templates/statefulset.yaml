@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: monitoring
-  namespace: "{{ .Values.namespace }}"
+  namespace: "psmdb"
   labels:
     app: monitoring
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
@@ -38,37 +38,27 @@ spec:
           ports:
             - name: https
               protocol: TCP
-              containerPort: 443
+              containerPort: 8443
           volumeMounts:
             - name: pmmdata
               mountPath: /pmmdata
-{{ if .Values.prometheus.configMap.name }}              
-            - name: prometheus-configmap
-              mountPath: /srv/prometheus/prometheus.base.yml
-              subPath: prometheus.base.yml
-{{ end }}            
 
           env:
             - name: DISABLE_UPDATES
               value: "true"
 
             - name: METRICS_RESOLUTION
-              value: {{ .Values.metric.resolution | quote }}
+              value: "1s"
 
             - name: METRICS_RETENTION
-              value: {{ .Values.metric.retention | quote }}
+              value: "720h"
 
             - name: QUERIES_RETENTION
-              value: {{ .Values.queries.retention | quote }}
+              value: "8"
 
             - name: METRICS_MEMORY
               value: "600000"
-
-{{ if .Values.credentials.password }}
-            - name: ADMIN_PASSWORD
-              value: {{ .Values.credentials.password | quote }}
-{{ end }}
-
+        
           command: ["bash"]
           args:
             - "-c"
@@ -87,11 +77,10 @@ spec:
                   # pmm-server directories before symlinking
                   mkdir -p /pmmdata
 
-                  rsync -a --owner=$EUID /srv/prometheus/data/  /pmmdata/prometheus-data/
-                  rsync -a --owner=$EUID /srv/prometheus/rules/ /pmmdata/prometheus-rules/
-                  rsync -a --owner=$EUID /srv/postgres/         /pmmdata/postgres/
-                  rsync -a --owner=$EUID /srv/grafana/          /pmmdata/grafana/
-                  rsync -a --owner=$EUID /srv/clickhouse/       /pmmdata/clickhouse/
+                  rsync -a --owner=$EUID /opt/prometheus/data/ /pmmdata/prometheus-data/
+                  rsync -a --owner=$EUID /opt/consul-data/ /pmmdata/consul-data/
+                  rsync -a --owner=$EUID /var/lib/mysql/ /pmmdata/mysql/
+                  rsync -a --owner=$EUID /var/lib/grafana/ /pmmdata/grafana/
 
                   # initialize the PV and then mark it complete
                   touch /pmmdata/app-init
@@ -99,52 +88,31 @@ spec:
 
               # remove the default directories so we can symlink the
               # existing PV directories
-              rm -Rf /srv/prometheus/data
-              rm -Rf /srv/prometheus/rules
-              rm -Rf /srv/postgres
-              rm -Rf /srv/grafana
-              rm -Rf /srv/clickhouse
+              rm -Rf /opt/prometheus/data
+              rm -Rf /opt/consul-data
+              rm -Rf /var/lib/mysql
+              rm -Rf /var/lib/grafana
 
               # symlink pmm-server paths to point to our PV
-              ln -s /pmmdata/prometheus-data  /srv/prometheus/data
-              ln -s /pmmdata/prometheus-rules /srv/prometheus/rules
-              ln -s /pmmdata/postgres         /srv/
-              ln -s /pmmdata/grafana          /srv/
-              ln -s /pmmdata/clickhouse       /srv/
+              ln -s /pmmdata/prometheus-data /opt/prometheus/data
+              ln -s /pmmdata/consul-data /opt/
+              ln -s /pmmdata/mysql /var/lib/
+              ln -s /pmmdata/grafana /var/lib/
 
-              sed -ri "s/(^log_directory = ).*/\1\'\/srv\/logs\'/g" /pmmdata/postgres/postgresql.conf
-              chmod 700 /pmmdata/postgres
-
-{{ if and (eq .Values.platform "openshift") (eq .Values.service.type "LoadBalancer") }}
+{{ if eq .Values.platform "openshift" }}
               # http2 is not supported in openshift now
               sed -e "s^ http2^^" /etc/nginx/conf.d/pmm.conf > /tmp/nginx
               cat /tmp/nginx > /etc/nginx/conf.d/pmm.conf
               rm -rf /tmp/nginx
 {{ end }}
 
-{{ if .Values.credentials.password }}
-              ln -s /srv/grafana /usr/share/grafana/data
-              grafana-cli --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini admin reset-admin-password "$ADMIN_PASSWORD"
-{{ end }}
-
-              bash -x /opt/entrypoint.sh
-
-{{ if .Values.prometheus.configMap.name }}              
-      volumes:
-      - name: prometheus-configmap
-        configMap:
-          name: {{ .Values.prometheus.configMap.name }}
-{{ end }}
-
+              /opt/entrypoint.sh
       {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
   - metadata:
       name: pmmdata
     spec:
       accessModes: [ {{ .Values.persistence.accessMode | quote }} ]
-      {{ if .Values.persistence.storageClassName }}
-      storageClassName: {{ .Values.persistence.storageClassName }}
-      {{ end }}
       resources:
         requests:
           storage: {{ .Values.persistence.size }}

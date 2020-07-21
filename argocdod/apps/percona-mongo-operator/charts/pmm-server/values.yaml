@@ -1,9 +1,8 @@
 ## percona image version
 ## ref: https://hub.docker.com/r/library/percona/tags/
 ##
-imageRepo: "percona/pmm-server"
-imageTag: "2.7.0"
-namespace: "psmdb"
+imageRepo: "perconalab/pmm-server-openshift"
+imageTag: "1.17.3"
 
 ## A choice between "kubernetes" and "openshift"
 platform: "openshift"
@@ -28,17 +27,6 @@ persistence:
   accessMode: ReadWriteOnce
   size: 8Gi
 
-## set credentials
-credentials:
-  password: "admin"
-
-## set metric collection settings
-metric:
-  resolution: 1s
-  retention: 720h
-queries:
-  retention: 8
-
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
@@ -47,11 +35,4 @@ resources:
     memory: 1Gi
     cpu: 0.5
 
-service:
-  type: LoadBalancer
-  loadBalancerIP: ""
-
-## Mount prometheus scrape config https://www.percona.com/blog/2020/03/23/extending-pmm-prometheus-configuration/
-prometheus:
-  configMap:
-    name: ""
+globalIP: ""

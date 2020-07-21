@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: "monitoring-service"
-  namespace: "{{ .Values.namespace }}"
+  namespace: "psmdb"
   labels:
     component: pmm
     app: monitoring
@@ -14,9 +14,9 @@ spec:
     - name: https
       protocol: TCP
       port: 443
-      targetPort: 443
+      targetPort: 8443
   selector:
     component: pmm
     app: monitoring
-  type: {{ .Values.service.type | quote }}
-  loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.globalIP | quote }}
