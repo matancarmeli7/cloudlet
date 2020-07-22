@@ -40,7 +40,7 @@ podSecurityContext:
   fsGroup: "5555"
   sysctls: {}
 containerSecurityContext:
-  enabled: true
+  enabled: false
   runAsUser: 1001080001
 resources:
   limits: {}
@@ -120,7 +120,7 @@ arbiter:
     fsGroup: "5555"
     sysctls: {}
   containerSecurityContext:
-    enabled: true
+    enabled: false
     runAsUser: 1001080001
   resources:
     limits: {}
