@@ -277,7 +277,7 @@ podSecurityContext:
 ##
 containerSecurityContext:
   enabled: true
-  runAsUser: 1001000001
+  runAsUser: 1001080001
 
 ## MongoDB containers' resource requests and limits.
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -611,7 +611,7 @@ arbiter:
   ##
   podSecurityContext:
     enabled: true
-    fsGroup: 1001
+    fsGroup: "5555"
     ## sysctl settings
     ## Example:
     ## sysctls:
@@ -625,7 +625,7 @@ arbiter:
   ##
   containerSecurityContext:
     enabled: true
-    runAsUser: 1001
+    runAsUser: 1001080001
 
   ## MongoDB Arbiter containers' resource requests and limits.
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
