@@ -11,7 +11,7 @@ spec:
 #  imagePullSecrets:
 #    - name: private-registry-credentials
 #  runUid: 1001
-  allowUnsafeConfigurations: false
+  allowUnsafeConfigurations: true
 #  updateStrategy: RollingUpdate
   secrets:
     users: "{{ .Values.cluster_name }}-secrets"
