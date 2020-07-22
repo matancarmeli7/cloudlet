@@ -4,6 +4,6 @@ description: "Chart to deploy Sample node.js app with mongodb in cluster"
 name: node-with-mongodb
 version: 1.0.0
 dependencies:
-  - name: mongodb-cluster
+  - name: mongodb
     version: 4.2.8
-    repository: "@mongodb-cluster"
+    repository: "@mongodb"
