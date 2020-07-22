@@ -1,7 +1,8 @@
 namespace: psmdb
 cluster_name: psmdb-cluster
 pmm_enabled: true
-repl_size: 2
+repl_size: 3
+arbiter_enabled: false
 
 MONGODB_BACKUP_USER: backup
 MONGODB_BACKUP_PASSWORD: backup123456

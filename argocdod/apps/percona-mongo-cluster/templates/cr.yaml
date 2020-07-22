@@ -60,7 +60,7 @@ spec:
       enabled: false
       exposeType: LoadBalancer
     arbiter:
-      enabled: true
+      enabled: {{ .Values.arbiter_enabled }}
       size: 1
       affinity:
        antiAffinityTopologyKey: "kubernetes.io/hostname"
