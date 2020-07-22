@@ -104,8 +104,7 @@ spec:
   quay:
     externalAccess:
       tls:
-        secretName: custom-quay-ssl
-        termination: passthrough
+        termination: edge
     keepConfigDeployment: false
     superuserCredentialsSecretName: super-user-quay
     configSecretName: quay-config-creds
