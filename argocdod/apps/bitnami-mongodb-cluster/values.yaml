@@ -7,7 +7,7 @@ global:
   #imagePullSecrets:
   #  - myRegistryKeySecretName
   #storageClass: myStorageClass
- Override the namespace for resource deployed by the chart, but can itself be overridden by the local namespaceOverride
+  #Override the namespace for resource deployed by the chart, but can itself be overridden by the local namespaceOverride
   namespaceOverride: mongodb-cluster
 
 image:
