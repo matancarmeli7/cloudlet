@@ -6,7 +6,7 @@ metadata:
 spec:
   platform: openshift
 #  clusterServiceDNSSuffix: svc.cluster.local
-  image: percona/percona-server-mongodb-operator:1.4.0-mongod4.0-debug
+  image: percona/percona-server-mongodb-operator:1.4.0-mongod4.0
   imagePullPolicy: Always
 #  imagePullSecrets:
 #    - name: private-registry-credentials
