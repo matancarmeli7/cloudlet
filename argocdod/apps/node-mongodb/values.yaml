@@ -1,0 +1,17 @@
+image:
+  repository: quay.io/amitai333/sampleapp2
+  tag: latest
+
+namespace: node-mongodb
+APPLICATION_NAME: sampleapp
+
+# DB VARS
+mongodb-cluster:
+  rootPassword: "admin"
+  username: admin
+  password: admin
+  database: sampledb
+  replicaSetName: rs0
+  replicaCount: 3
+  global:
+    namespaceOverride: mongodb-cluster
