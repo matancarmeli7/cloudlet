@@ -14,8 +14,8 @@ spec:
   tls:
     termination: edge
     insecureEdgeTerminaionPolicy: Redirect
-  wldcardPolicy: None
-statu:
+  wildcardPolicy: None
+status:
   ingress:
     - wildcardPolicy: None
       host: {{ .Values.name }}-{{ .Values.namespace }}.apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
