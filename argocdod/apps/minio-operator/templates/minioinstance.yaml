@@ -8,10 +8,10 @@ metadata:
 spec:
   metadata:
   labels:
-    app: {{ .Values.Name }}
+    app: {{ .Values.name }}
   image: {{ Values.minio_image.repository }}:{{ .Values.minio_image.tag }}
   cerdsSecert:
-    name: {{ .Values.Name }}
+    name: {{ .Values.name }}
   replicas: {{ .Values.replicas }}
   env:
     - name: MINIO_BROWSER
