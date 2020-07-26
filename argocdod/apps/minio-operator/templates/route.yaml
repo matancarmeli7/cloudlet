@@ -12,7 +12,7 @@ spec:
   port:
     targetPort: 9000
   tls:
-    terminaton: edge
+    termination: edge
     insecureEdgeTerminaionPolicy: Redirect
   wldcardPolicy: None
 statu:
