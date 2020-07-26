@@ -16,7 +16,7 @@ kind: SeecurityContextConstraints
 metadata:
   annotations:
     kubernetes.io/description: minio provides all features of the restricted SCC but allows users to run with any UID and any GID
-	name: minio
+  name: minio
 priority: 10
 readOnlyRootFilesystem: false
 requiredDropCapabilities:
