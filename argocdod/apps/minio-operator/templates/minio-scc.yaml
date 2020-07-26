@@ -29,7 +29,7 @@ supplementalGroups:
   type: RunAsAny
 users:
 - system:serviceaccount:{{ .Values.namespace }}:default
-volume:
+volumes:
 - configMap
 - downwardAPI
 - emptyDir
