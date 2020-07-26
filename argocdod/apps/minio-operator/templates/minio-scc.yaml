@@ -28,7 +28,7 @@ seLinuxContext:
 supplementalGroups:
   type: RunAsAny
 users:
-- system:serviceaccount:{{ .values.namespace }}:default
+- system:serviceaccount:{{ .Values.namespace }}:default
 volume:
 - configMap
 - downwardAPI
