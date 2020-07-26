@@ -1,5 +1,5 @@
 apiVersion: miniocontroller.min.io/v1beta1
-Kind: Deployment
+Kind: minioinstance
 metadata:
   name: {{ .Values.name }}
   namespace: {{ .Values.namespace }}
