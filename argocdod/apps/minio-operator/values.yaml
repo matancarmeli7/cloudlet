@@ -3,6 +3,8 @@ image:
   tag: 1.0.7
 namespace: "minio-operator"
 
+name: minio
+
 accessKey: minio
 secretKey: minio123
 
