@@ -13,7 +13,7 @@ spec:
     targetPort: 9000
   tls:
     termination: edge
-    insecureEdgeTerminaionPolicy: Redirect
+    insecureEdgeTerminationPolicy: Redirect
   wildcardPolicy: None
 status:
   ingress:
