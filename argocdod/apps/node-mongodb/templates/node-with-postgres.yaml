@@ -28,7 +28,7 @@ metadata:
   name: {{ .Values.APPLICATION_NAME }}
   namespace: {{ .Values.namespace }}
 spec:
-  # host: "{{ .Values.APPLICATION_NAME }}-{{ .Values.namespace }}.apps.{{ template "cluster_fqdn" . }}"
+  host: "{{ .Values.APPLICATION_NAME }}-{{ .Values.namespace }}.apps.{{ template "cluster_fqdn" . }}"
   to:
     kind: Service
     name: {{ .Values.APPLICATION_NAME }}
