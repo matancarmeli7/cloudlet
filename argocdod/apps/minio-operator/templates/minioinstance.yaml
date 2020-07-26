@@ -1,7 +1,7 @@
 apiVersion: miniocontroller.min.io/v1beta1
 Kind: MinIOInstance
 metadata:
-  name: {{ .Values.Name }}
+  name: {{ .Values.name }}
   namespace: {{ .Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-options: Validate=false
