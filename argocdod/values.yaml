@@ -1,6 +1,6 @@
 spec:
   destination:
-    server: ""
+    server: "https://api.ocp43-prod.cloudlet-dev.com:6443"
     namespace: "argocdod"
   source:
     repoURL: https://github.com/matancarmeli7/cloudlet
