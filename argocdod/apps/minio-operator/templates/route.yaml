@@ -19,5 +19,5 @@ status:
   ingress:
     - wildcardPolicy: None
       host: {{ .Values.name }}-{{ .Values.namespace }}.apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
-      routerCanonicalHostName: apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
+      routerCanonicalHostname: apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
       routerName: default
