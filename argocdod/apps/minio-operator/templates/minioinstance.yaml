@@ -9,7 +9,7 @@ spec:
   metadata:
   labels:
     app: {{ .Values.name }}
-  image: {{ .Values.minio_image.repository }}:{{ .Values.minio_image.tag }}
+  image: {{ .Values.minioImage.repository }}:{{ .Values.minioImage.tag }}
   cerdsSecert:
     name: {{ .Values.name }}
   replicas: {{ .Values.replicas }}
