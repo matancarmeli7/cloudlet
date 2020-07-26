@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .values.namespace }}
+  name: {{ .Values.namespace }}
 ---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -98,13 +98,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: minio-operator-sa
-  namespace: {{ .values.namespace }}
+  namespace: {{ .Values.namespace }}
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: minio-operator-binding
-  namespace: {{ .values.namespace }}
+  namespace: {{ .Values.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -112,13 +112,13 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: minio-operator-sa
-  namespace: {{ .values.namespace }}
+  namespace: {{ .Values.namespace }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: minio-operator
-  namespace: {{ .values.namespace }}
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
@@ -132,5 +132,5 @@ spec:
       serviceAccountName: minio-operator-sa
       containers:
         - name: minio-operator
-          image: "{{ .values.image.repository }}:{{ .values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: IfNotPresent
