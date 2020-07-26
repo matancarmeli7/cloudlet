@@ -9,7 +9,7 @@ spec:
   metadata:
   labels:
     app: {{ .Values.name }}
-  image: {{ Values.minio_image.repository }}:{{ .Values.minio_image.tag }}
+  image: {{ .Values.minio_image.repository }}:{{ .Values.minio_image.tag }}
   cerdsSecert:
     name: {{ .Values.name }}
   replicas: {{ .Values.replicas }}
@@ -34,4 +34,4 @@ spec:
         - ReadWriteOnce
       resources:
         requests:
-          storage: {{ Values.disksize }}Gi
+          storage: {{ .Values.diskSize }}Gi
