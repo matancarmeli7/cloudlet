@@ -15,23 +15,23 @@ spec:
   replicas: {{ .Values.replicas }}
   env:
     - name: MINIO_BROWSER
-	  value: "on" 
+      value: "on" 
   resources:
     requests:
-	  memory: {{ .Values.requests.memory }}
-	  cpu: {{ .Values.requests.cpu }}
+      memory: {{ .Values.requests.memory }}
+      cpu: {{ .Values.requests.cpu }}
   liveness:
     httpGet:
-	  path: /minio/health/live
-	  port: {{ .Values.port }}
-	initialDelaySeconds: 120
-	periodSeconds: 20
+      path: /minio/health/live
+      port: {{ .Values.port }}
+    initialDelaySeconds: 120
+    periodSeconds: 20
   volumeClaimTemplate:
     metadata:
-	  name: {{ .Values.name }}-data
-	spec:
-	  accessModes:
-	    - ReadWriteOnce
-	  resources:
-	    requests:
-		  storage: {{ Values.disksize }}Gi
+      name: {{ .Values.name }}-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ Values.disksize }}Gi
