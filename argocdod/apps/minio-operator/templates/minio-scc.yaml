@@ -12,7 +12,7 @@ fsGroup:
   type: RunAsAny
 groups:
 - system:cluster-admins
-kind: SeecurityContextConstraints
+kind: SecurityContextConstraints
 metadata:
   annotations:
     kubernetes.io/description: minio provides all features of the restricted SCC but allows users to run with any UID and any GID
