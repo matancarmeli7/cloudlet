@@ -1,0 +1,37 @@
+apiVersion: miniocontroller.min.io/v1beta1
+kind: MinIOInstance
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-options: Validate=false
+spec:
+  metadata:
+  labels:
+    app: {{ .Values.name }}
+  image: {{ .Values.minioImage.repository }}:{{ .Values.minioImage.tag }}
+  cerdsSecert:
+    name: {{ .Values.name }}
+  replicas: {{ .Values.replicas }}
+  env:
+    - name: MINIO_BROWSER
+      value: "on" 
+  resources:
+    requests:
+      memory: {{ .Values.requests.memory }}
+      cpu: {{ .Values.requests.cpu }}
+  liveness:
+    httpGet:
+      path: /minio/health/live
+      port: {{ .Values.port }}
+    initialDelaySeconds: 120
+    periodSeconds: 20
+  volumeClaimTemplate:
+    metadata:
+      name: {{ .Values.name }}-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ .Values.diskSize }}Gi

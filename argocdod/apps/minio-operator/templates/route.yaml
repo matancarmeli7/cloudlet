@@ -1,7 +1,7 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .Values.name }}-route
   namespace: {{ .Values.namespace }}
 spec:
   host: {{ .Values.name }}-{{ .Values.namespace }}.apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
@@ -12,12 +12,12 @@ spec:
   port:
     targetPort: 9000
   tls:
-    terminaton: edge
-    insecureEdgeTerminaionPolicy: Redirect
-  wldcardPolicy: None
-statu:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+status:
   ingress:
     - wildcardPolicy: None
       host: {{ .Values.name }}-{{ .Values.namespace }}.apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
-      routerCanonicalHostName: apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
+      routerCanonicalHostname: apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
       routerName: default
