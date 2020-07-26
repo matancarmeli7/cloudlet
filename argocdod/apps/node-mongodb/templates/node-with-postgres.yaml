@@ -14,7 +14,7 @@ metadata:
 spec:
   ports:
   - port: 443
-    targetPort: 443
+    targetPort: 8443
   selector:
     deploymentConfig: {{ .Values.APPLICATION_NAME }}
 ---
@@ -63,12 +63,12 @@ spec:
         livenessProbe:
           httpGet:
             path: /health-check
-            port: 443
+            port: 8443
           initialDelaySeconds: 3
           periodSeconds: 3
           failureThreshold: 2
         ports:
-        - containerPort: 443
+        - containerPort: 8443
           name: http
           protocol: TCP
       terminationGracePeriodSeconds: 75
