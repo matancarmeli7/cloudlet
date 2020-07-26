@@ -2,3 +2,22 @@ image:
   repository: minio/k8s-operator
   tag: 1.0.7
 namespace: "minio-operator"
+
+accessKey: minio
+secretKey: minio123
+
+replicas: 4
+
+minioImage:
+  repository: minio/minio
+  tag: RELEASE.2020-07-22T00-26-33Z
+
+requests:
+  memory: 512Mi
+  cpu: 250m
+
+port: 9000
+
+diskSize: 10
+clustereName: ocp43-np
+baseDomain: cloudlet-dev.com
