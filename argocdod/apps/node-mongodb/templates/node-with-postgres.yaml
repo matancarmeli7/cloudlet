@@ -63,7 +63,8 @@ spec:
         livenessProbe:
           httpGet:
             path: /health-check
-            port: 443
+            port: 8443
+            scheme: HTTPS
           initialDelaySeconds: 3
           periodSeconds: 3
           failureThreshold: 2
