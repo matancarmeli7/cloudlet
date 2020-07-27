@@ -4,5 +4,5 @@ metadata:
   name: node-config
   namespace: "{{.Values.PG_NAMESPACE}}"
 data:
-  APPLICATION_NAME: {{ index .Values "pgcluster" "PG_CLUSTER_NAME" }}
-  DATABASE: {{ index .Values "pgcluster" "PG_DATABASE_NAME" }}
+  APPLICATION_NAME: {{ index .Values "PG_CLUSTER_NAME" }}
+  DATABASE: {{ index .Values "PG_DATABASE_NAME" }}
