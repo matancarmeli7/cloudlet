@@ -1,23 +1,9 @@
-annotations:
-  category: Database
-apiVersion: v1
-appVersion: 4.2.8
-description: NoSQL document-oriented database that stores JSON-like documents with
-  dynamic schemas, simplifying the integration of data in content-driven applications.
-engine: gotpl
-home: https://mongodb.org
-icon: https://bitnami.com/assets/stacks/mongodb/img/mongodb-stack-220x234.png
-keywords:
-- mongodb
-- database
-- nosql
-- cluster
-- replicaset
-- replication
-maintainers:
-- email: containers@bitnami.com
-  name: Bitnami
-name: mongodb
-sources:
-- https://github.com/bitnami/bitnami-docker-mongodb
-version: 8.1.5
+apiVersion: v2
+appVersion: "1.0"
+description: "Chart to deploy Sample node.js app with mongodb in cluster"
+name: node-with-mongodb
+version: 1.0.0
+dependencies:
+  - name: mongodb
+    version: 4.2.8
+    repository: "@mongodb"
