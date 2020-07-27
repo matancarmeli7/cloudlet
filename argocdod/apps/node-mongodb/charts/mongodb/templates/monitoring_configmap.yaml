@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: node-config
+  name: node-config-monitoring
   namespace: {{ index .Values "global" "namespaceOverride" }}
 data:
   NAMESPACE: {{ index .Values "global" "namespaceOverride" }}

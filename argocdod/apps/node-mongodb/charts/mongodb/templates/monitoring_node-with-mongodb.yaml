@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ index .Values "APPLICATION_NAME" }}
+  name: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
   namespace: {{ index .Values "global" "namespaceOverride" }}
 spec:
   ports:
   - port: 443
     targetPort: 8443
   selector:
-    deploymentConfig: {{ index .Values "APPLICATION_NAME" }}
+    deploymentConfig: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -16,14 +16,14 @@ metadata:
   annotations:
     description: Route for application's http service.
   labels:
-    application: {{ index .Values "APPLICATION_NAME" }}
-  name: {{ index .Values "APPLICATION_NAME" }}
+    application: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
+  name: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
   namespace: {{ index .Values "global" "namespaceOverride" }}
 spec:
   host: ""
   to:
     kind: Service
-    name: {{ index .Values "APPLICATION_NAME" }}
+    name: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
   tls:
     termination: passthrough
     insecureEdgeTerminationPolicy: Redirect
@@ -32,51 +32,51 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    application: {{ index .Values "APPLICATION_NAME" }}
-  name: {{ index .Values "APPLICATION_NAME" }}
+    application: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
+  name: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
   namespace: {{ index .Values "global" "namespaceOverride" }}
 spec:
   replicas: 1
   selector:
-    deploymentConfig: {{ index .Values "APPLICATION_NAME" }}
+    deploymentConfig: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        application: {{ index .Values "APPLICATION_NAME" }}
-        deploymentConfig: {{ index .Values "APPLICATION_NAME" }}
-      name: {{ index .Values "APPLICATION_NAME" }}
+        application: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
+        deploymentConfig: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
+      name: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
     spec:
       containers:
-      - name: {{ index .Values "APPLICATION_NAME" }}
+      - name: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         env:
           - name: APPLICATION_NAME
             valueFrom:
               configMapKeyRef:
-                name: node-config
+                name: node-config-monitoring
                 key: APPLICATION_NAME
           - name: NAMESPACE
             valueFrom:
               configMapKeyRef:
-                name: node-config
+                name: node-config-monitoring
                 key: NAMESPACE
           - name: REPLICA_SET
             valueFrom:
               configMapKeyRef:
-                name: node-config
+                name: node-config-monitoring
                 key: REPLICA_SET
           - name: DB_USERNAME
             valueFrom:
               secretKeyRef:
-                name: node-secret
+                name: node-secret-monitoring
                 key: DB_USERNAME
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: node-secret
+                name: node-secret-monitoring
                 key: DB_PASSWORD
         livenessProbe:
           httpGet:
