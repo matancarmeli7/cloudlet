@@ -2,8 +2,7 @@ image:
   repository: quay.io/amitai333/sampleapp2
   tag: latest
 
-namespace: mongodb-clusters
-
+namespace: node-mongodb-sampleapp
 
 # DB VARS
 mongodb:
