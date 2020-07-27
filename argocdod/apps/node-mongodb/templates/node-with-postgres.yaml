@@ -42,15 +42,15 @@ metadata:
   name: node-config
   namespace: {{ .Values.namespace }}
 data:
-  NAMESPACE: {{ .Values.mongodb-cluster.global.namespaceOverride }}
-  REPLICA_SET: {{ .Values.mongodb-cluster.replicaSetName }}
+  NAMESPACE: {{ index .Values "mongodb-cluster" "global" "namespaceOverride" }}
+  REPLICA_SET: {{ index .Values "mongodb-cluster" "replicaSetName" }}
   APPLICATION_NAME: {{ .Values.APPLICATION_NAME }}
 ---
 apiVersion: v1
 kind: Secret
 data:
-  DB_USERNAME: {{ .Values.mongodb-cluster.username | toString | b64enc }}
-  DB_PASSWORD: {{ .Values.mongodb-cluster.password | toString | b64enc }}
+  DB_USERNAME: {{ index .Values "mongodb-cluster" "username" | toString | b64enc }}
+  DB_PASSWORD: {{ index .Values "mongodb-cluster" "password" | toString | b64enc }}
 metadata:
   name: node-secret
   namespace: {{ .Values.namespace }}
