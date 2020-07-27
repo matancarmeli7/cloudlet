@@ -1,7 +1,7 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .Values.name }}-route
   namespace: {{ .Values.namespace }}
 spec:
   host: {{ .Values.name }}-{{ .Values.namespace }}.apps.{{ .Values.clusterName }}.{{ .Values.baseDomain }}
