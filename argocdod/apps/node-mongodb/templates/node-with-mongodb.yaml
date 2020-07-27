@@ -62,30 +62,30 @@ spec:
         imagePullPolicy: Always
         env:
           - name: APPLICATION_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: node-config
-                  key: APPLICATION_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: node-config
+                key: APPLICATION_NAME
           - name: NAMESPACE
-              valueFrom:
-                configMapKeyRef:
-                  name: node-config
-                  key: NAMESPACE
+            valueFrom:
+              configMapKeyRef:
+                name: node-config
+                key: NAMESPACE
           - name: REPLICA_SET
-              valueFrom:
-                configMapKeyRef:
-                  name: node-config
-                  key: REPLICA_SET
+            valueFrom:
+              configMapKeyRef:
+                name: node-config
+                key: REPLICA_SET
           - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: node-secret
-                  key: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: node-secret
+                key: DB_USERNAME
           - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: node-secret
-                  key: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: node-secret
+                key: DB_PASSWORD
         livenessProbe:
           httpGet:
             path: /health-check

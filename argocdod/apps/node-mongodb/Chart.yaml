@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "1.0"
 description: "Chart to deploy Sample node.js app with mongodb in cluster"
-name: node-mongodb
+name: node-with-mongodb
 version: 1.0.0
 dependencies:
   - name: mongodb
