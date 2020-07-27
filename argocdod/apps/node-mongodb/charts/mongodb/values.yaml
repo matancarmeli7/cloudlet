@@ -1,6 +1,6 @@
 APPLICATION_NAME: sampleapp
 global:
-  namespaceOverride: mongodb-cluster
+  namespaceOverride: ""
 image:
   registry: docker.io
   repository: bitnami/mongodb
@@ -12,10 +12,10 @@ architecture: replicaset
 useStatefulSet: true
 auth:
   enabled: true
-  rootPassword: "admin"
-  username: admin
-  password: admin
-  database: sampledb
+  rootPassword: ""
+  username: ""
+  password: ""
+  database: ""
 replicaSetName: rs0
 replicaSetHostnames: true
 enableIPv6: false
@@ -28,7 +28,7 @@ extraFlags: []
 extraEnvVars: []
 annotations: {}
 labels: {}
-replicaCount: 3
+replicaCount: ""
 strategyType: RollingUpdate
 podManagementPolicy: OrderedReady
 affinity: {}
