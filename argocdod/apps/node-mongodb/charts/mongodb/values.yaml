@@ -1,3 +1,4 @@
+APPLICATION_NAME: sampleapp
 global:
   namespaceOverride: mongodb-cluster
 image:
