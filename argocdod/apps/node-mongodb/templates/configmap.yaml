@@ -6,4 +6,4 @@ metadata:
 data:
   NAMESPACE: {{ index .Values "mongodb" "global" "namespaceOverride" }}
   REPLICA_SET: {{ index .Values "mongodb" "replicaSetName" }}
-  APPLICATION_NAME: {{ .Values.APPLICATION_NAME }}
+  APPLICATION_NAME: {{ index .Values "mongodb" "APPLICATION_NAME" }}
