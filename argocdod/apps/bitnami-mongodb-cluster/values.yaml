@@ -2,7 +2,7 @@ image:
   repository: quay.io/amitai333/sampleapp2
   tag: latest
 
-namespace: node-mongodb
+namespace: node-mongodb-sampleapp
 APPLICATION_NAME: sampleapp
 
 # DB VARS
@@ -14,4 +14,4 @@ mongodb-cluster:
   replicaSetName: rs0
   replicaCount: 3
   global:
-    namespaceOverride: mongodb-cluster
+    namespaceOverride: mongodb-clusters

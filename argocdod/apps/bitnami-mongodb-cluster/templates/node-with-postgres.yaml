@@ -36,6 +36,26 @@ spec:
     termination: passthrough
     insecureEdgeTerminationPolicy: Redirect
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-config
+  namespace: {{ .Values.namespace }}
+data:
+  NAMESPACE: {{ .Values.mongodb-cluster.global.namespaceOverride }}
+  REPLICA_SET: {{ .Values.mongodb-cluster.replicaSetName }}
+  APPLICATION_NAME: {{ .Values.APPLICATION_NAME }}
+---
+apiVersion: v1
+kind: Secret
+data:
+  DB_USERNAME: {{ .Values.mongodb-cluster.username | toString | b64enc }}
+  DB_PASSWORD: {{ .Values.mongodb-cluster.password | toString | b64enc }}
+metadata:
+  name: node-secret
+  namespace: {{ .Values.namespace }}
+type: Opaque
+---
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
@@ -57,10 +77,35 @@ spec:
       name: {{ .Values.APPLICATION_NAME }}
     spec:
       containers:
-      - name: sampleapp
+      - name: {{ .Values.APPLICATION_NAME }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
-        name: {{ .Values.APPLICATION_NAME }}
+        env:
+          - name: APPLICATION_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: node-config
+                  key: APPLICATION_NAME
+          - name: NAMESPACE
+              valueFrom:
+                configMapKeyRef:
+                  name: node-config
+                  key: NAMESPACE
+          - name: REPLICA_SET
+              valueFrom:
+                configMapKeyRef:
+                  name: node-config
+                  key: REPLICA_SET
+          - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: node-secret
+                  key: DB_USERNAME
+          - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: node-secret
+                  key: DB_PASSWORD
         livenessProbe:
           httpGet:
             path: /health-check
