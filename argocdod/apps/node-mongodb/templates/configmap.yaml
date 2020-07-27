@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-config
+  namespace: {{ .Values.namespace }}
+data:
+  NAMESPACE: {{ index .Values "mongodb-cluster" "global" "namespaceOverride" }}
+  REPLICA_SET: {{ index .Values "mongodb-cluster" "replicaSetName" }}
+  APPLICATION_NAME: {{ .Values.APPLICATION_NAME }}

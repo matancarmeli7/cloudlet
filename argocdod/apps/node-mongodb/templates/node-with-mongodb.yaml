@@ -36,26 +36,6 @@ spec:
     termination: passthrough
     insecureEdgeTerminationPolicy: Redirect
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: node-config
-  namespace: {{ .Values.namespace }}
-data:
-  NAMESPACE: {{ index .Values "mongodb-cluster" "global" "namespaceOverride" }}
-  REPLICA_SET: {{ index .Values "mongodb-cluster" "replicaSetName" }}
-  APPLICATION_NAME: {{ .Values.APPLICATION_NAME }}
----
-apiVersion: v1
-kind: Secret
-data:
-  DB_USERNAME: {{ index .Values "mongodb-cluster" "username" | toString | b64enc }}
-  DB_PASSWORD: {{ index .Values "mongodb-cluster" "password" | toString | b64enc }}
-metadata:
-  name: node-secret
-  namespace: {{ .Values.namespace }}
-type: Opaque
----
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
