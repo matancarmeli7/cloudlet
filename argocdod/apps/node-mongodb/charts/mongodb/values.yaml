@@ -1,3 +1,6 @@
+image:
+  repository: quay.io/amitai333/sampleapp2
+  tag: latest
 APPLICATION_NAME: sampleapp
 global:
   namespaceOverride: ""

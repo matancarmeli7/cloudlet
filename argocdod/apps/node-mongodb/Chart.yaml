@@ -7,3 +7,6 @@ dependencies:
   - name: mongodb
     version: 4.2.8
     repository: "@mongodb"
+  - name: monitoring-service
+    version: 1.0.0
+    repository: "@monitoring-service"
