@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-config
+  namespace: {{ .Values.namespace }}
+data:
+  APPLICATION_NAME: {{ index .Values "pgcluster" "PG_CLUSTER_NAME" }}
+  DATABASE: {{ index .Values "pgcluster" "PG_DATABASE_NAME" }}

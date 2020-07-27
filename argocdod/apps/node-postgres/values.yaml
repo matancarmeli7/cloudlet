@@ -3,7 +3,6 @@ image:
   tag: latest
 
 namespace: node-postgres
-APPLICATION_NAME: sampleapp
 
 # DB VARS
 pgcluster:
@@ -14,8 +13,7 @@ pgcluster:
   PG_STORAGE_SIZE: 1G
   PG_IMAGE_NAME: crunchy-postgres-ha
   PG_IMAGE_TAG: centos7-12.2-4.3.0
-  PG_DATABASE_NAME: sampleapp
+  PG_DATABASE_NAME: sampledb
   PG_REPLICAS: "2"
-  PG_SERVICE_PREFIX: "sampleapp.pgo"
   DB_USERNAME: myuser
   DB_PASSWORD: password

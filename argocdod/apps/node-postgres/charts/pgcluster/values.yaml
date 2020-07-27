@@ -1,3 +1,7 @@
+  image:
+    repository: quay.io/amitai333/sampleapp
+    tag: latest
+  
   PG_CLUSTER_NAME: ""
   PG_NAMESPACE: ""
   PG_PGO_VERSION: ""

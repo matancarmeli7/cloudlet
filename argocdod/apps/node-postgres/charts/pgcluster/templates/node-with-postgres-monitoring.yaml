@@ -1,16 +1,8 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.namespace  }}
-  annotations:
-    openshift.io/description: 'Sample Node.js+Postgres App'
-    openshift.io/display-name: 'Sample Node.js+Postgres App'
----
-apiVersion: v1
 kind: Service
 metadata:
   name: {{ index .Values "pgcluster" "PG_CLUSTER_NAME" }}
-  namespace: {{ .Values.namespace }}
+  namespace: "{{.Values.PG_NAMESPACE}}"
 spec:
   ports:
   - port: 443
@@ -26,7 +18,7 @@ metadata:
   labels:
     application: {{ index .Values "pgcluster" "PG_CLUSTER_NAME" }}
   name: {{ index .Values "pgcluster" "PG_CLUSTER_NAME" }}
-  namespace: {{ .Values.namespace }}
+  namespace: "{{.Values.PG_NAMESPACE}}"
 spec:
   host: ""
   to:
@@ -42,7 +34,7 @@ metadata:
   labels:
     application: {{ index .Values "pgcluster" "PG_CLUSTER_NAME" }}
   name: {{ index .Values "pgcluster" "PG_CLUSTER_NAME" }}
-  namespace: {{ .Values.namespace }}
+  namespace: "{{.Values.PG_NAMESPACE}}"
 spec:
   replicas: 1
   selector:
