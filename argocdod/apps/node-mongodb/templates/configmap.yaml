@@ -4,6 +4,6 @@ metadata:
   name: node-config
   namespace: {{ .Values.namespace }}
 data:
-  NAMESPACE: {{ index .Values "mongodb-cluster" "global" "namespaceOverride" }}
-  REPLICA_SET: {{ index .Values "mongodb-cluster" "replicaSetName" }}
+  NAMESPACE: {{ index .Values "mongodb" "global" "namespaceOverride" }}
+  REPLICA_SET: {{ index .Values "mongodb" "replicaSetName" }}
   APPLICATION_NAME: {{ .Values.APPLICATION_NAME }}

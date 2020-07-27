@@ -6,7 +6,7 @@ namespace: node-mongodb-sampleapp
 
 
 # DB VARS
-mongodb-cluster:
+mongodb:
   APPLICATION_NAME: sampleapp
   rootPassword: "admin"
   username: admin

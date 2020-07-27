@@ -9,14 +9,14 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
+  name: {{ index .Values "mongodb" "APPLICATION_NAME" }}
   namespace: {{ .Values.namespace }}
 spec:
   ports:
   - port: 443
     targetPort: 8443
   selector:
-    deploymentConfig: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
+    deploymentConfig: {{ index .Values "mongodb" "APPLICATION_NAME" }}
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -24,14 +24,14 @@ metadata:
   annotations:
     description: Route for application's http service.
   labels:
-    application: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
-  name: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
+    application: {{ index .Values "mongodb" "APPLICATION_NAME" }}
+  name: {{ index .Values "mongodb" "APPLICATION_NAME" }}
   namespace: {{ .Values.namespace }}
 spec:
   host: ""
   to:
     kind: Service
-    name: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
+    name: {{ index .Values "mongodb" "APPLICATION_NAME" }}
   tls:
     termination: passthrough
     insecureEdgeTerminationPolicy: Redirect
@@ -40,24 +40,24 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    application: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
-  name: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
+    application: {{ index .Values "mongodb" "APPLICATION_NAME" }}
+  name: {{ index .Values "mongodb" "APPLICATION_NAME" }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
-    deploymentConfig: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
+    deploymentConfig: {{ index .Values "mongodb" "APPLICATION_NAME" }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        application: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
-        deploymentConfig: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
-      name: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
+        application: {{ index .Values "mongodb" "APPLICATION_NAME" }}
+        deploymentConfig: {{ index .Values "mongodb" "APPLICATION_NAME" }}
+      name: {{ index .Values "mongodb" "APPLICATION_NAME" }}
     spec:
       containers:
-      - name: {{ index .Values "mongodb-cluster" "APPLICATION_NAME" }}
+      - name: {{ index .Values "mongodb" "APPLICATION_NAME" }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         env:
