@@ -23,8 +23,6 @@ kind: Route
 metadata:
   annotations:
     description: Route for application's http service.
-  labels:
-    application: {{ .Values.APPLICATION_NAME }}
   name: {{ .Values.APPLICATION_NAME }}
   namespace: {{ .Values.namespace }}
 spec:
