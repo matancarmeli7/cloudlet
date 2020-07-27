@@ -1,0 +1,5 @@
+apiVersion: v2
+appVersion: "1.0"
+description: "This namespace must be deplyed before any clusters are initiated"
+name: mongodb-vanilla-ns
+version: 1.0.0
