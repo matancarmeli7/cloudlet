@@ -15,3 +15,6 @@ spec:
   helm:
     valueFiles:
       - values.yaml
+    parameters:
+      - name: configmap.Clustername
+        value: {{ template "cluster_name" . }}
