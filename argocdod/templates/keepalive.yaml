@@ -12,9 +12,9 @@ spec:
     path: argocdod/apps/keepalive
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
-  helm:
-    valueFiles:
-      - values.yaml
-    parameters:
-      - name: configmap.Clustername
-        value: {{ template "cluster_name" . }}
+    helm:
+      valueFiles:
+        - values.yaml
+      parameters:
+        - name: configmap.Clustername
+          value: {{ template "cluster_name" . }}
