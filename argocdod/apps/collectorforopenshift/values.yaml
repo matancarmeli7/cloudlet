@@ -5,5 +5,5 @@ image:
 configmap:
   splunk_url: https://13.90.23.80:8088/services/collector/event
   splunk_token: bfb0ea00-fad4-4166-9f20-2e7fedda26fb
-  cluster_name: cloudlet-ocp43-offline-redhat
+  cluster_name: dev
   license_key: QlJVOTZKMTg2Q1I1RTo0MDA6MTYyODY4OTQ4NDoy.I27I+r0mfHeZOYxDvMviM3cudOXWThGcJDiiDg.MeryEI9odNTYAz08DAqYYmGQFaCdx3PhfBr1rw
