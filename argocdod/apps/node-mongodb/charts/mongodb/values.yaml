@@ -16,7 +16,7 @@ auth:
   username: ""
   password: ""
   database: ""
-replicaSetName: rs0
+replicaSetName: ""
 replicaSetHostnames: true
 enableIPv6: false
 directoryPerDB: false

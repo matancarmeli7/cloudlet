@@ -8,10 +8,11 @@ namespace: node-mongodb-sampleapp
 # DB VARS
 mongodb:
   APPLICATION_NAME: sampleapp
-  rootPassword: "admin"
-  username: admin
-  password: admin
-  database: sampledb
+  auth:
+    rootPassword: "admin"
+    username: admin
+    password: admin
+    database: sampledb
   replicaSetName: rs0
   replicaCount: 3
   global:
