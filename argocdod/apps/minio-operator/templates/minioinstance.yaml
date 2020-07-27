@@ -10,7 +10,7 @@ spec:
   labels:
     app: {{ .Values.name }}
   image: {{ .Values.minioImage.repository }}:{{ .Values.minioImage.tag }}
-  cerdsSecert:
+  credsSecert:
     name: {{ .Values.name }}
   replicas: {{ .Values.replicas }}
   env:
