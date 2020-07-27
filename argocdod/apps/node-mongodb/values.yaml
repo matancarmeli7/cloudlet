@@ -3,10 +3,11 @@ image:
   tag: latest
 
 namespace: node-mongodb-sampleapp
-APPLICATION_NAME: sampleapp
+
 
 # DB VARS
 mongodb-cluster:
+  APPLICATION_NAME: sampleapp
   rootPassword: "admin"
   username: admin
   password: admin
