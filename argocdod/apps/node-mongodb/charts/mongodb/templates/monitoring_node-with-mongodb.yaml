@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
       - name: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image_monitoring.repository }}:{{ .Values.image_monitoring.tag }}"
         imagePullPolicy: Always
         env:
           - name: APPLICATION_NAME
