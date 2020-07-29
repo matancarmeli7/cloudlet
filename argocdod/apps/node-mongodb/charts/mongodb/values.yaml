@@ -9,7 +9,7 @@ image:
   repository: bitnami/mongodb
   tag: 4.2.8-debian-10-r37
   pullPolicy: IfNotPresent
-  debug: false
+  debug: true
 clusterDomain: cluster.local
 architecture: replicaset
 useStatefulSet: true
@@ -23,7 +23,7 @@ replicaSetName: ""
 replicaSetHostnames: true
 enableIPv6: false
 directoryPerDB: false
-systemLogVerbosity: 0
+systemLogVerbosity: 2
 disableSystemLog: false
 configuration:
   net:
