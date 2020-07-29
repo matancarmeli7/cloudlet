@@ -23,7 +23,7 @@ replicaSetName: ""
 replicaSetHostnames: true
 enableIPv6: false
 directoryPerDB: false
-systemLogVerbosity: 5
+systemLogVerbosity: 3
 disableSystemLog: false
 configuration: ""
 initdbScripts: {}
@@ -124,8 +124,16 @@ externalAccess:
     annotations: {}
 arbiter:
   configuration: ""
-  extraFlags: []
-  extraEnvVars: []
+  extraFlags:
+    - "--tlsMode=preferTLS"
+    - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
+    - "--tlsClusterFile=/certificates/sampleapp.pem"
+    - "--tlsCAFile=/certificates/sampleapp.crt"
+    - "--tlsAllowConnectionsWithoutCertificates"
+    - "--tlsAllowInvalidCertificates"
+  extraEnvVars:
+    - name: MONGODB_CLIENT_EXTRA_FLAGS
+      value: --ssl --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
   annotations: {}
   labels: {}
   affinity: {}
@@ -161,8 +169,14 @@ arbiter:
   customReadinessProbe: {}
   initContainers: {}
   sidecars: {}
-  extraVolumeMounts: []
-  extraVolumes: []
+  extraVolumeMounts:
+    - name: cert-volume
+      mountPath: /certificates
+      readOnly: true
+  extraVolumes:
+    - name: cert-volume
+      secret:
+        secretName: sampleapp-certificates
   pdb:
     create: false
     minAvailable: 1
