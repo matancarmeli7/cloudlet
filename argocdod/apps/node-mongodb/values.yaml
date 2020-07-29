@@ -16,3 +16,40 @@ mongodb:
   replicaCount: 3
   global:
     namespaceOverride: mongodb-clusters
+  extraFlags:
+    - "--tlsMode=preferTLS"
+    - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
+    - "--tlsClusterFile=/certificates/sampleapp.pem"
+    - "--tlsCAFile=/certificates/sampleapp.crt"
+    - "--tlsAllowConnectionsWithoutCertificates"
+    - "--tlsAllowInvalidCertificates"
+  extraEnvVars:
+    - name: MONGODB_CLIENT_EXTRA_FLAGS
+      value: --ssl --tlsAllowInvalidCertificates --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
+  extraVolumeMounts:
+    - name: cert-volume
+      mountPath: /certificates
+      readOnly: true
+  extraVolumes:
+    - name: cert-volume
+      secret:
+        secretName: sampleapp-certificates
+  arbiter:
+    extraFlags:
+      - "--tlsMode=preferTLS"
+      - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
+      - "--tlsClusterFile=/certificates/sampleapp.pem"
+      - "--tlsCAFile=/certificates/sampleapp.crt"
+      - "--tlsAllowConnectionsWithoutCertificates"
+      - "--tlsAllowInvalidCertificates"
+    extraEnvVars:
+      - name: MONGODB_CLIENT_EXTRA_FLAGS
+        value: --ssl --tlsAllowInvalidCertificates --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
+    extraVolumeMounts:
+      - name: cert-volume
+        mountPath: /certificates
+        readOnly: true
+    extraVolumes:
+      - name: cert-volume
+        secret:
+          secretName: sampleapp-certificates

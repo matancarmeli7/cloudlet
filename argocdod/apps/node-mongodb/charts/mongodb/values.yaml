@@ -9,7 +9,7 @@ image:
   repository: bitnami/mongodb
   tag: 4.2.8-debian-10-r37
   pullPolicy: IfNotPresent
-  debug: true
+  debug: false
 clusterDomain: cluster.local
 architecture: replicaset
 useStatefulSet: true
@@ -23,20 +23,12 @@ replicaSetName: ""
 replicaSetHostnames: true
 enableIPv6: false
 directoryPerDB: false
-systemLogVerbosity: 3
+systemLogVerbosity: 0
 disableSystemLog: false
 configuration: ""
 initdbScripts: {}
-extraFlags:
-  - "--tlsMode=preferTLS"
-  - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
-  - "--tlsClusterFile=/certificates/sampleapp.pem"
-  - "--tlsCAFile=/certificates/sampleapp.crt"
-  - "--tlsAllowConnectionsWithoutCertificates"
-  - "--tlsAllowInvalidCertificates"
-extraEnvVars:
-  - name: MONGODB_CLIENT_EXTRA_FLAGS
-    value: --ssl --tlsAllowInvalidCertificates --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
+extraFlags: []
+extraEnvVars: []
 annotations: {}
 labels: {}
 replicaCount: ""
@@ -75,14 +67,8 @@ customLivenessProbe: {}
 customReadinessProbe: {}
 initContainers: {}
 sidecars: {}
-extraVolumeMounts:
-  - name: cert-volume
-    mountPath: /certificates
-    readOnly: true
-extraVolumes:
-  - name: cert-volume
-    secret:
-      secretName: sampleapp-certificates
+extraVolumeMounts: []
+extraVolumes: []
 pdb:
   create: false
   minAvailable: 1
@@ -124,16 +110,8 @@ externalAccess:
     annotations: {}
 arbiter:
   configuration: ""
-  extraFlags:
-    - "--tlsMode=preferTLS"
-    - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
-    - "--tlsClusterFile=/certificates/sampleapp.pem"
-    - "--tlsCAFile=/certificates/sampleapp.crt"
-    - "--tlsAllowConnectionsWithoutCertificates"
-    - "--tlsAllowInvalidCertificates"
-  extraEnvVars:
-    - name: MONGODB_CLIENT_EXTRA_FLAGS
-      value: --ssl --tlsAllowInvalidCertificates --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
+  extraFlags: []
+  extraEnvVars: []
   annotations: {}
   labels: {}
   affinity: {}
@@ -169,14 +147,8 @@ arbiter:
   customReadinessProbe: {}
   initContainers: {}
   sidecars: {}
-  extraVolumeMounts:
-    - name: cert-volume
-      mountPath: /certificates
-      readOnly: true
-  extraVolumes:
-    - name: cert-volume
-      secret:
-        secretName: sampleapp-certificates
+  extraVolumeMounts: []
+  extraVolumes: []
   pdb:
     create: false
     minAvailable: 1
