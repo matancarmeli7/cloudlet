@@ -28,7 +28,7 @@ disableSystemLog: false
 configuration: ""
 initdbScripts: {}
 extraFlags:
-  - "--tlsMode=requireSSL"
+  - "--tlsMode=requireTLS"
   - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
   - "--tlsClusterFile=/certificates/sampleapp.pem"
   - "--tlsCAFile=/certificates/sampleapp.crt"
