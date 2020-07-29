@@ -25,16 +25,14 @@ enableIPv6: false
 directoryPerDB: false
 systemLogVerbosity: 5
 disableSystemLog: false
-configuration:
-  net:
-    tls:
-      allowConnectionsWithoutCertificates: true
+configuration: ""
 initdbScripts: {}
 extraFlags:
   - "--tlsMode=requireSSL"
   - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
   - "--tlsClusterFile=/certificates/sampleapp.pem"
   - "--tlsCAFile=/certificates/sampleapp.crt"
+  - "--tlsAllowConnectionsWithoutCertificates"
 extraEnvVars:
   - name: MONGODB_CLIENT_EXTRA_FLAGS
     value: --ssl --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
