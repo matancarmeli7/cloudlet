@@ -28,11 +28,12 @@ disableSystemLog: false
 configuration: ""
 initdbScripts: {}
 extraFlags:
-  - "--tlsMode=requireTLS"
+  - "--tlsMode=preferTLS"
   - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
   - "--tlsClusterFile=/certificates/sampleapp.pem"
   - "--tlsCAFile=/certificates/sampleapp.crt"
   - "--tlsAllowConnectionsWithoutCertificates"
+  - "--tlsAllowInvalidCertificates"
 extraEnvVars:
   - name: MONGODB_CLIENT_EXTRA_FLAGS
     value: --ssl --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
