@@ -25,10 +25,21 @@ enableIPv6: false
 directoryPerDB: false
 systemLogVerbosity: 0
 disableSystemLog: false
-configuration: ""
+configuration:
+  net:
+    ssl:
+      allowConnectionsWithoutCertificates: true
 initdbScripts: {}
-extraFlags: []
-extraEnvVars: []
+extraFlags:
+  - "--sslMode=requireSSL"
+  - "--sslPEMKeyFile=/certificates/sampleapp.pem"
+  - "--sslClusterFile=/certificates/sampleapp.pem"
+  - "--sslCAFile=/certificates/sampleapp.crt"
+extraEnvVars:
+  - name: MONGODB_ADVERTISED_HOSTNAME
+    value: sampleapp
+  - name: MONGODB_CLIENT_EXTRA_FLAGS
+    value: --ssl --sslPEMKeyFile=/certificates/sampleapp.pem --sslCAFile=/certificates/sampleapp.crt
 annotations: {}
 labels: {}
 replicaCount: ""
@@ -67,8 +78,14 @@ customLivenessProbe: {}
 customReadinessProbe: {}
 initContainers: {}
 sidecars: {}
-extraVolumeMounts: []
-extraVolumes: []
+extraVolumeMounts:
+  - name: cert-volume
+    mountPath: /certificates
+    readOnly: true
+extraVolumes:
+  - name: cert-volume
+    secret:
+      secretName: sampleapp-certificates
 pdb:
   create: false
   minAvailable: 1
