@@ -36,7 +36,7 @@ extraFlags:
   - "--tlsAllowInvalidCertificates"
 extraEnvVars:
   - name: MONGODB_CLIENT_EXTRA_FLAGS
-    value: --ssl --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt --tlsAllowInvalidCertificates
+    value: --ssl --tlsAllowInvalidCertificates --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
 annotations: {}
 labels: {}
 replicaCount: ""
@@ -133,7 +133,7 @@ arbiter:
     - "--tlsAllowInvalidCertificates"
   extraEnvVars:
     - name: MONGODB_CLIENT_EXTRA_FLAGS
-      value: --ssl --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt --tlsAllowInvalidCertificates
+      value: --ssl --tlsAllowInvalidCertificates --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
   annotations: {}
   labels: {}
   affinity: {}
