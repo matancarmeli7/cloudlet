@@ -23,23 +23,21 @@ replicaSetName: ""
 replicaSetHostnames: true
 enableIPv6: false
 directoryPerDB: false
-systemLogVerbosity: 2
+systemLogVerbosity: 5
 disableSystemLog: false
 configuration:
   net:
-    ssl:
+    tls:
       allowConnectionsWithoutCertificates: true
 initdbScripts: {}
 extraFlags:
-  - "--sslMode=requireSSL"
-  - "--sslPEMKeyFile=/certificates/sampleapp.pem"
-  - "--sslClusterFile=/certificates/sampleapp.pem"
-  - "--sslCAFile=/certificates/sampleapp.crt"
+  - "--tlsMode=requireSSL"
+  - "--tlsCertificateKeyFile=/certificates/sampleapp.pem"
+  - "--tlsClusterFile=/certificates/sampleapp.pem"
+  - "--tlsCAFile=/certificates/sampleapp.crt"
 extraEnvVars:
-  - name: MONGODB_ADVERTISED_HOSTNAME
-    value: sampleapp
   - name: MONGODB_CLIENT_EXTRA_FLAGS
-    value: --ssl --sslPEMKeyFile=/certificates/sampleapp.pem --sslCAFile=/certificates/sampleapp.crt
+    value: --ssl --tlsCertificateKeyFile=/certificates/sampleapp.pem --tlsCAFile=/certificates/sampleapp.crt
 annotations: {}
 labels: {}
 replicaCount: ""
