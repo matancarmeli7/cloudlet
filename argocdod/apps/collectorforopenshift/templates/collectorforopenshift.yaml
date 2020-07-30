@@ -1502,9 +1502,9 @@ spec:
             path: 004-addon.conf
 ---
 allowHostDirVolumePlugin: true
-allowHostIPC: true
+allowHostIPC: false
 allowHostNetwork: true
-allowHostPID: true
+allowHostPID: false
 allowHostPorts: true
 allowPrivilegeEscalation: true
 allowPrivilegedContainer: true
@@ -1516,10 +1516,7 @@ apiVersion: security.openshift.io/v1
 defaultAddCapabilities: []
 fsGroup:
   type: RunAsAny
-groups:
-- system:cluster-admins
-- system:nodes
-- system:masters
+groups: []
 kind: SecurityContextConstraints
 metadata:
   annotations:
@@ -1536,11 +1533,11 @@ runAsUser:
   type: RunAsAny
 seLinuxContext:
   type: RunAsAny
-seccompProfiles:
-- '*'
 supplementalGroups:
   type: RunAsAny
 users:
 - system:serviceaccount:collectorforopenshift:collectorforopenshift
 volumes:
-- '*'
+- configMap
+- hostPath
+- secret
