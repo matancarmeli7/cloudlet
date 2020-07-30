@@ -50,7 +50,7 @@ Set the required environment variables:
 # export LOCAL_REPOSITORY='ocp4.4.13/openshift4.4.13'
 # export PRODUCT_REPO='openshift-release-dev'
 # cd /opt/registry/ (this is my base registry folder)
-# check the content of the json file you prepared in deployment process that including your mirror registry.
+Check the content of the json file you prepared in deployment process that including your mirror registry.
 # For example, our one called pull-secret2.json
 OUTPUT
 cat pull-secret2.json | jq
@@ -89,3 +89,18 @@ OUTPUT
 info: Mirroring 109 images to registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/ocp4.4.13/openshift4.4.13 ...
 ```
 Uploading to your external registry can take a while. After completing those steps you can tar you relevant blob folders (from the last day) and the relevant repository folder and move with this tar file to whitening process and after that extracting and adding to the relevant folders in your internal mirror registry.
+
+##
+*3. Edit your cluster ImageContentSourcePolicy*
+Next steps will be performed from installer machine of your cluster
+```
+# oc get ImageContentSourcePolicy
+# oc edit ImageContentSourcePolicy image-policy-0
+Change ocp4.4.12/openshift4.4.12 to ocp4.4.13/openshift4.4.13 and save
+# oc edit ImageContentSourcePolicy image-policy-1
+Change ocp4.4.12/openshift4.4.12 to ocp4.4.13/openshift4.4.13 and save
+```
+##
+*4. Upgrade your cluster to latest minor version*
+Now you can go to your Ocp console --> Administration --> Cluster settings --> Details --> Update
+This process will run in background and can take a while.
