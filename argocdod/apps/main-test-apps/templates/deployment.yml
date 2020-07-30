@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: app-test-to-splunk
-  namespace: app-test-to-splunk
+  namespace: main-test-apps
 spec:
   replicas: 1
   selector:
