@@ -1,0 +1,12 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: quaylogs
+  namespace: quaylogs
+data:
+  config.py: |-
+    quay_repo = '{{ .Values.configmap.quay_repo }}' 
+    splunk_event_url = '{{ .Values.configmap.splunk_event_url }}'
+    cluster_name = '{{ .Values.configmap.cluster_name }}'
+    quay_token = '{{ .Values.configmap.quay_token }}'
+    splunk_token = '{{ .Values.configmap.splunk_token }}'

@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: quaylogs
+  namespace: quaylogs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quaylogs
+  template:
+    metadata:
+      labels:
+        app: quaylogs
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: quaylogs
+            defaultMode: 420
+      containers:
+        - name: quaylogs
+          image: '{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
+          resources: {}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /quay-logs/src/config
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPilicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    RollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
