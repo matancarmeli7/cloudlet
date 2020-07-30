@@ -31,14 +31,14 @@ spec:
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
-      restartPilicy: Always
+      restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
   strategy:
     type: RollingUpdate
-    RollingUpdate:
+    rollingUpdate:
       maxUnavailable: 25%
       maxSurge: 25%
   revisionHistoryLimit: 10
