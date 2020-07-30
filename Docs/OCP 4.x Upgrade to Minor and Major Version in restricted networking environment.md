@@ -18,6 +18,7 @@ This document based on the next official Red Hat documentation links
 
 ##
 *1. Define your cluster upgrade path*
+
 To upgrade your specific cluster to the latest minor version you don't need to perform upgrade path check, so you can jump directly to the next chapter.
 But if you want to upgrade to the major version you need to know what is your cluster version upgrade path. 
 To define it, perform the next:
@@ -41,6 +42,7 @@ Now you know that your next version for upgrade should be 4.4.13. And only after
 
 ##
 *2. Mirroring the OpenShift Container Platform image repository*
+
 This step assume that you have external mirror registry and internal mirror registry ready with existing version repositories (It was required for your cluster deployment).
 On your external mirror registry server (one that have connection to the Internet):
 Set the required environment variables:
@@ -92,6 +94,7 @@ Uploading to your external registry can take a while. After completing those ste
 
 ##
 *3. Edit your cluster ImageContentSourcePolicy*
+
 Next steps will be performed from installer machine of your cluster
 ```
 # oc get ImageContentSourcePolicy
@@ -102,5 +105,6 @@ Change ocp4.4.12/openshift4.4.12 to ocp4.4.13/openshift4.4.13 and save
 ```
 ##
 *4. Upgrade your cluster to latest minor version*
+
 Now you can go to your Ocp console --> Administration --> Cluster settings --> Details --> Update
-This process will run in background and can take a while.
+This process will run in background and can take a while. At the end of the process your cluster will be up to date (With latest minor version of the same major version)
