@@ -16,5 +16,5 @@ spec:
       valueFiles:
         - values.yaml
       parameters:
-        - name: configmap.cluster_namee
+        - name: configmap.cluster_name
           value: {{ template "cluster_name" . }}
