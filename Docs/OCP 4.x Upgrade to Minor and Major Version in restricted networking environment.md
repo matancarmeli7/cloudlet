@@ -1,5 +1,5 @@
-#
-**_OCP 4.x Upgrade to Minor and Major Version in Disconnected environment_**
+
+**_OCP 4.x Upgrade to Minor and Major Version in restricted networking environment_**
 
 Main goals of updates/upgrades - bug fixes, new features, security vulnaribilities fixes, where ideal state is always be up to date.
 Updates/upgrades can be done to the latest minor version of the existing current major version or to the next major version. 
