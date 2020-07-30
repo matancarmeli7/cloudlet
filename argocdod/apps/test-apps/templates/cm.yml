@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: minio-test
+  namespace: minio-test
+data:
+  config.py: |+
+    bucket_name = '{{ .Values.configmap.bucket_name }}'
+    minio_url = '{{ .Values.configmap.minio_url }}'
+    minio_access_key = '{{ .Values.configmap.minio_access_key }}'
+    minio_secret_key = '{{ .Values.configmap.minio_secret_key }}'

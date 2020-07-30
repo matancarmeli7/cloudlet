@@ -1,0 +1,25 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: quaylogs
+  namespace: quaylogs
+  labels:
+    app: quay-logs
+    app.kubernetes.io/component: quaylogs
+    app.kubernetes.io/instance: quaylogs
+    app.kubernetes.io/name: ''
+    app.kubernetes.io/part-of: quaylogs-app
+    app.openshift.io/runtime: ''
+    app.openshift.io/runtime-version: latest
+spec:
+  ports:
+    - name: 8080tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: quaylogs
+    deploymentconfig: quaylogs
+  clusterIP: 172.30.104.247
+  type: ClusterIP
+  sessionAffinity: None

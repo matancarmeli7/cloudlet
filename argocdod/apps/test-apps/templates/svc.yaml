@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: minio-test
+  namespace: minio-test
+  labels:
+    app: minio-test
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+spec:
+  ports:
+    - name: minio-test-5000
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+  selector:
+    app: minio-test
+    deploymentconfig: minio-test
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}
