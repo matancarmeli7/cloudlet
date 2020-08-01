@@ -112,7 +112,6 @@ OUTPUT
 
 Next steps will be performed from installer machine of your cluster
 ```
-# export LOCAL_SECRET_JSON="/opt/registry/pull-secret2.json"
 # oc get ImageContentSourcePolicy
 # oc edit ImageContentSourcePolicy image-policy-0
 
@@ -161,3 +160,73 @@ Client Version: 4.4.12
 Server Version: 4.4.13
 Kubernetes Version: v1.17.1+3288478
 ```
+##
+5. Upgrade your cluster to major version
+
+Now, after successfull update to the latest minor version, you can continue and upgrade to the major version.
+Before you will continue, please repeat steps in paragraph 2 (mirror your registry with required version images, for instance 4.5.4)
+Next, before you update your cluster, you must manually create a ConfigMap that contains the signatures of the release images that you use. This signature allows the Cluster Version Operator (CVO) to verify that the release images have not been modified by comparing the expected and actual image signatures.
+
+If you are upgrading from version 4.4.8 or later, you can use the oc CLI to create the ConfigMap. If you are upgrading from an earlier version, you must use the manual method.
+
+###
+Creating an image signature ConfigMap manually
+
+Add the version to the OCP_RELEASE_NUMBER environment variable:
+```
+$ OCP_RELEASE_NUMBER=4.5.4
+```
+Add the system architecture for your cluster to ARCHITECTURE environment variable:
+```
+$ ARCHITECTURE=x86_64
+```
+Get the release image digest from Quay:
+```
+$ DIGEST="$(oc adm release info quay.io/openshift-release-dev/ocp-release:${OCP_RELEASE_NUMBER}-${ARCHITECTURE} | sed -n 's/Pull From: .*@//p')"
+```
+Set the digest algorithm:
+```
+$ DIGEST_ALGO="${DIGEST%%:*}"
+```
+Set the digest signature:
+```
+$ DIGEST_ENCODED="${DIGEST#*:}"
+```
+Get the image signature from mirror.openshift.com website:
+```
+$ SIGNATURE_BASE64=$(curl -s "https://mirror.openshift.com/pub/openshift-v4/signatures/openshift/release/${DIGEST_ALGO}=${DIGEST_ENCODED}/signature-1" | base64 -w0 && echo)
+```
+Create the ConfigMap:
+```
+$ cat >checksum-${OCP_RELEASE_NUMBER}.yaml <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: release-image-${OCP_RELEASE_NUMBER}
+  namespace: openshift-config-managed
+  labels:
+    release.openshift.io/verification-signatures: ""
+binaryData:
+  ${DIGEST_ALGO}-${DIGEST_ENCODED}: ${SIGNATURE_BASE64}
+EOF
+```
+Apply the ConfigMap to the cluster to update:
+```
+$ oc apply -f checksum-${OCP_RELEASE_NUMBER}.yaml
+```
+###
+Edit your cluster ImageContentSourcePolicy*
+
+Next steps will be performed from installer machine of your cluster
+```
+# oc get ImageContentSourcePolicy
+# oc edit ImageContentSourcePolicy image-policy-0
+
+Change ocp4.4.13/openshift4.4.13 to ocp4.5.4/openshift4.5.4 and save
+
+# oc edit ImageContentSourcePolicy image-policy-1
+
+Change ocp4.4.13/openshift4.4.13 to ocp4.5.4/openshift4.5.4 and save
+```
+Now you can go to your Ocp console --> Administration --> Cluster settings --> Details -->Channel and change to Stable-4.5 or Fast-4.5 --> Update
+This process will run in background and can take a while. At the end of the process your cluster will be up to date (With latest minor version of the major version). The can encounter the same issues with openshift-samples operator during this upgrade - solution explaned above.
