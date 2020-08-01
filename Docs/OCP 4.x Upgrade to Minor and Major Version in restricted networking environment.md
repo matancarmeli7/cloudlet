@@ -56,7 +56,9 @@ Set the required environment variables:
 # export PRODUCT_REPO='openshift-release-dev'
 # cd /opt/registry/ (this is my base registry folder)
 Check the content of the json file you prepared in deployment process that including your mirror registry.
+
 # For example, our one called pull-secret2.json
+
 OUTPUT
 cat pull-secret2.json | jq
 {
@@ -86,18 +88,23 @@ cat pull-secret2.json | jq
 # export LOCAL_SECRET_JSON="/opt/registry/pull-secret2.json"
 # export RELEASE_NAME="ocp-release"
 # podman login quay.io 
+
 OUTPUT
 Authenticating with existing credentials...
 Existing credentials are valid. Already logged in to quay.io
+
 # oc adm -a ${LOCAL_SECRET_JSON} release mirror --from=quay.io/${PRODUCT_REPO}/${RELEASE_NAME}:${OCP_RELEASE}-x86_64 --to=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY} --to-release-image=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE} | tee -a '/opt/registry/mirror-output${OCP_RELEASE}.txt'
 OUTPUT
 info: Mirroring 109 images to registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/ocp4.4.13/openshift4.4.13 ...
 ```
+
 Uploading to your external registry can take a while. After completing those steps you can tar you relevant blob folders (from the last day) and the relevant repository folder and move with this tar file to whitening process and after that extracting and adding to the relevant folders in your internal mirror registry.
 To check that you have all relevant images in the repository you are just uploaded to your registry run the next:
 ```
-curl https://registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/v2/ocp4.4.13/openshift4.4.13/tags/list -k -u admin:redhat
+# curl https://registry.ocp43-prod.sales.lab.tlv.redhat.com:5000/v2/ocp4.4.13/openshift4.4.13/tags/list -k -u admin:redhat
+
 OUTPUT
+
 {"name":"ocp4.4.13/openshift4.4.13","tags":["4.4.13-kube-etcd-signer-server","4.4.13-cli-artifacts","4.4.13-oauth-proxy","4.4.13-cluster-kube-controller-manager-operator","4.4.13-service-ca-operator","4.4.13-baremetal-operator","4.4.13-cluster-csi-snapshot-controller-operator","4.4.13-cluster-svcat-apiserver-operator","4.4.13-prometheus-operator","4.4.13-cluster-node-tuning-operator","4.4.13-cluster-dns-operator","4.4.13-openstack-machine-controllers","4.4.13-cluster-update-keys","4.4.13-cluster-svcat-controller-manager-operator","4.4.13-kuryr-controller","4.4.13-insights-operator","4.4.13-prometheus-config-reloader","4.4.13-csi-snapshot-controller","4.4.13-oauth-server","4.4.13-baremetal-runtimecfg","4.4.13-operator-registry","4.4.13-cluster-monitoring-operator","4.4.13-multus-route-override-cni","4.4.13-service-catalog","4.4.13-ironic-inspector","4.4.13-cluster-policy-controller","4.4.13-ironic-machine-os-downloader","4.4.13-cluster-openshift-apiserver-operator","4.4.13-machine-api-operator","4.4.13-kube-rbac-proxy","4.4.13-grafana","4.4.13-ironic-static-ip-manager","4.4.13-multus-admission-controller","4.4.13-aws-machine-controllers","4.4.13-libvirt-machine-controllers","4.4.13-cloud-credential-operator","4.4.13-keepalived-ipfailover","4.4.13-console-operator","4.4.13-kube-storage-version-migrator","4.4.13-cluster-node-tuned","4.4.13-cluster-kube-storage-version-migrator-operator","4.4.13-operator-marketplace","4.4.13-cluster-version-operator","4.4.13-openshift-controller-manager","4.4.13-kube-client-agent","4.4.13-kube-state-metrics","4.4.13-cluster-machine-approver","4.4.13-multus-whereabouts-ipam-cni","4.4.13-docker-registry","4.4.13-cluster-autoscaler","4.4.13-installer-artifacts","4.4.13-baremetal-installer","4.4.13-coredns","4.4.13","4.4.13-ironic-hardware-inventory-recorder","4.4.13-machine-config-operator","4.4.13-deployer","4.4.13-telemeter","4.4.13-ironic-ipa-downloader","4.4.13-cluster-samples-operator","4.4.13-cli","4.4.13-cluster-openshift-controller-manager-operator","4.4.13-baremetal-machine-controllers","4.4.13-cluster-kube-apiserver-operator","4.4.13-ovn-kubernetes","4.4.13-cluster-network-operator","4.4.13-tests","4.4.13-cluster-etcd-operator","4.4.13-multus-cni","4.4.13-kube-proxy","4.4.13-docker-builder","4.4.13-must-gather","4.4.13-sdn","4.4.13-openshift-apiserver","4.4.13-cluster-ingress-operator","4.4.13-ironic","4.4.13-operator-lifecycle-manager","4.4.13-prom-label-proxy","4.4.13-cluster-storage-operator","4.4.13-jenkins","4.4.13-machine-os-content","4.4.13-jenkins-agent-maven","4.4.13-cluster-config-operator","4.4.13-cluster-authentication-operator","4.4.13-gcp-machine-controllers","4.4.13-kuryr-cni","4.4.13-hyperkube","4.4.13-cluster-image-registry-operator","4.4.13-thanos","4.4.13-configmap-reloader","4.4.13-pod","4.4.13-prometheus","4.4.13-openshift-state-metrics","4.4.13-installer","4.4.13-cluster-bootstrap","4.4.13-cluster-autoscaler-operator","4.4.13-azure-machine-controllers","4.4.13-mdns-publisher","4.4.13-prometheus-node-exporter","4.4.13-prometheus-alertmanager","4.4.13-console","4.4.13-ovirt-machine-controllers","4.4.13-haproxy-router","4.4.13-cluster-kube-scheduler-operator","4.4.13-jenkins-agent-nodejs","4.4.13-container-networking-plugins","4.4.13-k8s-prometheus-adapter","4.4.13-local-storage-static-provisioner","4.4.13-etcd"]}
 
 ##
@@ -142,4 +149,12 @@ Now by running oc get co you can see that openshift-samples cluster operator in 
 ```
 #oc get co | grep openshift-samples
 openshift-samples   4.4.13    True        False         False      38h
+```
+At the end of the process you can check your current version by running
+
+```
+#oc version
+Client Version: 4.4.12
+Server Version: 4.4.13
+Kubernetes Version: v1.17.1+3288478
 ```
