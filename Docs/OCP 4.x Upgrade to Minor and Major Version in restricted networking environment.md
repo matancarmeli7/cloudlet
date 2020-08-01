@@ -229,4 +229,5 @@ Change ocp4.4.13/openshift4.4.13 to ocp4.5.4/openshift4.5.4 and save
 Change ocp4.4.13/openshift4.4.13 to ocp4.5.4/openshift4.5.4 and save
 ```
 Now you can go to your Ocp console --> Administration --> Cluster settings --> Details -->Channel and change to Stable-4.5 or Fast-4.5 --> Update
+
 This process will run in background and can take a while. At the end of the process your cluster will be up to date (With latest minor version of the major version). The can encounter the same issues with openshift-samples operator during this upgrade - solution explaned above.
