@@ -105,10 +105,11 @@ OUTPUT
 
 Next steps will be performed from installer machine of your cluster
 ```
-# oc get ImageContentSourcePolicy
-# oc edit ImageContentSourcePolicy image-policy-0
+#export LOCAL_SECRET_JSON="/opt/registry/pull-secret2.json"
+#oc get ImageContentSourcePolicy
+#oc edit ImageContentSourcePolicy image-policy-0
 Change ocp4.4.12/openshift4.4.12 to ocp4.4.13/openshift4.4.13 and save
-# oc edit ImageContentSourcePolicy image-policy-1
+#oc edit ImageContentSourcePolicy image-policy-1
 Change ocp4.4.12/openshift4.4.12 to ocp4.4.13/openshift4.4.13 and save
 ```
 ##
@@ -122,12 +123,12 @@ Unable to apply 4.4.13: the cluster operator openshift-samples is degraded
 ```
 And by running oc get co you can see that openshift-samples cluster operator really in degraded state
 ```
-# oc get co | grep openshift-samples
+#oc get co | grep openshift-samples
 openshift-samples   4.4.13    True        True          True       38h
 ```
 To fix this issue you need to add your registry to configs.samples.operator.openshift.io/cluster resource, since if samplesRegistry not defined, update of sample images trying to go to redhat.io to pull the relevant images and it can't do it in restricted network environments.
 ```
-# oc edit configs.samples.operator.openshift.io/cluster
+#oc edit configs.samples.operator.openshift.io/cluster
 spec:
   architectures:
   - x86_64
@@ -136,6 +137,6 @@ spec:
 ```
 Now by running oc get co you can see that openshift-samples cluster operator in Available state
 ```
-# oc get co | grep openshift-samples
+#oc get co | grep openshift-samples
 openshift-samples   4.4.13    True        False         False      38h
 ```
