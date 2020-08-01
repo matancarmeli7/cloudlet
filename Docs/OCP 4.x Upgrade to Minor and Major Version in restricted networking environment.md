@@ -118,15 +118,16 @@ Change ocp4.4.12/openshift4.4.12 to ocp4.4.13/openshift4.4.13 and save
 Now you can go to your Ocp console --> Administration --> Cluster settings --> Details --> Update
 This process will run in background and can take a while. At the end of the process your cluster will be up to date (With latest minor version of the same major version)
 At some point when you will check your update status you might see the next notification:
-```
-Unable to apply 4.4.13: the cluster operator openshift-samples is degraded
-```
+"Unable to apply 4.4.13: the cluster operator openshift-samples is degraded"
 And by running oc get co you can see that openshift-samples cluster operator really in degraded state
+
 ```
 #oc get co | grep openshift-samples
 openshift-samples   4.4.13    True        True          True       38h
 ```
+
 To fix this issue you need to add your registry to configs.samples.operator.openshift.io/cluster resource, since if samplesRegistry not defined, update of sample images trying to go to redhat.io to pull the relevant images and it can't do it in restricted network environments.
+
 ```
 #oc edit configs.samples.operator.openshift.io/cluster
 spec:
@@ -135,7 +136,9 @@ spec:
   managementState: Managed
   samplesRegistry: registry.ocp43-prod.sales.lab.tlv.redhat.com:5000
 ```
+
 Now by running oc get co you can see that openshift-samples cluster operator in Available state
+
 ```
 #oc get co | grep openshift-samples
 openshift-samples   4.4.13    True        False         False      38h
