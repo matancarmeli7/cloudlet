@@ -161,7 +161,7 @@ Server Version: 4.4.13
 Kubernetes Version: v1.17.1+3288478
 ```
 ##
-5. Upgrade your cluster to major version
+*5. Upgrade your cluster to major version*
 
 Now, after successfull update to the latest minor version, you can continue and upgrade to the major version.
 Before you will continue, please repeat steps in paragraph 2 (mirror your registry with required version images, for instance 4.5.4)
