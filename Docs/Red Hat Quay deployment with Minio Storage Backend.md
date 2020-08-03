@@ -16,39 +16,86 @@ This document based on the next official Red Hat documentation links
 
 
 ##
-*1. Define your cluster upgrade path*
+*1. Create namespace*
 
-To upgrade your specific cluster to the latest minor version you don't need to perform upgrade path check, so you can jump directly to the next chapter.
-But if you want to upgrade to the major version you need to know what is your cluster version upgrade path. 
-To define it, perform the next:
 ```
-# export CURRENT_VERSION=4.4.12
-# export CHANNEL_NAME=stable-4.5
-# curl -sH 'Accept:application/json' "https://api.openshift.com/api/upgrades_info/v1/graph?channel=${CHANNEL_NAME}" | jq -r --arg CURRENT_VERSION "${CURRENT_VERSION}" '. as $graph | $graph.nodes | map(.version=='\"$CURRENT_VERSION\"') | index(true) as $orig | $graph.edges | map(select(.[0] == $orig)[1]) | map($graph.nodes[.].version) | sort_by(.)'
-OUTPUT
-[]
+
 ```
-It means you can't upgrade directly from existing version, 4.4.12, to any version in 4.5 major version, so next action is to define to what version inside 4.4 you can upgrade. For that, change your CHANNEL_NAME environment variable accordingly.
-```
-# export CHANNEL_NAME=stable-4.4
-# curl -sH 'Accept:application/json' "https://api.openshift.com/api/upgrades_info/v1/graph?channel=${CHANNEL_NAME}" | jq -r --arg CURRENT_VERSION "${CURRENT_VERSION}" '. as $graph | $graph.nodes | map(.version=='\"$CURRENT_VERSION\"') | index(true) as $orig | $graph.edges | map(select(.[0] == $orig)[1]) | map($graph.nodes[.].version) | sort_by(.)'
-OUTPUT
-[
-  "4.4.13"
-]
-```
-Now you know that your next version for upgrade should be 4.4.13. And only after you will complet to upgrade to this latest minor version, you will repeat the steps above with CHANNEL_NAME=stable-4.5 to understand how to continue with upgrade path.
 
 ##
-*2. Mirroring the OpenShift Container Platform image repository*
+*2. Install Quay Operator*
 
-This step assume that you have external mirror registry and internal mirror registry ready with existing version repositories (It was required for your cluster deployment).
-On your external mirror registry server (one that have connection to the Internet):
-Set the required environment variables:
+Go to quay-enterprise namespace and operator hub, and install red hat quay operator
+
+##
+*3. Create secrets*
+In your installer server create /root/.docker/config.json file with the next content
 ```
-# export OCP_RELEASE=4.4.13
-# export LOCAL_REGISTRY='registry.ocp43-prod.sales.lab.tlv.redhat.com:5000'
-# export LOCAL_REPOSITORY='ocp4.4.13/openshift4.4.13'
-# export PRODUCT_REPO='openshift-release-dev'
-# cd /opt/registry/ (this is my base registry folder)
-Check the content of the json file you prepared in deployment process that including your mirror registry.
+{
+  "auths":{
+    "quay.io": {
+        "auth": "cmVkaGF0K3F1YXk6TzgxV1NIUlNKUjE0VUFaQks1NEdRSEpTMFAxVjRDTFdBSlYxWDJDNFNEN0tPNTlDUTlOM1JFMTI2MTJYVTFIUg==",
+        "email": ""
+    }
+  }
+}
+```
+Then run the command to create secret in Openshift --> Quay-enterprise namespace
+```
+oc create secret generic redhat-pull-secret --from-file=".dockerconfigjson=/root/.docker/config.json" --type='kubernetes.io/dockerconfigjson'
+```
+Secret for your quay user password
+```
+oc create secret generic quay-super-user --from-literal=superuser-username=quay --from-literal=superuser-password=r3dh4t1! --from-literal=superuser-email=quay@redhat.com
+```
+Secret for your quayconfig user
+```
+oc create secret generic quay-config-app --from-literal=config-app-password=r3dh4t1!
+```
+Secret for your database credentials
+```
+oc create secret generic quay-database-credential --from-literal=database-username=quay --from-literal=database-password=redhat --from-literal=database-root-password=r3dh4t1! --from-literal=database-name=quay
+```
+Secret for your redis password
+```
+oc create secret generic quay-redis-password --from-literal=password=r3dh4t1!
+```
+##
+*4. Create your quayecosystem.yaml*
+Create your quayecosystem.yaml and provide all your relevant customizations:
+```
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: QuayEcosystem
+metadata:
+  name: quayecosystem
+spec:
+  quay:
+    imagePullSecretName: redhat-pull-secret
+    superuserCredentialsSecretName: quay-super-user
+    configSecretName: quay-config-app
+    deploymentStrategy: RollingUpdate
+    skipSetup: false
+    externalAccess:
+      configHostname: quayecosystem-quay-config-quay-enterprise.apps.ocp43-prod.cloudlet-dev.com
+      hostname: quay.apps.ocp43-prod.cloudlet-dev.com
+      tls:
+        termination: passthrough
+      type: Route
+    registryBackends:
+      - name: default
+        rhocs:
+          hostname: minio.apps.ocp43-prod.cloudlet-dev.com
+          accessKey: minio
+          secretKey: minio123
+          bucketName: quay-enterprise
+          storagePath: /storage/registry
+    database:
+      credentialsSecretName: quay-database-credential
+  redis:
+    credentialsSecretName: quay-redis-password
+    imagePullSecretName: redhat-pull-secret
+  clair:
+    enabled: true
+    imagePullSecretName: redhat-pull-secret
+    updateInterval: "60m"
+```
