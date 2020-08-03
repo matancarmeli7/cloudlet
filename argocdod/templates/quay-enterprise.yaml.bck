@@ -1,3 +1,6 @@
+# This yaml is for Quay project deployment - please don't us it for now
+
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
