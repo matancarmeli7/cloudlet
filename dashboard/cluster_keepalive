@@ -1,0 +1,55 @@
+<dashboard>
+  <label>cluster keepalive</label>
+  <row>
+    <panel>
+      <title>ocp43test</title>
+      <viz type="status_indicator_app.status_indicator">
+        <search>
+          <query>index="cloudlet" event_type="keepalive" cluster_name="ocp43test" | stats count | eval status=case(count&lt;1, "Dead", count&gt;0, "Alive") | eval color=case(status=="Dead" , "#ff0000", status=="Alive", "#008b00" )
+| table status icon color</query>
+          <earliest>rt-3m</earliest>
+          <latest>rt</latest>
+          <refresh>1m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="status_indicator_app.status_indicator.colorBy">field_value</option>
+        <option name="status_indicator_app.status_indicator.fillTarget">text</option>
+        <option name="status_indicator_app.status_indicator.fixIcon">cloud</option>
+        <option name="status_indicator_app.status_indicator.icon">fix_icon</option>
+        <option name="status_indicator_app.status_indicator.precision">0</option>
+        <option name="status_indicator_app.status_indicator.showOption">1</option>
+        <option name="status_indicator_app.status_indicator.staticColor">#53a051</option>
+        <option name="status_indicator_app.status_indicator.useColors">true</option>
+        <option name="status_indicator_app.status_indicator.useThousandSeparator">true</option>
+      </viz>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>ocp4test2</title>
+      <viz type="status_indicator_app.status_indicator">
+        <search>
+          <query>index="cloudlet" event_type="keepalive" cluster_name="ocp43test2" | stats count | eval status=case(count&lt;1, "Dead", count&gt;0, "Alive") | eval color=case(status=="Dead" , "#ff0000", status=="Alive", "#008b00" )
+| table status icon color</query>
+          <earliest>rt-2m</earliest>
+          <latest>rt</latest>
+          <refresh>1m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="status_indicator_app.status_indicator.colorBy">field_value</option>
+        <option name="status_indicator_app.status_indicator.fillTarget">text</option>
+        <option name="status_indicator_app.status_indicator.fixIcon">cloud</option>
+        <option name="status_indicator_app.status_indicator.icon">fix_icon</option>
+        <option name="status_indicator_app.status_indicator.precision">0</option>
+        <option name="status_indicator_app.status_indicator.showOption">1</option>
+        <option name="status_indicator_app.status_indicator.staticColor">#555</option>
+        <option name="status_indicator_app.status_indicator.useColors">true</option>
+        <option name="status_indicator_app.status_indicator.useThousandSeparator">true</option>
+      </viz>
+    </panel>
+  </row>
+</dashboard>
