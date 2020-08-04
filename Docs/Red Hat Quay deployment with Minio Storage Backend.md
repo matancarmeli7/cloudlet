@@ -67,20 +67,24 @@ Create your quayecosystem.yaml and provide all your relevant customizations:
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: QuayEcosystem
 metadata:
-  name: quayecosystem
+  name: prod-quayecosystem
+  namespace: quay-enterprise
 spec:
-  quay:
+  clair:
+    enabled: true
     imagePullSecretName: redhat-pull-secret
+    updateInterval: "60m"
+  redis:
+    credentialsSecretName: quay-redis-password
+    imagePullSecretName: redhat-pull-secret
+  quay:
+    deploymentStrategy: RollingUpdate
     superuserCredentialsSecretName: quay-super-user
     configSecretName: quay-config-app
-    deploymentStrategy: RollingUpdate
-    skipSetup: false
     externalAccess:
-      configHostname: quayecosystem-quay-config-quay-enterprise.apps.ocp43-prod.cloudlet-dev.com
       hostname: quay.apps.ocp43-prod.cloudlet-dev.com
-      tls:
-        termination: passthrough
-      type: Route
+    imagePullSecretName: redhat-pull-secret
+    keepConfigDeployment: true
     registryBackends:
       - name: default
         rhocs:
@@ -90,12 +94,7 @@ spec:
           bucketName: quay-enterprise
           storagePath: /storage/registry
     database:
+      volumeSize: 10Gi
       credentialsSecretName: quay-database-credential
-  redis:
-    credentialsSecretName: quay-redis-password
-    imagePullSecretName: redhat-pull-secret
-  clair:
-    enabled: true
-    imagePullSecretName: redhat-pull-secret
-    updateInterval: "60m"
+    skipSetup: false
 ```
