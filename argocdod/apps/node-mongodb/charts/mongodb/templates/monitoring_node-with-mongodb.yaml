@@ -53,13 +53,13 @@ spec:
         image: "{{ .Values.image_monitoring.repository }}:{{ .Values.image_monitoring.tag }}"
         imagePullPolicy: Always
         volumeMounts:
-          - name: cert-volume
-            mountPath: /certificates
-            readOnly: true
+        - name: cert-volume
+          mountPath: /certificates
+          readOnly: true
         volumes:
-          - name: cert-volume
-            secret:
-              secretName: 'node-{{ include "mongodb.fullname" . }}-certificates'
+        - name: cert-volume
+          secret:
+            secretName: 'node-{{ include "mongodb.fullname" . }}-certificates'
         env:
           - name: APPLICATION_NAME
             valueFrom:

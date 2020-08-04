@@ -58,13 +58,13 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         volumeMounts:
-          - name: cert-volume
-            mountPath: /certificates
-            readOnly: true
+        - name: cert-volume
+          mountPath: /certificates
+          readOnly: true
         volumes:
-          - name: cert-volume
-            secret:
-              secretName: node-certificates
+        - name: cert-volume
+          secret:
+            secretName: node-certificates
         env:
           - name: APPLICATION_NAME
             valueFrom:
