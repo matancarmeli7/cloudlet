@@ -56,10 +56,10 @@ spec:
         - name: cert-volume
           mountPath: /certificates
           readOnly: true
-        volumes:
-        - name: cert-volume
-          secret:
-            secretName: 'node-{{ include "mongodb.fullname" . }}-certificates'
+      volumes:
+      - name: cert-volume
+        secret:
+          secretName: 'node-{{ include "mongodb.fullname" . }}-certificates'
         env:
           - name: APPLICATION_NAME
             valueFrom:

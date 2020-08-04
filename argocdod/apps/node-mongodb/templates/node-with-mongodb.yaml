@@ -61,10 +61,10 @@ spec:
         - name: cert-volume
           mountPath: /certificates
           readOnly: true
-        volumes:
-        - name: cert-volume
-          secret:
-            secretName: node-certificates
+      volumes:
+      - name: cert-volume
+        secret:
+          secretName: node-certificates
         env:
           - name: APPLICATION_NAME
             valueFrom:
