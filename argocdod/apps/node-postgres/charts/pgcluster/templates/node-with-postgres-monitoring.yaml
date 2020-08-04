@@ -56,22 +56,22 @@ spec:
           - name: APPLICATION_NAME
             valueFrom:
               configMapKeyRef:
-                name: node-config
+                name: 'node-{{ index .Values "PG_CLUSTER_NAME" }}-config'
                 key: APPLICATION_NAME
           - name: DB_USERNAME
             valueFrom:
               secretKeyRef:
-                name: node-secret
+                name: 'node-{{ index .Values "PG_CLUSTER_NAME" }}-secret'
                 key: DB_USERNAME
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: node-secret
+                name: 'node-{{ index .Values "PG_CLUSTER_NAME" }}-secret'
                 key: DB_PASSWORD
           - name: DATABASE
             valueFrom:
               configMapKeyRef:
-                name: node-config
+                name: 'node-{{ index .Values "PG_CLUSTER_NAME" }}-config'
                 key: DATABASE
         livenessProbe:
           httpGet:

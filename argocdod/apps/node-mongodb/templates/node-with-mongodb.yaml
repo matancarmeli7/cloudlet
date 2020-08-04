@@ -57,6 +57,14 @@ spec:
       - name: {{ index .Values "mongodb" "APPLICATION_NAME" }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
+        volumeMounts:
+          - name: cert-volume
+            mountPath: /certificates
+            readOnly: true
+        volumes:
+          - name: cert-volume
+            secret:
+              secretName: node-certificates
         env:
           - name: APPLICATION_NAME
             valueFrom:

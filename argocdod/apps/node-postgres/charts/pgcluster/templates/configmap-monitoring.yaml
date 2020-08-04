@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: node-config
+  name: 'node-{{ index .Values "PG_CLUSTER_NAME" }}-config'
   namespace: "{{.Values.PG_NAMESPACE}}"
 data:
   APPLICATION_NAME: {{ index .Values "PG_CLUSTER_NAME" }}

@@ -52,31 +52,39 @@ spec:
       - name: "{{ index .Values "APPLICATION_NAME" }}-monitoring"
         image: "{{ .Values.image_monitoring.repository }}:{{ .Values.image_monitoring.tag }}"
         imagePullPolicy: Always
+        volumeMounts:
+          - name: cert-volume
+            mountPath: /certificates
+            readOnly: true
+        volumes:
+          - name: cert-volume
+            secret:
+              secretName: 'node-{{ include "mongodb.fullname" . }}-certificates'
         env:
           - name: APPLICATION_NAME
             valueFrom:
               configMapKeyRef:
-                name: node-config-monitoring
+                name: '{{ index .Values "APPLICATION_NAME" }}-node-config-monitoring'
                 key: APPLICATION_NAME
           - name: NAMESPACE
             valueFrom:
               configMapKeyRef:
-                name: node-config-monitoring
+                name: '{{ index .Values "APPLICATION_NAME" }}-node-config-monitoring'
                 key: NAMESPACE
           - name: REPLICA_SET
             valueFrom:
               configMapKeyRef:
-                name: node-config-monitoring
+                name: '{{ index .Values "APPLICATION_NAME" }}-node-config-monitoring'
                 key: REPLICA_SET
           - name: DB_USERNAME
             valueFrom:
               secretKeyRef:
-                name: node-secret-monitoring
+                name: '{{ index .Values "APPLICATION_NAME" }}-node-secret-monitoring'
                 key: DB_USERNAME
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: node-secret-monitoring
+                name: '{{ index .Values "APPLICATION_NAME" }}-node-secret-monitoring'
                 key: DB_PASSWORD
         livenessProbe:
           httpGet:
