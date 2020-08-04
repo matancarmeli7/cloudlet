@@ -56,10 +56,6 @@ spec:
         - name: cert-volume
           mountPath: /certificates
           readOnly: true
-      volumes:
-      - name: cert-volume
-        secret:
-          secretName: 'node-{{ include "mongodb.fullname" . }}-certificates'
         env:
           - name: APPLICATION_NAME
             valueFrom:
@@ -98,6 +94,11 @@ spec:
         - containerPort: 8443
           name: http
           protocol: TCP
+      
+      volumes:
+      - name: cert-volume
+        secret:
+          secretName: 'node-{{ include "mongodb.fullname" . }}-certificates'
       terminationGracePeriodSeconds: 75
   triggers:
   - type: ConfigChange

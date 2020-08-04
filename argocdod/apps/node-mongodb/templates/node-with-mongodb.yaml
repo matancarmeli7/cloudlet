@@ -61,10 +61,6 @@ spec:
         - name: cert-volume
           mountPath: /certificates
           readOnly: true
-      volumes:
-      - name: cert-volume
-        secret:
-          secretName: node-certificates
         env:
           - name: APPLICATION_NAME
             valueFrom:
@@ -104,5 +100,9 @@ spec:
           name: http
           protocol: TCP
       terminationGracePeriodSeconds: 75
+      volumes:
+      - name: cert-volume
+        secret:
+          secretName: node-certificates
   triggers:
   - type: ConfigChange
