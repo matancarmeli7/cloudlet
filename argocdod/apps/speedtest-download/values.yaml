@@ -1,7 +1,7 @@
 # Default values for download-cloud-helm.
 # This is a YAML-formatted file.IN_APP_URL
 # Declare variables to be passed into your templates.
-MAIN_APP_URL: "snir"
+MAIN_APP_URL: "https://console-openshift-console.apps.ocp43-prod.cloudlet-dev.com/"
 SPLUNK_TOKEN: "0dde0859-27ff-43aa-b981-3eaca4fa4813"
 SPLUNK_URL: "https://13.90.23.80:8088/services/collector/event"
 MIN_CHECK_TIME: 2
