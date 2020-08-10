@@ -2,12 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "kubernetes-external-secrets.fullname" . }}
+  namespace: {{ .Values.app_namespace }}
   labels:
     app.kubernetes.io/name: {{ include "kubernetes-external-secrets.name" . }}
     helm.sh/chart: {{ include "kubernetes-external-secrets.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    namespace: {{ .Values.app_namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
