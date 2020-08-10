@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.app_namespace }}
+  annotations:
+    openshift.io/description: 'ExternalSecrets Operator'
+    openshift.io/display-name: 'ExternalSecrets Operator'
