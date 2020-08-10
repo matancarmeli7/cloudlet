@@ -35,7 +35,7 @@ Create the name of the service account to use
 */}}
 {{- define "kubernetes-external-secrets.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "kubernetes-external-secrets.fullname" .) .Values.serviceAccount.name }}
+    external-secrets-sa
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
