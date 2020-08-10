@@ -1,0 +1,31 @@
+- name: "Configure Cluster as SSO Client"
+  hosts: localhost
+  gather_facts: yes
+  become: false
+  tasks:
+    - name: Create SSO Client
+      local_action:
+        module: keycloak_client
+        auth_client_id: admin-cli
+        auth_keycloak_url: https://sso.cloudlet-dev.com:8443/auth
+        auth_realm: master
+        auth_username: admin
+        auth_password: Password@123
+        realm: cloudlet
+        client_id: ocp43-test
+        public_client: no
+        state: present
+        enabled: True
+        client_authenticator_type: client-secret
+        redirect_uris:
+          - https://oauth-openshift.apps.ocp43-test.cloudlet-dev.com/*
+        protocol: openid-connect
+
+    - name: Get Client Secret
+      uri:
+        url: https://sso.cloudlet-dev.com:8443/auth/admin/realms/cloudlet/clients/ocp43-test/client-secret
+        method: GET
+        user: admin
+        password: Password@123
+      register: client_secret
+
