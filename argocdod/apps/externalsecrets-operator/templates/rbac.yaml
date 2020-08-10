@@ -35,6 +35,7 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
   name: {{ include "kubernetes-external-secrets.fullname" . }}
+  namespace: {{ .Values.app_namespace }}
   labels:
     app.kubernetes.io/name: {{ include "kubernetes-external-secrets.name" . }}
     helm.sh/chart: {{ include "kubernetes-external-secrets.chart" . }}
