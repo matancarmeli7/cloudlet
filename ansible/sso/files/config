@@ -1,0 +1,24 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://api.ocp43-dev.cloudlet-dev.com:6443
+  name: api-ocp43-dev-cloudlet-dev-com:6443
+contexts:
+- context:
+    cluster: api-ocp43-dev-cloudlet-dev-com:6443
+    namespace: default
+    user: admin/api-ocp43-dev-cloudlet-dev-com:6443
+  name: default/api-ocp43-dev-cloudlet-dev-com:6443/admin
+- context:
+    cluster: api-ocp43-dev-cloudlet-dev-com:6443
+    namespace: openshift-config
+    user: admin/api-ocp43-dev-cloudlet-dev-com:6443
+  name: openshift-config/api-ocp43-dev-cloudlet-dev-com:6443/admin
+current-context: openshift-config/api-ocp43-np-cloudlet-dev-com:6443/admin
+kind: Config
+preferences: {}
+users:
+- name: admin/api-ocp43-dev-cloudlet-dev-com:6443
+  user:
+    token: vaHH2NwxfS8t-1tutELP2Z1qFXQf872q86L0GaG7Qgg

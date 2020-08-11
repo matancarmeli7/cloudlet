@@ -1,0 +1,20 @@
+spec:
+  identityProviders:
+    - mappingMethod: claim
+      name: sso
+      openID:
+        ca:
+          name: openid-ca
+        claims:
+          email:
+          - email
+          name:
+          - name
+          preferredUsername:
+          - preferred_username
+        clientID: "{{ cluster_name }}"
+        clientSecret:
+          name: openid-client-secret
+        extraScopes: []
+        issuer: "https://{{ sso_hostname }}:{{ sso_port }}/auth/realms/cloudlet"
+      type: OpenID

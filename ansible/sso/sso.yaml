@@ -1,31 +1,86 @@
-- name: "Configure Cluster as SSO Client"
+- name: "Configure Cloudlet as SSO Client"
   hosts: localhost
   gather_facts: yes
   become: false
   tasks:
-    - name: Create SSO Client
+
+    - name: "Create temporary directory"
+      tempfile:
+        state: directory
+      register: tempdir
+
+    - name: "Copy files to temporary directory"
+      copy:
+        src: sso_ca.crt
+        dest: "{{ tempdir.path }}/{{ item }}"
+      with_items:
+        - "sso_ca.crt"
+        - "sso_admin_rolebind.yaml"
+
+    - name: Generate a random client-secret
+      set_fact:
+        client_secret: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters,digits') }}"
+
+    - name: Create Client at SSO Server
       local_action:
         module: keycloak_client
         auth_client_id: admin-cli
-        auth_keycloak_url: https://sso.cloudlet-dev.com:8443/auth
-        auth_realm: master
-        auth_username: admin
-        auth_password: Password@123
-        realm: cloudlet
-        client_id: ocp43-test
+        auth_keycloak_url: "https://{{ sso_hostname }}:{{ sso_port }}/auth"
+        auth_realm: "{{ sso_realm }}"
+        auth_username: "{{ sso_user }}"
+        auth_password: "{{ sso_password }}"
+        realm: "{{ sso_realm }}"
+        client_id: "{{ cluster_name }}"
         public_client: no
         state: present
         enabled: True
         client_authenticator_type: client-secret
+        secret: "{{ client_secret }}"
         redirect_uris:
-          - https://oauth-openshift.apps.ocp43-test.cloudlet-dev.com/*
+          - "https://oauth-openshift.apps.{{ cluster_name }}.{{ cluster_basedomain }}/*"
         protocol: openid-connect
 
-    - name: Get Client Secret
-      uri:
-        url: https://sso.cloudlet-dev.com:8443/auth/admin/realms/cloudlet/clients/ocp43-test/client-secret
-        method: GET
-        user: admin
-        password: Password@123
-      register: client_secret
+    - name: Log in to OCP (obtain access token)
+      k8s_auth:
+        host: "https://api.{{ cluster_name }}.{{ cluster_basedomain }}:6443"
+        username: admin
+        password: redhat
+        ca_cert: /etc/ssl/certs/ca-bundle.crt
+        validate_certs: false # Delete when trusted
+      register: k8s_auth_results
 
+    - name: Apply client-secret as an OCP Secret
+      k8s:
+        state: present
+        definition:
+          kind: Secret
+          apiVersion: v1
+          metadata:
+            name: openid-client-secret
+            namespace: openshift-config
+          stringData:
+            clientSecret: "{{ client_secret }}"
+          type: Opaque
+        api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+        host: "https://api.{{ cluster_name }}.{{ cluster_basedomain }}:6443"
+        validate_certs: false # Delete when trusted
+
+    - name: Apply SSO's CA's cert as an OCP configmap
+      k8s:
+        state: present
+        src: "{{ tempdir.path }}/sso_ca.crt"
+        api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+        host: "https://api.{{ cluster_name }}.{{ cluster_basedomain }}:6443"
+        validate_certs: false # Delete when trusted
+
+    - shell: "oc login api.{{ cluster_name }}.{{ cluster_basedomain }}:6443 -u admin -p redhat --insecure-skip-tls-verify=true"
+    - name: Configure sso as OCP's oauth
+      shell: oc patch oauth/cluster --type merge --patch "{{ lookup('template', 'oauth.yaml.j2') }}"
+
+    - name: Give SSO user Admin privileges
+      k8s:
+        state: present
+        src: "{{ tempdir.path }}/sso_admin_rolebind.yaml"
+        api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+        host: "https://api.{{ cluster_name }}.{{ cluster_basedomain }}:6443"
+        validate_certs: false # Delete when trusted
