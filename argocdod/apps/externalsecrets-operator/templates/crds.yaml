@@ -34,6 +34,7 @@ spec:
                 type: object
               backendType:
                 type: string
+                default: vault
                 enum:
                   - secretsManager
                   - systemManager
