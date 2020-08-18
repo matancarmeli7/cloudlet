@@ -1,7 +1,7 @@
 # Default values for download-cloud-helm.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-UPLOAD_HOST: '10.0.32.6'
+UPLOAD_HOST: '52.179.117.155'
 PORT: 30038
 TEST_LENGTH: 5
 TESTS_AMOUNT: 1
