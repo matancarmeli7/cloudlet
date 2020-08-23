@@ -1,0 +1,19 @@
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" cacheDuration="P10D" entityID="tower-cloudlet.cloudlet-dev.com">
+    <md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIDETCCAfkCCQDoThhLYxq/DTANBgkqhkiG9w0BAQsFADBTMQswCQYDVQQGEwJYWDEVMBMGA1UEBwwMRGVmYXVsdCBDaXR5MQwwCgYDVQQKDANNT0QxETAPBgNVBAsMCENsb3VkbGV0MQwwCgYDVQQDDANSbkQwHhcNMjAwODIzMTM0NzIwWhcNMjIxMTI2MTM0NzIwWjBCMQswCQYDVQQGEwJYWDEVMBMGA1UEBwwMRGVmYXVsdCBDaXR5MRwwGgYDVQQKDBNEZWZhdWx0IENvbXBhbnkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx6QnxY21yZlZukSvp2on3iHqT4DWjgIqpN72H76anEeHuFcM702nraRXxcycbuEYbMRc2LUN+I1iI8emuzS8XSCbM1d14alTe3+h7pGqjxYDW2GSb3FidppfhhOxemoeRij/wOSg+Z8fkOHGlxBC7GI20nJ88+jYsUbnK/2lXDtV8fEp5iUrgTIql9jtSOGsQNvi1RYwJLXALtJ6jHh3AmIetZ2Liihy86iC8BslqERk+GLHBvs5PSypPu3aYeCU/UfpB2ZQ++oxcJdaPiXWqSosb3WqYEhXyQvLzg72St+/Bqz9e4/mNEk9VJ+erMDxGj1pwWa8DH6v2bQSinGpXQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQB/Vaqe+pQlMXL51f2Au4yHyE5SuLDD1E+PU2tyqWcuPmAw+2P4g6T+DZdXIr01lItbhBMOq25NIiFWw8j/qS1WMV7V7p6WPKUPt9mMIj4L/o834/kj+Cmg4DaM2AOR9x1hd9g3/n4fK2E+hkr+HTDXGF4o1CkqB4uHtGiPpMS7edQmOuXPvBowHcgEBTeDXkaGJDEz7+OAPikajGrfFrKFMnQ6RTN5W2YW0uYp/AcVahP2EsEHLiocs+EZ/hDkJ2VkTZ01g0DiErOXuQ91qzZsRFMO2jPiDPoa1C+bw/bVvFYjJISzsolZgla/D1DiEX7QuiRlnr8+7z/5kaTphAJD</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://tower-cloudlet.cloudlet-dev.com/sso/complete/saml/" index="1"/>
+    </md:SPSSODescriptor>
+    <md:Organization>
+        <md:OrganizationName xml:lang="en-US">cloudlet</md:OrganizationName>
+        <md:OrganizationDisplayName xml:lang="en-US">clou</md:OrganizationDisplayName>
+        <md:OrganizationURL xml:lang="en-US">https://sso.cloudlet-dev.com:8443</md:OrganizationURL>
+    </md:Organization>
+    <md:ContactPerson contactType="technical">
+        <md:GivenName>Dolev Algam</md:GivenName>
+        <md:EmailAddress>dolevdodo@gmail.com</md:EmailAddress>
+    </md:ContactPerson>
+    <md:ContactPerson contactType="support">
+        <md:GivenName>Dolev Algam</md:GivenName>
+        <md:EmailAddress>dolevdodo@gmail.com</md:EmailAddress>
+    </md:ContactPerson>
+</md:EntityDescriptor>
