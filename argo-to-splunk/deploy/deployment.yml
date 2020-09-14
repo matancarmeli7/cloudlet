@@ -16,7 +16,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: argo-to-splunk-config
+            name: argo-to-splunk
             defaultMode: 420
       containers:
         - name: argo-to-splunk
