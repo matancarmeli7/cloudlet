@@ -13,11 +13,6 @@ spec:
       labels:
         app: argo-to-splunk
     spec:
-      volumes:
-        - name: config-volume
-          configMap:
-            name: argo-to-splunk
-            defaultMode: 420
       containers:
         - name: argo-to-splunk
           image: 'docker.io/meshistern/argo-to-splunk:latest'
@@ -28,6 +23,10 @@ spec:
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
+      volumes:
+        - name: config-volume
+           configMap:
+             name: argo-to-splunk
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
