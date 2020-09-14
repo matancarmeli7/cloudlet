@@ -33,10 +33,5 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
-  strategy:
-    type: RollingUpdate
-    RollingUpdate:
-      maxUnavailable: 25%
-      maxSurge: 25%
   revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
