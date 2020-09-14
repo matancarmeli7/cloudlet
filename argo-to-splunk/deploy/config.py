@@ -1,4 +1,4 @@
-argoUrl = 'https://argocd-argocd.apps.ocp43-prod.cloudlet-dev.com/'
+argoUrl = 'https://argocd-argocd.apps.ocp43-np.cloudlet-dev.com/'
 appsApi = 'api/v1/applications'
 authApi = 'api/v1/session'
 login = {"username": "admin", "password": "6KEgvtYJaRlbUT82reCWwA4mDinV3OoP"}
