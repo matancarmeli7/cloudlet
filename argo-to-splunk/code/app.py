@@ -61,7 +61,8 @@ def job():
             r = requests.post(splunkUrl, headers=splunkAuth, json=jsonSplunk, verify=False)
             print(r)
 
-schedule.every(1).minutes.do(job)
-while 1:
-    schedule.run_pending()
-    time.sleep(1)
+#schedule.every(1).minutes.do(job)
+#while 1:
+#    schedule.run_pending()
+#    time.sleep(1)
+job()

@@ -13,24 +13,30 @@ spec:
       labels:
         app: argo-to-splunk
     spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: argo-to-splunk-config
+            defaultMode: 420
       containers:
         - name: argo-to-splunk
           image: 'docker.io/meshistern/argo-to-splunk:latest'
           resources: {}
           volumeMounts:
             - name: config-volume
-              mountPath: /argo_to_splunk/src/config
+              mountPath: /argocd_to_splunk/src/config
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
-      volumes:
-        - name: config-volume
-           configMap:
-             name: argo-to-splunk
-      restartPolicy: Always
+      restartPilicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    RollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
   revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
