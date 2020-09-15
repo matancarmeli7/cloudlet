@@ -1,11 +1,8 @@
-#!/usr/bin/python3
 import minio
 import flask
 import time
 from flask import Flask
 from minio import Minio
-#from minio.error import ResponseError
-#import response
 import sys
 
 sys.path.insert(1, '/minio-test/src/config')
@@ -51,4 +48,4 @@ def removeBucket():
         return(err)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port='8080')
+    app.run(host='0.0.0.0',port='5000')

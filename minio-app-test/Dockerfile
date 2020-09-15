@@ -6,6 +6,6 @@ RUN chown minio-test:minio-test /minio-test -R
 COPY app.py /minio-test/src
 WORKDIR /minio-test/src
 RUN pip3 install requests schedule minio flask
-EXPOSE 5000
+#EXPOSE 5000
 USER minio-test
 CMD ["python", "app.py"]
