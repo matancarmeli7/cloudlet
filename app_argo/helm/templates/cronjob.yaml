@@ -1,0 +1,52 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: app_argo
+spec:
+  schedule: "*/{{ .Values.every_minutes }} * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: app_argo
+              image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+              env:
+                - name: SPLUNK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: app_argo
+                      key: SPLUNK_URL
+                - name: SPLUNK_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: app_argo
+                      key: SPLUNK_TOKEN
+                - name: CLUSTERS_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: app_argo
+                      key: CLUSTERS_URL
+                - name: SPLUNK_IP
+                  valueFrom:
+                    secretKeyRef:
+                      name: app_argo
+                      key: SPLUNK_IP
+                - name: SPLUNK_PORT
+                  value: "8089"
+                - name: SPLUNK_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: app_argo
+                      key: SPLUNK_USER
+                - name: SPLUNK_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      name: app_argo
+                      key: SPLUNK_PASS
+              imagePullPolicy: IfNotPresent
+          restartPolicy: OnFailure
+
+
