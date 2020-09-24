@@ -3,8 +3,9 @@ configmap:
   minio_url: minio-route-default.apps.ocp43-dev.cloudlet-dev.com
   minio_access_key: minio
   minio_secret_key: minio123
-  
+  cluster_name: prod
+
 containers:
   repository: docker.io/meshistern
   image: minio-test
-  version: latest
+  version: 1

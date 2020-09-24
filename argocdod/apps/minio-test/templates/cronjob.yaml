@@ -1,0 +1,44 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: minio-test
+  namespace: minio-test
+spec:
+  schedule: '0 * * * *'
+  backoffLimit: 0
+  replicas: 1
+  selector: {}
+  jobTemplate:
+    metadata:
+      labels:
+        app: minio-test
+    spec:
+      template:
+        spec:
+          volumes:
+            - name: config-volume
+              configMap:
+                name: minio-test
+                defaultMode: 420
+          containers:
+            - name: minio-test
+              image: '{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
+              resources: {}
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /minio-test/src/config
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              imagePullPolicy: Always
+          restartPolicy: Never
+          terminationGracePeriodSeconds: 30
+          dnsPolicy: ClusterFirst
+          securityContext: {}
+          schedulerName: default-scheduler
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 25%
+          maxSurge: 25%
+      revisionHistoryLimit: 10
+      progressDeadlineSeconds: 600
