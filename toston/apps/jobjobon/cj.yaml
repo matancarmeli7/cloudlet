@@ -1,0 +1,28 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: jobjobon
+  labels:
+    app_name: toston
+    level: HIGH
+spec:
+  schedule: "*/3 * * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app_name: toston
+        level: HIGH
+    spec:
+      template:
+        spec:
+          containers:
+            - name: jobjobon
+              image: "hacetah726/jobjob:1"
+              env:
+                - name: BIG_MSG
+                  value: "error"
+              imagePullPolicy: IfNotPresent
+          restartPolicy: OnFailure
+
+
