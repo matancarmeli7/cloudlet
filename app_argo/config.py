@@ -1,4 +1,4 @@
-argoUrl = 'https://argocd-server-argocd.apps.np.cloudlet-dev.com/'
+argoUrl = 'https://argocd.apps.np.cloudlet-dev.com/'
 appsApi = 'api/v1/clusters'
 authApi = 'api/v1/session'
 login = {"username": "admin", "password": "redhat"}

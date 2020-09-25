@@ -33,7 +33,7 @@ async def url_up(url):
             logger.error(f"URLUPSTATUS:{url}:{e}")
             return False
 
-    if (r.status_code not in [503, 404]):
+    if (r.status_code==[503, 404]):
         logger.info(f"URLUPSTATUS:{url}:UP:STATUS_CODE={r.status_code}")
         return True
     else:
@@ -45,8 +45,9 @@ async def argoinf():
 
     argoApi = 'api/v1/clusters/'
     x = requests.get(argoUrl + appsApi, cookies=argoAuth.cookies, verify=False)
-    return(x.json())
 
+    return(x.json())
+     
 
 async def clusterjob():
 
@@ -55,17 +56,20 @@ async def clusterjob():
     for app in appsRes['items']:
 
        server = app['server']
-       print(app['server'])
        splitCluster = server.split(".")
-       cluster_name = splitCluster[1]
-       print(cluster_name)
+       Cluster_name = splitCluster[1]
+
+       if Cluster_name=="p":
+        print('Cluster', Cluster_name, 'found')
+       else:
+        print('Cluster', Cluster_name, 'not found','err')
 
        status = app['connectionState']['status']
-       print(app['connectionState']['status'])
-
-       jsonSplunk = {"event":{"event_type": "argo"  , "cluster": cluster_name, "status": status }}
-       r = requests.post(splunkUrl, headers=splunkAuth, json=jsonSplunk, verify=False)
-       print(r)
+       
+       if status=="Successful":
+        print('Cluster', Cluster_name, 'is Connected to argocd')
+       else:
+        print('Cluster', Cluster_name, 'is Disconnected to argocd','err')
 
 
 async def repojob():
@@ -75,19 +79,17 @@ async def repojob():
     for app in appsRes['items']:
 
       repo = app['repo']
-      print(app['repo'])
-
       status = app['connectionState']['status']
-      print(app['connectionState']['status'])
 
-      jsonSplunk = {"event":{"event_type": "argo"  , "repositories": repo, "status": status }}
-      r = requests.post(splunkUrl, headers=splunkAuth, json=jsonSplunk, verify=False)
-      print(r)
+      if status=="Successful":
+        print('repository', repo, ' is connected to argocd')
+      else:
+        print('repository', repo, 'is Disconnected to argocd', 'err')
 
 
 async def main():
 
-    await url_up('https://argocd-server-argocd.apps.np.cloudlet-dev.com')
+    await url_up('https://argocd.apps.np.cloudlet-dev.com')
 
 if __name__ == '__main__':
     asyncio.run(main())
