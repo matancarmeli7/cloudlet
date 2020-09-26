@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app_argo-conf
+  namespace:  app_argo
+data:
+   config.py: |-
+     argoUrl = '{{ .Values.configmap.argoUrl }}'
+     appsApi = '{{ .Values.configmap.appsApi }}'
+     authApi = '{{ .Values.configmap.authApi }}'
+     login = '{{ .Values.configmap.login }}'
+     splunkUrl = '{{ .Values.configmap.splunkUrl }}'
+     splunkAuth = '{{ .Values.configmap.splunkAuth }}'
+     repoApi = '{{ .Values.configmap.repoApi }}'
+     cluster_name = '{{ .Values.configmap.cluster_name }}'
+     reponame = '{{ .Values.configmap.reponame }}'
+     url = '{{ .Values.configmap.url }}'
+     verifySSl = '{{ .Values.configmap.verifySSl }}'

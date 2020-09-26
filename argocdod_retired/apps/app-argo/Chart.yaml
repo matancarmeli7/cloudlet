@@ -1,0 +1,4 @@
+apiVersion: v1
+name: app_argo
+version: latest
+
