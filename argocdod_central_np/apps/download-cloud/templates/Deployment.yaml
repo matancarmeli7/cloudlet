@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest-download
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest-download
+  template:
+    metadata:
+      labels:
+        app: speedtest-download
+    spec:
+      containers:
+      - name: speedtest-download
+        image: "{{ .Values.IMAGE_NAME }}"
+        ports:
+        - containerPort: {{ .Values.PORT }}
+          protocol: TCP
+      restartPolicy: Always
+
