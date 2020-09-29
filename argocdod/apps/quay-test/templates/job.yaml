@@ -4,7 +4,7 @@ metadata:
   name: quay-test
   namespace: quay-test
 spec:
-  schedule: "*/{{ .Values.every_minutes }} * * * *"
+  schedule: "*/1 * * * *"
   startingDeadlineSeconds: 300
   concurrencyPolicy: "Replace"
   jobTemplate:
