@@ -1,0 +1,47 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: quay-test
+  namespace: quay-test
+spec:
+  schedule: '0 * * * *'
+  backoffLimit: 0
+  replicas: 1
+  selector: {}
+  jobTemplate:
+    metadata:
+      labels:
+        app: quay-test
+    spec:
+      template:
+        spec:
+          volumes:
+            - name: config-volume
+              configMap:
+                name: quay-test
+                defaultMode: 420
+          containers:
+            - name: quay-test
+              image: 'quay.io/almoggo/quaytest:latest'
+              env:
+                - name: fqdn
+                  value: {{ .Values.configmap.fqdn }}
+              resources: {}
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /quaytest/config
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              imagePullPolicy: Always
+          restartPolicy: Never
+          terminationGracePeriodSeconds: 30
+          dnsPolicy: ClusterFirst
+          securityContext: {}
+          schedulerName: default-scheduler
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 25%
+          maxSurge: 25%
+      revisionHistoryLimit: 10
+      progressDeadlineSeconds: 600
