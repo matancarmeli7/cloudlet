@@ -11,11 +11,19 @@ spec:
     spec:
       template:
         spec:
+         volumes:
+           - name: config-volume
+             configMap:
+               name: quay-test
+               defaultMode: 420
           containers:
             - name: quay-test
               image: "quay.io/almoggo/quaytest:latest"
               env:
                 - name: fqdn
                   value: {{ .Values.configmap.fqdn }}
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /quaytest/config
               imagePullPolicy: IfNotPresent
           restartPolicy: OnFailure
