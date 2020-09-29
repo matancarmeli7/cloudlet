@@ -27,4 +27,3 @@ spec:
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
               imagePullPolicy: Always
-      progressDeadlineSeconds: 600
