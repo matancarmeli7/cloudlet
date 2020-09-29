@@ -5,7 +5,6 @@ metadata:
   namespace: minio-test
 spec:
   schedule: '0 * * * *'
-  replicas: 1
   jobTemplate:
     metadata:
       labels:
