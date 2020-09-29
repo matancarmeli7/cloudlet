@@ -5,5 +5,5 @@
 
 {{- define "cluster_fqdn" -}}
 {{- $match := .Values.spec.destination.server | toString | regexFind "api.*:" -}}
-{{- $match | trimAll ":" | trimAll "api." -}}
+{{- $match | trimAll ":" | trim "api." -}}
 {{- end -}}
