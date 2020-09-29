@@ -11,11 +11,11 @@ spec:
     spec:
       template:
         spec:
-         volumes:
-           - name: config-volume
-             configMap:
-               name: quay-test
-               defaultMode: 420
+          volumes:
+            - name: config-volume
+              configMap:
+                name: quay-test
+                defaultMode: 420
           containers:
             - name: quay-test
               image: "quay.io/almoggo/quaytest:latest"
