@@ -12,6 +12,7 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
           volumes:
             - name: config-volume
               configMap:
