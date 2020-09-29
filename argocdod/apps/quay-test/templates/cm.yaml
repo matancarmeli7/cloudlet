@@ -5,5 +5,5 @@ metadata:
   namespace: quay-test
 data:
   config.py: |+
-    quay_url_conf = https://quay.{{ .Values.configmap.fqdn }}
+    quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
     quay_auth = {{ .Values.configmap.quay_auth }}
