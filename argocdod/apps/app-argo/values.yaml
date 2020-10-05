@@ -3,7 +3,7 @@ image:
   name: app_argo
   tag: "latest"
 
-every_minutes: 20
+every_minutes: 3
 
 conf:  
   argoUrl: 'https://argocd-server-argocd.apps.np.cloudlet-dev.com/'
