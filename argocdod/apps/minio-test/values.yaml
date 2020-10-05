@@ -3,7 +3,7 @@ configmap:
   minio_url: minio.apps.np.cloudlet-dev.com
   minio_access_key: minio
   minio_secret_key: minio123
-  cluster_name: prod
+  cluster_name: np
 
 containers:
   repository: docker.io/meshistern
