@@ -8,6 +8,7 @@ spec:
   jobTemplate:
     metadata:
       labels:
+        app_name: toston
         app: minio-test
     spec:
       template:
