@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: minio-test
+        app_name: toston
     spec:
       template:
         spec:
