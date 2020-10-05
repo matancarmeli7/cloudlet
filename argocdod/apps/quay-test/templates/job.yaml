@@ -3,6 +3,8 @@ kind: CronJob
 metadata:
   name: quay-test
   namespace: quay-test
+  labels:
+    app: toston
 spec:
   schedule: "*/1 * * * *"
   startingDeadlineSeconds: 300
