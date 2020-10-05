@@ -3,7 +3,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: jobjobon
+  name: app-argo
   namespace: {{ .Values.namespace }}
 spec:
   schedule: "*/3 * * * *"
