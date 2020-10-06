@@ -14,7 +14,7 @@ sys.path.insert(1, '/app_argo/config')
 from config import *
 
 global argoAuth
-argoAuth = requests.post(argoUrl + authApi, json=login, verify=False)
+argoAuth = requests.post(argoUrl + authApi, json=login, verify=verifySSl)
 
 def url_up(url):
     logger = logging.getLogger()
@@ -37,7 +37,7 @@ def url_up(url):
     return True
 
 def clusterjob():
-    argo = requests.get(argoUrl + appsApi, cookies=argoAuth.cookies, verify=False)
+    argo = requests.get(argoUrl + appsApi, cookies=argoAuth.cookies, verify=verifySSl)
     appsRes = json.loads(argo.content)
     for app in appsRes['items']:
 
