@@ -5,3 +5,7 @@ login = {"username": "admin", "password": "redhat"}
 splunkUrl = 'https://13.90.23.80:8088/services/collector/event'
 splunkAuth = {'Authorization': 'Splunk c92a548a-e243-41ab-9168-8a17ce013342'}
 repoApi = 'api/v1/repositories'
+cluster_name = 'dev'
+reponame = 'cloudlet'
+url = 'https://argocd.apps.np.cloudlet-dev.com/'
+verifySSl = False
