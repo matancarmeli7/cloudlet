@@ -7,3 +7,4 @@ data:
   config.py: |+
     quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
     quay_token = '{{ .Values.configmap.quay_auth }}'
+    image = '{{ .Values.configmap.image }}'
