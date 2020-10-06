@@ -28,5 +28,5 @@ spec:
               volumeMounts:
                 - name: config-volume
                   mountPath: /quaytest/config
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
           restartPolicy: OnFailure
