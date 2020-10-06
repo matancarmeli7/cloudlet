@@ -13,3 +13,6 @@ data:
      splunkAuth = '{{ .Values.configmap.splunkAuth }}'
      repoApi = '{{ .Values.configmap.repoApi }}'
      cluster_name = '{{ .Values.configmap.cluster_name }}'
+     reponame = '{{ .Values.configmap.reponame }}'
+     url = '{{ .Values.configmap.url }}'
+     verifySSl = '{{ .Values.configmap.verifySSl }}'
