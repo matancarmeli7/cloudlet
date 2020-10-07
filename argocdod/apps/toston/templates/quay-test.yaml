@@ -1,8 +1,18 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: quay-test
+  namespace: toston
+data:
+  config.py: |+
+    quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
+    image = '{{ .Values.configmap.image }}'
+---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: quay-test
-  namespace: quay-test
+  namespace: toston
 spec:
   schedule: "*/1 * * * *"
   startingDeadlineSeconds: 300

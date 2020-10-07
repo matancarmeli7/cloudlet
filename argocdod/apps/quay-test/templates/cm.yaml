@@ -1,9 +1,0 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: quay-test
-  namespace: quay-test
-data:
-  config.py: |+
-    quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
-    image = '{{ .Values.configmap.image }}'

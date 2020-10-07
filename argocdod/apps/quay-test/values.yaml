@@ -1,3 +1,0 @@
-configmap:
-  fqdn: cloudlet.dev
-  image: docker.io/nginx

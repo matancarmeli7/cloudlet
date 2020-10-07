@@ -1,4 +1,8 @@
 namespace: toston
 
 toston_app_label: toston
+configmap:
+  fqdn: cloudlet.dev
+  image: docker.io/nginx
+
 
