@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: toston
+  name: {{ .Values.namespace }}
 
 ---
 kind: ClusterRole
@@ -37,7 +37,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: default
-    namespace: toston
+    namespace: {{ .Values.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
