@@ -14,7 +14,7 @@ metadata:
   name: quay-test
   namespace: toston
 spec:
-  schedule: "*/2 * * * *"
+  schedule: "*/30 * * * *"
   startingDeadlineSeconds: 300
   concurrencyPolicy: "Replace"
   jobTemplate:
