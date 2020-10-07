@@ -39,4 +39,4 @@ spec:
                 - name: config-volume
                   mountPath: /quaytest/config
               imagePullPolicy: Always
-          restartPolicy: OnFailure
+          restartPolicy: Never
