@@ -9,7 +9,7 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: matoshon_adminon
-  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/toston_adminon
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/matoshon_adminon
   uid: 84cce195-d083-44a1-8ad2-a7b3ba0fc1b3
   resourceVersion: '559958'
   creationTimestamp: '2020-10-01T13:36:01Z'
@@ -30,7 +30,7 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: matoshon_adminon
-  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/toston_adminon
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/matoshon_adminon
   uid: b6382aba-d1cb-4b03-bffd-4f4dd353b45c
   resourceVersion: '560158'
   creationTimestamp: '2020-10-01T13:36:34Z'
