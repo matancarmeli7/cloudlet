@@ -21,7 +21,9 @@ spec:
     metadata:
       labels:
         app_name: toston
+        level: HIGH
     spec:
+      backoffLimit: 0
       template:
         spec:
           volumes:
