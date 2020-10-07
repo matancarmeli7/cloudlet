@@ -21,7 +21,9 @@ spec:
     metadata:
       labels:
         app_name: toston
+        level: HIGH
     spec:
+      backoffLimit: 0
       template:
         spec:
           volumes:
@@ -39,4 +41,4 @@ spec:
                 - name: config-volume
                   mountPath: /quaytest/config
               imagePullPolicy: Always
-          restartPolicy: OnFailure
+          restartPolicy: Never
