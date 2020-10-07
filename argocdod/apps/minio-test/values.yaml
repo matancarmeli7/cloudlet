@@ -1,11 +1,12 @@
 configmap:
   bucket_name: mybucket
-  minio_url: minio.apps.np.cloudlet-dev.com
+  minio_url_1: minio.apps
+  minio_url_2: cloudlet-dev.com
   minio_access_key: minio
   minio_secret_key: minio123
   cluster_name: np
 
 containers:
   repository: docker.io/meshistern
-  image: minio-test
-  version: 1
+  image: minio-test-secure
+  version: latest
