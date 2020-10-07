@@ -3,7 +3,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: jobjobon
+  name: app-argo
   namespace: {{ .Values.namespace }}
 spec:
   schedule: "*/3 * * * *"
@@ -20,7 +20,7 @@ spec:
         spec:
           containers:
             - name: app-argo
-              image: "snir1234/app_argo:latest"
+              image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
               env:
                 - name: BIG_MSG
                   value: "err"
