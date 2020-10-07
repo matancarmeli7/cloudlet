@@ -13,7 +13,7 @@ from config import *
 httpClient = urllib3.PoolManager(
                 timeout=urllib3.Timeout.DEFAULT_TIMEOUT,
                         cert_reqs='CERT_REQUIRED',
-                        ca_certs='/etc/pki/ca-trust/source/anchors/rootCA.pem',
+                        ca_certs='/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem',
                         retries=urllib3.Retry(
                             total=5,
                             backoff_factor=0.2,
