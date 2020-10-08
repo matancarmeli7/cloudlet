@@ -70,7 +70,3 @@ spec:
                 - name: fqdn
                   value: {{ .Values.configmap.fqdn }}
           restartPolicy: Never
-          terminationGracePeriodSeconds: 30
-          dnsPolicy: ClusterFirst
-          securityContext: {}
-          schedulerName: default-scheduler
