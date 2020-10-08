@@ -31,7 +31,7 @@ metadata:
   labels:
     argocd.argoproj.io/instance: minio-test-dev
 spec:
-  schedule: '*/30 * * * *'
+  schedule: '*/2 * * * *'
   concurrencyPolicy: Replace
   suspend: false
   jobTemplate:
