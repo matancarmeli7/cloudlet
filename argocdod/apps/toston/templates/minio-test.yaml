@@ -20,8 +20,8 @@ data:
   config.py: |+
     bucket_name = 'mybucket-minio-test'
     minio_url = 'https://minio.apps.{{ .Values.configmap.fqdn }}'
-    minio_access_key = '{{ .Values.configmap.minio_access_key }}'
-    minio_secret_key = '{{ .Values.configmap.minio_secret_key }}'
+    minio_access_key = '{{ .Values.configmap.minio-test.minio_access_key }}'
+    minio_secret_key = '{{ .Values.configmap.minio-test.minio_secret_key }}'
 ---
 kind: CronJob
 apiVersion: batch/v1beta1
