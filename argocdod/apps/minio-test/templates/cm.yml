@@ -6,6 +6,6 @@ metadata:
 data:
   config.py: |+
     bucket_name = '{{ .Values.configmap.bucket_name }}'
-    minio_url = '{{ .Values.configmap.minio_url_1 }}.{{ .Values.configmap.cluster_name }}.{{ .Values.configmap.minio_url_2 }}'
+    minio_url = 'https://minio.apps.{{ .Values.configmap.fqdn }}'
     minio_access_key = '{{ .Values.configmap.minio_access_key }}'
     minio_secret_key = '{{ .Values.configmap.minio_secret_key }}'
