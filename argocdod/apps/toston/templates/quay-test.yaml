@@ -21,7 +21,7 @@ metadata:
   name: quay-test
   namespace: {{ .Values.namespace }}
 spec:
-  schedule: "*/30 * * * *"
+  schedule: "0,30 * * * *"
   startingDeadlineSeconds: 300
   concurrencyPolicy: "Replace"
   jobTemplate:
