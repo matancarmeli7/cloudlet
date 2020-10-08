@@ -20,6 +20,7 @@ spec:
           creationTimestamp: null
         spec:
           volumes:
+            {{ if .Values.configmap.certificates true }}
             - name: trusted-ca
               configMap:
                 name: trusted-ca
@@ -27,6 +28,7 @@ spec:
                   - key: ca-bundle.crt
                     path: tls-ca-bundle.pem
                 defaultMode: 420
+            {{ end }}
             - name: config-volume
               configMap:
                 name: minio-test
@@ -36,9 +38,11 @@ spec:
               image: 'docker.io/meshistern/minio-test-secure:latest'
               resources: {}
               volumeMounts:
+                {{ if .Values.configmap.certificates true }}
                 - name: trusted-ca
                   readOnly: true
                   mountPath: /etc/pki/ca-trust/extracted/pem
+                {{ end }}
                 - name: config-volume
                   mountPath: /minio-test/src/config
               terminationMessagePath: /dev/termination-log
