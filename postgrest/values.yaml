@@ -1,0 +1,5 @@
+namespace: cloudlet-mgmt
+
+PGRST_DB_URI: "host=cloudlet-postgressql.postgres.database.azure.com port=5432 dbname=postgres user=authenticator@cloudlet-postgressql password='Aa123456' sslmode=require"
+PGRST_DB_ANON_ROLE: web_anon
+PGRST_DB_SCHEMA: public
