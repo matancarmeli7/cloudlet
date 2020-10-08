@@ -5,4 +5,14 @@ configmap:
   fqdn: cloudlet.dev
   image: docker.io/nginx
 
+minio-test:
+  configmap:  
+    minio_access_key: minio
+    minio_secret_key: minio123
+    fqdn: dev.cloudlet-dev.com
+  containers:
+    repository: docker.io/meshistern
+    image: minio-test-secure
+    version: latest
+
 
