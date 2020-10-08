@@ -7,8 +7,6 @@ configmap:
 
 minio_test:
   configmap:  
-    minio_access_key: minio
-    minio_secret_key: minio123
     fqdn: dev.cloudlet-dev.com
   containers:
     repository: docker.io/meshistern
