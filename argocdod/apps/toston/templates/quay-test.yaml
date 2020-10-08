@@ -4,6 +4,7 @@ kind: Namespace
 metadata:
   name: {{ .Values.namespace }}
 
+---
 kind: ConfigMap
 apiVersion: v1
 metadata:
