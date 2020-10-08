@@ -71,6 +71,9 @@ spec:
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
               imagePullPolicy: Always
+              env:
+                - name: fqdn
+                  value: {{ .Values.configmap.fqdn }}
           restartPolicy: Never
           terminationGracePeriodSeconds: 30
           dnsPolicy: ClusterFirst
