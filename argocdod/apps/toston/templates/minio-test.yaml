@@ -7,7 +7,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: trusted-ca
-  namespace: minio-test
+  namespace: {{ .Values.namespace }}
   labels:
     config.openshift.io/inject-trusted-cabundle: "true"
 ---
@@ -15,7 +15,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: minio-test
-  namespace: minio-test
+  namespace: {{ .Values.namespace }}
 data:
   config.py: |+
     bucket_name = 'mybucket-minio-test'
