@@ -18,7 +18,7 @@ metadata:
   namespace: minio-test
 data:
   config.py: |+
-    bucket_name = '{{ .Values.configmap.bucket_name }}'
+    bucket_name = 'mybucket-minio-test'
     minio_url = 'https://minio.apps.{{ .Values.configmap.fqdn }}'
     minio_access_key = '{{ .Values.configmap.minio_access_key }}'
     minio_secret_key = '{{ .Values.configmap.minio_secret_key }}'
