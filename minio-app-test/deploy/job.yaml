@@ -6,7 +6,7 @@ metadata:
   labels:
     argocd.argoproj.io/instance: minio-test-dev
 spec:
-  schedule: '*/60 * * * *'
+  schedule: '*/30 * * * *'
   concurrencyPolicy: Replace
   suspend: false
   jobTemplate:
@@ -44,11 +44,10 @@ spec:
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
               imagePullPolicy: Always
-          restartPolicy: OnFailure
+          restartPolicy: Never
           terminationGracePeriodSeconds: 30
           dnsPolicy: ClusterFirst
           securityContext: {}
           schedulerName: default-scheduler
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
-
