@@ -39,8 +39,8 @@ spec:
       creationTimestamp: null
       labels:
         app: minio-test
-		app_name: {{ .Values.toston_app_label }}
-		level: HIGH
+	app_name: {{ .Values.toston_app_label }}
+	level: HIGH
     spec:
       template:
         metadata:
