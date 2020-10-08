@@ -46,7 +46,7 @@ spec:
               imagePullPolicy: Always
               env:
                 - name: fqdn
-                  value: {{ .Values.configmap.fqdn }}
+                  value: np.cloudlet-dev.com
           restartPolicy: Never
           terminationGracePeriodSeconds: 30
           dnsPolicy: ClusterFirst
