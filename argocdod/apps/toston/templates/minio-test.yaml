@@ -29,20 +29,17 @@ metadata:
   labels:
     argocd.argoproj.io/instance: minio-test-dev
 spec:
+  startingDeadlineSeconds: 300
   schedule: '*/2 * * * *'
   concurrencyPolicy: Replace
-  suspend: false
   jobTemplate:
     metadata:
-      creationTimestamp: null
       labels:
         app: minio-test
         app_name: {{ .Values.toston_app_label }}
         level: HIGH
     spec:
       template:
-        metadata:
-          creationTimestamp: null
         spec:
           volumes:
             - name: trusted-ca
@@ -77,5 +74,3 @@ spec:
           dnsPolicy: ClusterFirst
           securityContext: {}
           schedulerName: default-scheduler
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
