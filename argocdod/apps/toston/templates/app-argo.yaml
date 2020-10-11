@@ -25,7 +25,7 @@ spec:
       template:
         spec:
           containers:
-            - name: app-argo
+            - name: edgecd
               image: "snir1234/app_argo:latest"
               env:
                 - name: BIG_MSG
