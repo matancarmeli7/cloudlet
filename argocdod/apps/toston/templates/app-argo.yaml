@@ -9,7 +9,7 @@ metadata:
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: app-argo
+  name: EdgeCD
   namespace: {{ .Values.namespace }}
 spec:
   schedule: "*/3 * * * *"
