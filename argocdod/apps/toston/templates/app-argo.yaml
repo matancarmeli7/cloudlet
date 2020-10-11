@@ -1,10 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.namespace }}
-
----
 # Source: statuson/templates/cronjob.yaml
 apiVersion: batch/v1beta1
 kind: CronJob
