@@ -9,7 +9,7 @@ metadata:
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: EdgeCD
+  name: edgecd
   namespace: {{ .Values.namespace }}
 spec:
   schedule: "*/3 * * * *"
