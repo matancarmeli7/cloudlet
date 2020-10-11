@@ -30,5 +30,5 @@ spec:
               env:
                 - name: BIG_MSG
                   value: "err"
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
           restartPolicy: Never
