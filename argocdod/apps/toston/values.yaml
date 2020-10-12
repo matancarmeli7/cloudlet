@@ -13,4 +13,21 @@ minio_test:
     image: minio-test-secure
     version: latest
 
+argo_app:    
+  image:
+    repository: snir1234
+    name: app_argo
+    tag: "latest"
+
+  every_minutes: 3
+
+  conf:  
+    argoUrl = 'https://argocd.apps.np.cloudlet-dev.com/'
+    #login = {"username": "admin", "password": "redhat"}
+    splunkUrl = 'https://13.90.23.80:8088/services/collector/event'
+    splunkAuth = {'Authorization': 'Splunk c92a548a-e243-41ab-9168-8a17ce013342'}
+    url = 'https://argocd.apps.np.cloudlet-dev.com/'
+    verifySSl = False
+
+
 
