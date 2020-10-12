@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
       - name: {{ index .Values "pgcluster" "PG_CLUSTER_NAME" }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
         env:
           - name: APPLICATION_NAME
