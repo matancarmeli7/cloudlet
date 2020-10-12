@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: app_argo-conf
+  name: app-argo-conf
   namespace:  
 data:
    config.py: |+
