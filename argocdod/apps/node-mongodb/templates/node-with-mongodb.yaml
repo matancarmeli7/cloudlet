@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
       - name: {{ index .Values "mongodb" "APPLICATION_NAME" }}
-        image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
         volumeMounts:
         - name: cert-volume
