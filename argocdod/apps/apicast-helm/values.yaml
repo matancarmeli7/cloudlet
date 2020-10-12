@@ -1,5 +1,9 @@
 #Default ENV variables
-
+image:
+  repository: quay.apps.{{Valuse.configmap.fqdn}}/cloudlet
+  name: apicast
+  tag: "master"
+  
 CONFIGURATION_URL_SECRET: apicast-configuration-url-secret
 CONFIGURATION_FILE_PATH:
 IMAGE_NAME: 'quay.apps.{{Valuse.configmap.fqdn}}/cloudlet/apicast:master'
