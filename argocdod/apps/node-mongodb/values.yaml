@@ -1,5 +1,6 @@
 image:
   repository: quay.io/amitai333/sampleapp2
+  name: sampleapp2
   tag: latest
 
 namespace: node-mongodb-sampleapp
