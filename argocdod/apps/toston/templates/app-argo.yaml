@@ -39,7 +39,7 @@ spec:
         spec:
           containers:
             - name: edgecd
-              image: "snir1234/app_argo:latest"
+              image: {{ .Values.argo_app.image.repository }}/{{ .Values.argo_app.image.name }}:{{ .Values.argo_app.image.tag }} 
               env:
                 - name: BIG_MSG
                   value: "err"
