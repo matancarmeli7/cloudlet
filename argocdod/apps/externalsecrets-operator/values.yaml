@@ -77,7 +77,8 @@ serviceAccount:
 replicaCount: 1
 
 image:
-  repository: godaddy/kubernetes-external-secrets
+  repository: godaddy
+  name: kubernetes-external-secrets
   tag: 5.1.0
   pullPolicy: IfNotPresent
   imagePullSecrets: []
