@@ -77,7 +77,7 @@ spec:
         - name: APICAST_WORKERS
           value: "{{.APICAST_WORKERS}}"
 {{- end }}
-        image: "{{.IMAGE_NAME}}"
+        image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
         name: "{{.APICAST_NAME}}"
         livenessProbe:
