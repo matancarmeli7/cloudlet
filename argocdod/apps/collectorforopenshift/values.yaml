@@ -1,5 +1,6 @@
 image:
-  repository: docker.io/meshistern/collectorforopenshift
+  repository: meshistern
+  name: collectorforopenshift
 #  repository: docker.io/outcoldsolutions/collectorforopenshift
   tag: 5.14.284
 configmap:
