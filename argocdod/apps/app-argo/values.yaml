@@ -1,5 +1,5 @@
 image:
-  repository: snir1234
+  repository: quay.apps.{{Valuse.configmap.fqdn}}/cloudlet
   name: app_argo
   tag: "latest"
 
