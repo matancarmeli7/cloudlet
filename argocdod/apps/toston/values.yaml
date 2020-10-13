@@ -6,7 +6,7 @@ configmap:
   image: docker.io/nginx
 
 minio_test:
-  configmap:  
+  image:  
     fqdn: dev.cloudlet-dev.com
   containers:
     repository: docker.io/meshistern
