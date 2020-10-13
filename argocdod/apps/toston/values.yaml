@@ -13,6 +13,12 @@ minio_test:
     name: minio-test-secure
     tag: latest
 
+quay_test:    
+  image:
+    repository: almoggo
+    name: quaytest
+    tag: "latest"
+
 argo_app:    
   image:
     repository: snir1234
