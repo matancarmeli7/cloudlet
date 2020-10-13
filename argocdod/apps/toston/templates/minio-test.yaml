@@ -51,7 +51,7 @@ spec:
                 defaultMode: 420
           containers:
             - name: minio-test
-              image: 'docker.io/meshistern/minio-test-secure:latest'
+              image: {{ .Values.minio_test.image.repository }}/{{ .Values.minio_test.image.name }}:{{ .Values.minio_test.image.tag }
               resources: {}
               volumeMounts:
                 - name: trusted-ca
