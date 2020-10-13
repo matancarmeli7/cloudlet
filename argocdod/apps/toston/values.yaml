@@ -9,7 +9,7 @@ minio_test:
   image:  
     fqdn: dev.cloudlet-dev.com
   containers:
-    repository: docker.io/meshistern
+    repository: meshistern
     image: minio-test-secure
     version: latest
 
