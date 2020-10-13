@@ -11,7 +11,7 @@ minio_test:
   image:
     repository: meshistern
     name: minio-test-secure
-    version: latest
+    tag: latest
 
 argo_app:    
   image:
