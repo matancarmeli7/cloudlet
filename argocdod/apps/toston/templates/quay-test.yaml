@@ -34,7 +34,7 @@ spec:
                 defaultMode: 420
           containers:
             - name: quay-test
-              image: "quay.io/almoggo/quaytest:latest"
+              image: {{ .Values.quay_test.image.repository }}/{{ .Values.quay_test.image.name }}:{{ .Values.quay_test.image.tag }}
               env:
                 - name: fqdn
                   value: {{ .Values.configmap.fqdn }}
