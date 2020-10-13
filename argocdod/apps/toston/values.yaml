@@ -6,9 +6,9 @@ configmap:
   image: docker.io/nginx
 
 minio_test:
-  image:  
+  configmap:  
     fqdn: dev.cloudlet-dev.com
-  containers:
+  image:
     repository: docker.io/meshistern
     image: minio-test-secure
     version: latest
