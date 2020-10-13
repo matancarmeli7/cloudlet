@@ -19,6 +19,12 @@ quay_test:
     name: quaytest
     tag: "latest"
 
+matoshon:    
+  image:
+    repository: hacetah726
+    name: matoshon
+    tag: 2
+
 argo_app:    
   image:
     repository: snir1234
