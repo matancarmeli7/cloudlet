@@ -10,7 +10,7 @@ minio_test:
     fqdn: dev.cloudlet-dev.com
   image:
     repository: meshistern
-    image: minio-test-secure
+    name: minio-test-secure
     version: latest
 
 argo_app:    
