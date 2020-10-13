@@ -15,7 +15,7 @@ minio_test:
 
 quay_test:    
   image:
-    repository: almoggo
+    repository: quay.io/almoggo
     name: quaytest
     tag: "latest"
 
