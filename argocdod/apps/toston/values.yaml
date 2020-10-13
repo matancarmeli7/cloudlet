@@ -8,11 +8,23 @@ configmap:
 minio_test:
   configmap:  
     fqdn: dev.cloudlet-dev.com
-  containers:
+  image:
     repository: docker.io/meshistern
     image: minio-test-secure
-    version: latest
+    version: "latest"
 
+matoshon:    
+  image:
+    repository: hacetah726
+    name: matoshon
+    tag: 2
+
+quay_test:    
+  image:
+    repository: quay.io/almoggo
+    name: quaytest
+    tag: "latest"
+    
 argo_app:    
   image:
     repository: snir1234
