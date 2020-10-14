@@ -2,9 +2,9 @@
 
 Service that checks argocd runs as a cronjob in toston
 
-1. Checks if url argo up
+1. Check if url argo up
 
-2. Checks if the cluster he is running from currently exists in his list of clusters
+2. Check if the cluster he is running from currently exists in his list of clusters
 
 3. Check that the cluster is connected to the Argo
 
