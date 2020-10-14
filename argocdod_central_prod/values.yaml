@@ -1,7 +1,7 @@
 spec:
   destination:
     server: "https://api.prod.cloudlet-dev.com:6443"
-    namespace: "argocdod_central"
+    namespace: "argocdod"
   source:
     repoURL: https://github.com/matancarmeli7/cloudlet
     targetRevision: HEAD
