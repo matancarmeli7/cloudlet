@@ -1,0 +1,45 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: quay-test
+  namespace: {{ .Values.namespace }}
+data:
+  config.py: |+
+    quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
+    image = '{{ .Values.configmap.image }}'
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: quay-test
+  namespace: {{ .Values.namespace }}
+spec:
+  schedule: "*/30 * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
+    metadata:
+      labels:
+        app_name: toston
+        level: HIGH
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          volumes:
+            - name: config-volume
+              configMap:
+                name: quay-test
+                defaultMode: 420
+          containers:
+            - name: quay-test
+              image: {{ .Values.quay_test.image.repository }}/{{ .Values.quay_test.image.name }}:{{ .Values.quay_test.image.tag }}
+              env:
+                - name: fqdn
+                  value: {{ .Values.configmap.fqdn }}
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /quaytest/config
+              imagePullPolicy: Always
+          restartPolicy: Never

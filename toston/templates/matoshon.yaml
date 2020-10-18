@@ -1,0 +1,27 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: matoshon
+  namespace: {{ .Values.namespace }}
+spec:
+  schedule: "*/3 * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
+    metadata:
+      labels:
+        app_name: {{ .Values.toston_app_label }}
+        level: HIGH
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+            - name: matoshon
+              image: "hacetah726/matoshon:2"
+              env:
+                - name: BIG_MSG
+              imagePullPolicy: Always
+          restartPolicy: Never
+

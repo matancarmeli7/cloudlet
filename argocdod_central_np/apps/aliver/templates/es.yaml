@@ -1,0 +1,9 @@
+apiVersion: 'kubernetes-client.io/v1'
+kind: ExternalSecret
+metadata:
+  name: statuson
+spec:
+  backendType: vault
+  vaultRole: statuson-role
+  dataFrom:
+  - statuson/data/statuson

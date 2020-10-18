@@ -18,3 +18,5 @@ spec:
       parameters:
         - name: configmap.cluster_name
           value: {{ template "cluster_name" . }}
+        - name: configmap.fqdn
+          value: {{ template "cluster_fqdn" . }}

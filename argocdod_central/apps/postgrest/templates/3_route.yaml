@@ -1,0 +1,18 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: postgrest
+  namespace: {{ .Values.namespace }}
+  labels: {}
+spec:   
+  path: /cloudlets
+  to:
+    kind: Service
+    name: postgrest
+    weight: 100
+  port:
+    targetPort: 3000-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  wildcardPolicy: None

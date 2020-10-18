@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-argo-conf
+  namespace:  
+data:
+   config.py: |+
+     argoUrl = '{{ .Values.argo_app.configmap.argoUrl }}'
+     appsApi = '{{ .Values.argo_app.configmap.appsApi }}'
+     authApi = '{{ .Values.argo_app.configmap.authApi }}'
+     login = '{{ .Values.argo_app.configmap.login }}'
+     splunkUrl = '{{ .Values.argo_app.configmap.splunkUrl }}'
+     splunkAuth = '{{ .Values.argo_app.configmap.splunkAuth }}'
+     repoApi = '{{ .Values.argo_app.configmap.repoApi }}'
+     cluster_name = '{{ .Values.argo_app.configmap.cluster_name }}'
+     reponame = '{{ .Values.argo_app.configmap.reponame }}'
+     url = '{{ .Values.argo_app.configmap.url }}'
+     verifySSl = '{{ .Values.argo_app.configmap.verifySSl }}
+---
+# Source: statuson/templates/cronjob.yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: edgecd
+  namespace: {{ .Values.namespace }}
+spec:
+  schedule: "*/3 * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
+    metadata:
+      labels:
+        app_name: {{ .Values.toston_app_label }}
+        level: HIGH
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+            - name: edgecd
+              image: {{ .Values.argo_app.image.repository }}/{{ .Values.argo_app.image.name }}:{{ .Values.argo_app.image.tag }} 
+              env:
+                - name: BIG_MSG
+                  value: "err"
+              imagePullPolicy: Always
+          restartPolicy: Never

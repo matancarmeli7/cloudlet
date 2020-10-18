@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgrest
+  namespace: {{ .Values.namespace }}
+  labels: {}
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: 3000-tcp
+  selector:
+    app: postgrest
+    deploymentconfig: postgrest
+  type: ClusterIP
+  sessionAffinity: None
