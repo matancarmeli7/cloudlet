@@ -14,6 +14,7 @@ sys.path.insert(1, '/app_argo/config')
 from config import *
 
 global argoAuth
+login = {"username": userName, "password": password }
 argoAuth = requests.post(argoUrl + authApi, json=login, verify=verifySSl)
 
 def url_up(url):
@@ -31,7 +32,7 @@ def url_up(url):
 
     except:
        # logger.warning(f"URLUPSTATUS:{url}:DOWN:STATUS_CODE={r.status_code}")
-        print('Argo is Down')
+        print('Argo is Down', 'err')
         sys.exit(1)
         return False
     return True
@@ -75,7 +76,7 @@ def main(url):
      url_up(url)
      clusterjob()
      repojob()
-     print('Test Successful')
+     print('success')
      sys.exit(0)
 
 if __name__ == '__main__':
