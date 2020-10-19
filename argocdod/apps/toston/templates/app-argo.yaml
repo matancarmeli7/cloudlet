@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: app-argo-conf
-  namespace:  
+  namespace: {{ .Values.namespace }}
 data:
    config.py: |+
      argoUrl = '{{ .Values.argo_app.configmap.argoUrl }}'
