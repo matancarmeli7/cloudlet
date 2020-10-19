@@ -9,14 +9,14 @@ data:
      argoUrl = '{{ .Values.argo_app.configmap.argoUrl }}'
      appsApi = '{{ .Values.argo_app.configmap.appsApi }}'
      authApi = '{{ .Values.argo_app.configmap.authApi }}'
-     login = '{{ .Values.argo_app.configmap.login }}'
      splunkUrl = '{{ .Values.argo_app.configmap.splunkUrl }}'
-     splunkAuth = '{{ .Values.argo_app.configmap.splunkAuth }}'
      repoApi = '{{ .Values.argo_app.configmap.repoApi }}'
      cluster_name = '{{ .Values.argo_app.configmap.cluster_name }}'
      reponame = '{{ .Values.argo_app.configmap.reponame }}'
      url = '{{ .Values.argo_app.configmap.url }}'
      verifySSl = '{{ .Values.argo_app.configmap.verifySSl }}
+     userName = '{{ .Values.argo_app.configmap.userName }}
+     password = '{{ .Values.argo_app.configmap.password }}
 ---
 # Source: statuson/templates/cronjob.yaml
 apiVersion: batch/v1beta1
@@ -37,11 +37,19 @@ spec:
       backoffLimit: 0
       template:
         spec:
+          volumes:
+            - name: config-volume
+              configMap:
+                name: app-argo-conf
+                defaultMode: 420
           containers:
             - name: edgecd
               image: {{ .Values.argo_app.image.repository }}/{{ .Values.argo_app.image.name }}:{{ .Values.argo_app.image.tag }} 
               env:
                 - name: BIG_MSG
                   value: "err"
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /app_argo/config    
               imagePullPolicy: Always
           restartPolicy: Never
