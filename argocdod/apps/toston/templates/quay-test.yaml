@@ -2,6 +2,18 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
+  name: test
+  namespace: {{ .Values.namespace }}
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+data:
+  config.py: |+
+    quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
+    image = '{{ .Values.configmap.image }}'
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
   name: quay-test
   namespace: {{ .Values.namespace }}
 data:
