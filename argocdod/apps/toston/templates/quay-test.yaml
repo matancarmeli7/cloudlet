@@ -4,6 +4,8 @@ apiVersion: v1
 metadata:
   name: test
   namespace: toston
+  annotations:
+    argocd.argoproj.io/hook: PreSync
 data:
   config.py: |+
     quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
