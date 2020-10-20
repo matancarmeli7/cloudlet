@@ -4,7 +4,8 @@ apiVersion: v1
 metadata:
   name: test
   namespace: toston
-
+  annotations:
+    helm.sh/hook: pre-install
 data:
   config.py: |+
     quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
