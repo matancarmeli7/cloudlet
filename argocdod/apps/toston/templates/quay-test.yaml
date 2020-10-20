@@ -5,7 +5,7 @@ metadata:
   name: test
   namespace: toston
   annotations:
-    helm.sh/hook: pre-install
+    argocd.argoproj.io/hook: PreSync
 data:
   config.py: |+
     quay_url_conf = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
