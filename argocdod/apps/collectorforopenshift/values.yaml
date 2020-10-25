@@ -1,5 +1,5 @@
 image:
-  repository: quay.io/cloudlet
+  repository: quay.apps.{{Valuse.configmap.fqdn}}/cloudlet
   name: collectorforopenshift
 #  repository: docker.io/outcoldsolutions/collectorforopenshift
   tag: 5.14.284
