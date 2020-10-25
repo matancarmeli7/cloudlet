@@ -7,5 +7,5 @@ configmap:
 
 containers:
   repository: quay.apps.{{Valuse.configmap.fqdn}}/cloudlet
-  image: quay-logs
+  image: quaylogs
   version: latest
