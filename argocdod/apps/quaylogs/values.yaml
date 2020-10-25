@@ -6,6 +6,6 @@ configmap:
   fqdn: dev.cloudlet-dev.com
 
 containers:
-  repository: docker.io/meshistern
+  repository: quay.apps.{{Valuse.configmap.fqdn}}/cloudlet
   image: quay-logs
   version: latest
