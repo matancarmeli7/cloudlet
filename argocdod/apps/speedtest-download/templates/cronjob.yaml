@@ -21,7 +21,7 @@ spec:
       template:
         spec:
           containers:
-			      - name: speedtest-download
+            - name: speedtest-download
               image: "{{ .Values.IMAGE_NAME }}"
               ports:
               - containerPort: 8000
