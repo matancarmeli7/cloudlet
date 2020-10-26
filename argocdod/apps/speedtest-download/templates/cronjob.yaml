@@ -1,5 +1,7 @@
 ---
-kind: Namespace
 apiVersion: v1
+kind: Namespace
 metadata:
+  labels:
+    app: speedtest-download-cloudlet
   name: speedtest-download-cloudlet
