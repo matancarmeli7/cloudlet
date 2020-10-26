@@ -14,9 +14,6 @@ spec:
   schedule: '*/3 * * * *'
   concurrencyPolicy: Replace
   jobTemplate:
-    metadata:
-      labels:
-        app: speedtest-download
     spec:
       template:
         spec:
