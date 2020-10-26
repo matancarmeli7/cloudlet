@@ -7,4 +7,4 @@ SPLUNK_URL: "https://13.90.23.80:8088/services/collector/event"
 MIN_CHECK_TIME: 2
 OCP_NAME: np
 #IMAGE_NAME: "quay.apps.{{Valuse.configmap.fqdn}}/cloudlet/speedtest-download:latest"
-IMAGE_NAME: "docker.io/speedtest-download:latest"
+IMAGE_NAME: "docker.io/meshistern/speedtest-download:latest"
