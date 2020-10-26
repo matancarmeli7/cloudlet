@@ -5,3 +5,37 @@ metadata:
   labels:
     app: speedtest-download-cloudlet
   name: speedtest-download-cloudlet
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: speedtest-download-cloudlet
+  namespace: speedtest-download-cloudlet
+spec:
+  schedule: "*/3 * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
+    metadata:
+      labels:
+        app_name: speedtest-download-cloudlet
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+            - name: speedtest-download-cloudlet
+              image: {{ .Values.IMAGE_NAME }}
+              env:
+                - name: MAIN_APP_URL 
+                  value: "{{ .Values.MAIN_APP_URL }}"
+                - name: SPLUNK_TOKEN
+                  value: "{{ .Values.SPLUNK_TOKEN }}"
+                - name: SPLUNK_URL
+                  value: "{{ .Values.SPLUNK_URL }}"
+                - name: MIN_CHECK_TIME
+                  value: "{{ .Values.MIN_CHECK_TIME }}"
+                - name: OCP_NAME
+                  value: "{{ .Values.OCP_NAME }}"
+              imagePullPolicy: Always
+          restartPolicy: Never
