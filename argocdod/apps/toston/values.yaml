@@ -11,7 +11,7 @@ minio_test:
   image:
     repository: cloudlet-org
     name: toston
-    tag: "minio-test-secure-latest"
+    tag: "minio-test-secure"
 
 quay_test:    
   image:
