@@ -1162,7 +1162,7 @@ spec:
       containers:
       - name: collectorforopenshift
         # Stick to specific version
-        image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1462,7 +1462,7 @@ spec:
       serviceAccountName: collectorforopenshift
       containers:
       - name: collectorforopenshift
-        image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         securityContext:
           privileged: true
           runAsUser: 0
