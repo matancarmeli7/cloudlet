@@ -1478,6 +1478,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        imagePullSecrets:
+            - name: pull-secret      
         - name: POD_NAME
           valueFrom:
             fieldRef:
