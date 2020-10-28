@@ -1,6 +1,6 @@
 #Default ENV variables
 image:
-  repository: quay.apps.{{Valuse.configmap.fqdn}}/cloudlet
+  repository: quay.apps.{{Values.configmap.fqdn}}/cloudlet-org
   name: apicast-helm
   tag: "master"
   
