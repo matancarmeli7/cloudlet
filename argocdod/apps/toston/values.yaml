@@ -9,19 +9,19 @@ minio_test:
   configmap:  
     fqdn: dev.cloudlet-dev.com
   image:
-    repository: quay.apps.{{Values.configmap.fqdn}}/cloudlet-org
+    repository: cloudlet-org
     name: toston
     tag: "minio-test-secure-latest"
 
 quay_test:    
   image:
-    repository: quay.apps.{{Values.configmap.fqdn}}/cloudlet-org
+    repository: cloudlet-org
     name: toston
     tag: "quaytest-latest"
 
 matoshon:    
   image:
-    repository: quay.apps.{{Values.configmap.fqdn}}/cloudlet-org
+    repository: cloudlet-org
     name: toston
     tag: "matoshon-latest"
 
