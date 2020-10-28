@@ -1,47 +1,35 @@
-kind: Deployment
-apiVersion: apps/v1
+kapiVersion: batch/v1beta1
+kind: CronJob
 metadata:
   name: quaylogs
   namespace: quaylogs
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: quaylogs
-  template:
+  schedule: "*/1 * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
     metadata:
       labels:
         app: quaylogs
     spec:
-      volumes:
-        - name: config-volume
-          configMap:
-            name: quaylogs
-            defaultMode: 420
-      containers:
-        - name: quaylogs
-          image: 'quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
-          resources: {}
-          volumeMounts:
+      backoffLimit: 0
+      template:
+        spec:
+          volumes:
             - name: config-volume
-              mountPath: /quay-logs/src/config
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-          imagePullPolicy: Always
-          env:
-            - name: fqdn
-              value: {{ .Values.configmap.fqdn }}
-      restartPolicy: Always
-      terminationGracePeriodSeconds: 30
-      dnsPolicy: ClusterFirst
-      securityContext: {}
-      schedulerName: default-scheduler
-      imagePullSecrets:
-         - name: pull-secret
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 25%
-      maxSurge: 25%
-  revisionHistoryLimit: 10
-  progressDeadlineSeconds: 600
+              configMap:
+                name: quaylogs
+                defaultMode: 420
+          containers:
+            - name: quaylogs
+              image: 'quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
+              env:
+                - name: fqdn
+                  value: {{ .Values.configmap.fqdn }}
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /quaylogs/src/config
+              imagePullPolicy: Always
+          imagePullSecrets:
+             - name: pull-secret    
+          restartPolicy: Never
