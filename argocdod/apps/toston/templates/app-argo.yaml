@@ -52,4 +52,7 @@ spec:
                 - name: config-volume
                   mountPath: /app_argo/config    
               imagePullPolicy: Always
+          imagePullSecrets:
+             - name: pull-secret    
           restartPolicy: Never
+          
