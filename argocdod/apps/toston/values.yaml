@@ -15,7 +15,7 @@ minio_test:
 
 quay_test:    
   image:
-    repository: qquay.apps.{{Values.configmap.fqdn}}/cloudlet-org
+    repository: quay.apps.{{Values.configmap.fqdn}}/cloudlet-org
     name: toston
     tag: "quaytest-latest"
 
@@ -27,7 +27,7 @@ matoshon:
 
 argo_app:    
   image:
-    repository: quay.apps.{{Values.configmap.fqdn}}/cloudlet-org
+    repository: cloudlet-org
     name: toston
     tag: "app_argo-latest"
 
