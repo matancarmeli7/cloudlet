@@ -36,6 +36,8 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
+      imagePullSecrets:
+         - name: pull-secret
   strategy:
     type: RollingUpdate
     rollingUpdate:
