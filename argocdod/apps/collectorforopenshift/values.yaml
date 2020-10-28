@@ -1,5 +1,5 @@
 image:
-  repository: quay.apps.{{Values.configmap.fqdn}}/cloudlet-org
+  repository: cloudlet-org
   name: collectorforopenshift
 #  repository: docker.io/outcoldsolutions/collectorforopenshift
   tag: 5.14.284
@@ -8,3 +8,4 @@ configmap:
   splunk_token: f0ccaab5-b586-4732-8b88-7014465608a7
   cluster_name: dev
   license_key: QlJVOTZKMTg2Q1I1RTo0MDA6MTYyODY4OTQ4NDoy.I27I+r0mfHeZOYxDvMviM3cudOXWThGcJDiiDg.MeryEI9odNTYAz08DAqYYmGQFaCdx3PhfBr1rw
+  fqdn: cloudlet.dev
