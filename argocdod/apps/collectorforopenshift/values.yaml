@@ -6,7 +6,7 @@ image:
   
 configmap:
   splunk_url: https://splunk.idf-cts.com:8088/services/collector/event
-  splunk_token: f0ccaab5-b586-4732-8b88-7014465608a7
+  splunk_token: 5e9874b6-77d7-4fce-84be-80977f6114a5
   cluster_name: dev
   license_key: QlJVOTZKMTg2Q1I1RTo0MDA6MTYyODY4OTQ4NDoy.I27I+r0mfHeZOYxDvMviM3cudOXWThGcJDiiDg.MeryEI9odNTYAz08DAqYYmGQFaCdx3PhfBr1rw
   fqdn: cloudlet.dev
