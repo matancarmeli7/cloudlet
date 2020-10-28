@@ -1162,7 +1162,7 @@ spec:
       containers:
       - name: collectorforopenshift
         # Stick to specific version
-        image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1328,7 +1328,7 @@ spec:
         effect: "NoExecute"
       containers:
       - name: collectorforopenshift
-        image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1462,7 +1462,7 @@ spec:
       serviceAccountName: collectorforopenshift
       containers:
       - name: collectorforopenshift
-        image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         securityContext:
           privileged: true
           runAsUser: 0
@@ -1478,8 +1478,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
-        imagePullSecrets:
-            - name: pull-secret      
         - name: POD_NAME
           valueFrom:
             fieldRef:
