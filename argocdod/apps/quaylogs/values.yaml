@@ -6,6 +6,6 @@ configmap:
   fqdn: cloudlet.dev
 
 containers:
-  repository: quay.apps.{{ template fqdn .}}/cloudlet-org
+  repository: quay.apps
   image: quaylogs
   version: latest
