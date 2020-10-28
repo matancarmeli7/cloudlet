@@ -1,4 +1,7 @@
 #Default ENV variables
+configmap:
+  fqdn: cloudlet.dev
+  
 image:
   repository: cloudlet-org
   name: apicast-helm
