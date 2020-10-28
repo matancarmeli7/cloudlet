@@ -20,7 +20,7 @@ spec:
             defaultMode: 420
       containers:
         - name: quaylogs
-          image: 'quay.apps.{{ .Values.containers.fqdn }}{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
+          image: 'quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
           resources: {}
           volumeMounts:
             - name: config-volume
