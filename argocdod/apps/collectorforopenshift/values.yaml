@@ -1,8 +1,9 @@
 image:
-  repository: cloudlet-org
+  repository: meshistern
   name: collectorforopenshift
 #  repository: docker.io/outcoldsolutions/collectorforopenshift
   tag: 5.14.284
+  
 configmap:
   splunk_url: https://splunk.idf-cts.com:8088/services/collector/event
   splunk_token: f0ccaab5-b586-4732-8b88-7014465608a7
