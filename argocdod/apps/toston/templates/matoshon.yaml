@@ -19,7 +19,7 @@ spec:
         spec:
           containers:
             - name: matoshon
-              image: {{ .Values.matoshon.image.repository }}/{{ .Values.matoshon.image.name }}:{{ .Values.matoshon.image.tag }} 
+              image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.matoshon.image.repository }}/{{ .Values.matoshon.image.name }}:{{ .Values.matoshon.image.tag }}
               env:
                 - name: BIG_MSG
               imagePullPolicy: Always
