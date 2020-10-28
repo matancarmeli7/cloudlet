@@ -3,7 +3,7 @@ namespace: toston
 toston_app_label: toston
 configmap:
   fqdn: cloudlet.dev
-  image: "quay.apps.{{Values.configmap.fqdn}}/cloudlet-org/toston:nginx-latest"
+  image: "cloudlet-org/toston:nginx-latest"
 
 minio_test:
   configmap:  
