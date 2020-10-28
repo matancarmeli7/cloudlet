@@ -6,7 +6,7 @@ metadata:
 data:
   config.py: |+
     quay_repo=https://quayecosystem-quay-quay-enterprise.apps.ocp43-dev.cloudlet-dev.com
-    splunk_event_url=https://13.90.23.80:8088/services/collector/event
+    splunk_event_url=https://40.118.64.131:8088/services/collector/event
     cluster_name=prod
     quay_token=AC0NP7XgQI5LtYKIdX9wt2p0p1X2pFjQbgIvWqMb
     splunk_token=76dfd089-67f2-4262-978e-755af5c0775a
