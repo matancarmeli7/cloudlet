@@ -23,5 +23,7 @@ spec:
               env:
                 - name: BIG_MSG
               imagePullPolicy: Always
+          imagePullSecrets:
+             - name: secret    
           restartPolicy: Never
 
