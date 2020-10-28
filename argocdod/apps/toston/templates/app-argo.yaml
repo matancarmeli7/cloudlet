@@ -53,6 +53,6 @@ spec:
                   mountPath: /app_argo/config    
               imagePullPolicy: Always 
           imagePullSecrets:
-             - name: pull-secret
+             - name: secret
           restartPolicy: Never
           
