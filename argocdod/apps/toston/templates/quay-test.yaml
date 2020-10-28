@@ -46,7 +46,7 @@ spec:
                 defaultMode: 420
           containers:
             - name: quay-test
-              image: {{ .Values.quay_test.image.repository }}/{{ .Values.quay_test.image.name }}:{{ .Values.quay_test.image.tag }}
+              image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.quay_test.image.repository }}/{{ .Values.quay_test.image.name }}:{{ .Values.quay_test.image.tag }}
               env:
                 - name: fqdn
                   value: {{ .Values.configmap.fqdn }}
@@ -54,4 +54,6 @@ spec:
                 - name: config-volume
                   mountPath: /quaytest/config
               imagePullPolicy: Always
+          imagePullSecrets:
+             - name: secret    
           restartPolicy: Never
