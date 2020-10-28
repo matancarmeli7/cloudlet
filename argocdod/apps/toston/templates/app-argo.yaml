@@ -44,7 +44,7 @@ spec:
                 defaultMode: 420
           containers:
             - name: edgecd
-              image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}
+              image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
               env:
                 - name: BIG_MSG
                   value: "err"
