@@ -4,7 +4,7 @@ metadata:
   name: quaylogs
   namespace: quaylogs
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "*/3 * * * *"
   startingDeadlineSeconds: 300
   concurrencyPolicy: "Replace"
   jobTemplate:
