@@ -1,10 +1,11 @@
 configmap:
-  splunk_event_url: https://40.118.64.131:8088/services/collector/event
+  splunkUrl: https://40.118.64.131:8088/services/collector/event
+  argoUrl: https://argocd.apps.np.cloudlet-dev.com
   cluster_name: prod
-  splunk_token: 76dfd089-67f2-4262-978e-755af5c0775a
+  splunkToken: c92a548a-e243-41ab-9168-8a17ce013342
   fqdn: cloudlet.dev
 
 containers:
   repository: cloudlet-org
-  image: quaylogs
+  image: argo-to-splunk
   version: latest
