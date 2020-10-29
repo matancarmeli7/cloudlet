@@ -2,7 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: argo-to-splunk
-  namespace: argo-to-splunk
+  namespace: argocd
 spec:
   schedule: "*/1 * * * *"
   startingDeadlineSeconds: 300
