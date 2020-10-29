@@ -22,7 +22,7 @@ spec:
                 defaultMode: 420
           containers:
             - name: argo-to-splunk
-              image: 'quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
+              image: 'quay.io/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
               env:
                 - name: fqdn
                   value: {{ .Values.configmap.fqdn }}
