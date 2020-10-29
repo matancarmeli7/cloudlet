@@ -1,0 +1,35 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: quaylogs
+  namespace: quaylogs
+spec:
+  schedule: "*/1 * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
+    metadata:
+      labels:
+        app: quaylogs
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          volumes:
+            - name: config-volume
+              configMap:
+                name: quaylogs
+                defaultMode: 420
+          containers:
+            - name: quaylogs
+              image: 'quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
+              env:
+                - name: fqdn
+                  value: {{ .Values.configmap.fqdn }}
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /quaylogs/src/config
+              imagePullPolicy: Always
+          imagePullSecrets:
+             - name: pull-secret    
+          restartPolicy: Never

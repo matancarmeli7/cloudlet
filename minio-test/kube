@@ -1,0 +1,24 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://api.np.cloudlet-dev.com:6443
+  name: api-np-cloudlet-dev-com:6443
+contexts:
+- context:
+    cluster: api-np-cloudlet-dev-com:6443
+    namespace: default
+    user: admin
+  name: default/api-np-cloudlet-dev-com:6443/admin
+- context:
+    cluster: api-np-cloudlet-dev-com:6443
+    namespace: toston
+    user: admin
+  name: toston/api-np-cloudlet-dev-com:6443/admin
+current-context: toston/api-np-cloudlet-dev-com:6443/admin
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    token: YYe46Pm8K7-STmxAPZsW5rJ6S6yeJhx-hLqVI8NYI1A

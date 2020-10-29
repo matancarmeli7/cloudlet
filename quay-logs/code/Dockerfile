@@ -1,8 +1,12 @@
-FROM python:3.6-alpine3.11
-RUN mkdir -p /quay-logs/src/config
-ADD . /quay-logs/src
+FROM centos/python-36-centos7
 USER root
-WORKDIR /quay-logs/src
-RUN pip3 install requests schedule
-COPY app.py /quay-logs/src
-CMD ["python", "app.py"]
+RUN userdel saslauth
+RUN useradd -u 999 -ms /bin/bash quaylogs
+RUN mkdir -p /quaylogs/src/config
+WORKDIR /quaylogs/src
+COPY oc app.py start.sh .
+RUN mv oc /usr/bin
+RUN pip3 install requests kubernetes
+RUN chmod 777 /quaylogs -R && chown quaylogs:quaylogs /quaylogs -R
+USER quaylogs
+CMD sh ./start.sh && python app.py
