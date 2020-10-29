@@ -1,10 +1,10 @@
 spec:
   destination:
     server: "https://api.np.cloudlet-dev.com:6443"
-    namespace: "argocdod"
+    namespace: "argocdod-central"
   source:
     repoURL: https://github.com/matancarmeli7/cloudlet
     targetRevision: HEAD
-  project: default
+  project: argocdod-central
   
 argocdNamespace: argocd
