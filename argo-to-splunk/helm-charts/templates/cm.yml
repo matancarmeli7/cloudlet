@@ -1,11 +1,10 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: quaylogs
-  namespace: quaylogs
+  name: argo-to-splunk
+  namespace: argo-to-splunk
 data:
   config.py: |-
-    quay_repo = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
-    splunk_event_url = '{{ .Values.configmap.splunk_event_url }}'
-    cluster_name = '{{ .Values.configmap.cluster_name }}'
-    splunk_token = '{{ .Values.configmap.splunk_token }}'
+    splunkUrl = '{{ .Values.configmap.splunk_event_url }}'
+    splunkToken = '{{ .Values.configmap.splunk_token }}'
+    argoUrl = 'https://argocd.apps.np.cloudlet-dev.com'
