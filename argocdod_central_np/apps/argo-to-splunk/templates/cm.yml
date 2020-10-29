@@ -5,6 +5,6 @@ metadata:
   namespace: argocd
 data:
   config.py: |-
-    splunkUrl = '{{ .Values.configmap.splunk_event_url }}'
-    splunkToken = '{{ .Values.configmap.splunk_token }}'
+    splunkUrl = '{{ .Values.configmap.splunkUrl }}'
+    splunkToken = '{{ .Values.configmap.splunkToken }}'
     argoUrl = '{{ .Values.configmap.argoUrl }}'
