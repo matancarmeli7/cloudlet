@@ -12,12 +12,13 @@ sys.path.insert(1, '/argocd_to_splunk/src/config')
 from config import *
 
 global argoAuth
-argoAuth = requests.post(argoUrl + authApi, json=login, verify=False)
 global Image_name
+authApi = '/api/v1/session'
+argoAuth = requests.post(argoUrl + authApi, json={"username": "admin", "password": "redhat"}, verify=False)
 
 def argoinf(app_name):
 
-    manifestsApi = 'api/v1/applications/' + app_name + '/manifests'
+    manifestsApi = '/api/v1/applications/' + app_name + '/manifests'
     x = requests.get(argoUrl + manifestsApi, cookies=argoAuth.cookies, verify=False)
     return(x.json())
 
@@ -36,6 +37,8 @@ def getImage(app_name):
 
 def job():
 
+    appsApi = '/api/v1/applications'
+    splunkAuth = {'Authorization': 'Splunk ' + splunkToken}
     argo = requests.get(argoUrl + appsApi, cookies=argoAuth.cookies, verify=False)
     appsRes = json.loads(argo.content)
     for app in appsRes['items']:
@@ -61,8 +64,4 @@ def job():
             r = requests.post(splunkUrl, headers=splunkAuth, json=jsonSplunk, verify=False)
             print(r)
 
-#schedule.every(1).minutes.do(job)
-#while 1:
-#    schedule.run_pending()
-#    time.sleep(1)
 job()
