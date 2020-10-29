@@ -20,7 +20,7 @@ spec:
       containers:
         - name: postgrest
           securityContext: {}
-          image: postgrest/postgrest
+          image: postgrest/postgrest:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
