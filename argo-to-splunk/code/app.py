@@ -8,7 +8,7 @@ import re
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-sys.path.insert(1, '/argocd_to_splunk/src/config')
+sys.path.insert(1, '/argo-to-splunk/src/config')
 from config import *
 
 global argoAuth
