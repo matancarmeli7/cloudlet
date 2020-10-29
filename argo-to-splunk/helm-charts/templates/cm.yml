@@ -7,4 +7,4 @@ data:
   config.py: |-
     splunkUrl = '{{ .Values.configmap.splunk_event_url }}'
     splunkToken = '{{ .Values.configmap.splunk_token }}'
-    argoUrl = 'https://argocd.apps.np.cloudlet-dev.com'
+    argoUrl = '{{ .Values.configmap.argoUrl }}'
