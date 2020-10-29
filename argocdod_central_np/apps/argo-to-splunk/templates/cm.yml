@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: argo-to-splunk
-  namespace: argo-to-splunk
+  namespace: argocd
 data:
   config.py: |-
     splunkUrl = '{{ .Values.configmap.splunk_event_url }}'
