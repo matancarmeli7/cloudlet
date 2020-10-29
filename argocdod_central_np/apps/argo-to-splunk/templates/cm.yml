@@ -1,14 +1,10 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: argo-to-splunk-config
-  namespace: argocd
+  name: argo-to-splunk
+  namespace: argo-to-splunk
 data:
-  config.py: |+
+  config.py: |-
+    splunkUrl = '{{ .Values.configmap.splunk_event_url }}'
+    splunkToken = '{{ .Values.configmap.splunk_token }}'
     argoUrl = '{{ .Values.configmap.argoUrl }}'
-    appsApi = '{{ .Values.configmap.appsApi }}'
-    authApi = '{{ .Values.configmap.authApi }}'
-    login = '{{ .Values.configmap.login }}'
-    splunkUrl = '{{ .Values.configmap.splunkUrl }}'
-    splunkAuth = '{{ .Values.configmap.splunkAuth }}'
-
