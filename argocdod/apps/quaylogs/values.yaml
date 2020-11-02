@@ -1,10 +1,11 @@
 configmap:
-  splunk_event_url: https://40.118.64.131:8088/services/collector/event
   cluster_name: prod
-  splunk_token: 76dfd089-67f2-4262-978e-755af5c0775a
   fqdn: cloudlet.dev
 
 containers:
   repository: cloudlet-org
   image: quaylogs
   version: latest
+
+splunk:
+  hec_token: "76dfd089-67f2-4262-978e-755af5c0775a"
