@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-to-splunk-{{ template "cluster_name" . }}
+  name: certificates-status-{{ template "cluster_name" . }}
   namespace: {{ .Values.argocdNamespace }}
 spec:
   destination:
