@@ -1,0 +1,35 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: argo-to-splunk
+  namespace: argocd
+spec:
+  schedule: "*/1 * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
+    metadata:
+      labels:
+        app: argo-to-splunk
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          volumes:
+            - name: config-volume
+              configMap:
+                name: argo-to-splunk
+                defaultMode: 420
+          containers:
+            - name: argo-to-splunk
+              image: 'quay.io/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
+              env:
+                - name: fqdn
+                  value: {{ .Values.configmap.fqdn }}
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /argo-to-splunk/src/config
+              imagePullPolicy: Always
+          imagePullSecrets:
+             - name: pull-secret    
+          restartPolicy: Never
