@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-to-splunk-{{ template "cluster_name" . }}
+  namespace: {{ .Values.argocdNamespace }}
+spec:
+  destination:
+    namespace: {{ .Values.spec.destination.namespace }}
+    server: {{ .Values.spec.destination.server }}
+  project: {{ .Values.spec.project }}
+  source:
+    path: argocdod_central_np/apps/certificates-status
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      valueFiles:
+        - values.yaml
+      parameters:
+        - name: configmap.cluster_name
+          value: {{ template "cluster_name" . }}
+        - name: configmap.fqdn
+          value: {{ template "cluster_fqdn" . }}
