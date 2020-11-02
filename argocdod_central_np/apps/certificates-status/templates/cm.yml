@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: certificates-status
+  namespace: certificates-status
+data:
+  config.py: |+
+    splunk_url = '{{ .Values.configmap.splunk_url }}'
+    splunk_token = '{{ .Values.configmap.splunk_token }}'
