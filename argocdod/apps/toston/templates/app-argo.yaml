@@ -9,7 +9,7 @@ data:
      argoUrl = '{{ .Values.argo_app.configmap.argoUrl }}'
      appsApi = '{{ .Values.argo_app.configmap.appsApi }}'
      authApi = '{{ .Values.argo_app.configmap.authApi }}'
-     splunkUrl = '{{ .Values.argo_app.configmap.splunkUrl }}'
+     splunkUrl = '{{ .Values.splunk.url }}'
      repoApi = '{{ .Values.argo_app.configmap.repoApi }}'
      cluster_name = '{{ .Values.argo_app.configmap.cluster_name }}'
      reponame = '{{ .Values.argo_app.configmap.reponame }}'
