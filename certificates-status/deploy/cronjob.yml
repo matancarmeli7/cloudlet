@@ -1,0 +1,48 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: certificates-status
+  namespace: certificates-status
+spec:
+  schedule: "*/3 * * * *"
+  startingDeadlineSeconds: 300
+  concurrencyPolicy: "Replace"
+  jobTemplate:
+    metadata:
+      labels:
+        app: certificates-status
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          volumes:
+            - name: config-volume
+              configMap:
+                name: certificates-status
+                defaultMode: 420
+          containers:
+            - name: certificates-status
+              image: quay.io/meshistern/certificates-status:latest
+              env:
+                - name: DB_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: certificates-status
+                      key: DB_USER
+                - name: DB_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: certificates-status
+                      key: DB_HOST
+                - name: DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: certificates-status
+                      key: DB_PASSWORD
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /certificates-status/src/config
+              imagePullPolicy: Always
+          imagePullSecrets:
+             - name: pull-secret
+          restartPolicy: Never
