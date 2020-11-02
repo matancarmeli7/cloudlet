@@ -45,4 +45,3 @@ argo_app:
     verifySSl: 'False'
     userName: 'admin'
     password: 'redhat'
-
