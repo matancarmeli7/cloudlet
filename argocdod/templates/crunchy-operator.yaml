@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: {{ .Values.spec.destination.namespace }}
     server: {{ .Values.spec.destination.server }}
-  project: {{ .Values.spec.project }}
+  project: default
   source:
     path: crunchy-operator
     repoURL: https://github.com/jatalocks/paas_cloudlet
