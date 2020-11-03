@@ -9,8 +9,8 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: {{ .Values.spec.project }}
   source:
-    path: argocdod/apps/mongodb-vanilla-ns
-    repoURL: {{ .Values.spec.source.repoURL }}
+    path: mongodb-vanilla-ns
+    repoURL: https://github.com/jatalocks/paas_cloudlet
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
       valueFiles:
