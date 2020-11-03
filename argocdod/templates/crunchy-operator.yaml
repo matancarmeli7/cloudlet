@@ -9,8 +9,8 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: {{ .Values.spec.project }}
   source:
-    path: argocdod/apps/crunchy-operator
-    repoURL: {{ .Values.spec.source.repoURL }}
+    path: crunchy-operator
+    repoURL: https://github.com/jatalocks/paas_cloudlet
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
       valueFiles:
