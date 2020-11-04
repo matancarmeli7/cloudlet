@@ -33,19 +33,8 @@ spec:
       imagePullSecrets:
         {{- toYaml .Values.imagePullSecrets | nindent 8 }}
       {{- end }}
-      volumes:
-      - name: trusted-ca
-        configMap:
-          name: trusted-ca
-          items:
-            - key: ca-bundle.crt 
-              path: tls-ca-bundle.pem 
       containers:
         - name: {{ .Chart.Name }}
-          volumeMounts:
-          - name: trusted-ca
-            mountPath: /etc/pki/ca-trust/extracted/pem
-            readOnly: true
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           ports:
           - name: prometheus
@@ -74,6 +63,9 @@ spec:
           {{- end }}
           {{- with .Values.filesFromSecret }}
           volumeMounts:
+          - name: trusted-ca
+            mountPath: /etc/pki/ca-trust/extracted/pem
+            readOnly: true
           {{- range $key, $value := . }}
           - name: {{ $key }}
             mountPath: {{ $value.mountPath }}
@@ -102,6 +94,12 @@ spec:
       {{- end }}
       {{- with .Values.filesFromSecret }}
       volumes:
+      - name: trusted-ca
+        configMap:
+          name: trusted-ca
+          items:
+            - key: ca-bundle.crt 
+              path: tls-ca-bundle.pem 
       {{- range $key, $value := . }}
       - name: {{ $key }}
         secret:
