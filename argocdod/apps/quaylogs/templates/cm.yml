@@ -6,6 +6,6 @@ metadata:
 data:
   config.py: |-
     quay_repo = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
-    splunk_event_url = '{{ .Values.splunk.url }}'
     cluster_name = '{{ .Values.configmap.cluster_name }}'
-    splunk_token = '{{ .Values.splunk.hec_token }}'
+    splunk_event_url = '{{ .Values.spec.splunk.url }}'
+    splunk_token = '{{ .Values.spec.splunk.hec_token }}'

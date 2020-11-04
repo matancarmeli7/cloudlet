@@ -8,7 +8,3 @@ configmap:
   cluster_name: dev
   license_key: QlJVOTZKMTg2Q1I1RTo0MDA6MTYyODY4OTQ4NDoy.I27I+r0mfHeZOYxDvMviM3cudOXWThGcJDiiDg.MeryEI9odNTYAz08DAqYYmGQFaCdx3PhfBr1rw
   fqdn: cloudlet.dev
-
-splunk:
-  url: "https://splunk.idf-cts.com:8088/services/collector/event"
-  hec_token: "4f7ca0bb-dae8-4dcd-8514-72adf9b13677"

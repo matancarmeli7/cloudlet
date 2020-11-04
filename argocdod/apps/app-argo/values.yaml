@@ -15,6 +15,3 @@ conf:
   reponame = 'cloudlet'
   url = 'https://argocd.apps.np.cloudlet-dev.com/'
   verifySSl = False
-
-  splunk:
-    hec_token: "c92a548a-e243-41ab-9168-8a17ce013342"
