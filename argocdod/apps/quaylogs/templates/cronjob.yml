@@ -20,6 +20,12 @@ spec:
               configMap:
                 name: quaylogs
                 defaultMode: 420
+            - name: trusted-ca
+              configMap:
+                name: trusted-ca
+                items:
+                  - key: ca-bundle.crt 
+                    path: tls-ca-bundle.pem 
           containers:
             - name: quaylogs
               image: 'quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
@@ -27,6 +33,9 @@ spec:
                 - name: fqdn
                   value: {{ .Values.configmap.fqdn }}
               volumeMounts:
+                - name: trusted-ca
+                  mountPath: /etc/pki/ca-trust/extracted/pem
+                  readOnly: true
                 - name: config-volume
                   mountPath: /quaylogs/src/config
               imagePullPolicy: Always
