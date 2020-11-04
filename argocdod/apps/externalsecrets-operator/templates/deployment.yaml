@@ -61,11 +61,11 @@ spec:
                 name: {{ $value.secretKeyRef | quote }}
                 key: {{ $value.key | quote }}
           {{- end }}
-          {{- with .Values.filesFromSecret }}
           volumeMounts:
           - name: trusted-ca
             mountPath: /etc/pki/ca-trust/extracted/pem
             readOnly: true
+          {{- with .Values.filesFromSecret }}
           {{- range $key, $value := . }}
           - name: {{ $key }}
             mountPath: {{ $value.mountPath }}
