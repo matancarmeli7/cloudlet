@@ -98,18 +98,7 @@ spec:
           protocol: TCP
         - name: management
           containerPort: 8090
-          protocol: TCP
-        volumeMounts:
-        - name: trusted-ca
-          mountPath: /etc/pki/ca-trust/extracted/pem
-          readOnly: true
-      volumes:
-      - name: trusted-ca
-        configMap:
-          name: trusted-ca
-          items:
-            - key: ca-bundle.crt 
-              path: tls-ca-bundle.pem    
+          protocol: TCP 
   triggers:
   - type: ConfigChange
 {{- end }}
