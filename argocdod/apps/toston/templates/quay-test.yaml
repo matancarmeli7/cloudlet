@@ -40,6 +40,12 @@ spec:
       template:
         spec:
           volumes:
+            - name: trusted-ca
+              configMap:
+                name: trusted-ca
+                items:
+                  - key: ca-bundle.crt 
+                    path: tls-ca-bundle.pem
             - name: config-volume
               configMap:
                 name: quay-test
@@ -51,6 +57,9 @@ spec:
                 - name: fqdn
                   value: {{ .Values.configmap.fqdn }}
               volumeMounts:
+                - name: trusted-ca
+                  mountPath: /etc/pki/ca-trust/extracted/pem
+                  readOnly: true
                 - name: config-volume
                   mountPath: /quaytest/config
               imagePullPolicy: Always
