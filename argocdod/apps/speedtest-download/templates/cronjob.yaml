@@ -23,8 +23,19 @@ spec:
       backoffLimit: 0
       template:
         spec:
+          volumes:
+          - name: trusted-ca
+            configMap:
+              name: trusted-ca
+              items:
+                - key: ca-bundle.crt 
+                  path: tls-ca-bundle.pem
           containers:
             - name: speedtest-download-cloudlet
+              volumeMounts:
+              - name: trusted-ca
+                mountPath: /etc/pki/ca-trust/extracted/pem
+                readOnly: true
               image: 'quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.IMAGE_NAME }}'
               env:
                 - name: MAIN_APP_URL 
