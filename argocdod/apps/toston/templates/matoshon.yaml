@@ -23,6 +23,17 @@ spec:
               env:
                 - name: BIG_MSG
               imagePullPolicy: Always
+              volumeMounts:
+              - name: trusted-ca
+                mountPath: /etc/pki/ca-trust/extracted/pem
+                readOnly: true
+          volumes:
+          - name: trusted-ca
+            configMap:
+              name: trusted-ca
+              items:
+                - key: ca-bundle.crt 
+                  path: tls-ca-bundle.pem
           imagePullSecrets:
              - name: secret    
           restartPolicy: Never
