@@ -93,14 +93,9 @@ def checks():
   logSplunk({"Download Mbps" : Mbps, "Cluster": OCP_NAME})
   print ("Download Mbps: " + str(Mbps) + ", Cluster: " + OCP_NAME) 
 
-#Run checks function every 6 min
+#Run checks function
 def main():
   checks()
-  schedule.every(3).minutes.do(checks)
-
-  while True:
-    schedule.run_pending()
-    time.sleep(1)
 
 if __name__ == "__main__":
   main()
