@@ -6,7 +6,4 @@ spec:
     repoURL: https://github.com/matancarmeli7/cloudlet
     targetRevision: HEAD
   project: argocdod
-splunk:
-  url: "https://40.118.64.131:8088/services/collector/event"
-  hec_token: "0dde0859-27ff-43aa-b981-3eaca4fa4813"
 argocdNamespace: argocd
