@@ -8,5 +8,5 @@ MIN_CHECK_TIME: 2
 OCP_NAME: np
 configmap:
   fqdn: cloudlet.dev
-IMAGE_NAME: "cloudlet-org/speedtest-download:latest"
-#IMAGE_NAME: "docker.io/meshistern/speedtest-download:latest"
+#IMAGE_NAME: "cloudlet-org/speedtest-download:latest"
+IMAGE_NAME: "docker.io/meshistern/speedtest-download:latest"
