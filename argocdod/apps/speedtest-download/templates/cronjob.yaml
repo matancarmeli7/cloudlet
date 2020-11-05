@@ -42,9 +42,9 @@ spec:
                 - name: MAIN_APP_URL 
                   value: "{{ .Values.MAIN_APP_URL }}"
                 - name: SPLUNK_TOKEN
-                  value: "{{ .Values.SPLUNK_TOKEN }}"
+                  value: "{{ .Values.spec.splunk.hec_token }}"
                 - name: SPLUNK_URL
-                  value: "{{ .Values.SPLUNK_URL }}"
+                  value: "{{ .Values.spec.splunk.url }}"
                 - name: MIN_CHECK_TIME
                   value: "{{ .Values.MIN_CHECK_TIME }}"
                 - name: OCP_NAME
