@@ -49,4 +49,6 @@ spec:
                 - name: OCP_NAME
                   value: "{{ .Values.OCP_NAME }}"
               imagePullPolicy: Always
+          imagePullSecrets:
+             - name: secret
           restartPolicy: Never
