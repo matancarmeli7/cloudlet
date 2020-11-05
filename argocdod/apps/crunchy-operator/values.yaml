@@ -1,8 +1,0 @@
-STORAGE_CLASS: "managed-premium"
-OPERATOR_NAMESPACE: "pgo"
-INSTALLATION_NAME: "pgoperator"
-PGO_IMAGE_TAG: "centos7-4.3.0"
-CCP_IMAGE_TAG: "centos7-12.2-4.3.0"
-IMAGE_PREFIX: "registry.developers.crunchydata.com/crunchydata"
-OPERATOR_IMAGE: "registry.developers.crunchydata.com/crunchydata/pgo-deployer:centos7-4.3.0"
-OPERATOR_VERSION: "4.3.0"
