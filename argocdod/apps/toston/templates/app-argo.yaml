@@ -11,7 +11,6 @@ data:
      authApi = '{{ .Values.argo_app.configmap.authApi }}'
      repoApi = '{{ .Values.argo_app.configmap.repoApi }}'
      cluster_name = '{{ .Values.argo_app.configmap.cluster_name }}'
-     splunkUrl = '{{ .Values.spec.splunk.url }}'
      reponame = '{{ .Values.argo_app.configmap.reponame }}'
      url = '{{ .Values.argo_app.configmap.url }}'
      verifySSl = '{{ .Values.argo_app.configmap.verifySSl }}'
