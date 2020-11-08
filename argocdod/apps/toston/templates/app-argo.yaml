@@ -38,11 +38,11 @@ spec:
         spec:
           volumes:
             - name: trusted-ca
-                configMap:
-                  name: trusted-ca
-                  items:
-                    - key: ca-bundle.crt 
-                      path: tls-ca-bundle.pem
+              configMap:
+                name: trusted-ca
+                items:
+                  - key: ca-bundle.crt 
+                    path: tls-ca-bundle.pem
             - name: config-volume
               configMap:
                 name: app-argo-conf
