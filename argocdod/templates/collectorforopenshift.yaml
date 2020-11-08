@@ -21,4 +21,4 @@ spec:
         - name: SPLUNK_TOKEN
           value: {{ .Values.spec.collectorforopenshift.splunk.hec_token }}
         - name: SPLUNK_URL
-          value: {{ .Values.spec.collectorforopenshift.splunk.url }}
+          value: {{ .Values.spec.splunk.url }}
