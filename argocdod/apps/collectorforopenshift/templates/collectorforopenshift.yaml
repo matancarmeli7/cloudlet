@@ -345,7 +345,7 @@ data:
     urlSelection = random-with-round-robin
 
     # Splunk HTTP Event Collector Token
-    token = {{ .Values.collectorforopenshift.SPLUNK_TOKEN }}
+    token = {{ .Values.SPLUNK_TOKEN }}
     #token = bfb0ea00-fad4-4166-9f20-2e7fedda26fb
 
     # Allow invalid SSL server certificate
