@@ -9,7 +9,6 @@ data:
      appsApi = '{{ .Values.configmap.appsApi }}'
      authApi = '{{ .Values.configmap.authApi }}'
      login = '{{ .Values.configmap.login }}'
-     splunkUrl = '{{ .Values.spec.splunk.url }}'
      splunkAuth = 'Splunk {{ .Values.spec.splunk.hec_token }}'
      repoApi = '{{ .Values.configmap.repoApi }}'
      cluster_name = '{{ .Values.configmap.cluster_name }}'
