@@ -18,3 +18,7 @@ spec:
       parameters:
         - name: OCP_NAME
           value: {{ template "cluster_name" . }}
+        - name: SPLUNK_TOKEN
+          value: "{{ .Values.spec.splunk.hec_token }}"
+        - name: SPLUNK_URL
+          value: "{{ .Values.spec.splunk.url }}"
