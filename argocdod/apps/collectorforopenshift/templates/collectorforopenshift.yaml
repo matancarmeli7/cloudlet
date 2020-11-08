@@ -324,7 +324,7 @@ data:
     [output.splunk]
 
     # Splunk HTTP Event Collector url
-    url = {{ .Values.spec.splunk.url }}
+    url = {{ .Values.SPLUNK_URL }}
     #url = https://13.90.23.80:8088/services/collector/event
     # You can specify muiltiple splunk URls with
     #
@@ -345,7 +345,7 @@ data:
     urlSelection = random-with-round-robin
 
     # Splunk HTTP Event Collector Token
-    token = {{ .Values.spec.collectorforopenshift.splunk.hec_token }}
+    token = {{ .Values.collectorforopenshift.SPLUNK_TOKEN }}
     #token = bfb0ea00-fad4-4166-9f20-2e7fedda26fb
 
     # Allow invalid SSL server certificate
