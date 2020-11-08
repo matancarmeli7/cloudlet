@@ -18,3 +18,7 @@ spec:
       parameters:
         - name: configmap.cluster_name
           value: {{ template "cluster_name" . }}
+        - name: SPLUNK_TOKEN
+          value: {{ .Values.spec.collectorforopenshift.splunk.hec_token }}
+        - name: SPLUNK_URL
+          value: {{ .Values.spec.collectorforopenshift.splunk.hec_token }}
