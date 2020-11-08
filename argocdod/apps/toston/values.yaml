@@ -40,7 +40,6 @@ argo_app:
     repoApi: 'api/v1/repositories'
     cluster_name: 'np'
     reponame: 'cloudlet'
-    splunkUrl: '{{ .Values.spec.splunk.url }}'
     url: 'https://argocd.apps.np.cloudlet-dev.com/'
     verifySSl: 'False'
     userName: 'admin'
