@@ -7,5 +7,5 @@ data:
   config.py: |-
     quay_repo = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
     cluster_name = '{{ .Values.configmap.cluster_name }}'
-    splunk_event_url = '{{ .Values.spec.splunk.url }}'
-    splunk_token = '{{ .Values.spec.splunk.hec_token }}'
+    splunk_event_url = '{{ .Values.SPLUNK_URL }}'
+    splunk_token = '{{ .Values.SPLUNK_TOKEN }}'
