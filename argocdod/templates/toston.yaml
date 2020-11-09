@@ -21,4 +21,4 @@ spec:
         - name: configmap.fqdn
           value: {{ template "cluster_fqdn" . }}
         - name: SPLUNK_URL
-          value: "{{ .Values.spec.splunk_url }}"
+          value: "{{ .Values.spec.splunk.url }}"
