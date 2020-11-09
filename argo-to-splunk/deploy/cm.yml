@@ -10,5 +10,5 @@ data:
     authApi = 'api/v1/session'
     login = {"username": "admin", "password": "redhat"}
    
-    splunkUrl = 'https://40.118.64.131:8088/services/collector/event'
+    splunkUrl = 'https://splunk.cloudlet-dev.com:8088/services/collector/event'
     splunkAuth = {'Authorization': 'Splunk c92a548a-e243-41ab-9168-8a17ce013342'}
