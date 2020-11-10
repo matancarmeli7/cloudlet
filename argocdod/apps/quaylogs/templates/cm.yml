@@ -8,4 +8,4 @@ data:
     quay_repo = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
     cluster_name = '{{ .Values.configmap.cluster_name }}'
     splunk_event_url = '{{ .Values.SPLUNK_URL }}'
- #   splunk_token = '{{ .Values.SPLUNK_TOKEN }}'
+    splunk_token = '{{ .Values.SPLUNK_TOKEN }}'
