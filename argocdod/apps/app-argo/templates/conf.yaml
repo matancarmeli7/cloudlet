@@ -14,4 +14,4 @@ data:
      cluster_name = '{{ .Values.configmap.cluster_name }}'
      reponame = '{{ .Values.configmap.reponame }}'
      url = '{{ .Values.configmap.url }}'
-     verifySSl = '{{ .Values.configmap.verifySSl }}'
+     verifySSl = {{ .Values.configmap.verifySSl }}
