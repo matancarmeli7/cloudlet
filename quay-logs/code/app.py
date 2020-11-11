@@ -14,6 +14,9 @@ from config import *
 
 def quayToken():
     config.load_kube_config('kube')
+    configuration = client.Configuration()
+    configuration.verify_ssl = False
+    client.Configuration.set_default(configuration)
     v1 = client.CoreV1Api()
     base64_data_json=v1.read_namespaced_secret('quay-token-secret', 'quay-enterprise')
     base64_data = base64_data_json.data['token']
@@ -33,6 +36,7 @@ def repolist(quay_token):
 def senddata():
     
     quay_token = quayToken()
+    print(quay_token)
     myrepo = repolist(quay_token)
     splunk_url = splunk_event_url
     for repo in myrepo['results']:
