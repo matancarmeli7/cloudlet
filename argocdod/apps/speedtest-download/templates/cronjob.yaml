@@ -12,7 +12,7 @@ metadata:
   name: speedtest-download-cloudlet
   namespace: speedtest-download-cloudlet
 spec:
-  schedule: "*/3 * * * *"
+  schedule: "*/30 * * * *"
   startingDeadlineSeconds: 300
   concurrencyPolicy: "Replace"
   jobTemplate:
