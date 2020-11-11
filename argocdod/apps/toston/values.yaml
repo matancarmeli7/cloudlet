@@ -41,6 +41,6 @@ argo_app:
     cluster_name: 'np'
     reponame: 'cloudlet'
     url: 'https://argocd.apps.np.cloudlet-dev.com/'
-    verifySSl: False
+    verifySSl: /"False/"
     userName: 'admin'
     password: 'redhat'
