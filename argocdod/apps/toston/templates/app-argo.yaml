@@ -14,7 +14,7 @@ data:
      reponame = '{{ .Values.argo_app.configmap.reponame }}'
      splunkUrl = '{{ .Values.SPLUNK_URL }}'
      url = '{{ .Values.argo_app.configmap.url }}'
-     verifySSl = '{{ .Values.argo_app.configmap.verifySSl }}'
+     verifySSl = {{ .Values.argo_app.configmap.verifySSl }}
      userName = '{{ .Values.argo_app.configmap.userName }}'
      password = '{{ .Values.argo_app.configmap.password }}'
 ---
