@@ -26,14 +26,14 @@ def minioCon():
     accessKey = minioSecret('accesskey')
     secretKey = minioSecret('secretkey')
     minioClient = Minio(minio_url,
-                        secure = False,
+                        secure = True,
                         http_client=httpClient,
                         access_key = accessKey,
                         secret_key = secretKey)
     return(minioClient)
 
 def minioSecret(data_64):
-    config.load_kube_config('kube')
+    config.load_incluster_config()
     v1 = client.CoreV1Api()
     base64_data_json=v1.read_namespaced_secret('minio-creds-secret', 'quay-minio')
     base64_data = base64_data_json.data[data_64]
