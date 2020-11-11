@@ -55,6 +55,7 @@ spec:
               resources: {}
               volumeMounts:
                 - name: trusted-ca
+                  readOnly: true
                   mountPath: /etc/pki/ca-trust/extracted/pem
                 - name: config-volume
                   mountPath: /minio-test/src/config
