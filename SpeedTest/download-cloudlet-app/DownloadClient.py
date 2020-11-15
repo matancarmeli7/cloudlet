@@ -12,6 +12,7 @@ min_check_time = int(os.environ['MIN_CHECK_TIME'])
 OCP_NAME = os.environ['OCP_NAME']
 
 # Files to download for the test
+f_500KB = main_url + "/500KB.bin"
 f_1MB = main_url + "/1MB.bin"
 f_10MB = main_url + "/10MB.bin"
 f_100MB = main_url + "/100MB.bin"
