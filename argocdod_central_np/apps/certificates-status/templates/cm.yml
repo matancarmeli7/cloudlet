@@ -7,3 +7,4 @@ data:
   config.py: |+
     splunk_url = '{{ .Values.configmap.splunk_url }}'
     splunk_token = '{{ .Values.configmap.splunk_token }}'
+    days_calculate = {{ .Values.configmap.days_calculate }}
