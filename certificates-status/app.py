@@ -49,7 +49,7 @@ def getCertsInfo():
 
 def expValidation(certs_exp):
     today = datetime.datetime.now()
-    d = datetime.timedelta(days = 14)
+    d = datetime.timedelta(days = days_calculate)
     delta = certs_exp - d
     if  delta <= today and today < certs_exp:
         return('About To Expire')
