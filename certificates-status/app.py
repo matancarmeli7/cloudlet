@@ -40,7 +40,7 @@ def getCertsInfo():
         expApiFormat = datetime.datetime.strptime(expApi, '%b  %d %H:%M:%S %Y GMT')
         expAppsFormat = datetime.datetime.strptime(expApps, '%b  %d %H:%M:%S %Y GMT')
         expApiStat = expValidation(expApiFormat)
-        expAppsStat = expValidation(expApiFormat)
+        expAppsStat = expValidation(expAppsFormat)
         
 
         my_object = {"event":{"event_type": "certificates-status", "cluster": clusterName, "subject_name_api": subjectApi, "issued_by_api": issuerApi, "certs_exp_api": str(expApiFormat), "certs_validation_apps": expApiStat, "subject_name_apps": subjectApps, "issued_by_apps": issuerApps, "certs_exp_apps": str(expAppsFormat), "certs_validation_api": expAppsStat}}
