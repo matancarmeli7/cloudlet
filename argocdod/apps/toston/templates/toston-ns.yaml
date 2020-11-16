@@ -10,5 +10,5 @@ metadata:
   name: trusted-ca
   namespace: {{ .Values.namespace }}
   labels:
-    config.openshift.io/inject-trusted-cabundle: 'true'
-data: {}
+    config.openshift.io/inject-trusted-cabundle: "true"
+
