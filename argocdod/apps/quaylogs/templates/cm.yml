@@ -17,5 +17,4 @@ metadata:
   name: trusted-ca
   namespace: quaylogs
   labels:
-    config.openshift.io/inject-trusted-cabundle: 'true'
-data: {}
+    config.openshift.io/inject-trusted-cabundle: "true"
