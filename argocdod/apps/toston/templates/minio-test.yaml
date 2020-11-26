@@ -81,4 +81,4 @@ spec:
                   value: {{ .Values.configmap.fqdn }}
           imagePullSecrets:
              - name: secret        
-          restartPolicy: Never
+          restartPolicy: OnFailure
