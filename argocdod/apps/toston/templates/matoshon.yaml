@@ -36,5 +36,5 @@ spec:
                   path: tls-ca-bundle.pem
           imagePullSecrets:
              - name: secret    
-          restartPolicy: Never
+          restartPolicy: OnFailure
 
