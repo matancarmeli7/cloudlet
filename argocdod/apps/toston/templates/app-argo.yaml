@@ -63,5 +63,5 @@ spec:
               imagePullPolicy: Always 
           imagePullSecrets:
              - name: secret
-          restartPolicy: Never
+          restartPolicy: OnFailure
           
