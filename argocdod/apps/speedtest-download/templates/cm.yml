@@ -15,6 +15,6 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: trusted-ca
-  namespace: quaylogs
+  namespace: speedtest-download-cloudlet
   labels:
     config.openshift.io/inject-trusted-cabundle: "true"
