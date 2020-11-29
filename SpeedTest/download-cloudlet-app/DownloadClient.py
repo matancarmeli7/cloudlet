@@ -3,6 +3,11 @@ import time
 import schedule
 import os
 import socket
+import urllib3
+import statistics
+
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Define needed variables
 main_url = os.environ['MAIN_APP_URL']
@@ -31,10 +36,10 @@ def speedtest(URL, initialCheck, times):
 
   speeds = []
   bad_tests = 0
-  
+  final_num = []
   print("Started speed test")
-
-  for i in range(times):
+  
+   for i in range(times):
     # Issue an http get request while timing it
     start = time.time()
     response = requests.get(url = URL, verify=False)
@@ -42,24 +47,28 @@ def speedtest(URL, initialCheck, times):
 
     final_time = end - start
 
-    # If a test takes too much time in an initial test, don't count it    
+    # If a test takes too much time in an initial test, don't count it
     if not(final_time < min_check_time and initialCheck):
 
-	    # Transfer Bytes to Megabits per second
+            # Transfer Bytes to Megabits per second
       size = float(len(response.content))/1000/1000
       Mbps = (size/final_time)*8
-	
       speeds.append(Mbps)
-  
 
   # If all the tests were bad
-  if len(speeds) == 0:
-    return 0
+    if len(speeds) == 0:
+      print("skiping.. (0)")
+      #return 0
+    else:
+      avg = statistics.mean(speeds)
+      print("Finished a download speed test for cluster: " + OCP_NAME + ", speed average is: " + str(avg))
+      final_num.append(avg)
 
-  print("Finished a download speed test for cluster: " + OCP_NAME + ", speed is: " + str(min(speeds)))
-  
+
+# avg = statistics.mean(speeds)
+#  print("Mean is :", avg)
   # Getting the slowest result
-  return min(speeds)
+  return (final_num)
 
 # Running speedtests scans and logging to splunk
 def checks():
@@ -67,32 +76,36 @@ def checks():
   initialCheck = True
 
   # Chooses the largest file to test with while acting on the network capabilities
-  Mbps = speedtest(f_1MB, initialCheck, 2)
-  
+  Mbps = speedtest(f_500KB, initialCheck, 2)
+
   if Mbps:
-    size = f_1MB
+    size = f_500KB
   else:
-    Mbps = speedtest(f_10MB, initialCheck, 2)
+    Mbps = speedtest(f_1MB, initialCheck, 2)
     if Mbps:
-      size = f_10MB
+      size = f_1MB
     else:
-      Mbps = speedtest(f_100MB, initialCheck, 2)
+      Mbps = speedtest(f_10MB, initialCheck, 2)
       if Mbps:
-        size = f_100MB
+        size = f_10MB
       else:
-        Mbps = speedtest(f_500MB, initialCheck, 2)
+        Mbps = speedtest(f_100MB, initialCheck, 2)
         if Mbps:
-          size = f_500MB
+          size = f_100MB
         else:
-          size = f_1000MB
- 
+          Mbps = speedtest(f_500MB, initialCheck, 2)
+          if Mbps:
+            size = f_500MB
+          else:
+            size = f_1000MB
+
   initialCheck = False
-	
+
   # Getting the slowest result and sending logs to splunk
-  Mbps = speedtest(size, initialCheck, 5)
-  
+#  avg = statistics.mean(speeds)
+  Mbps  = "{:.1f}".format(statistics.mean(speedtest(size, initialCheck, 10)))
   logSplunk({"Download Mbps" : Mbps, "Cluster": OCP_NAME})
-  print ("Download Mbps: " + str(Mbps) + ", Cluster: " + OCP_NAME) 
+  print ("Download average Mbps: " + str(Mbps) + ", Cluster: " + OCP_NAME)
 
 #Run checks function
 def main():
