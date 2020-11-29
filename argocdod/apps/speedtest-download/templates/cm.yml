@@ -2,8 +2,8 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: quaylogs
-  namespace: quaylogs
+  name: speedtest-download-cloudlet
+  namespace: speedtest-download-cloudlet
 data:
   config.py: |-
     quay_repo = 'https://quay.apps.{{ .Values.configmap.fqdn }}'
