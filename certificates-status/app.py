@@ -46,7 +46,7 @@ def getCertsInfo():
         expAppsStat = expValidation(expAppsFormat)
         
 
-        my_object = {"event":{"event_type": "certificates-status", "cluster": clusterName, "subject_name_api": subjectApi, "issued_by_api": issuerApi, "certs_exp_api": str(expApiFormat), "certs_validation_api": expApiStat, "subject_name_apps": subjectApps, "issued_by_apps": issuerApps, "certs_exp_apps": str(expAppsFormat), "certs_validation_api": expAppsStat}}
+        my_object = {"event":{"event_type": "certificates-status", "cluster": clusterName, "subject_name_api": subjectApi, "issued_by_api": issuerApi, "certs_exp_api": str(expApiFormat), "certs_validation_api": expApiStat, "subject_name_apps": subjectApps, "issued_by_apps": issuerApps, "certs_exp_apps": str(expAppsFormat), "certs_validation_apps": expAppsStat}}
         r = requests.post(splunk_url, json = my_object, auth=('Splunk', splunk_token), verify=False)
         print(r)
 
