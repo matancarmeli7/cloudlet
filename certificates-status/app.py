@@ -28,22 +28,32 @@ def getCertsInfo():
     cur.execute ("select * from cloudlets_certificates")
     dbInfo = cur.fetchall()
     for cluster in dbInfo:
-        issuerApi = cluster[1]
-        subjectApi = cluster[2]
-        expApi = cluster[3]
-        issuerApps = cluster[4]
-        subjectApps = cluster[5]
-        expApps = cluster[6]
-        clusterNameSplit = (subjectApi.split("."))
-        clusterName = (clusterNameSplit[1])
+        if 'selected' not in cluster:
+            issuerApi = cluster[1]
+            subjectApi = cluster[2]
+            expApi = cluster[3]
+            issuerApps = cluster[4]
+            subjectApps = cluster[5]
+            expApps = cluster[6]
+            clusterNameSplit = (subjectApps.split("."))
+            clusterName = (clusterNameSplit[2])
+        else:
+            issuerApi = cluster[2]
+            subjectApi = cluster[3]
+            expApi = cluster[4]
+            issuerApps = cluster[5]
+            subjectApps = cluster[6]
+            expApps = cluster[7]
+            clusterNameSplit = (subjectApps.split("."))
+            clusterName = (clusterNameSplit[2])
         
         expApiFormat = datetime.datetime.strptime(expApi, '%b  %d %H:%M:%S %Y GMT')
-        expAppsFormat = datetime.datetime.strptime(expApps, '%b  %d %H:%M:%S %Y GMT')
+        expAppsFormat = datetime.datetime.strptime(str(expApps), '%b  %d %H:%M:%S %Y GMT')
         expApiStat = expValidation(expApiFormat)
         expAppsStat = expValidation(expAppsFormat)
         
 
-        my_object = {"event":{"event_type": "certificates-status", "cluster": clusterName, "subject_name_api": subjectApi, "issued_by_api": issuerApi, "certs_exp_api": str(expApiFormat), "certs_validation_apps": expApiStat, "subject_name_apps": subjectApps, "issued_by_apps": issuerApps, "certs_exp_apps": str(expAppsFormat), "certs_validation_api": expAppsStat}}
+        my_object = {"event":{"event_type": "certificates-status", "cluster": clusterName, "subject_name_api": subjectApi, "issued_by_api": issuerApi, "certs_exp_api": str(expApiFormat), "certs_validation_api": expApiStat, "subject_name_apps": subjectApps, "issued_by_apps": issuerApps, "certs_exp_apps": str(expAppsFormat), "certs_validation_api": expAppsStat}}
         r = requests.post(splunk_url, json = my_object, auth=('Splunk', splunk_token), verify=False)
         print(r)
 
