@@ -4,6 +4,7 @@ import requests
 import datetime
 import psycopg2
 import os
+import re
 
 urllib3.disable_warnings(urllib3.exceptions.SecurityWarning)
 
@@ -15,6 +16,7 @@ def getCertsInfo():
     dbUser = os.environ.get('DB_USER')
     dbHost = os.environ.get('DB_HOST')
     dbPassword = os.environ.get('DB_PASSWORD')
+    baseDomain = os.environ.get('BASE_DOMAIN')
     params = {
         "dbname": "postgres",
         "user": dbUser,
@@ -28,27 +30,18 @@ def getCertsInfo():
     cur.execute ("select * from cloudlets_certificates")
     dbInfo = cur.fetchall()
     for cluster in dbInfo:
-        if 'selected' not in cluster:
-            issuerApi = cluster[1]
-            subjectApi = cluster[2]
-            expApi = cluster[3]
-            issuerApps = cluster[4]
-            subjectApps = cluster[5]
-            expApps = cluster[6]
-            clusterNameSplit = (subjectApps.split("."))
-            clusterName = (clusterNameSplit[2])
-        else:
-            issuerApi = cluster[2]
-            subjectApi = cluster[3]
-            expApi = cluster[4]
-            issuerApps = cluster[5]
-            subjectApps = cluster[6]
-            expApps = cluster[7]
-            clusterNameSplit = (subjectApps.split("."))
-            clusterName = (clusterNameSplit[2])
+        issuerApi = cluster[1]
+        subjectApi = cluster[2]
+        expApi = cluster[3]
+        issuerApps = cluster[4]
+        subjectApps = cluster[5]
+        expApps = cluster[6]
+        firstRegex = re.search("(?<=apps.).*", subjectApps)
+        lastRegex = re.search("^.*(?=(\."+baseDomain+"))", str(firstRegex.group()))
+        clusterName = lastRegex.group()
         
         expApiFormat = datetime.datetime.strptime(expApi, '%b  %d %H:%M:%S %Y GMT')
-        expAppsFormat = datetime.datetime.strptime(str(expApps), '%b  %d %H:%M:%S %Y GMT')
+        expAppsFormat = datetime.datetime.strptime(expApps, '%b  %d %H:%M:%S %Y GMT')
         expApiStat = expValidation(expApiFormat)
         expAppsStat = expValidation(expAppsFormat)
         
