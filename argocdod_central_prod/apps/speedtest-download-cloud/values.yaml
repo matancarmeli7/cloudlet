@@ -1,6 +1,6 @@
 # Default values for download-cloud-helm.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-OPENSHIFT_URL: apps.ocp43-prod.cloudlet-dev.com
+OPENSHIFT_URL: apps.prod.cloudlet-dev.com
 PORT: 8000
 IMAGE_NAME: "snir1234/download-cloud-app:latest"
