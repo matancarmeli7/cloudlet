@@ -39,6 +39,11 @@ spec:
                     secretKeyRef:
                       name: certificates-status
                       key: DB_PASSWORD
+                - name: BASE_DOMAIN
+                  valueFrom:
+                    secretKeyRef:
+                      name: certificates-status
+                      key: BASE_DOMAIN
               volumeMounts:
                 - name: config-volume
                   mountPath: /certificates-status/src/config
