@@ -323,6 +323,10 @@ data:
     # Splunk output
     [output.splunk]
 
+    #--------------------------------------------------------------------
+    tlsEnabled = {{ .Values.USE_CERTIFICATES }}
+    #--------------------------------------------------------------------
+
     # Splunk HTTP Event Collector url
     url = {{ .Values.SPLUNK_URL }}
     #url = https://13.90.23.80:8088/services/collector/event
