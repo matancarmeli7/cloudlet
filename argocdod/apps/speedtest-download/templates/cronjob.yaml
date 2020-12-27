@@ -49,6 +49,8 @@ spec:
                   value: "{{ .Values.MIN_CHECK_TIME }}"
                 - name: OCP_NAME
                   value: "{{ .Values.OCP_NAME }}"
+                - name: USE_CERTIFICATES
+                  value: "{{ .Values.spec.use_custom_certificates }}"
               imagePullPolicy: Always
           imagePullSecrets:
              - name: pull-secret    

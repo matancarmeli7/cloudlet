@@ -22,3 +22,5 @@ spec:
           value: "{{ .Values.spec.splunk.hec_token }}"
         - name: SPLUNK_URL
           value: "{{ .Values.spec.splunk.url }}"
+        - name: USE_CERTIFICATES
+          value: "{{ .Values.spec.use_custom_certificates }}"
