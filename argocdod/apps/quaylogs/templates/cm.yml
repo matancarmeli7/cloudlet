@@ -10,6 +10,7 @@ data:
     cluster_name = '{{ .Values.configmap.cluster_name }}'
     splunk_event_url = '{{ .Values.SPLUNK_URL }}'
     splunk_token = '{{ .Values.SPLUNK_TOKEN }}'
+    tls_enable = '{{ .Values.USE_CERTIFICATES }}'
 ---
 kind: ConfigMap
 apiVersion: v1
