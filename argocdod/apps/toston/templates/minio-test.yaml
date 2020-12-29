@@ -65,7 +65,7 @@ spec:
                 defaultMode: 420
           containers:
             - name: minio-test
-              image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.minio_test.image.repository }}/{{ .Values.minio_test.image.name }}:{{ .Values.minio_test.image.tag }}
+              image: {{ .Values.minio_test.image.repository }}/{{ .Values.minio_test.image.name }}:{{ .Values.minio_test.image.tag }}
               resources: {}
               volumeMounts:
                 - name: trusted-ca
@@ -78,7 +78,5 @@ spec:
               imagePullPolicy: Always
               env:
                 - name: fqdn
-                  value: {{ .Values.configmap.fqdn }}
-          imagePullSecrets:
-             - name: secret        
+                  value: {{ .Values.configmap.fqdn }}        
           restartPolicy: OnFailure
