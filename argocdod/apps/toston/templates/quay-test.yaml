@@ -62,7 +62,5 @@ spec:
                   readOnly: true
                 - name: config-volume
                   mountPath: /quaytest/config
-              imagePullPolicy: Always
-          imagePullSecrets:
-             - name: secret    
+              imagePullPolicy: Always   
           restartPolicy: OnFailure
