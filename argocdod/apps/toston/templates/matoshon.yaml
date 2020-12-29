@@ -19,7 +19,7 @@ spec:
         spec:
           containers:
             - name: matoshon
-              image: quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.matoshon.image.repository }}/{{ .Values.matoshon.image.name }}:{{ .Values.matoshon.image.tag }}
+              image: {{ .Values.matoshon.image.repository }}/{{ .Values.matoshon.image.name }}:{{ .Values.matoshon.image.tag }}
               env:
                 - name: BIG_MSG
               imagePullPolicy: Always
@@ -33,8 +33,6 @@ spec:
               name: trusted-ca
               items:
                 - key: ca-bundle.crt 
-                  path: tls-ca-bundle.pem
-          imagePullSecrets:
-             - name: secret    
+                  path: tls-ca-bundle.pem    
           restartPolicy: OnFailure
 
