@@ -3,31 +3,31 @@ namespace: toston
 toston_app_label: toston
 configmap:
   fqdn: cloudlet.dev
-  image: "cloudlet-org/toston:nginx-latest"
+  image: "quay.io/cloudlet/toston:nginx-latest"
 
 minio_test:
   configmap:  
     fqdn: dev.cloudlet-dev.com
   image:
-    repository: cloudlet-org
+    repository: quay.io/cloudlet
     name: toston
     tag: "minio-test-secure"
 
 quay_test:    
   image:
-    repository: cloudlet-org
+    repository: quay.io/cloudlet
     name: toston
     tag: "quaytest-latest"
 
 matoshon:    
   image:
-    repository: cloudlet-org
+    repository: quay.io/cloudlet
     name: toston
     tag: "matoshon-latest"
 
 argo_app:    
   image:
-    repository: cloudlet-org
+    repository: quay.io/cloudlet
     name: toston
     tag: "app_argo-latest"
 
