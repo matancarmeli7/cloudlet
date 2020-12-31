@@ -13,10 +13,7 @@ sys.path.insert(1, '/quaylogs/src/config')
 from config import *
 
 def quayToken():
-    config.load_kube_config('kube')
-    configuration = client.Configuration()
-    configuration.verify_ssl = False
-    client.Configuration.set_default(configuration)
+    config.load_incluster_config()
     v1 = client.CoreV1Api()
     base64_data_json=v1.read_namespaced_secret('quay-token-secret', 'quay-enterprise')
     base64_data = base64_data_json.data['token']
@@ -29,7 +26,7 @@ def repolist(quay_token):
 
     url = quay_repo + '/api/v1/find/repositories'
     hed = {'Authorization': 'Bearer ' + quay_token}
-    x = requests.get(url, headers=hed, verify=False)
+    x = requests.get(url, headers=hed, verify='/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem')
     return(x.json())
 
 
