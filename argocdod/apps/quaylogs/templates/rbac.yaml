@@ -1,0 +1,22 @@
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: secrets-quaylogs
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "watch", "list"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: secrets-quaylogs
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: quaylogs
+roleRef:
+  kind: ClusterRole
+  name: secrets-quaylogs
+  apiGroup: rbac.authorization.k8s.io
