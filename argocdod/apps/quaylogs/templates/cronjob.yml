@@ -30,7 +30,7 @@ spec:
           containers:
             - name: quaylogs
               #image: 'quay.apps.{{ .Values.configmap.fqdn }}/{{ .Values.containers.repository }}/{{ .Values.containers.image }}:{{ .Values.containers.version }}'
-              image: 'docker.io/hacetah726/quaylogs:4'
+              image: 'docker.io/hacetah726/quaylogs:5'
               env:
                 - name: fqdn
                   value: {{ .Values.configmap.fqdn }}
